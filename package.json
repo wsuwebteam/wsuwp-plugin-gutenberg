@@ -1,0 +1,28 @@
+{
+  "name": "wsuwp-plugin-gutenberg",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
+    "build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@wordpress/prettier-config": "^1.1.0",
+    "@wordpress/scripts": "^16.1.4",
+    "prettier": "^2.3.2",
+    "@wsuwebteam/wsu-web-design-system": "^0.0.1",
+    "@wsuwebteam/build-tools": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsuwebteam/wsuwp-plugin-gutenberg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg/issues"
+  },
+  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme"
+}

@@ -1,0 +1,34 @@
+# Because OSX
+.DS_Store
+
+# Ignore Sublime project files.
+*.sublime*
+
+# Ignore Vagrant instance files.
+.vagrant
+
+# Ignore PHPStorm project files.
+.idea
+
+# Ignore composer and node files.
+composer.lock
+node_modules/
+vendor/
+
+# Ignore package-lock
+package-lock.json
+
+# Ignore sass stuff
+.sass-cache
+
+# Ignore Webpack empty js files
+*_bundle.js*
+.vscode/settings.json
+
+# Ignore Parcel cache
+.cache
+
+# Ignore VSCode folder
+.vscode
+
+.npmrc
