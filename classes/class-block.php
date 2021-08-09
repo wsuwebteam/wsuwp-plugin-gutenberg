@@ -8,7 +8,7 @@ class Block {
 	protected static $register_block    = true;
 
 
-	public function get( $property ) {
+	public static function get( $property ) {
 
 		switch ( $property ) {
 
@@ -32,7 +32,7 @@ class Block {
 	}
 
 
-	public static function render_block(  $attrs, $content = '' ) {
+	public static function render_block( $attrs, $content = '' ) {
 
 		self::parse_attrs( $attrs );
 
