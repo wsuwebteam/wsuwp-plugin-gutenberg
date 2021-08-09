@@ -11,12 +11,12 @@ gulp.task('bundleStyle', () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(cleanCSS({compatibility: 'ie11'}))
-        .pipe(gulp.dest('dist/css/'));
+        .pipe(gulp.dest('assets/dist/css/'));
 });
 
 
 gulp.task('watch', () => {
-    gulp.watch('assets/src/scss/**/*.scss', (done) => {
+    gulp.watch(['assets/src/scss/**/*.scss','blocks/**/*.scss'], (done) => {
         gulp.series(['bundleStyle'])(done);
     });
 });

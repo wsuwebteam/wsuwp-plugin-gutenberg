@@ -5,6 +5,7 @@ class Block {
 	protected static $block_name        = false;
 	protected static $default_attrs     = array();
 	protected static $customizer_prefix = 'wsuwp_wds_component_';
+	protected static $register_block    = true;
 
 
 	public function get( $property ) {
@@ -19,6 +20,12 @@ class Block {
 
 			case 'customizer_prefix':
 				return static::$customizer_prefix;
+
+			case 'register_block';
+				return static::$register_block;
+
+			default:
+				return '';
 
 		}
 
@@ -65,5 +72,15 @@ class Block {
 			return true;
 		}
 
+	}
+
+
+	protected static function add_class( &$classes, $prefix, $attr_key, $attrs ) {
+
+		if ( self::is_set( $attrs, $attr_key ) ) {
+
+			$classes .= ' ' . $prefix . $attrs[ $attr_key ];
+
+		}
 	}
 }

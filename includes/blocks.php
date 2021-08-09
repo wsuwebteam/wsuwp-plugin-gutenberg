@@ -4,13 +4,15 @@ class Blocks {
 
 
 	protected static $register_blocks = array(
-		'wsuwp/row'    => 'Block_WSUWP_Row',
-		'wsuwp/column' => 'Block_WSUWP_Column',
+		'wsuwp/row'       => 'Block_WSUWP_Row',
+		'wsuwp/column'    => 'Block_WSUWP_Column',
+		'wsuwp/card-news' => 'Block_WSUWP_Card_News',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
 		'wsuwp/column',
+		'wsuwp/card-news',
 		'core/button',
 		'core/code',
 		'core/embed',
@@ -61,16 +63,22 @@ class Blocks {
 			// folder name should be the block name with the / replaced with - (i.e. wsuwp/name -> wsupw-name)
 			$block_folder = str_replace( '/', '-', $block );
 
+			$block_class = __NAMESPACE__ . '\\' . $class;
+
 			require_once $block_dir . $block_folder . '/block.php';
 
-			register_block_type(
-				$block,
-				array(
-					'api_version'     => 2,
-					'render_callback' => array( __NAMESPACE__ . '\\' . $class, 'render_block' ),
-					'editor_script'   => 'wsuwp-theme-wds-2-blocks',
-				)
-			);
+			// Call get('register_block') to check if the block should be registered, default is true in class-block.php 
+			if ( call_user_func( array( $block_class, 'get' ), 'register_block' ) ) {
+
+				register_block_type(
+					$block,
+					array(
+						'api_version'     => 2,
+						'render_callback' => array( $block_class, 'render_block' ),
+						'editor_script'   => 'wsuwp-theme-wds-2-blocks',
+					)
+				);
+			}
 		}
 	}
 

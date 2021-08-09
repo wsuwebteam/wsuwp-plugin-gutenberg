@@ -11,11 +11,18 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "@wordpress/api-fetch": "^5.2.1",
     "@wordpress/prettier-config": "^1.1.0",
     "@wordpress/scripts": "^16.1.4",
-    "prettier": "^2.3.2",
+    "@wsuwebteam/build-tools": "^2.0.0",
     "@wsuwebteam/wsu-web-design-system": "^0.0.1",
-    "@wsuwebteam/build-tools": "^2.0.0"
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-sass": "^4.1.0",
+    "prettier": "^2.3.2"
   },
   "repository": {
     "type": "git",
