@@ -1,0 +1,13 @@
+@import './variables';
+
+@mixin wsu-gutenberg-block-outline() {
+
+    border: 1px dashed $wsu-gutenberg-color--block-outline; 
+    border-radius: 8px;
+
+    &:hover,
+    &:focus {
+        border-color: $wsu-gutenberg-color--block-outline-hover; 
+    }
+
+}

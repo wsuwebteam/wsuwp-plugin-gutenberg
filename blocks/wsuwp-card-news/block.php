@@ -1,20 +1,18 @@
 <?php namespace WSUWP\Plugin\Gutenberg;
 
-class Block_WSUWP_Row extends Block {
+class Block_WSUWP_Card_News extends Block {
 
-	protected static $block_name    = 'wsuwp/row';
+	protected static $block_name    = 'wsuwp/card-news';
 	protected static $default_attrs = array(
-		'layout'    => 'single',
 		'className' => '',
 	);
 
 
 	public static function render( $attrs, $content = '' ) {
 
-		$wrapper_classes = 'wsu-row';
+		$wrapper_classes = 'wsu-card wsu-card-news';
 
 		static::add_class( $wrapper_classes, '', 'className', $attrs );
-		static::add_class( $wrapper_classes, 'wsu-row--', 'layout', $attrs );
 
 		ob_start();
 

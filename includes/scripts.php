@@ -23,18 +23,18 @@ class Scripts {
 
 		// Block Editor
 		wp_enqueue_script(
-			'wsuwp-plugin-gutenberg-scripts',
+			'wsuwp-plugin-gutenberg-editor-scripts',
 			Plugin::get( 'url' ) . 'assets/dist/js/gutenberg-editor.js',
 			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
 			filemtime( Plugin::get( 'dir' ) . 'assets/dist/js/gutenberg-editor.js' )
 		);
 
-		/*wp_enqueue_style(
-			'wsuwp-plugin-blocks-styles',
-			Plugin::get_plugin_url() . 'assets/dist/index.css',
+		wp_enqueue_style(
+			'wsuwp-plugin-gutenberg-editor-styles',
+			Plugin::get( 'url' ) . 'assets/dist/css/gutenberg-editor.css',
 			array(),
-			Plugin::get_plugin_version( self::get('is_local') )
-		);*/
+			filemtime( Plugin::get( 'dir' ) . 'assets/dist/css/gutenberg-editor.css' )
+		);
 
 	}
 
