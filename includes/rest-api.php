@@ -43,15 +43,17 @@ class Rest_API {
 		// Check to make sure block_name exists
 		if ( ! empty( $block_params['block_name'] ) ) {
 
+            $registered_blocks = Blocks::get( 'register_blocks' );
+
 			// Fix the block name to expected format
 			$block_name = str_replace( '--', '/', $block_params['block_name'] );
 
 			$block['name'] = $block_name;
 
 			// Check if this is one of our registered blocks
-			if ( array_key_exists( $block_name, self::$register_blocks ) ) {
+			if ( array_key_exists( $block_name, $registered_blocks ) ) {
 
-				$block_class = __NAMESPACE__ . '\\' . self::$register_blocks[ $block_name ];
+				$block_class = __NAMESPACE__ . '\\' . $registered_blocks[ $block_name ];
 
 				$block['rendered'] = call_user_func( array( $block_class, 'render_block' ), $block_params );
 

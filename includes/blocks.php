@@ -32,6 +32,20 @@ class Blocks {
 	);
 
 
+	public static function get( $property ) {
+
+		switch ( $property ) {
+
+			case 'register_blocks':
+				return self::$register_blocks;
+
+			default:
+				return '';
+		}
+
+	}
+
+
 	public static function setup_classes() {
 
 		Plugin::load_class( 'block' );
