@@ -17,7 +17,7 @@ const {
 	ToggleControl
 } = wp.components;
 
-import { FormatSelector, SelectPost } from "../../../assets/src/js/partials/block-controls/blockControls";
+import { FormatSelector, SelectPost, PerRow } from "../../../assets/src/js/partials/block-controls/blockControls";
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { ApiRenderBlock } from '../../../assets/src/js/partials/block-components/blockComponents';
 
@@ -90,6 +90,12 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 							value={ attributes.postIn ? attributes.postIn : '' }
 							onChange= { ( postIn ) => setAttributes( { postIn } ) }
 						/>
+						<PerRow
+							label="Cards Per Row"
+							attributes={ attributes }
+							value={ attributes.perRow ? attributes.perRow : '' }
+							onChange= { ( perRow ) => setAttributes( { perRow } ) }
+						/>
 					</PanelDisplayOptions>
 					<PanelInsertPost 
 						attributes={attributes}
@@ -114,7 +120,6 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 						checked={ attributes.requireFirstImage }
 						onChange={ ( requireFirstImage ) => { setAttributes( { requireFirstImage } ) } }
 						/>
-
 					</PanelFeedPosts>
 				</InspectorControls>
 				<ApiRenderBlock 
