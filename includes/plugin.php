@@ -41,6 +41,7 @@ class Plugin {
 
 		require_once __DIR__ . '/scripts.php';
 		require_once __DIR__ . '/blocks.php';
+		require_once __DIR__ . '/rest-api.php';
 
 	}
 
