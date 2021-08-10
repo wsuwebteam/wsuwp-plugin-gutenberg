@@ -99,7 +99,9 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 					</PanelDisplayOptions>
 					<PanelInsertPost 
 						attributes={attributes}
-						onChange={ ( value ) => setAttributes( {insert_posts:value} ) }
+						onChange={ ( value ) => setAttributes( { insert_posts: value } ) }
+						postTypes={ [ 'news_article', 'press_release', 'announcement', 'posts', 'pages' ] }
+						placeholder="Search posts..."
 						/>
 					<PanelFeedPosts
 						attributes={attributes}

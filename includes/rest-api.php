@@ -16,19 +16,29 @@ class Rest_API {
 
 		self::setup_classes();
 
-		add_action( 'rest_api_init', array( __CLASS__, 'add_render_block_endpoint' ) );
+		add_action( 'rest_api_init', array( __CLASS__, 'register_routes' ) );
 
 	}
 
 
-	public function add_render_block_endpoint() {
+	public static function register_routes() {
 
-		register_rest_route( 
-			'wsu-gutenberg/v1', 
-			'render-block/(?P<block_name>[a-zA-Z0-9-]+)', array(
-				'methods' => 'GET',
+		register_rest_route(
+			'wsu-gutenberg/v1',
+			'render-block/(?P<block_name>[a-zA-Z0-9-]+)',
+			array(
+				'methods'  => 'GET',
 				'callback' => array( __CLASS__, 'render_endpoint' ),
-		 	)
+			)
+		);
+
+		register_rest_route(
+			'wsu-gutenberg/v1',
+			'search-posts',
+			array(
+				'methods'  => 'GET',
+				'callback' => array( __CLASS__, 'search_posts' ),
+			)
 		);
 
 	}
@@ -43,7 +53,7 @@ class Rest_API {
 		// Check to make sure block_name exists
 		if ( ! empty( $block_params['block_name'] ) ) {
 
-            $registered_blocks = Blocks::get( 'register_blocks' );
+			$registered_blocks = Blocks::get( 'register_blocks' );
 
 			// Fix the block name to expected format
 			$block_name = str_replace( '--', '/', $block_params['block_name'] );
@@ -61,6 +71,12 @@ class Rest_API {
 		}
 
 		return wp_json_encode( $block, JSON_UNESCAPED_SLASHES );
+
+	}
+
+
+	public static function search_posts( $request ) {
+		$params = $request->get_params();
 
 	}
 

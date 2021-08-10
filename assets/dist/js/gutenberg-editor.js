@@ -132,14 +132,14 @@ const ApiRenderBlock = ({
 }) => {
   const [blockRendered, setBlockRendered] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
   blockName = blockName.replace('/', '--');
-  let queryString = Object.keys(attributes).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(attributes[key])).join('&');
-  console.log(queryString);
+  let queryString = Object.keys(attributes).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(attributes[key])).join('&'); // console.log( queryString );
+
   _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/wsu-gutenberg/v1/render-block/' + blockName + '?' + queryString,
     method: 'GET'
   }).then(res => {
-    let block = JSON.parse(res);
-    console.log(block);
+    let block = JSON.parse(res); // console.log( block );
+
     setBlockRendered(block.rendered);
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -327,9 +327,9 @@ const PerRow = ({
 
 /***/ }),
 
-/***/ "./assets/src/js/partials/block-controls/SelectPost.js":
+/***/ "./assets/src/js/partials/block-controls/PostPicker.js":
 /*!*************************************************************!*\
-  !*** ./assets/src/js/partials/block-controls/SelectPost.js ***!
+  !*** ./assets/src/js/partials/block-controls/PostPicker.js ***!
   \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -347,12 +347,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const SelectPost = ({
-  attributes,
-  onChange
-}) => {
-  //const [ posts, setPosts ] = useState( [] );
+const PostPicker = props => {
+  const {
+    attributes,
+    onChange
+  } = props;
+  console.log(props); //const [ posts, setPosts ] = useState( [] );
   //console.log( posts )
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
     label: "Post IDs",
     value: attributes.insert_posts ? attributes.insert_posts : '',
@@ -360,7 +362,7 @@ const SelectPost = ({
   });
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (SelectPost);
+/* harmony default export */ __webpack_exports__["default"] = (PostPicker);
 
 /***/ }),
 
@@ -368,7 +370,7 @@ const SelectPost = ({
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, SelectPost, FeedPostsControl, PerRow */
+/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -376,8 +378,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormatSelector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormatSelector */ "./assets/src/js/partials/block-controls/FormatSelector.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatSelector", function() { return _FormatSelector__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _SelectPost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectPost */ "./assets/src/js/partials/block-controls/SelectPost.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectPost", function() { return _SelectPost__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+/* harmony import */ var _PostPicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostPicker */ "./assets/src/js/partials/block-controls/PostPicker.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PostPicker", function() { return _PostPicker__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
 /* harmony import */ var _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FeedPostsControl */ "./assets/src/js/partials/block-controls/FeedPostsControl.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FeedPostsControl", function() { return _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__["default"]; });
@@ -496,7 +498,7 @@ __webpack_require__.r(__webpack_exports__);
 const PanelInsertPost = props => {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
     title: "Select Post/Page"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SelectPost"], props));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["PostPicker"], props));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PanelInsertPost);
@@ -786,7 +788,9 @@ const Edit = ({
     attributes: attributes,
     onChange: value => setAttributes({
       insert_posts: value
-    })
+    }),
+    postTypes: ['news_article', 'press_release', 'announcement', 'posts', 'pages'],
+    placeholder: "Search posts..."
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelFeedPosts"], {
     attributes: attributes,
     setUseFeed: useFeed => setAttributes({

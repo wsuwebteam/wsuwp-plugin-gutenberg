@@ -14,7 +14,7 @@ const ApiRenderBlock = ( { attributes, blockName, onChange } ) => {
     blockName   = blockName.replace('/', '--' );
     let queryString = Object.keys( attributes ).map( key => encodeURIComponent( key ) + '=' + encodeURIComponent( attributes[key] ) ).join('&');
 
-    console.log( queryString );
+    // console.log( queryString );
 
     apiFetch( {
 		path: '/wsu-gutenberg/v1/render-block/' + blockName + '?' + queryString,
@@ -22,7 +22,7 @@ const ApiRenderBlock = ( { attributes, blockName, onChange } ) => {
 	} ).then( ( res ) => {
 
         let block = JSON.parse( res );
-        console.log( block );
+        // console.log( block );
 		setBlockRendered( block.rendered );
 	} );
 
