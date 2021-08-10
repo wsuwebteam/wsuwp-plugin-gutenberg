@@ -29,7 +29,6 @@ class Plugin {
 
 	public static function setup_classes() {
 
-		// Load any of the /classes/... used
 
 	}
 

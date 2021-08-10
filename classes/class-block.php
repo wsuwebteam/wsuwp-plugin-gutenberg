@@ -47,7 +47,7 @@ class Block {
 		$customizer_name = str_replace( '/', '_', self::get( 'blockname' ) );
 		$customizer_base = self::get( 'customizer_prefix' ) . '_' . $customizer_name . '_';
 
-		foreach ( $default_attrs as $attr_key => $default ) {
+		foreach ( $default_attrs as $attr_key => $default_value ) {
 
 			$customizer_setting = $customizer_base . str_replace( '-', '_', $attr_key );
 
@@ -55,6 +55,25 @@ class Block {
 
 				$attrs[ $attr_key ] = get_theme_mod( $customizer_setting, $default_value );
 
+			}
+		}
+
+		foreach ( $default_attrs as $attr_key => $default_value ) {
+
+			$customizer_setting = $customizer_base . str_replace( '-', '_', $attr_key );
+
+			if ( ! self::is_set( $attrs, $attr_key ) ) {
+
+				$attrs[ $attr_key ] = get_theme_mod( $customizer_setting, $default_value );
+
+			}
+		}
+
+		foreach ( $attrs as $attr_key => $value ) {
+
+			if ( 'true' === $value || 'false' === $value ) {
+
+				$attrs[ $attr_key ] = ( 'true' === $value ) ? true : false;
 			}
 		}
 
