@@ -2,7 +2,8 @@ import { SearchControl, TextControl } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 
-const SelectPost = ( { } ) => {
+const SelectPost = ( { attributes, onChange } ) => {
+
 
     //const [ posts, setPosts ] = useState( [] );
 
@@ -10,8 +11,9 @@ const SelectPost = ( { } ) => {
 
     return (
         <TextControl
-            label="Search Posts/Pages"
-            value='test'
+            label="Post IDs"
+            value={ attributes.insert_posts ? attributes.insert_posts : '' }
+            onChange= { (value) => onChange( value ) }
         />
     )
 

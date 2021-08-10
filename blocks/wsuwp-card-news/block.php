@@ -4,7 +4,40 @@ class Block_WSUWP_Card_News extends Block {
 
 	protected static $block_name    = 'wsuwp/card-news';
 	protected static $default_attrs = array(
-		'className' => '',
+		'className'         => '',
+		'postIn'            => '',
+		'imageSrc'          => '',
+		'imageSrcset'       => '',
+		'imageSizes'        => '',
+		'imageAlt'          => '',
+		'caption'           => '',
+		'publishDate'       => '',
+		'authorName'        => '',
+		'authorAffiliation' => '',
+		'link'              => '',
+		'hideDate'          => false,
+		'hideCaption'       => false,
+		'hideImage'         => false,
+		'hideLink'          => false,
+		'requireFirstImage' => false,
+		'requireImage'      => false,
+		'imageSize'         => 'large',
+		'postType:'         => 'post',
+		'taxonomy'          => 'category',
+		'terms'             => '',
+		'count'             => '5',
+		'offset'            => '0',
+		'useFeed'           => '',
+		'excludePosts'      => '',
+		'hideShownPosts'    => false,
+		'show_button'       => false,
+		'buttonText'        => 'More News',
+		'buttonLink'        => '',
+		'showHeader'        => false,
+		'headerText'        => '',
+		'headerTag'         => 'h3',
+		'headerLink'        => '',
+
 	);
 
 
@@ -14,11 +47,69 @@ class Block_WSUWP_Card_News extends Block {
 
 		static::add_class( $wrapper_classes, '', 'className', $attrs );
 
+		$cards = array();
+
+		if ( ! empty( $attrs['postIn'] ) ) {
+
+			$overrides = array(
+				'postStatus'        => 'future,private,draft,pending,publish',
+				'postIn'            => $attrs['postIn'],
+				'orderBy'           => 'post__in',
+				'postType'          => 'any',
+				'requireFirstImage' => false,
+				'requireImage'      => false,
+				'excludePosts'      => '',
+			);
+
+			$cards = array_merge( $cards, self::get_feed_posts( $attrs, $overrides ) );
+
+		}
+
+		if ( ! empty( $attrs['requireFirstImage'] ) ) {
+
+			$overrides = array(
+				'postIn'     => '',
+				'count'      => 1,
+				'imageQuery' => true,
+				'hideImage'  => false,        
+			);
+
+			$cards = array_merge( $cards, self::get_feed_posts( $attrs, $overrides ) );
+
+			$attrs['count'] = (int) $attrs['count'] - 1;
+
+		}
+
+		if ( ! empty( $attrs['useFeed'] ) ) {
+
+			$overrides = array(
+				'postIn'     => '',
+				'imageQuery' => ( ! empty( $attrs['requireImage'] ) ) ? true : false,
+				'hideImage'  => ( ! empty( $attrs['requireImage'] ) ) ? false : $attrs['hideImage'], 
+			);
+
+			$cards = array_merge( $cards, self::get_feed_posts( $attrs, $overrides ) );
+
+		}
+
 		ob_start();
 
 		include __DIR__ . '/templates/default.php';
 
 		return ob_get_clean();
+
+	}
+
+
+	protected static function get_feed_posts( $attrs, $overrides = array() ) {
+
+		$attrs = array_merge( $attrs, $overrides );
+
+		$fields = WSU_Query::get_fields( $attrs, array( 'title', 'image', 'caption', 'date', 'link' ) );
+
+		$cards = WSU_Query::get_posts_attrs( $attrs, $fields );
+
+		return $cards;
 
 	}
 

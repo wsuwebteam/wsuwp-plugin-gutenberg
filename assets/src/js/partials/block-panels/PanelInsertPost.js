@@ -1,12 +1,12 @@
 import { Panel, PanelBody, PanelRow } from '@wordpress/components';
 import { SelectPost } from '../block-controls/blockControls';
 
-const PanelInsertPost = ( { } ) => {
+const PanelInsertPost = ( props ) => {
 
 
     return (
             <PanelBody title="Select Post/Page">
-                <SelectPost />
+                <SelectPost { ...props } />
             </PanelBody>
 
     )

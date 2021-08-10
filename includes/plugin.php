@@ -29,7 +29,6 @@ class Plugin {
 
 	public static function setup_classes() {
 
-		// Load any of the /classes/... used
 
 	}
 
@@ -42,6 +41,7 @@ class Plugin {
 
 		require_once __DIR__ . '/scripts.php';
 		require_once __DIR__ . '/blocks.php';
+		require_once __DIR__ . '/rest-api.php';
 
 	}
 
