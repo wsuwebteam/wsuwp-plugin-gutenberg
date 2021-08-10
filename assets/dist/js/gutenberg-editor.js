@@ -296,6 +296,37 @@ const FormatSelector = ({
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/PerRowControl.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/PerRowControl.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const PerRow = ({
+  attributes,
+  onChange
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Cards Per Row",
+    value: attributes.perRow ? attributes.perRow : '',
+    onChange: value => onChange(value)
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PerRow);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/SelectPost.js":
 /*!*************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/SelectPost.js ***!
@@ -337,7 +368,7 @@ const SelectPost = ({
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, SelectPost, FeedPostsControl */
+/*! exports provided: FormatSelector, SelectPost, FeedPostsControl, PerRow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,6 +381,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FeedPostsControl */ "./assets/src/js/partials/block-controls/FeedPostsControl.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FeedPostsControl", function() { return _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _PerRowControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PerRowControl */ "./assets/src/js/partials/block-controls/PerRowControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PerRow", function() { return _PerRowControl__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
 
 
 
@@ -612,6 +647,10 @@ registerBlockType("wsuwp/card-news", {
     headerLink: {
       type: 'string',
       default: ''
+    },
+    perRow: {
+      type: 'string',
+      default: '3'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -735,6 +774,13 @@ const Edit = ({
     value: attributes.postIn ? attributes.postIn : '',
     onChange: postIn => setAttributes({
       postIn
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__["PerRow"], {
+    label: "Cards Per Row",
+    attributes: attributes,
+    value: attributes.perRow ? attributes.perRow : '',
+    onChange: perRow => setAttributes({
+      perRow
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelInsertPost"], {
     attributes: attributes,

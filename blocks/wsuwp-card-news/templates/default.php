@@ -1,7 +1,7 @@
-<?php if ( 1 < count( $cards ) ) : ?><div class="wsu-card-wrapper wsu-card-news-wrapper"><?php endif; ?>
+<?php if ( 1 < count( $cards ) ) : ?><div class="<?php echo esc_attr( $wrapper_classes ); ?>"><?php endif; ?>
 	<?php if ( ! empty( $attrs['headerText'] ) ) : ?><h3><?php echo wp_kses_post( $attrs['headerText'] ); ?></h3><?php endif; ?>
 	<?php foreach ( $cards as $card ) : ?>
-	<article class="<?php echo esc_attr( $wrapper_classes ); ?>">
+	<article class="<?php echo esc_attr( $card_classes ); ?>">
 		<?php if ( ! empty( $card['imageSrc'] ) ) : ?>
 		<div class="wsu-image-frame wsu-ratio--4-3">
 			<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>

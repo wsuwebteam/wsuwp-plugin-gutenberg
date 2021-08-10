@@ -92,6 +92,10 @@
                 type: 'string',
                 default: '',
             },
+            perRow: {
+                type: 'string',
+                default: '3',
+            },
          },
          edit, 
          save

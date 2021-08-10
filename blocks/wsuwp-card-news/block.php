@@ -37,15 +37,33 @@ class Block_WSUWP_Card_News extends Block {
 		'headerText'        => '',
 		'headerTag'         => 'h3',
 		'headerLink'        => '',
+		'perRow'            => '3',
 
 	);
 
 
 	public static function render( $attrs, $content = '' ) {
 
-		$wrapper_classes = 'wsu-card wsu-card-news';
+		$card_classes = 'wsu-card wsu-card-news';
 
-		static::add_class( $wrapper_classes, '', 'className', $attrs );
+		$wrapper_classes = 'wsu-card__wrapper wsu-card-news__wrapper';
+
+		static::add_class( $card_classes, '', 'className', $attrs );
+
+		static::add_class( $wrapper_classes, 'wsu-per-row--', 'perRow', $attrs );
+
+		$cards = self::get_cards( $attrs );
+
+		ob_start();
+
+		include __DIR__ . '/templates/default.php';
+
+		return ob_get_clean();
+
+	}
+
+
+	protected function get_cards( $attrs ) {
 
 		$cards = array();
 
@@ -92,11 +110,7 @@ class Block_WSUWP_Card_News extends Block {
 
 		}
 
-		ob_start();
-
-		include __DIR__ . '/templates/default.php';
-
-		return ob_get_clean();
+		return $cards;
 
 	}
 
