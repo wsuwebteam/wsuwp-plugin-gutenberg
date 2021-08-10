@@ -13,11 +13,15 @@ const {
 	SelectControl,
 	Button,
 	FocalPointPicker,
-	BaseControl
+	BaseControl,
+	ToggleControl
 } = wp.components;
 
 import { FormatSelector, SelectPost } from "../../../assets/src/js/partials/block-controls/blockControls";
-import { PanelInsertPost } from "../../../assets/src/js/partials/block-panels/blockPanels"; 
+import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { ApiRenderBlock } from '../../../assets/src/js/partials/block-components/blockComponents';
+
+import apiFetch from '@wordpress/api-fetch';
 
 
 const Edit = ( { className, attributes, setAttributes } ) => {
@@ -27,14 +31,99 @@ const Edit = ( { className, attributes, setAttributes } ) => {
         style: {},
     } );
 
-	return (
+	let queryAttrs = attributes;
 
-		<div { ...blockProps }  >
-			<InspectorControls key="setting">
-				<PanelInsertPost />
-			</InspectorControls>
-			News Card
-		</div>
+	queryAttrs['hideLink'] = true;
+
+
+	return (
+		<>
+			
+			<div { ...blockProps }  >
+				<InspectorControls key="setting">
+					<PanelGeneralOptions>
+						<TextControl
+							label="Header"
+							value={ attributes.headerText ? attributes.headerText : '' }
+							onChange= { ( headerText ) => setAttributes( { headerText } ) }
+						/>
+						<TextControl
+							label="Header Link"
+							value={ attributes.headerLink ? attributes.headerLink : '' }
+							onChange= { ( headerLink ) => setAttributes( { headerLink } ) }
+						/>
+						<TextControl
+							label="Button Text"
+							value={ attributes.buttonText ? attributes.buttonText : '' }
+							onChange= { ( buttonText ) => setAttributes( { buttonText } ) }
+						/>
+						<TextControl
+							label="Button Link"
+							value={ attributes.buttonLink ? attributes.buttonLink : '' }
+							onChange= { ( buttonLink ) => setAttributes( { buttonLink } ) }
+						/>
+
+					</PanelGeneralOptions>
+					<PanelDisplayOptions>
+						<ToggleControl
+							label="Hide Caption"
+							checked={ attributes.hideCaption }
+							onChange={ ( hideCaption ) => { setAttributes( { hideCaption } ) } }
+							/>
+						<ToggleControl
+							label="Hide Date"
+							checked={ attributes.hideDate }
+							onChange={ ( hideDate ) => { setAttributes( { hideDate } ) } }
+							/>
+						<ToggleControl
+							label="Hide Image"
+							checked={ attributes.hideImage }
+							onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
+							/>
+						<ToggleControl
+							label="Hide Shown Posts"
+							checked={ attributes.hideShownPosts }
+							onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
+							/>
+						<TextControl
+							label="Post IDs"
+							value={ attributes.postIn ? attributes.postIn : '' }
+							onChange= { ( postIn ) => setAttributes( { postIn } ) }
+						/>
+					</PanelDisplayOptions>
+					<PanelInsertPost 
+						attributes={attributes}
+						onChange={ ( value ) => setAttributes( {insert_posts:value} ) }
+						/>
+					<PanelFeedPosts
+						attributes={attributes}
+						setUseFeed={ ( useFeed ) => setAttributes( {useFeed} ) }
+						setPostType={ ( postType ) => setAttributes( {postType} ) }
+						setTaxonomy={ ( taxonomy ) => setAttributes( {taxonomy} ) }
+						setTerms={ ( terms ) => setAttributes( {terms} ) }
+						setCount={ ( count ) => setAttributes( {count} ) }
+						setOffset={ ( offset ) => setAttributes( {offset} ) }
+						>
+						<ToggleControl
+						label="Require Images"
+						checked={ attributes.requireImage }
+						onChange={ ( requireImage ) => { setAttributes( { requireImage } ) } }
+						/>
+						<ToggleControl
+						label="Require First Image"
+						checked={ attributes.requireFirstImage }
+						onChange={ ( requireFirstImage ) => { setAttributes( { requireFirstImage } ) } }
+						/>
+
+					</PanelFeedPosts>
+				</InspectorControls>
+				<ApiRenderBlock 
+					attributes={queryAttrs}
+					blockName='wsuwp/card-news'
+					onChange={ value => alert('fire') }
+					/>
+			</div>
+		</>
 	)
 
 }
