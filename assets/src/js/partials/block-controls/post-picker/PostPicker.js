@@ -24,6 +24,7 @@ const PostPicker = ( props ) => {
 	const [isLoading, setIsLoading] = useState(false);	
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [latestPosts, setLatestPosts] = useState([]);
+	const [postTypeLabels, setPostTypeLabels] = useState({});
     const debouncedSetSearchString = useDebounce( ( value ) => setSearchString(value), 250);
 
     const handleItemSelection = (post) => {
@@ -70,18 +71,25 @@ const PostPicker = ( props ) => {
         
         const posts = await response.json();
         setLatestPosts(JSON.parse(posts));
+    };
 
-        console.log(JSON.parse(posts));
+    const getPostTypeLabels = async () => {
+        const response = await fetch('/wp-json/wp/v2/types');
+
+        if ( !response.ok ) { return; }
+        const postTypes = await response.json();
+
+        setPostTypeLabels(postTypes);
     };
 
     useEffect( () => {        
+        getPostTypeLabels();
         getSelectedItems();
         getLatestPost();        
     }, []);
 
     useEffect( () => {
         (async function handleSearch() {
-            console.log('Called')
             if( isEmpty(searchString)){
                 resetSearch();
                 return;
@@ -131,35 +139,31 @@ const PostPicker = ( props ) => {
             
             {isLoading && <Spinner />}
 
+            
+
             {searchString.length ? (
-                <ul
-                    className={`${CSSNAMESPACE}__suggestion-list`}>
-                    {!isLoading && !searchResults.length && (
-                        <li className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                            {__('No Items found')}
-                        </li>
-                    )}
-                    {searchResults.map((post, index) => {     
-                        console.log(post);                   
-                        return (
-                            <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                                 <Suggestion
-                                    onClick={() => handleItemSelection(post)}
-                                    searchTerm={ searchString }
-                                    suggestion={ post }
-                                    isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : postTypes.map( (postType) =>                    
-                    latestPosts[postType]?.length > 0 && <SuggestionList
-                        attributes={ attributes }
-                        suggestions={ latestPosts[postType] }
+                !isLoading && !searchResults.length ? (
+                    <p>{__('No Items found')}</p>
+                ) : !isLoading && (
+                    <SuggestionList                                
+                        attributes={ attributes }     
+                        title={`Search Results`}                       
+                        suggestions={ searchResults }
                         searchTerm={ searchString }
                         onItemSelect={ handleItemSelection }
-                    />                
+                    />
+                )
+            ) : postTypes.map( (postType) =>                    
+                    latestPosts[postType]?.length > 0 && (
+                        <SuggestionList                                
+                            key={ postType }
+                            attributes={ attributes }         
+                            title={`Latest ${postTypeLabels[postType].name}`}
+                            suggestions={ latestPosts[postType] }
+                            searchTerm={ searchString }
+                            onItemSelect={ handleItemSelection }
+                        />                        
+                    )
             )}
         </div>        
     )
@@ -169,27 +173,34 @@ const PostPicker = ( props ) => {
 function SuggestionList( props ) {
     const {
         attributes,
+        title, 
         suggestions,
         onItemSelect,
         searchTerm = '',
     } = props;    
 
     return (
-        <ul
-            className={`${CSSNAMESPACE}__suggestion-list`}>
-            {suggestions.map((post, index) => {
-                return (
-                    <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                        <Suggestion
-                            onClick={ () => onItemSelect(post) }
-                            searchTerm={ searchTerm }
-                            suggestion={ post }
-                            isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
-                        />
-                    </li>
-                );
-            })}
-        </ul>        
+        <div className={`${CSSNAMESPACE}__suggestion-list-container`}>
+            <h3 className={`${CSSNAMESPACE}__suggestion-list-title`}>
+                {title}
+            </h3>
+
+            <ul
+                className={`${CSSNAMESPACE}__suggestion-list`}>
+                {suggestions.map((post, index) => {
+                    return (
+                        <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
+                            <Suggestion
+                                onClick={ () => onItemSelect(post) }
+                                searchTerm={ searchTerm }
+                                suggestion={ post }
+                                isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
+                            />
+                        </li>
+                    );
+                })}
+            </ul>        
+        </div>
     );
 }
 

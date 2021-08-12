@@ -1,4 +1,4 @@
-.wsu-gutenberg-post-picker{
+.block-editor .wsu-gutenberg-post-picker{
     &__remove-btn {
         flex-direction: row-reverse;
         width: 100%;
@@ -21,10 +21,20 @@
     /*=============================================
     =            Suggestion List            =
     =============================================*/
+    &__suggestion-list-container {
+        margin-bottom: 1.5em;
+    }
+    
     &__suggestion-list {
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+    &__suggestion-list-title {        
+        margin-bottom: .5em;        
+        background: #eee;
+        padding: .5em;
     }
 
     &__suggestion-list-item {
