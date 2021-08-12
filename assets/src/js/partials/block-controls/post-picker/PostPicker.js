@@ -137,9 +137,7 @@ const PostPicker = ( props ) => {
                 onChange= { (value) => debouncedSetSearchString( value ) }
             />
             
-            {isLoading && <Spinner />}
-
-            
+            {isLoading && <Spinner />}            
 
             {searchString.length ? (
                 !isLoading && !searchResults.length ? (
