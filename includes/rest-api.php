@@ -29,7 +29,8 @@ class Rest_API {
 			array(
 				'methods'  => 'GET',
 				'callback' => array( __CLASS__, 'render_endpoint' ),
-			)
+				'permission_callback' => '__return_true' // https://wordpress.org/support/topic/missing-the-required-permission_callback-argument/
+		 	)
 		);
 
 		register_rest_route(
