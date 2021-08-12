@@ -133,15 +133,16 @@ const ApiRenderBlock = ({
   const [blockRendered, setBlockRendered] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
   blockName = blockName.replace('/', '--');
   let queryString = Object.keys(attributes).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(attributes[key])).join('&');
-  console.log(queryString);
-  _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-    path: '/wsu-gutenberg/v1/render-block/' + blockName + '?' + queryString,
-    method: 'GET'
-  }).then(res => {
-    let block = JSON.parse(res);
-    console.log(block);
-    setBlockRendered(block.rendered);
-  });
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      path: '/wsu-gutenberg/v1/render-block/' + blockName + '?' + queryString,
+      method: 'GET'
+    }).then(res => {
+      let block = JSON.parse(res);
+      console.log(queryString);
+      setBlockRendered(block.rendered);
+    });
+  }, [queryString]);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     dangerouslySetInnerHTML: {
       __html: blockRendered
