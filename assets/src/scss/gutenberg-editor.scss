@@ -1,5 +1,12 @@
 @import './partials/editor';
 
+
+
+/** ===== Block Constrols ===== */
+@import '../js/partials/block-controls/post-picker/style';
+
+
+
 /** ===== Blocks ===== */
 @import '../../../blocks/wsuwp-column/editor/style';
 @import '../../../blocks/wsuwp-row/editor/style';
