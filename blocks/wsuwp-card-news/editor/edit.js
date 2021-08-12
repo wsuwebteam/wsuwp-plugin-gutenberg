@@ -17,7 +17,7 @@ const {
 	ToggleControl
 } = wp.components;
 
-import { FormatSelector, SelectPost, PerRow } from "../../../assets/src/js/partials/block-controls/blockControls";
+import { FormatSelector, PerRow } from "../../../assets/src/js/partials/block-controls/blockControls";
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { ApiRenderBlock } from '../../../assets/src/js/partials/block-components/blockComponents';
 
@@ -84,12 +84,7 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 							label="Hide Shown Posts"
 							checked={ attributes.hideShownPosts }
 							onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
-							/>
-						<TextControl
-							label="Post IDs"
-							value={ attributes.postIn ? attributes.postIn : '' }
-							onChange= { ( postIn ) => setAttributes( { postIn } ) }
-						/>
+							/>						
 						<PerRow
 							label="Cards Per Row"
 							attributes={ attributes }
@@ -99,8 +94,8 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 					</PanelDisplayOptions>
 					<PanelInsertPost 
 						attributes={attributes}
-						onChange={ ( value ) => setAttributes( { insert_posts: value } ) }
-						postTypes={ [ 'news_article', 'press_release', 'announcement', 'posts', 'pages' ] }
+						onChange={ ( value ) => setAttributes( { postIn: value } ) }
+						postTypes={ [ 'news_article', 'press_release', 'announcement', 'post', 'page' ] }
 						placeholder="Search posts..."
 						/>
 					<PanelFeedPosts
