@@ -55,31 +55,31 @@ const PostPicker = ( props ) => {
         if(attributes.postIn.split(',').length === 0){ return; }
 
         const params = `ids=${attributes.postIn}`;
-        const response = await fetch('/wp-json/wsu-gutenberg/v1/get-posts-by-id?' + params);
+        const response = await apiFetch({
+            path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
+            method: 'GET',
+        })
 
-        if ( !response.ok ) { return; }
-        
-        const posts = await response.json();
-        setSelectedItems(JSON.parse(posts));
+        setSelectedItems(JSON.parse(response));
     };
 
     const getLatestPost = async () => {
         const params = `count=5&post_types=${postTypes}`;
-        const response = await fetch('/wp-json/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params);
+        const response = await apiFetch({ 
+            path:'/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params,
+            method: 'GET'
+        });
 
-        if ( !response.ok ) { return; }
-        
-        const posts = await response.json();
-        setLatestPosts(JSON.parse(posts));
+        setLatestPosts(JSON.parse(response));
     };
 
     const getPostTypeLabels = async () => {
-        const response = await fetch('/wp-json/wp/v2/types');
+        const response = await apiFetch({
+            path: '/wp/v2/types',
+            method: 'GET',
+        });
 
-        if ( !response.ok ) { return; }
-        const postTypes = await response.json();
-
-        setPostTypeLabels(postTypes);
+        setPostTypeLabels(response);
     };
 
     useEffect( () => {        
@@ -98,12 +98,12 @@ const PostPicker = ( props ) => {
             setIsLoading(true);
             
             const params = `search_term=${searchString}&post_types=${postTypes}`;
-            const response = await fetch('/wp-json/wsu-gutenberg/v1/search-posts?' + params);
+            const response = await apiFetch({
+                path: '/wsu-gutenberg/v1/search-posts?' + params,
+                method: 'GET',
+            });
             
-            if ( !response.ok ) { return; }
-            
-            const posts = await response.json();
-            setSearchResults(JSON.parse(posts));
+            setSearchResults(JSON.parse(response));
             
             setIsLoading(false);            
         })();        
