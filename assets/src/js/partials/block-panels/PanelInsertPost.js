@@ -5,7 +5,7 @@ const PanelInsertPost = ( props ) => {
 
 
     return (
-            <PanelBody title="Select Post/Page">
+            <PanelBody title="Select Post/Page"  initialOpen={false} >
                 <PostPicker { ...props } />
             </PanelBody>
 
