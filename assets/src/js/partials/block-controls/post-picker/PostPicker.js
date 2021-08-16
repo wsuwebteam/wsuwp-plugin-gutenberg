@@ -24,6 +24,7 @@ const PostPicker = ( props ) => {
 	const [isLoading, setIsLoading] = useState(false);	
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [latestPosts, setLatestPosts] = useState([]);
+	const [postTypeLabels, setPostTypeLabels] = useState({});
     const debouncedSetSearchString = useDebounce( ( value ) => setSearchString(value), 250);
 
     const handleItemSelection = (post) => {
@@ -54,34 +55,41 @@ const PostPicker = ( props ) => {
         if(attributes.postIn.split(',').length === 0){ return; }
 
         const params = `ids=${attributes.postIn}`;
-        const response = await fetch('/wp-json/wsu-gutenberg/v1/get-posts-by-id?' + params);
+        const response = await apiFetch({
+            path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
+            method: 'GET',
+        })
 
-        if ( !response.ok ) { return; }
-        
-        const posts = await response.json();
-        setSelectedItems(JSON.parse(posts));
+        setSelectedItems(JSON.parse(response));
     };
 
     const getLatestPost = async () => {
         const params = `count=5&post_types=${postTypes}`;
-        const response = await fetch('/wp-json/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params);
+        const response = await apiFetch({ 
+            path:'/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params,
+            method: 'GET'
+        });
 
-        if ( !response.ok ) { return; }
-        
-        const posts = await response.json();
-        setLatestPosts(JSON.parse(posts));
+        setLatestPosts(JSON.parse(response));
+    };
 
-        console.log(JSON.parse(posts));
+    const getPostTypeLabels = async () => {
+        const response = await apiFetch({
+            path: '/wp/v2/types',
+            method: 'GET',
+        });
+
+        setPostTypeLabels(response);
     };
 
     useEffect( () => {        
+        getPostTypeLabels();
         getSelectedItems();
         getLatestPost();        
     }, []);
 
     useEffect( () => {
         (async function handleSearch() {
-            console.log('Called')
             if( isEmpty(searchString)){
                 resetSearch();
                 return;
@@ -90,12 +98,12 @@ const PostPicker = ( props ) => {
             setIsLoading(true);
             
             const params = `search_term=${searchString}&post_types=${postTypes}`;
-            const response = await fetch('/wp-json/wsu-gutenberg/v1/search-posts?' + params);
+            const response = await apiFetch({
+                path: '/wsu-gutenberg/v1/search-posts?' + params,
+                method: 'GET',
+            });
             
-            if ( !response.ok ) { return; }
-            
-            const posts = await response.json();
-            setSearchResults(JSON.parse(posts));
+            setSearchResults(JSON.parse(response));
             
             setIsLoading(false);            
         })();        
@@ -129,37 +137,31 @@ const PostPicker = ( props ) => {
                 onChange= { (value) => debouncedSetSearchString( value ) }
             />
             
-            {isLoading && <Spinner />}
+            {isLoading && <Spinner />}            
 
             {searchString.length ? (
-                <ul
-                    className={`${CSSNAMESPACE}__suggestion-list`}>
-                    {!isLoading && !searchResults.length && (
-                        <li className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                            {__('No Items found')}
-                        </li>
-                    )}
-                    {searchResults.map((post, index) => {     
-                        console.log(post);                   
-                        return (
-                            <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                                 <Suggestion
-                                    onClick={() => handleItemSelection(post)}
-                                    searchTerm={ searchString }
-                                    suggestion={ post }
-                                    isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : postTypes.map( (postType) =>                    
-                    latestPosts[postType]?.length > 0 && <SuggestionList
-                        attributes={ attributes }
-                        suggestions={ latestPosts[postType] }
+                !isLoading && !searchResults.length ? (
+                    <p>{__('No Items found')}</p>
+                ) : !isLoading && (
+                    <SuggestionList                                
+                        attributes={ attributes }     
+                        title={`Search Results`}                       
+                        suggestions={ searchResults }
                         searchTerm={ searchString }
                         onItemSelect={ handleItemSelection }
-                    />                
+                    />
+                )
+            ) : postTypes.map( (postType) =>                    
+                    latestPosts[postType]?.length > 0 && (
+                        <SuggestionList                                
+                            key={ postType }
+                            attributes={ attributes }         
+                            title={`Latest ${postTypeLabels[postType].name}`}
+                            suggestions={ latestPosts[postType] }
+                            searchTerm={ searchString }
+                            onItemSelect={ handleItemSelection }
+                        />                        
+                    )
             )}
         </div>        
     )
@@ -169,27 +171,34 @@ const PostPicker = ( props ) => {
 function SuggestionList( props ) {
     const {
         attributes,
+        title, 
         suggestions,
         onItemSelect,
         searchTerm = '',
     } = props;    
 
     return (
-        <ul
-            className={`${CSSNAMESPACE}__suggestion-list`}>
-            {suggestions.map((post, index) => {
-                return (
-                    <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
-                        <Suggestion
-                            onClick={ () => onItemSelect(post) }
-                            searchTerm={ searchTerm }
-                            suggestion={ post }
-                            isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
-                        />
-                    </li>
-                );
-            })}
-        </ul>        
+        <div className={`${CSSNAMESPACE}__suggestion-list-container`}>
+            <h3 className={`${CSSNAMESPACE}__suggestion-list-title`}>
+                {title}
+            </h3>
+
+            <ul
+                className={`${CSSNAMESPACE}__suggestion-list`}>
+                {suggestions.map((post, index) => {
+                    return (
+                        <li key={post.id} className={`${CSSNAMESPACE}__suggestion-list-item`}>
+                            <Suggestion
+                                onClick={ () => onItemSelect(post) }
+                                searchTerm={ searchTerm }
+                                suggestion={ post }
+                                isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
+                            />
+                        </li>
+                    );
+                })}
+            </ul>        
+        </div>
     );
 }
 

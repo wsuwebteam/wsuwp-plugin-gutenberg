@@ -173,6 +173,18 @@ class WSU_Query {
 
 		}
 
+		if ( empty( $attrs['postIn'] && ! empty( $attrs['terms'] ) ) ) {
+
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => $attrs['taxonomy'],
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attrs['terms'] ),
+				),
+			);
+
+		}
+
 		return $query_args;
 
 	}

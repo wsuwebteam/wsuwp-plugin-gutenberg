@@ -27,18 +27,19 @@ class Rest_API {
 			'wsu-gutenberg/v1',
 			'render-block/(?P<block_name>[a-zA-Z0-9-]+)',
 			array(
-				'methods'  => 'GET',
-				'callback' => array( __CLASS__, 'render_endpoint' ),
-				'permission_callback' => '__return_true' // https://wordpress.org/support/topic/missing-the-required-permission_callback-argument/
-		 	)
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'render_endpoint' ),
+				'permission_callback' => '__return_true', // https://wordpress.org/support/topic/missing-the-required-permission_callback-argument/
+			)
 		);
 
 		register_rest_route(
 			'wsu-gutenberg/v1',
 			'search-posts',
 			array(
-				'methods'  => 'GET',
-				'callback' => array( __CLASS__, 'search_posts' ),
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'search_posts' ),
+				'permission_callback' => '__return_true',
 			)
 		);
 
@@ -46,8 +47,9 @@ class Rest_API {
 			'wsu-gutenberg/v1',
 			'get-posts-by-id',
 			array(
-				'methods'  => 'GET',
-				'callback' => array( __CLASS__, 'get_posts_by_id' ),
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'get_posts_by_id' ),
+				'permission_callback' => '__return_true',
 			)
 		);
 
@@ -55,8 +57,9 @@ class Rest_API {
 			'wsu-gutenberg/v1',
 			'get-latest-posts-for-post-types',
 			array(
-				'methods'  => 'GET',
-				'callback' => array( __CLASS__, 'get_latest_posts_for_post_types' ),
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'get_latest_posts_for_post_types' ),
+				'permission_callback' => '__return_true',
 			)
 		);
 
@@ -198,7 +201,7 @@ class Rest_API {
 			$grouped_posts[ $post_type ] = $posts;
 		}
 
-		return wp_json_encode( $grouped_posts );
+		return wp_json_encode( $grouped_posts, JSON_UNESCAPED_SLASHES );
 
 	}
 

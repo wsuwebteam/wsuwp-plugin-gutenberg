@@ -6,13 +6,14 @@ class Blocks {
 	protected static $register_blocks = array(
 		'wsuwp/row'       => 'Block_WSUWP_Row',
 		'wsuwp/column'    => 'Block_WSUWP_Column',
-		'wsuwp/card-news' => 'Block_WSUWP_Card_News',
+		'wsuwp/card'      => 'Block_WSUWP_Card',
+		'wsuwp/callout'   => 'Block_WSUWP_Callout',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
-		'wsuwp/column',
-		'wsuwp/card-news',
+		'wsuwp/card',
+		'wsuwp/callout',
 		'core/button',
 		'core/code',
 		'core/embed',

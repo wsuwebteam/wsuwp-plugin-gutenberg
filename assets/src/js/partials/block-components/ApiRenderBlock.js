@@ -21,7 +21,6 @@ const ApiRenderBlock = ( { attributes, blockName, onChange } ) => {
         } ).then( ( res ) => {
     
             let block = JSON.parse( res );
-            console.log( queryString );
             setBlockRendered( block.rendered );
         } );
     }, [queryString] );
