@@ -15,7 +15,7 @@
     "@wordpress/prettier-config": "^1.1.0",
     "@wordpress/scripts": "^16.1.4",
     "@wsuwebteam/build-tools": "^2.0.0",
-    "@wsuwebteam/wsu-web-design-system": "^0.0.1",
+    "@wsuwebteam/wsu-web-design-system": "^0.0.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",

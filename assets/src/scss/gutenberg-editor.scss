@@ -10,3 +10,10 @@
 /** ===== Blocks ===== */
 @import '../../../blocks/wsuwp-column/editor/style';
 @import '../../../blocks/wsuwp-row/editor/style';
+
+
+#editor {
+
+    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/callout/_style.scss';
+
+}  

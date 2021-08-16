@@ -7,11 +7,13 @@ class Blocks {
 		'wsuwp/row'       => 'Block_WSUWP_Row',
 		'wsuwp/column'    => 'Block_WSUWP_Column',
 		'wsuwp/card'      => 'Block_WSUWP_Card',
+		'wsuwp/callout'   => 'Block_WSUWP_Callout',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
 		'wsuwp/card',
+		'wsuwp/callout',
 		'core/button',
 		'core/code',
 		'core/embed',
