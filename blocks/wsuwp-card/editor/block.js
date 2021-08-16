@@ -28,6 +28,10 @@
                 type: 'string',
                 default: '',
             },
+            useSelect: {
+                type: 'boolean',
+                default: false,
+            },
             postIn: {
                  type: 'string',
                  default: '',

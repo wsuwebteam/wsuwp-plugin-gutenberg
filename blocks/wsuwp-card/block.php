@@ -45,10 +45,6 @@ class Block_WSUWP_Card extends Block {
 
 	public static function render( $attrs, $content = '' ) {
 
-		var_dump( $attrs );
-
-		//var_dump( $attrs );
-
 		$card_classes = 'wsu-card wsu-card-news';
 
 		$wrapper_classes = 'wsu-card__wrapper';
@@ -65,7 +61,19 @@ class Block_WSUWP_Card extends Block {
 
 		ob_start();
 
-		include __DIR__ . '/templates/default.php';
+		if ( ! empty( $cards ) ) {
+
+			include __DIR__ . '/templates/before.php';
+
+			foreach( $cards as $card ) {
+
+				include __DIR__ . '/templates/default.php';
+	
+			}
+
+			include __DIR__ . '/templates/after.php';
+		} 
+
 
 		return ob_get_clean();
 

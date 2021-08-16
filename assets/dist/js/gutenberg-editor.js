@@ -139,7 +139,6 @@ const ApiRenderBlock = ({
       method: 'GET'
     }).then(res => {
       let block = JSON.parse(res);
-      console.log(queryString);
       setBlockRendered(block.rendered);
     });
   }, [queryString]);
@@ -772,6 +771,10 @@ registerBlockType("wsuwp/card", {
     type: {
       type: 'string',
       default: ''
+    },
+    useSelect: {
+      type: 'boolean',
+      default: false
     },
     postIn: {
       type: 'string',
