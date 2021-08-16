@@ -121,8 +121,7 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 				</InspectorControls>
 				<ApiRenderBlock 
 					attributes={queryAttrs}
-					blockName='wsuwp/card-news'
-					onChange={ value => alert('fire') }
+					blockName='wsuwp/card'
 					/>
 			</div>
 		</>

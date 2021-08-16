@@ -1,10 +1,11 @@
 <?php namespace WSUWP\Plugin\Gutenberg;
 
-class Block_WSUWP_Card_News extends Block {
+class Block_WSUWP_Card extends Block {
 
-	protected static $block_name    = 'wsuwp/card-news';
+	protected static $block_name    = 'wsuwp/card';
 	protected static $default_attrs = array(
 		'className'         => '',
+		'type'              => '',
 		'postIn'            => '',
 		'imageSrc'          => '',
 		'imageSrcset'       => '',
@@ -15,7 +16,7 @@ class Block_WSUWP_Card_News extends Block {
 		'authorName'        => '',
 		'authorAffiliation' => '',
 		'link'              => '',
-		'hideDate'          => false,
+		'hideDate'          => true,
 		'hideCaption'       => false,
 		'hideImage'         => false,
 		'hideLink'          => false,
@@ -44,11 +45,19 @@ class Block_WSUWP_Card_News extends Block {
 
 	public static function render( $attrs, $content = '' ) {
 
+		var_dump( $attrs );
+
+		//var_dump( $attrs );
+
 		$card_classes = 'wsu-card wsu-card-news';
 
-		$wrapper_classes = 'wsu-card__wrapper wsu-card-news__wrapper';
+		$wrapper_classes = 'wsu-card__wrapper';
 
 		static::add_class( $card_classes, '', 'className', $attrs );
+
+		static::add_class( $card_classes, 'wsu-card-', 'type', $attrs );
+
+		static::add_class( $wrapper_classes, 'wsu-card__wrapper-', 'type', $attrs );
 
 		static::add_class( $wrapper_classes, 'wsu-per-row--', 'perRow', $attrs );
 
