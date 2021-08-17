@@ -24,6 +24,8 @@ class Blocks {
 		'core/list',
 		'core/paragraph',
 		'core/quote',
+		'core/button',
+		'core/buttons',
 		'core/reusableBlock',
 		'core/separator',
 		'core/shortcode',
