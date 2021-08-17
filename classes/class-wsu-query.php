@@ -159,7 +159,7 @@ class WSU_Query {
 
 		if ( ! empty( $attrs['postIn'] ) ) {
 
-			$query_args['post__in'] = explode( ',', $attrs['postIn'] );
+			$query_args['post__in'] = array_filter( explode( ',', $attrs['postIn'] ) );
 
 		}
 
@@ -173,7 +173,7 @@ class WSU_Query {
 
 		}
 
-		if ( empty( $attrs['postIn'] && ! empty( $attrs['terms'] ) ) ) {
+		if ( empty( $attrs['postIn'] ) && ! empty( $attrs['terms'] ) ) {
 
 			$query_args['tax_query'] = array(
 				array(
