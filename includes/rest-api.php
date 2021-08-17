@@ -177,7 +177,7 @@ class Rest_API {
 
 			$results = get_posts(
 				array(
-					'numberposts' => $params['count'] || 5,
+					'numberposts' => $params['count'] ?? 5,
 					'post_status' => array( 'publish', 'draft', 'private' ),
 					'post_type'   => $post_type,
 					'orderby'     => 'post_date',
