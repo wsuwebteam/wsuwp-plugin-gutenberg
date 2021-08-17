@@ -67,11 +67,11 @@ const PostPicker = ( props ) => {
     const getLatestPosts = async () => {        
         setIsLoading(true);
         
-        const params = `count=5&post_types=${postTypes}`;
+        const params = `count=8&post_types=${postTypes}`;
         const response = await apiFetch({ 
-            path:'/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params,
+            path:'/wsu-gutenberg/v1/get-latest-posts?' + params,
             method: 'GET'
-        });
+        });        
 
         setLatestPosts(JSON.parse(response));
 
@@ -153,26 +153,24 @@ const PostPicker = ( props ) => {
                 ) : !isLoading && (
                     <SuggestionList                                
                         attributes={ attributes }     
-                        title={`Search Results`}   
-                        postTypeData={postTypeData}                    
+                        title="Search Results"
+                        postTypeData={ postTypeData }                    
                         suggestions={ searchResults }
                         searchTerm={ searchString }
                         onItemSelect={ handleItemSelection }
                     />
                 )
-            ) : postTypes.map( (postType) =>                    
-                    latestPosts[postType]?.length > 0 && (
-                        <SuggestionList                                
-                            key={ postType }
-                            attributes={ attributes }         
-                            title={`Latest ${postTypeData[postType].name}`}
-                            postTypeData={postTypeData}
-                            suggestions={ latestPosts[postType] }
-                            searchTerm={ searchString }
-                            onItemSelect={ handleItemSelection }
-                        />                        
-                    )
-            )}
+            ) : latestPosts.length && (                    
+                    <SuggestionList
+                        attributes={ attributes }         
+                        title="Recent Posts"
+                        postTypeData={ postTypeData }
+                        suggestions={ latestPosts }
+                        searchTerm={ searchString }
+                        onItemSelect={ handleItemSelection }
+                    />
+                ) || ''
+            }
         </div>        
     )
 
