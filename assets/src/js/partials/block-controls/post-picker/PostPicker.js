@@ -1,11 +1,13 @@
 import { __ } from '@wordpress/i18n';
-import { TextControl, Button, Spinner, TextHighlight } from '@wordpress/components';
+import { Button, Spinner, TextHighlight } from '@wordpress/components';
 import { useDebounce } from '@wordpress/compose';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
 
 import { isEmpty } from 'lodash';
+
+import TextControl from './text-control';
 
 const CSSNAMESPACE = 'wsu-gutenberg-post-picker';
 
@@ -18,7 +20,7 @@ const PostPicker = ( props ) => {
         placeholder = 'Search posts...'
     } = props;
 
-    const searchInputRef = useRef(null);
+    const searchInputRef = useRef(null);    
     const isMounted = useRef(false);
     const [searchString, setSearchString] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
@@ -85,7 +87,7 @@ const PostPicker = ( props ) => {
         });
 
         setPostTypeData(response);
-    };
+    };    
 
     useEffect( () => {
         if (isMounted.current) {            
@@ -201,7 +203,7 @@ function SuggestionList( props ) {
                                 onClick={ () => onItemSelect(post) }
                                 searchTerm={ searchTerm }
                                 suggestion={ post }
-                                postTypeLabel={postTypeData[post.type].name}
+                                postTypeLabel={postTypeData[post.type]?.name}
                                 isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
                             />
                         </li>
