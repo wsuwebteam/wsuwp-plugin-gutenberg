@@ -105,10 +105,10 @@ class Rest_API {
 
 		$results = get_posts(
 			array(
-				'numberposts' => 5,
-				'post_type'   => explode( ',', $params['post_types'] ),
-				'post_status' => array( 'publish', 'draft', 'private' ),
-				's'           => $params['search_term'],
+				'posts_per_page' => 5,
+				'post_type'      => explode( ',', $params['post_types'] ),
+				'post_status'    => array( 'publish', 'draft', 'private' ),
+				's'              => $params['search_term'],
 			)
 		);
 
@@ -138,7 +138,7 @@ class Rest_API {
 
 		$results = get_posts(
 			array(
-				'numberposts' => -1,
+				'posts_per_page' => 20,
 				'post__in'    => explode( ',', $params['ids'] ),
 				'post_status' => array( 'publish', 'draft', 'private' ),
 				'post_type'   => 'any',
@@ -170,8 +170,8 @@ class Rest_API {
 
 		$results = wp_get_recent_posts(
 			array(
-				'numberposts' => $params['count'] ?? 8,
-				'post_type'   => explode( ',', $params['post_types'] ),
+				'posts_per_page' => $params['count'] ?? 8,
+				'post_type'      => explode( ',', $params['post_types'] ),
 			),
 			'OBJECT'
 		);

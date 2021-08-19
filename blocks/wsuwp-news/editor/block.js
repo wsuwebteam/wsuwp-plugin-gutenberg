@@ -114,4 +114,5 @@
      }
  );
 
- //import './variationNews';
+ import './variationCard';
+ import './variationList';

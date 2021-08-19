@@ -1,11 +1,11 @@
 <?php namespace WSUWP\Plugin\Gutenberg;
 
-class Block_WSUWP_Card extends Block {
+class Block_WSUWP_News extends Block {
 
-	protected static $block_name    = 'wsuwp/card';
+	protected static $block_name    = 'wsuwp/news';
 	protected static $default_attrs = array(
 		'className'         => '',
-		'type'              => '',
+		'type'              => 'index',
 		'postIn'            => '',
 		'imageSrc'          => '',
 		'imageSrcset'       => '',
@@ -16,7 +16,7 @@ class Block_WSUWP_Card extends Block {
 		'authorName'        => '',
 		'authorAffiliation' => '',
 		'link'              => '',
-		'hideDate'          => true,
+		'hideDate'          => false,
 		'hideCaption'       => false,
 		'hideImage'         => false,
 		'hideLink'          => false,
@@ -31,14 +31,13 @@ class Block_WSUWP_Card extends Block {
 		'useFeed'           => '',
 		'excludePosts'      => '',
 		'hideShownPosts'    => false,
-		'show_button'       => false,
 		'buttonText'        => 'More News',
 		'buttonLink'        => '',
 		'showHeader'        => false,
 		'headerText'        => '',
 		'headerTag'         => 'h3',
 		'headerLink'        => '',
-		'perRow'            => '3',
+		'perRow'            => '1',
 
 	);
 
@@ -67,11 +66,21 @@ class Block_WSUWP_Card extends Block {
 
 			foreach( $cards as $card ) {
 
-				include __DIR__ . '/templates/default.php';
-	
-			}
+				switch ( $attrs['type'] ) {
 
-			include __DIR__ . '/templates/after.php';
+					case 'index':
+						include __DIR__ . '/templates/index.php';
+						break;
+					
+					case 'card':
+						include __DIR__ . '/templates/card.php';
+						break;
+					
+					case 'list':
+						include __DIR__ . '/templates/list.php';
+						break;
+				}
+			}
 		} 
 
 
