@@ -55,10 +55,10 @@ class Rest_API {
 
 		register_rest_route(
 			'wsu-gutenberg/v1',
-			'get-latest-posts-for-post-types',
+			'get-latest-posts',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'get_latest_posts_for_post_types' ),
+				'callback'            => array( __CLASS__, 'get_latest_posts' ),
 				'permission_callback' => '__return_true',
 			)
 		);
@@ -105,10 +105,10 @@ class Rest_API {
 
 		$results = get_posts(
 			array(
-				'numberposts' => 5,
-				'post_type'   => explode( ',', $params['post_types'] ),
-				'post_status' => array( 'publish', 'draft', 'private' ),
-				's'           => $params['search_term'],
+				'posts_per_page' => 5,
+				'post_type'      => explode( ',', $params['post_types'] ),
+				'post_status'    => array( 'publish', 'draft', 'private' ),
+				's'              => $params['search_term'],
 			)
 		);
 
@@ -138,7 +138,7 @@ class Rest_API {
 
 		$results = get_posts(
 			array(
-				'numberposts' => -1,
+				'posts_per_page' => 20,
 				'post__in'    => explode( ',', $params['ids'] ),
 				'post_status' => array( 'publish', 'draft', 'private' ),
 				'post_type'   => 'any',
@@ -163,46 +163,33 @@ class Rest_API {
 
 	}
 
-
-	public static function get_latest_posts_for_post_types( $request ) {
-
-		$grouped_posts = array();
+	public static function get_latest_posts( $request ) {
+		$posts = array();
 
 		$params = $request->get_params();
 
-		$post_types = explode( ',', $params['post_types'] );
+		$results = wp_get_recent_posts(
+			array(
+				'posts_per_page' => $params['count'] ?? 8,
+				'post_type'      => explode( ',', $params['post_types'] ),
+			),
+			'OBJECT'
+		);
 
-		foreach ( $post_types as $post_type ) {
-			$posts = array();
-
-			$results = get_posts(
+		foreach ( $results as $result ) {
+			array_push(
+				$posts,
 				array(
-					'numberposts' => $params['count'] || 5,
-					'post_status' => array( 'publish', 'draft', 'private' ),
-					'post_type'   => $post_type,
-					'orderby'     => 'post_date',
-					'order'       => 'DESC',
+					'id'    => $result->ID,
+					'title' => $result->post_title,
+					'date'  => date( 'm-d-Y', strtotime( $result->post_date ) ),
+					'type'  => $result->post_type,
+					'link'  => get_post_permalink( $result->ID ),
 				)
 			);
-
-			foreach ( $results as $result ) {
-				array_push(
-					$posts,
-					array(
-						'id'    => $result->ID,
-						'title' => $result->post_title,
-						'date'  => date( 'm-d-Y', strtotime( $result->post_date ) ),
-						'type'  => $result->post_type,
-						'link'  => get_post_permalink( $result->ID ),
-					)
-				);
-			}
-
-			$grouped_posts[ $post_type ] = $posts;
 		}
 
-		return wp_json_encode( $grouped_posts, JSON_UNESCAPED_SLASHES );
-
+		return wp_json_encode( $posts, JSON_UNESCAPED_SLASHES );
 	}
 
 }

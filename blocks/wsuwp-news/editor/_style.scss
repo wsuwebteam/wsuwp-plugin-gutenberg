@@ -1,0 +1,24 @@
+@import '../../../assets/src/scss/utilities/variables';
+@import '../../../assets/src/scss/utilities/mixins';
+
+.wsu-card--placeholder {
+
+    .wsu-image-frame {
+
+        &::before {
+            background-color: $wsu-color--gray-10;
+        } 
+
+    }
+
+    .wsu-title {
+        color: transparent;
+        text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        font-weight: 600;
+    }
+
+    .wsu-caption {
+        color: transparent;
+        text-shadow: 0 0 3px rgba(0,0,0,0.5);
+    }
+}  

@@ -14,6 +14,10 @@
 
 #editor {
 
+    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/title/_style.scss';
+    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/image-frame/_image-frame.scss';
     @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/callout/_style.scss';
+    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/modules/card/_style.scss';
+    @import '../../../blocks/wsuwp-news/editor/style';
 
 }  

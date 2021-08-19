@@ -1,10 +1,9 @@
 wp.blocks.registerBlockVariation( 
-    'wsuwp/card', {
-        name: 'news',
+    'wsuwp/news', {
+        name: 'news-card',
         title: 'News Card',
         attributes: { 
-            type: 'news',
-            hideDate: false,
+            type: 'card',
         },
     }
 );
