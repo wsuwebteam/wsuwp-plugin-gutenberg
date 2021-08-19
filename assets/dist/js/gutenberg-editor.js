@@ -386,6 +386,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_html_entities__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_html_entities__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _text_control__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./text-control */ "./assets/src/js/partials/block-controls/post-picker/text-control.js");
+
 
 
 
@@ -505,7 +507,7 @@ const PostPicker = props => {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       className: `${CSSNAMESPACE}__remove-btn-text`
     }, post.title)));
-  })) : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["TextControl"], {
+  })) : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_text_control__WEBPACK_IMPORTED_MODULE_7__["default"], {
     ref: searchInputRef,
     placeholder: placeholder,
     label: label,
@@ -543,6 +545,8 @@ function SuggestionList(props) {
   }, title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
     className: `${CSSNAMESPACE}__suggestion-list`
   }, suggestions.map((post, index) => {
+    var _postTypeData$post$ty;
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
       key: post.id,
       className: `${CSSNAMESPACE}__suggestion-list-item`
@@ -550,7 +554,7 @@ function SuggestionList(props) {
       onClick: () => onItemSelect(post),
       searchTerm: searchTerm,
       suggestion: post,
-      postTypeLabel: postTypeData[post.type].name,
+      postTypeLabel: (_postTypeData$post$ty = postTypeData[post.type]) === null || _postTypeData$post$ty === void 0 ? void 0 : _postTypeData$post$ty.name,
       isSelected: attributes.postIn.split(',').includes(post.id.toString())
     }));
   })));
@@ -588,6 +592,93 @@ function Suggestion(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (PostPicker);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/post-picker/text-control.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/post-picker/text-control.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * @typedef OwnProps
+ * @property {string}                  label                 Label for the control.
+ * @property {boolean}                 [hideLabelFromVision] Whether to accessibly hide the label.
+ * @property {string}                  value                 Value of the input.
+ * @property {string}                  [help]                Optional help text for the control.
+ * @property {string}                  [className]           Classname passed to BaseControl wrapper
+ * @property {(value: string) => void} onChange              Handle changes.
+ * @property {string}                  [type='text']         Type of the input.
+ */
+
+/** @typedef {OwnProps & import('react').ComponentProps<'input'>} Props */
+
+/**
+ *
+ * @param {Props}                                 props Props
+ * @param {import('react').Ref<HTMLInputElement>} [ref]
+ */
+
+function TextControl({
+  label,
+  hideLabelFromVision,
+  value,
+  help,
+  className,
+  onChange,
+  type = 'text',
+  ...props
+}, ref) {
+  const instanceId = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__["useInstanceId"])(TextControl);
+  const id = `inspector-text-control-${instanceId}`;
+
+  const onChangeValue = (
+  /** @type {import('react').ChangeEvent<HTMLInputElement>} */
+  event) => onChange(event.target.value);
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["BaseControl"], {
+    label: label,
+    hideLabelFromVision: hideLabelFromVision,
+    id: id,
+    help: help,
+    className: className
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    className: "components-text-control__input",
+    type: type,
+    id: id,
+    value: value,
+    onChange: onChangeValue,
+    "aria-describedby": !!help ? id + '__help' : undefined,
+    ref: ref
+  }, props)));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(TextControl));
 
 /***/ }),
 
@@ -1834,6 +1925,37 @@ const columnsSave = props => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (columnsSave);
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/extends.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
