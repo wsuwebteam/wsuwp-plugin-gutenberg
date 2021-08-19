@@ -203,7 +203,7 @@ function SuggestionList( props ) {
                                 onClick={ () => onItemSelect(post) }
                                 searchTerm={ searchTerm }
                                 suggestion={ post }
-                                postTypeLabel={postTypeData[post.type].name}
+                                postTypeLabel={postTypeData[post.type]?.name}
                                 isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
                             />
                         </li>
