@@ -81,6 +81,8 @@ class Block_WSUWP_News extends Block {
 						break;
 				}
 			}
+
+			include __DIR__ . '/templates/after.php';
 		} 
 
 
@@ -121,6 +123,8 @@ class Block_WSUWP_News extends Block {
 			$cards = array_merge( $cards, self::get_feed_posts( $attrs, $overrides ) );
 
 			$attrs['count'] = (int) $attrs['count'] - 1;
+
+			$attrs['excludePosts'] .= ( ! empty( $cards[0]['id'] ) ) ? ','. $cards[0]['id'] : ''; 
 
 		}
 

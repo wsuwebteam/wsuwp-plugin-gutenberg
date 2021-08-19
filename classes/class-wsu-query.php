@@ -82,6 +82,7 @@ class WSU_Query {
 		// Add to shown posts
 		self::add_shown_post( $wp_post->ID );
 
+		$post['id']      = $wp_post->ID;
 		$post['title']   = ( in_array( 'title', $fields ) ) ? $wp_post->post_title : '';
 		$post['caption'] = ( in_array( 'caption', $fields ) ) ? get_the_excerpt( $wp_post->ID ) : '';
 		$post['content'] = ( in_array( 'content', $fields ) ) ? $wp_post->content : '';
