@@ -1,10 +1,11 @@
 <?php namespace WSUWP\Plugin\Gutenberg;
 
-class Block_WSUWP_Card_News extends Block {
+class Block_WSUWP_News extends Block {
 
-	protected static $block_name    = 'wsuwp/card-news';
+	protected static $block_name    = 'wsuwp/news';
 	protected static $default_attrs = array(
 		'className'         => '',
+		'type'              => 'index',
 		'postIn'            => '',
 		'imageSrc'          => '',
 		'imageSrcset'       => '',
@@ -30,14 +31,13 @@ class Block_WSUWP_Card_News extends Block {
 		'useFeed'           => '',
 		'excludePosts'      => '',
 		'hideShownPosts'    => false,
-		'show_button'       => false,
 		'buttonText'        => 'More News',
 		'buttonLink'        => '',
 		'showHeader'        => false,
 		'headerText'        => '',
 		'headerTag'         => 'h3',
 		'headerLink'        => '',
-		'perRow'            => '3',
+		'perRow'            => '1',
 
 	);
 
@@ -46,9 +46,13 @@ class Block_WSUWP_Card_News extends Block {
 
 		$card_classes = 'wsu-card wsu-card-news';
 
-		$wrapper_classes = 'wsu-card__wrapper wsu-card-news__wrapper';
+		$wrapper_classes = 'wsu-card__wrapper';
 
 		static::add_class( $card_classes, '', 'className', $attrs );
+
+		static::add_class( $card_classes, 'wsu-card-', 'type', $attrs );
+
+		static::add_class( $wrapper_classes, 'wsu-card__wrapper-', 'type', $attrs );
 
 		static::add_class( $wrapper_classes, 'wsu-per-row--', 'perRow', $attrs );
 
@@ -56,7 +60,31 @@ class Block_WSUWP_Card_News extends Block {
 
 		ob_start();
 
-		include __DIR__ . '/templates/default.php';
+		if ( ! empty( $cards ) ) {
+
+			include __DIR__ . '/templates/before.php';
+
+			foreach( $cards as $card ) {
+
+				switch ( $attrs['type'] ) {
+
+					case 'index':
+						include __DIR__ . '/templates/index.php';
+						break;
+					
+					case 'card':
+						include __DIR__ . '/templates/card.php';
+						break;
+					
+					case 'list':
+						include __DIR__ . '/templates/list.php';
+						break;
+				}
+			}
+
+			include __DIR__ . '/templates/after.php';
+		} 
+
 
 		return ob_get_clean();
 
@@ -95,6 +123,8 @@ class Block_WSUWP_Card_News extends Block {
 			$cards = array_merge( $cards, self::get_feed_posts( $attrs, $overrides ) );
 
 			$attrs['count'] = (int) $attrs['count'] - 1;
+
+			$attrs['excludePosts'] .= ( ! empty( $cards[0]['id'] ) ) ? ','. $cards[0]['id'] : ''; 
 
 		}
 

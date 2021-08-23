@@ -35,6 +35,22 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 
 	queryAttrs['hideLink'] = true;
 
+	let newsPlaceholder; 
+
+	switch( attributes.type ) {
+
+		case 'card':
+			newsPlaceholder = <CardPlaceholder />;
+			break;
+		
+		case 'list':
+			newsPlaceholder = <ListPlaceholder />
+			break;
+		
+		default:
+			newsPlaceholder = <IndexPlaceholder />
+
+	}
 
 	return (
 		<>
@@ -121,12 +137,66 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 				</InspectorControls>
 				<ApiRenderBlock 
 					attributes={queryAttrs}
-					blockName='wsuwp/card-news'
-					onChange={ value => alert('fire') }
-					/>
+					blockName='wsuwp/news'
+					>
+					{newsPlaceholder}
+				</ApiRenderBlock>
 			</div>
 		</>
 	)
+
+}
+
+
+const CardPlaceholder = ( props ) => {
+
+	return (
+		<div className="wsu-card wsu-news-card wsu-card--placeholder">
+			<div className="wsu-image-frame  wsu-image-frame--fixed-ratio">
+			</div>
+			<div className="wsu-card__content">
+				<div className="wsu-title">
+					Lorem ipsum dolor sit amet
+				</div>
+				<div className="wsu-caption">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel nisl sed orci ullamcorper convallis. Nullam interdum, tellus eu consequat semper, turpis turpis accumsan dui, nec mattis ipsum ante eget ipsum. Pellentesque ut gravida ante.
+				</div>
+			</div>
+		</div>
+	)
+}
+
+const IndexPlaceholder = ( props ) => {
+
+	return (
+		<div className="wsu-card wsu-news-card wsu-card--placeholder wsu-card--horizontal">
+			<div className="wsu-card__content">
+				<div className="wsu-title">
+					Lorem ipsum dolor sit amet
+				</div>
+				<div className="wsu-caption">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel nisl sed orci ullamcorper convallis. Nullam interdum, tellus eu consequat semper, turpis turpis accumsan dui, nec mattis ipsum ante eget ipsum. Pellentesque ut gravida ante.
+				</div>
+			</div>
+			<div className="wsu-image-frame  wsu-image-frame--fixed-ratio">
+			</div>
+		</div>
+	)
+
+}
+
+const ListPlaceholder = ( props ) => {
+
+	<div className="wsu-card wsu-news-card wsu-card--placeholder wsu-card--horizontal wsu-card--small">
+		<div className="wsu-card__content">
+			<div className="wsu-title">
+				Lorem ipsum dolor sit amet
+			</div>
+			<div className="wsu-caption">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel nisl sed orci ullamcorper convallis. Nullam interdum, tellus eu consequat semper, turpis turpis accumsan dui, nec mattis ipsum ante eget ipsum. Pellentesque ut gravida ante.
+			</div>
+		</div>
+	</div>
 
 }
 

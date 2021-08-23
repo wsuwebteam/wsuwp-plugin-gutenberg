@@ -82,6 +82,7 @@ class WSU_Query {
 		// Add to shown posts
 		self::add_shown_post( $wp_post->ID );
 
+		$post['id']      = $wp_post->ID;
 		$post['title']   = ( in_array( 'title', $fields ) ) ? $wp_post->post_title : '';
 		$post['caption'] = ( in_array( 'caption', $fields ) ) ? get_the_excerpt( $wp_post->ID ) : '';
 		$post['content'] = ( in_array( 'content', $fields ) ) ? $wp_post->content : '';
@@ -159,7 +160,7 @@ class WSU_Query {
 
 		if ( ! empty( $attrs['postIn'] ) ) {
 
-			$query_args['post__in'] = explode( ',', $attrs['postIn'] );
+			$query_args['post__in'] = array_filter( explode( ',', $attrs['postIn'] ) );
 
 		}
 
@@ -168,6 +169,18 @@ class WSU_Query {
 			$query_args['meta_query'] = array( 
 				array(
 					'key' => '_thumbnail_id',
+				),
+			);
+
+		}
+
+		if ( empty( $attrs['postIn'] ) && ! empty( $attrs['terms'] ) ) {
+
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => $attrs['taxonomy'],
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attrs['terms'] ),
 				),
 			);
 

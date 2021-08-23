@@ -7,7 +7,7 @@ const blockResponse = {
     rendered: 'hello world',
 };
 
-const ApiRenderBlock = ( { attributes, blockName, onChange } ) => {
+const ApiRenderBlock = ( { attributes, blockName, onChange, children } ) => {
 
     const [ blockRendered, setBlockRendered ] = useState( '' );
 
@@ -21,14 +21,22 @@ const ApiRenderBlock = ( { attributes, blockName, onChange } ) => {
         } ).then( ( res ) => {
     
             let block = JSON.parse( res );
-            console.log( queryString );
             setBlockRendered( block.rendered );
         } );
     }, [queryString] );
 
-    return (
-        <div dangerouslySetInnerHTML={{ __html: blockRendered } } />
-    )
+    if ( blockRendered ) {
+
+        return (
+            <div dangerouslySetInnerHTML={{ __html: blockRendered } } />
+        )
+
+    } else {
+
+
+        return children;
+
+    }
 
 }
 

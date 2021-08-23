@@ -1,11 +1,13 @@
 import { __ } from '@wordpress/i18n';
-import { TextControl, Button, Spinner, TextHighlight } from '@wordpress/components';
+import { Button, Spinner, TextHighlight } from '@wordpress/components';
 import { useDebounce } from '@wordpress/compose';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
 
 import { isEmpty } from 'lodash';
+
+import TextControl from './text-control';
 
 const CSSNAMESPACE = 'wsu-gutenberg-post-picker';
 
@@ -18,13 +20,14 @@ const PostPicker = ( props ) => {
         placeholder = 'Search posts...'
     } = props;
 
-    const searchInputRef = useRef(null);
+    const searchInputRef = useRef(null);    
+    const isMounted = useRef(false);
     const [searchString, setSearchString] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);	
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [latestPosts, setLatestPosts] = useState([]);
-	const [postTypeLabels, setPostTypeLabels] = useState({});
+	const [postTypeData, setPostTypeData] = useState({});
     const debouncedSetSearchString = useDebounce( ( value ) => setSearchString(value), 250);
 
     const handleItemSelection = (post) => {
@@ -53,7 +56,7 @@ const PostPicker = ( props ) => {
 
     const getSelectedItems = async () => {
         if(attributes.postIn.split(',').length === 0){ return; }
-
+ 
         const params = `ids=${attributes.postIn}`;
         const response = await apiFetch({
             path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
@@ -63,51 +66,58 @@ const PostPicker = ( props ) => {
         setSelectedItems(JSON.parse(response));
     };
 
-    const getLatestPost = async () => {
-        const params = `count=5&post_types=${postTypes}`;
+    const getLatestPosts = async () => {        
+        setIsLoading(true);
+        
+        const params = `count=8&post_types=${postTypes}`;
         const response = await apiFetch({ 
-            path:'/wsu-gutenberg/v1/get-latest-posts-for-post-types?' + params,
+            path:'/wsu-gutenberg/v1/get-latest-posts?' + params,
             method: 'GET'
-        });
+        });        
 
         setLatestPosts(JSON.parse(response));
+
+        setIsLoading(false);
     };
 
-    const getPostTypeLabels = async () => {
+    const getPostTypeData = async () => {
         const response = await apiFetch({
             path: '/wp/v2/types',
             method: 'GET',
         });
 
-        setPostTypeLabels(response);
-    };
-
-    useEffect( () => {        
-        getPostTypeLabels();
-        getSelectedItems();
-        getLatestPost();        
-    }, []);
+        setPostTypeData(response);
+    };    
 
     useEffect( () => {
-        (async function handleSearch() {
-            if( isEmpty(searchString)){
-                resetSearch();
-                return;
-            }
+        if (isMounted.current) {            
+            (async function handleSearch() {
+                if( isEmpty(searchString) ){
+                    resetSearch();
+                    return;
+                }
 
-            setIsLoading(true);
-            
-            const params = `search_term=${searchString}&post_types=${postTypes}`;
-            const response = await apiFetch({
-                path: '/wsu-gutenberg/v1/search-posts?' + params,
-                method: 'GET',
-            });
-            
-            setSearchResults(JSON.parse(response));
-            
-            setIsLoading(false);            
-        })();        
+                setIsLoading(true);
+                
+                const params = `search_term=${searchString}&post_types=${postTypes}`;
+                const response = await apiFetch({
+                    path: '/wsu-gutenberg/v1/search-posts?' + params,
+                    method: 'GET',
+                });
+                
+                setSearchResults(JSON.parse(response));
+                
+                setIsLoading(false);            
+            })();        
+        }
     }, [ searchString ] );
+
+    useEffect( () => {        
+        getPostTypeData();
+        getSelectedItems();
+        getLatestPosts();
+        isMounted.current = true;
+    }, []);
 
     return (
         <div className={ CSSNAMESPACE }>
@@ -145,24 +155,24 @@ const PostPicker = ( props ) => {
                 ) : !isLoading && (
                     <SuggestionList                                
                         attributes={ attributes }     
-                        title={`Search Results`}                       
+                        title="Search Results"
+                        postTypeData={ postTypeData }                    
                         suggestions={ searchResults }
                         searchTerm={ searchString }
                         onItemSelect={ handleItemSelection }
                     />
                 )
-            ) : postTypes.map( (postType) =>                    
-                    latestPosts[postType]?.length > 0 && (
-                        <SuggestionList                                
-                            key={ postType }
-                            attributes={ attributes }         
-                            title={`Latest ${postTypeLabels[postType].name}`}
-                            suggestions={ latestPosts[postType] }
-                            searchTerm={ searchString }
-                            onItemSelect={ handleItemSelection }
-                        />                        
-                    )
-            )}
+            ) : latestPosts.length && (                    
+                    <SuggestionList
+                        attributes={ attributes }         
+                        title="Recent Posts"
+                        postTypeData={ postTypeData }
+                        suggestions={ latestPosts }
+                        searchTerm={ searchString }
+                        onItemSelect={ handleItemSelection }
+                    />
+                ) || ''
+            }
         </div>        
     )
 
@@ -172,6 +182,7 @@ function SuggestionList( props ) {
     const {
         attributes,
         title, 
+        postTypeData,
         suggestions,
         onItemSelect,
         searchTerm = '',
@@ -192,6 +203,7 @@ function SuggestionList( props ) {
                                 onClick={ () => onItemSelect(post) }
                                 searchTerm={ searchTerm }
                                 suggestion={ post }
+                                postTypeLabel={postTypeData[post.type]?.name}
                                 isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
                             />
                         </li>
@@ -209,7 +221,8 @@ function Suggestion( props ) {
         onClick,
         searchTerm = '',
         isSelected = false,
-        id = ''
+        id = '',
+        postTypeLabel=''
     } = props;
 
     return (
@@ -242,7 +255,7 @@ function Suggestion( props ) {
                     className={`${CSSNAMESPACE}__suggestion-meta`}
                 >
                     {  
-                        suggestion.type
+                        postTypeLabel || suggestion.type
                     }
                 </span>
             </span>				

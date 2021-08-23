@@ -6,13 +6,14 @@ class Blocks {
 	protected static $register_blocks = array(
 		'wsuwp/row'       => 'Block_WSUWP_Row',
 		'wsuwp/column'    => 'Block_WSUWP_Column',
-		'wsuwp/card-news' => 'Block_WSUWP_Card_News',
+		'wsuwp/news'      => 'Block_WSUWP_News',
+		'wsuwp/callout'   => 'Block_WSUWP_Callout',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
-		'wsuwp/column',
-		'wsuwp/card-news',
+		'wsuwp/news',
+		'wsuwp/callout',
 		'core/button',
 		'core/code',
 		'core/embed',
@@ -23,6 +24,8 @@ class Blocks {
 		'core/list',
 		'core/paragraph',
 		'core/quote',
+		'core/button',
+		'core/buttons',
 		'core/reusableBlock',
 		'core/separator',
 		'core/shortcode',

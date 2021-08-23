@@ -3,7 +3,7 @@
 class Plugin {
 
 
-	protected static $version = '0.0.4';
+	protected static $version = '0.0.6';
 
 
 	public static function get( $property ) {
@@ -29,7 +29,6 @@ class Plugin {
 
 	public static function setup_classes() {
 
-
 	}
 
 
@@ -43,6 +42,7 @@ class Plugin {
 		require_once __DIR__ . '/blocks.php';
 		require_once __DIR__ . '/rest-api.php';
 
+		require_once __DIR__ . '/disable-drop-cap.php'; // 5.6 method
 	}
 
 
