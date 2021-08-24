@@ -102,7 +102,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // import { unregisterBlockStyle, getBlockSupport } from '@wordpress/blocks';
+// import domReady from '@wordpress/dom-ready';
+// domReady( function () {
+//     unregisterBlockStyle('core/quote', 'large');
+//     unregisterBlockStyle('core/quote', 'default');
+//     // find blocks styles
+//     wp.blocks.getBlockTypes().forEach((block) => {
+//         console.log(block.getBlockSupport());
+//         if (_.isArray(block['styles']) && block['styles'].length > 0) {
+//             console.log(block.name, _.pluck(block['styles'], 'name'));
+//         }
+//     });
+// } );
 
 /***/ }),
 
@@ -1044,7 +1056,11 @@ registerBlockType("wsuwp/column", {
     fillRule: "evenodd",
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
-  attributes: {},
+  attributes: {
+    background_color: {
+      type: 'string'
+    }
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
   save: _save__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
@@ -1072,7 +1088,9 @@ const {
 const {
   InspectorControls,
   BlockControls,
-  useBlockProps
+  useBlockProps,
+  PanelColorSettings,
+  getColorObjectByColorValue
 } = wp.blockEditor;
 const {
   PanelBody,
@@ -1082,6 +1100,41 @@ const {
   FocalPointPicker,
   BaseControl
 } = wp.components;
+const {
+  find
+} = lodash;
+const {
+  useState
+} = React;
+const colors = [{
+  name: 'Crimson',
+  color: '#A60F2D',
+  slug: 'wsu-color--crimson'
+}, {
+  name: 'Crimson Light',
+  color: '#CA1237',
+  slug: 'wsu-color--crimson-light'
+}, {
+  name: 'Crimson Accent',
+  color: '#FAE6EA',
+  slug: 'wsu-color--crimson-accent'
+}, {
+  name: 'Gray 0',
+  color: '#f7f7f7',
+  slug: 'wsu-color--gray-0'
+}, {
+  name: 'Gray 5',
+  color: '#f2f2f2',
+  slug: 'wsu-color--gray-5'
+}, {
+  name: 'Gray 90',
+  color: '#1a1a1a',
+  slug: 'wsu-color--gray-90'
+}, {
+  name: 'Gray 100',
+  color: '#080808',
+  slug: 'wsu-color--gray-100'
+}];
 
 const Edit = ({
   className,
@@ -1089,13 +1142,44 @@ const Edit = ({
   attributes,
   setAttributes
 }) => {
-  const blockProps = useBlockProps({
+  var _find;
+
+  const [backgroundColor, setBackgroundColor] = useState((_find = find(colors, {
+    slug: attributes.background_color
+  })) === null || _find === void 0 ? void 0 : _find.color);
+  const [blockProps, setBlockProps] = useState(useBlockProps({
     className: 'wsu-column',
-    style: {}
-  });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
-    templateLock: false
+    style: {
+      backgroundColor: backgroundColor
+    }
   }));
+
+  const updateColor = colorValue => {
+    const colorObject = getColorObjectByColorValue(colors, colorValue);
+    setBackgroundColor(colorValue);
+    setBlockProps(prevState => ({ ...prevState,
+      style: { ...(prevState === null || prevState === void 0 ? void 0 : prevState.style),
+        backgroundColor: colorValue
+      }
+    }));
+    setAttributes({
+      background_color: colorObject === null || colorObject === void 0 ? void 0 : colorObject.slug
+    });
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelColorSettings, {
+    title: 'Color Settings',
+    colors: colors,
+    colorSettings: [{
+      value: backgroundColor,
+      onChange: updateColor,
+      label: 'Background Color'
+    }],
+    disableCustomGradients: true,
+    disableCustomColors: true
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+    templateLock: false
+  })));
   /*{ 
   	if ( ! attributes.layout ) {
   

@@ -4,7 +4,8 @@ class Block_WSUWP_Column extends Block {
 
 	protected static $block_name    = 'wsuwp/column';
 	protected static $default_attrs = array(
-		'layout' => 'single',
+		'layout'           => 'single',
+		'background_color' => '',
 	);
 
 
