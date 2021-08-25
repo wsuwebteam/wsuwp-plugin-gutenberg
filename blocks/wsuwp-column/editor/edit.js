@@ -1,3 +1,14 @@
+/*
+	Considerations:
+	1. Do classes exist currently? 
+		1.1 Utility classes vs component classes?
+	2. Handling text color and sub-components. Dark/light modes.
+	3. Grays to use.
+		0,5,10,75,85,95
+	4. Making into a block control. Make colors configurable.
+	5. Rendering in admin/front-end 
+*/
+
 const { __ } = wp.i18n;
 
 const { InnerBlocks } = wp.blockEditor;
@@ -20,46 +31,79 @@ const {
 } = wp.components;
 
 const { 
-	find
+	find,
+	filter,
+	reduce,
+	uniq,
+	difference,
+	every,
+	includes
 } = lodash;
 
 const {
-	useState
+	useState,
+	useEffect
 } = React;
 
-const colors = [
-	{ name: 'Crimson', color: '#A60F2D', slug: 'wsu-color--crimson' },
-	{ name: 'Crimson Light', color: '#CA1237', slug: 'wsu-color--crimson-light' },
-	{ name: 'Crimson Accent', color: '#FAE6EA', slug: 'wsu-color--crimson-accent' },	
-	{ name: 'Gray 0', color: '#f7f7f7', slug: 'wsu-color--gray-0' },
-	{ name: 'Gray 5', color: '#f2f2f2', slug: 'wsu-color--gray-5' },
-	{ name: 'Gray 90', color: '#1a1a1a', slug: 'wsu-color--gray-90' },
-	{ name: 'Gray 100', color: '#080808', slug: 'wsu-color--gray-100' },	
-];	
+const Edit = ( props ) => {
+	const {
+		className, 
+		isSelected, 
+		attributes, 
+		setAttributes,
+		colors = [			
+			{ name: 'Gray 0', color: '#f7f7f7', className: 't-light wsu-color--gray-0' },
+			{ name: 'Gray 5', color: '#f2f2f2', className: 'wsu-color--gray-5' },
+			{ name: 'Gray 10', color: '#e6e6e6', className: 'wsu-color--gray-10' },
+			{ name: 'Gray 75', color: '#404040', className: 't-dark wsu-color--gray-75' },
+			{ name: 'Gray 85', color: '#262626', className: 't-dark wsu-color--gray-85' },
+			{ name: 'Gray 95', color: '#080808', className: 't-dark wsu-color--gray-95' },
+		]
+	} = props;	
 
-const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
+	const [backgroundColor, setBackgroundColor] = useState();
 
-	const [backgroundColor, setBackgroundColor] = useState(find(colors, { slug: attributes.background_color })?.color);
+	const blockProps = useBlockProps( { 
+        className: 'wsu-column', 
+        style: {}, 
+    } );
 
-	const [blockProps, setBlockProps] = useState(useBlockProps( {
-        className: 'wsu-column',
-        style: {
-			backgroundColor: backgroundColor
-		},
-    }));
+	const colorClassNames = uniq(reduce(colors, (acc, cur) => {
+		return acc.concat(cur.className.split(' '));
+	}, []));	
+
+	function getColorObjectByClassName(colors, className){
+		if( !className ) { return; }
+
+		const appliedClasses = className.split(' ');
+
+		return find(colors, (color) => {
+			const colorClasses = color.className.split(' ');
+			return every(colorClasses, (c) => includes(appliedClasses, c));
+		});
+	}
 
 	const updateColor = (colorValue) => {
 		const colorObject = getColorObjectByColorValue(colors, colorValue);
-		setBackgroundColor(colorValue);
-		setBlockProps( (prevState) => ({
-			...prevState,
-			style: {
-				...prevState?.style,
-				backgroundColor: colorValue
-			}
-		}));
-		setAttributes( { background_color: colorObject?.slug });
+		let className = colorObject?.className ?? '';
+
+		if( attributes.className )
+		{
+			const appliedClasses = attributes.className.split(' ');
+			const newClasess = difference(appliedClasses, colorClassNames).concat(className);			
+			className = newClasess.map(function(c) {					
+					return c.trim();
+				})
+				.filter((c) => c)
+				.join(' ');			
+		}
+		
+		setAttributes( { className: className });
 	}
+
+	useEffect( () => {
+		setBackgroundColor(getColorObjectByClassName(colors, attributes.className)?.color);
+	}, [attributes.className])
 
     return (
 		<>
