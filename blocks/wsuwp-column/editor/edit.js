@@ -6,7 +6,8 @@
 	3. Grays to use.
 		0,5,10,75,85,95
 	4. Making into a block control. Make colors configurable.
-	5. Rendering in admin/front-end 
+	5. Rendering in admin/front-end
+	6. Hanlding multiple colorSettings 
 */
 
 const { __ } = wp.i18n;
@@ -52,12 +53,17 @@ const Edit = ( props ) => {
 		attributes, 
 		setAttributes,
 		colors = [			
-			{ name: 'Gray 0', color: '#f7f7f7', className: 't-light wsu-color--gray-0' },
-			{ name: 'Gray 5', color: '#f2f2f2', className: 'wsu-color--gray-5' },
-			{ name: 'Gray 10', color: '#e6e6e6', className: 'wsu-color--gray-10' },
-			{ name: 'Gray 75', color: '#404040', className: 't-dark wsu-color--gray-75' },
-			{ name: 'Gray 85', color: '#262626', className: 't-dark wsu-color--gray-85' },
-			{ name: 'Gray 95', color: '#080808', className: 't-dark wsu-color--gray-95' },
+			{ name: 'Gray 0', color: '#f7f7f7', className: 't-light wsu-color-background--gray-0' },
+			{ name: 'Gray 5', color: '#f2f2f2', className: 'wsu-color-background--gray-5' },
+			{ name: 'Gray 10', color: '#e6e6e6', className: 'wsu-color-background--gray-10' },
+			{ name: 'Gray 75', color: '#404040', className: 't-dark wsu-color-background--gray-75' },
+			{ name: 'Gray 85', color: '#262626', className: 't-dark wsu-color-background--gray-85' },
+			{ name: 'Gray 95', color: '#080808', className: 't-dark wsu-color-background--gray-95' },
+		],
+		colors2 = [			
+			{ name: 'Gray 0', color: '#f7f7f7', className: 't-light wsu-color-text--gray-0' },
+			{ name: 'Gray 5', color: '#f2f2f2', className: 'wsu-color-text--gray-5' },
+			{ name: 'Gray 10', color: '#e6e6e6', className: 'wsu-color-text--gray-10' },
 		]
 	} = props;	
 
@@ -110,9 +116,15 @@ const Edit = ( props ) => {
 			<InspectorControls>
 				<PanelColorSettings
 					title={ 'Color Settings'  }
-					colors={ colors }
 					colorSettings={ [
 						{
+							colors: colors,
+							value: backgroundColor,
+							onChange: updateColor,
+							label: 'Background Color',
+						},
+						{
+							colors: colors2,
 							value: backgroundColor,
 							onChange: updateColor,
 							label: 'Background Color',
