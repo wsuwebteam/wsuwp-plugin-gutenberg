@@ -57,6 +57,8 @@ const ColorClassNameSelector = (props) => {
     }
 
     const getSelectedColorByPrefix = (prefix) => {
+        if(!attributes.className) { return;}
+
         const appliedClasses = attributes.className.split(' ');
         const selectedColorClassName = find(appliedClasses, (c) => c.startsWith(prefix));
         return getColorObjectByClassName(prefix, selectedColorClassName)?.color;
@@ -67,7 +69,7 @@ const ColorClassNameSelector = (props) => {
         const colorObject = getColorObjectByColorValue(colors, color);
         const colorClass = colorObject ? prefix + colorObject.className : '';
         
-        const appliedClasses = attributes.className.split(' ');
+        const appliedClasses = attributes.className?.split(' ') ?? [];
         const newClasses = filter(appliedClasses, (c) => !c.startsWith(prefix)).concat(colorClass);
         const newClassName = newClasses.map(function(c) {					
                 return c.trim();
