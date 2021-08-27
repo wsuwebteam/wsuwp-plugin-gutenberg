@@ -1,3 +1,3 @@
-<div class="wsu-column <?php echo $attrs['background_color']; ?>">
+<div class="<?php echo esc_attr( $column_classes ); ?>">
 	<?php echo $content; ?>
 </div>
