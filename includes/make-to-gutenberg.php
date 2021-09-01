@@ -46,6 +46,28 @@ class Make_To_Gutenberg {
 		'pad-top',
 	);
 
+	public static $color_class_map = array(
+		'gray-back'          => 'wsu-color-background--gray-55',
+		'gray-er-back'       => 'wsu-color-background--gray-0',
+		'er-back'            => 'wsu-color-background--gray-0',
+		'white-back'         => 'wsu-color-background--gray-0',
+		'gray-light-back'    => 'wsu-color-background--gray-40',
+		'light-back'         => 'wsu-color-background--gray-40',
+		'gray-lighter-back'  => 'wsu-color-background--gray-25',
+		'lighter-bac'        => 'wsu-color-background--gray-25',
+		'gray-lightly-back'  => 'wsu-color-background--gray-15',
+		'lightly-bac'        => 'wsu-color-background--gray-15',
+		'gray-lightest-back' => 'wsu-color-background--gray-5',
+		'lightest-back'      => 'wsu-color-background--gray-5',
+		'gray-dark-back'     => 'wsu-color-background--gray-75',
+		'dark-back'          => 'wsu-color-background--gray-75',
+		'gray-darker-back'   => 'wsu-color-background--gray-80',
+		'darker-bac'         => 'wsu-color-background--gray-80',
+		'gray-darkest-back'  => 'wsu-color-background--gray-95',
+		'darkest-back'       => 'wsu-color-background--gray-95',
+		'black-bac'          => 'wsu-color-background--gray-95',
+	);
+
 	public static function convert_sections_to_gutenberg( $post ) {
 
 		if ( 'page' === $post->post_type &&
@@ -75,6 +97,7 @@ class Make_To_Gutenberg {
 		}
 
 		return $post;
+
 	}
 
 
@@ -90,8 +113,9 @@ class Make_To_Gutenberg {
 	}
 
 	public static function append_markup_for_row( $content, $config, $meta_prefix, $meta_data ) {
+
 		$section_title   = $meta_data[ "{$meta_prefix}section-title" ][0];
-		$section_classes = self::filter_section_classes( $meta_data[ "{$meta_prefix}section-classes" ][0] );
+		$section_classes = self::map_color_classes( self::filter_section_classes( $meta_data[ "{$meta_prefix}section-classes" ][0] ) );
 
 		if ( ! empty( $section_title ) ) {
 			$level    = $meta_data[ "{$meta_prefix}header-level" ][0];
@@ -104,7 +128,7 @@ class Make_To_Gutenberg {
 
 		for ( $i = 1; $i <= $config['numberOfColumns']; $i++ ) {
 			$column_title   = $meta_data[ "{$meta_prefix}columns:{$i}:title" ][0];
-			$column_classes = $meta_data[ "{$meta_prefix}columns:{$i}:column-classes" ][0];
+			$column_classes = self::map_color_classes( $meta_data[ "{$meta_prefix}columns:{$i}:column-classes" ][0] );
 			$column_content = $meta_data[ "{$meta_prefix}columns:{$i}:content" ][0];
 
 			$content .= '<!-- wp:wsuwp/column {"className":"' . $column_classes . '"} -->';
@@ -126,6 +150,23 @@ class Make_To_Gutenberg {
 		$content .= '<!-- /wp:wsuwp/row -->';
 
 		return $content;
+
+	}
+
+	public static function map_color_classes( $classes ) {
+		if ( empty( $classes ) ) {
+			return '';
+		}
+
+		$classes_array = explode( ' ', $classes );
+
+		foreach ( $classes_array as $key => $class ) {
+			if ( array_key_exists( $class, self::$color_class_map ) ) {
+				$classes_array[ $key ] = self::$color_class_map[ $class ];
+			}
+		}
+
+		return join( ' ', array_unique( $classes_array ) );
 	}
 
 	public static function filter_section_classes( $classes ) {
