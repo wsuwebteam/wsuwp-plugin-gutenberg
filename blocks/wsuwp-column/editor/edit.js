@@ -18,7 +18,8 @@ const Edit = ( props ) => {
 						{
 							label: 'Background Color',
 							prefix: 'wsu-color-background--',
-							colors: [			
+							colors: [
+								{ name: 'White', color: '#ffffff', className: 'white' },			
 								{ name: 'Gray 0', color: '#f7f7f7', className: 'gray-0' },
 								{ name: 'Gray 5', color: '#f2f2f2', className: 'gray-5' },
 								{ name: 'Gray 10', color: '#e6e6e6', className: 'gray-10' },
