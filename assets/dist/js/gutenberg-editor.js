@@ -177,6 +177,131 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/ColorClassNameSelector.js":
+/*!*************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/ColorClassNameSelector.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/*
+ @example 
+ <ColorClassNameSelector
+    title="Color Settings"
+    colorSettings={[
+        {
+            label: 'Background Color',
+            prefix: 'wsu-color-background--',
+            colors: [
+                { name: 'Gray 85', color: '#262626', className: 'gray-85' },
+                { name: 'Gray 95', color: '#080808', className: 'gray-95' },
+            ],
+        },
+        {
+            label: 'Text Color',
+            prefix: 'wsu-color-text--',
+            colors: [			
+                { name: 'Gray 0', color: '#f7f7f7', className: 'gray-0' },
+                { name: 'Gray 5', color: '#f2f2f2', className: 'gray-5' },
+            ],
+        }
+    ]}
+    {...props}>
+</ColorClassNameSelector>
+*/
+
+/**
+ * Functions just like the Wordpress color picker (PanelColorSettings), but instead of 
+ * saving a color code it adds a class to the component className field.
+ * Each color setting requires a prefix e.g. wsu-color-text--
+ * Each color requires a className e.g. gray-10
+ * The result will be a class of 'wsu-color-text--gray-10' added to the component className
+ */
+
+const ColorClassNameSelector = props => {
+  const {
+    title,
+    attributes,
+    setAttributes,
+    colorSettings
+  } = props;
+
+  function getColorSetting(prefix) {
+    return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["find"])(colorSettings, cs => cs.prefix === prefix);
+  }
+
+  function getColorObjectByClassName(prefix, className) {
+    if (!className) {
+      return;
+    }
+
+    const colorName = className.replace(prefix, '');
+    const colors = getColorSetting(prefix).colors;
+    return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["find"])(colors, c => {
+      return c.className === colorName;
+    });
+  }
+
+  const getSelectedColorByPrefix = prefix => {
+    var _getColorObjectByClas;
+
+    if (!attributes.className) {
+      return;
+    }
+
+    const appliedClasses = attributes.className.split(' ');
+    const selectedColorClassName = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["find"])(appliedClasses, c => c.startsWith(prefix));
+    return (_getColorObjectByClas = getColorObjectByClassName(prefix, selectedColorClassName)) === null || _getColorObjectByClas === void 0 ? void 0 : _getColorObjectByClas.color;
+  };
+
+  const updateSelectedColors = (prefix, color) => {
+    var _attributes$className, _attributes$className2;
+
+    const colors = getColorSetting(prefix).colors;
+    const colorObject = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["getColorObjectByColorValue"])(colors, color);
+    const colorClass = colorObject ? prefix + colorObject.className : '';
+    const appliedClasses = (_attributes$className = (_attributes$className2 = attributes.className) === null || _attributes$className2 === void 0 ? void 0 : _attributes$className2.split(' ')) !== null && _attributes$className !== void 0 ? _attributes$className : [];
+    const newClasses = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["filter"])(appliedClasses, c => !c.startsWith(prefix)).concat(colorClass);
+    const newClassName = newClasses.map(function (c) {
+      return c.trim();
+    }).filter(c => c).join(' ');
+    setAttributes({
+      className: newClassName
+    });
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PanelColorSettings"], {
+    title: title,
+    colorSettings: colorSettings.map(cs => {
+      return {
+        colors: cs.colors,
+        value: getSelectedColorByPrefix(cs.prefix),
+        onChange: color => {
+          updateSelectedColors(cs.prefix, color);
+        },
+        label: cs.label
+      };
+    }),
+    disableCustomGradients: true,
+    disableCustomColors: true
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ColorClassNameSelector);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/FeedPostsControl.js":
 /*!*******************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/FeedPostsControl.js ***!
@@ -339,7 +464,7 @@ const PerRow = ({
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow */
+/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -355,6 +480,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _PerRowControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PerRowControl */ "./assets/src/js/partials/block-controls/PerRowControl.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PerRow", function() { return _PerRowControl__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _ColorClassNameSelector__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ColorClassNameSelector */ "./assets/src/js/partials/block-controls/ColorClassNameSelector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ColorClassNameSelector", function() { return _ColorClassNameSelector__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
 
 
 
@@ -1044,7 +1173,11 @@ registerBlockType("wsuwp/column", {
     fillRule: "evenodd",
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
-  attributes: {},
+  attributes: {
+    className: {
+      type: 'string'
+    }
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
   save: _save__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
@@ -1060,91 +1193,61 @@ registerBlockType("wsuwp/column", {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
 
-const {
-  __
-} = wp.i18n;
-const {
-  InnerBlocks
-} = wp.blockEditor;
-const {
-  InspectorControls,
-  BlockControls,
-  useBlockProps
-} = wp.blockEditor;
-const {
-  PanelBody,
-  TextControl,
-  SelectControl,
-  Button,
-  FocalPointPicker,
-  BaseControl
-} = wp.components;
 
-const Edit = ({
-  className,
-  isSelected,
-  attributes,
-  setAttributes
-}) => {
-  const blockProps = useBlockProps({
+
+
+
+const Edit = props => {
+  const blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
     className: 'wsu-column',
     style: {}
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["ColorClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    title: "Color Settings",
+    colorSettings: [{
+      label: 'Background Color',
+      prefix: 'wsu-color-background--',
+      colors: [{
+        name: 'White',
+        color: '#ffffff',
+        className: 'white'
+      }, {
+        name: 'Gray 0',
+        color: '#f7f7f7',
+        className: 'gray-0'
+      }, {
+        name: 'Gray 5',
+        color: '#f2f2f2',
+        className: 'gray-5'
+      }, {
+        name: 'Gray 10',
+        color: '#e6e6e6',
+        className: 'gray-10'
+      }, {
+        name: 'Gray 75',
+        color: '#404040',
+        className: 'gray-75'
+      }, {
+        name: 'Gray 85',
+        color: '#262626',
+        className: 'gray-85'
+      }, {
+        name: 'Gray 95',
+        color: '#080808',
+        className: 'gray-95'
+      }]
+    }]
+  }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"], {
     templateLock: false
-  }));
-  /*{ 
-  	if ( ! attributes.layout ) {
-  
-  		return (
-  			<div className="wsu-c-columns-editor__wrapper">
-  				<div className="wsu-c-columns-editor__title">Select Column Layout</div>
-  				<ul className="wsu-c-columns-editor__options">
-  				{ columnFormats.map( ( layout ) => LayoutOption( layout, attributes, setAttributes ) ) }
-  				</ul>
-  			</div>
-  		)
-  
-  	} else {
-  		return (
-  			<>
-  				{
-  					<InspectorControls>
-  						<DecoratorControl 
-  							decorators={attributes.decorators}
-  							onChange={ ( decoratorArray ) => { setAttributes( { decorators:decoratorArray } ) } }
-  							/>
-  						<PanelBody title="Style" initialOpen={false}>
-  							<SelectControl
-  								label="Background Color"
-  								value={attributes.backgroundColor}
-  								onChange={ (backgroundColor) => setAttributes( { backgroundColor } ) }
-  								options={[
-  									{ label: 'Default', value: 'default' },
-  									{ label: 'White', value: 'white' },
-  									{ label: 'Gray 5%', value: 'gray-5' },
-  									{ label: 'Gray 10%', value: 'gray-10' },
-  								]}
-  							/>
-  						</PanelBody>
-  
-  						<SpacingPanelVertical attributes={attributes} setAttributes={setAttributes} />
-  					</InspectorControls>
-  				}
-  				<div className={'wsu-c-column__wrapper wsu-u-no-js wsu-c-columns--' + attributes.layout }  >
-  					<InnerBlocks
-  						template={ getColumnsTemplate( attributes ) }
-  						templateLock={ "insert" }
-  						allowedBlocks={ ['wsuwp/column'] }
-  					/>
-  				</div>
-  			</>
-  		)
-  	}
-  }*/
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
@@ -1675,9 +1778,12 @@ registerBlockType("wsuwp/row", {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
 
 const {
   __
@@ -1697,6 +1803,7 @@ const {
   FocalPointPicker,
   BaseControl
 } = wp.components;
+
  //import EditOptions from './edit-options';
 //import { SpacingSelector, DecoratorControl,
 //SpacingPanelVertical } from '../../../block-controls';
@@ -1704,13 +1811,13 @@ const {
 const layoutOptions = [{
   label: 'Single',
   slug: 'single',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M41 14C41 12.8954 40.1046 12 39 12H9C7.89543 12 7 12.8954 7 14V34C7 35.1046 7.89543 36 9 36H39C40.1046 36 41 35.1046 41 34V14ZM39 34V14H9V34H39Z",
@@ -1719,13 +1826,13 @@ const layoutOptions = [{
 }, {
   label: 'Halves',
   slug: 'halves',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H25V34H39ZM23 34H9V14H23V34Z",
@@ -1734,25 +1841,25 @@ const layoutOptions = [{
 }, {
   label: 'Thirds',
   slug: 'thirds',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     fillRule: "evenodd",
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   }))
 }, {
   label: 'Quarters',
   slug: 'quarters',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M41 14C41 13.4696 40.7893 12.9609 40.4142 12.5858C40.0391 12.2107 39.5304 12 39 12H9C8.46957 12 7.96086 12.2107 7.58579 12.5858C7.21071 12.9609 7 13.4696 7 14V34C7 34.5304 7.21071 35.0391 7.58579 35.4142C7.96086 35.7893 8.46957 36 9 36H39C39.5304 36 40.0391 35.7893 40.4142 35.4142C40.7893 35.0391 41 34.5304 41 34V14ZM31 34H25V14H31V34ZM33 34V14H39V34H33ZM23 34H17V14H23V34ZM15 34H9V14H15V34Z",
@@ -1761,13 +1868,13 @@ const layoutOptions = [{
 }, {
   label: 'Sidebar Right',
   slug: 'sidebar-right',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H30V34H39ZM28 34H9V14H28V34Z",
@@ -1776,13 +1883,13 @@ const layoutOptions = [{
 }, {
   label: 'Sidebar Left',
   slug: 'sidebar-left',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H20V34H39ZM18 34H9V14H18V34Z",
@@ -1791,13 +1898,13 @@ const layoutOptions = [{
 }, {
   label: 'Sidebars',
   slug: 'sidebars',
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     width: "48",
     height: "48",
     viewBox: "0 0 48 48",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H20V34H39ZM18 34H9V14H18V34Z",
@@ -1818,18 +1925,19 @@ const getColumnsTemplate = template => {
   return template in layoutTemplates ? layoutTemplates[template] : [];
 };
 
-const Edit = ({
-  className,
-  attributes,
-  setAttributes
-}) => {
+const Edit = props => {
+  let {
+    className,
+    attributes,
+    setAttributes
+  } = props;
   const blockProps = useBlockProps({
     className: attributes.layout ? 'wsu-row wsu-row--' + attributes.layout : 'wsu-gutenberg-format-selector',
     style: {}
   });
 
   if (!attributes.layout) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__["FormatSelector"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["FormatSelector"], {
       options: layoutOptions,
       onSelect: layout => {
         setAttributes({
@@ -1839,11 +1947,46 @@ const Edit = ({
       title: "Select Layout"
     }));
   } else {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      title: "Color Settings",
+      colorSettings: [{
+        label: 'Background Color',
+        prefix: 'wsu-color-background--',
+        colors: [{
+          name: 'White',
+          color: '#ffffff',
+          className: 'white'
+        }, {
+          name: 'Gray 0',
+          color: '#f7f7f7',
+          className: 'gray-0'
+        }, {
+          name: 'Gray 5',
+          color: '#f2f2f2',
+          className: 'gray-5'
+        }, {
+          name: 'Gray 10',
+          color: '#e6e6e6',
+          className: 'gray-10'
+        }, {
+          name: 'Gray 75',
+          color: '#404040',
+          className: 'gray-75'
+        }, {
+          name: 'Gray 85',
+          color: '#262626',
+          className: 'gray-85'
+        }, {
+          name: 'Gray 95',
+          color: '#080808',
+          className: 'gray-95'
+        }]
+      }]
+    }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
       template: attributes.layout in layoutTemplates ? layoutTemplates[attributes.layout] : [],
       templateLock: "insert",
       allowedBlocks: ['wsuwp/column']
-    }));
+    })));
   }
   /*{ 
   	if ( ! attributes.layout ) {
@@ -1967,6 +2110,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blockEditor"]; }());
 
 /***/ }),
 
