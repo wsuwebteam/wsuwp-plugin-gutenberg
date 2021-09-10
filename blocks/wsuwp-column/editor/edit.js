@@ -1,13 +1,28 @@
-
-
 import { InnerBlocks, InspectorControls, useBlockProps} from '@wordpress/block-editor';
-import { ColorClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls'
+import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls'
+import { useEffect, useState } from '@wordpress/element'
 
 const Edit = ( props ) => {
 	const blockProps = useBlockProps( { 
         className: 'wsu-column', 
         style: {}, 
     } );
+
+	// TODO: Replace with real usecase. Currently this is just for an example.
+	const [spacingOverrides, setSpacingOverrides] = useState({});
+
+	useEffect( () => {
+		
+		if(props.attributes.className && props.attributes.className.includes('wsu-color-background--')){
+			setSpacingOverrides({
+				spaceBottom: 'hero',
+				spaceTop: 'hero'
+			});
+		}else{
+			setSpacingOverrides({});
+		}
+		
+	}, [props.attributes.className]);
 
     return (
 		<>
@@ -30,7 +45,48 @@ const Edit = ( props ) => {
 						}
 					]}
 					{...props}>
-				</ColorClassNameSelector>				
+				</ColorClassNameSelector>
+
+				<SpacingClassNameSelector
+					title="Spacing"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',
+									ignoreOptions: ['none', 'xmedium', 'xxmedium'],									
+									default: 'small',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',									
+									default: 'none',
+								}
+							]
+						},
+						{
+							label: 'Inside Spacing (Padding)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									defaultOverride: spacingOverrides['spaceTop'],
+									default: 'large',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									defaultOverride: spacingOverrides['spaceBottom'],
+									default: 'large',
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
+
 			</InspectorControls>
 
 			<div { ...blockProps }  >
