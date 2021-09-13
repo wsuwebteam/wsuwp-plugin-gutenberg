@@ -12,13 +12,10 @@
 @import '../../../blocks/wsuwp-row/editor/style';
 
 
-#editor {
 
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.utilities.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/title/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/image-frame/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/callout/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/modules/card/_style.scss';
-    @import '../../../blocks/wsuwp-news/editor/style'; 
-
+/** ===== Front-End Styles ===== */
+.block-editor-block-list__layout {
+    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss';
+    @import '../../../blocks/wsuwp-news/editor/style';
+    @import '../scss/partials/front-end-style-fixes';    
 }  
