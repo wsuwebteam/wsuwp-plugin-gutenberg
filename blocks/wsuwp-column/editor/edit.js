@@ -1,6 +1,13 @@
 import { InnerBlocks, InspectorControls, useBlockProps} from '@wordpress/block-editor';
-import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls'
-import { useEffect, useState } from '@wordpress/element'
+import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls';
+import { useEffect, useState } from '@wordpress/element';
+
+const DEFAULT_SPACING = {
+	spaceBefore: 'small',
+	spaceAfter: 'xxlarge',
+	spaceTop: 'large',
+	spaceBottom: 'large',
+};
 
 const Edit = ( props ) => {
 	const blockProps = useBlockProps( { 
@@ -9,17 +16,19 @@ const Edit = ( props ) => {
     } );
 
 	// TODO: Replace with real usecase. Currently this is just for an example.
-	const [spacingOverrides, setSpacingOverrides] = useState({});
+	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
 
 	useEffect( () => {
 		
 		if(props.attributes.className && props.attributes.className.includes('wsu-color-background--')){
-			setSpacingOverrides({
+			setSpacingDefaults({
+				spaceBefore: 'hero',
+				spaceAfter: 'hero',
+				spaceTop: 'hero',
 				spaceBottom: 'hero',
-				spaceTop: 'hero'
 			});
 		}else{
-			setSpacingOverrides({});
+			setSpacingDefaults(DEFAULT_SPACING);
 		}
 		
 	}, [props.attributes.className]);
@@ -57,12 +66,12 @@ const Edit = ( props ) => {
 									label: 'Top',
 									prefix: 'wsu-spacing-before--',
 									ignoreOptions: ['none', 'xmedium', 'xxmedium'],									
-									default: 'small',
+									default: spacingDefaults['spaceBefore'],
 								},
 								{
 									label: 'Bottom',
 									prefix: 'wsu-spacing-after--',									
-									default: 'none',
+									default: spacingDefaults['spaceAfter'],
 								}
 							]
 						},
@@ -72,14 +81,12 @@ const Edit = ( props ) => {
 								{
 									label: 'Top',
 									prefix: 'wsu-spacing-top--',
-									defaultOverride: spacingOverrides['spaceTop'],
-									default: 'large',
+									default: spacingDefaults['spaceTop'],
 								},
 								{
 									label: 'Bottom',
 									prefix: 'wsu-spacing-bottom--',
-									defaultOverride: spacingOverrides['spaceBottom'],
-									default: 'large',
+									default: spacingDefaults['spaceBottom'],									
 								}
 							]
 						}

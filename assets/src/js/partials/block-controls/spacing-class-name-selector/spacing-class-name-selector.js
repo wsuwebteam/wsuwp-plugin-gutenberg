@@ -1,10 +1,8 @@
 import { Button, PanelBody, CustomSelectControl, Flex, FlexBlock } from '@wordpress/components';
-import { useState } from '@wordpress/element';
 import { find, filter } from 'lodash';
 
 // TODO: 
 // - Use desired names for spacing options
-// - Remove defaultOverrides. It shouldn't be needed since the defaults are managed in the parent component.
 
 
 /*
@@ -34,7 +32,6 @@ import { find, filter } from 'lodash';
                 {
                     label: 'Top',
                     prefix: 'wsu-spacing-top--',
-                    defaultOverride: 'xxsmall',
                     default: 'medium',
                 },
                 {
@@ -94,16 +91,15 @@ const SpacingClassNameSelector = (props) => {
     }    
 
     const getValueForProperty = (property) => {
-        return getSelectedValueByPrefix(property.prefix) || getOptionByKey(property.defaultOverride) || getOptionByKey(property.default) || '';
+        return getSelectedValueByPrefix(property.prefix) || getOptionByKey(property.default) || '';
     }
 
     const updateSelectedOptions = ( property, control ) => {
         let optionClass = '';
         
         // only apply className if it is not equal to the current default state
-        if ( control &&
-            !( property.defaultOverride && property.defaultOverride === control.selectedItem.key ) &&
-            !( !property.defaultOverride && control.selectedItem.key === property.default )) 
+        if ( control &&            
+            !( control.selectedItem.key === property.default )) 
         {
             optionClass = property.prefix + control.selectedItem.key;
         }        
