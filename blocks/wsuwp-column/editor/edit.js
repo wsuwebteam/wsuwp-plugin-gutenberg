@@ -3,10 +3,10 @@ import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../asset
 import { useEffect, useState } from '@wordpress/element';
 
 const DEFAULT_SPACING = {
-	spaceBefore: 'small',
-	spaceAfter: 'xxlarge',
-	spaceTop: 'large',
-	spaceBottom: 'large',
+	spaceBefore: 'none',
+	spaceAfter: 'none',
+	spaceTop: 'none',
+	spaceBottom: 'none',
 };
 
 const Edit = ( props ) => {
@@ -15,17 +15,16 @@ const Edit = ( props ) => {
         style: {}, 
     } );
 
-	// TODO: Replace with real usecase. Currently this is just for an example.
 	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
 
 	useEffect( () => {
 		
 		if(props.attributes.className && props.attributes.className.includes('wsu-color-background--')){
 			setSpacingDefaults({
-				spaceBefore: 'hero',
-				spaceAfter: 'hero',
-				spaceTop: 'hero',
-				spaceBottom: 'hero',
+				spaceBefore: 'none',
+				spaceAfter: 'xmedium',
+				spaceTop: 'xmedium',
+				spaceBottom: 'none',
 			});
 		}else{
 			setSpacingDefaults(DEFAULT_SPACING);
@@ -57,15 +56,14 @@ const Edit = ( props ) => {
 				</ColorClassNameSelector>
 
 				<SpacingClassNameSelector
-					title="Spacing"
+					title="Space Settings"
 					spaceSettings={[
 						{
 							label: 'Outside Spacing (Margin)',
 							properties: [
 								{
 									label: 'Top',
-									prefix: 'wsu-spacing-before--',
-									ignoreOptions: ['none', 'xmedium', 'xxmedium'],									
+									prefix: 'wsu-spacing-before--',									
 									default: spacingDefaults['spaceBefore'],
 								},
 								{

@@ -63,7 +63,7 @@ const ALLOPTIONS = [
 
 const SpacingClassNameSelector = (props) => {
 	const {
-        title,
+        title = 'Space Settings',
 		attributes, 
 		setAttributes,
         spaceSettings
