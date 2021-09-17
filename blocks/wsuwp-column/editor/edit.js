@@ -1,13 +1,36 @@
-
-
 import { InnerBlocks, InspectorControls, useBlockProps} from '@wordpress/block-editor';
-import { ColorClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls'
+import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls';
+import { useEffect, useState } from '@wordpress/element';
+
+const DEFAULT_SPACING = {
+	spaceBefore: 'none',
+	spaceAfter: 'none',
+	spaceTop: 'none',
+	spaceBottom: 'none',
+};
 
 const Edit = ( props ) => {
 	const blockProps = useBlockProps( { 
         className: 'wsu-column', 
         style: {}, 
     } );
+
+	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
+
+	useEffect( () => {
+		
+		if(props.attributes.className && props.attributes.className.includes('wsu-color-background--')){
+			setSpacingDefaults({
+				spaceBefore: 'none',
+				spaceAfter: 'xmedium',
+				spaceTop: 'xmedium',
+				spaceBottom: 'none',
+			});
+		}else{
+			setSpacingDefaults(DEFAULT_SPACING);
+		}
+		
+	}, [props.attributes.className]);
 
     return (
 		<>
@@ -30,7 +53,45 @@ const Edit = ( props ) => {
 						}
 					]}
 					{...props}>
-				</ColorClassNameSelector>				
+				</ColorClassNameSelector>
+
+				<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',									
+									default: spacingDefaults['spaceBefore'],
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',									
+									default: spacingDefaults['spaceAfter'],
+								}
+							]
+						},
+						{
+							label: 'Inside Spacing (Padding)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: spacingDefaults['spaceTop'],
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: spacingDefaults['spaceBottom'],									
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
+
 			</InspectorControls>
 
 			<div { ...blockProps }  >

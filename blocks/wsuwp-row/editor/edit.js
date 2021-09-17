@@ -17,7 +17,8 @@ const {
 } = wp.components;
 
 import { FormatSelector } from "../../../assets/src/js/partials/block-controls/blockControls";
-import { ColorClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls'
+import { ColorClassNameSelector, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
+import { useEffect, useState } from '@wordpress/element';
 
 //import EditOptions from './edit-options';
 //import { SpacingSelector, DecoratorControl,
@@ -97,6 +98,13 @@ const layoutTemplates = {
     ],
 }
 
+const DEFAULT_SPACING = {
+	spaceBefore: 'none',
+	spaceAfter: 'none',
+	spaceTop: 'none',
+	spaceBottom: 'none',
+};
+
 const getColumnsTemplate = ( template ) => {
 
     return  template in layoutTemplates ? layoutTemplates[ template ] : [];
@@ -111,6 +119,23 @@ const Edit = ( props ) => {
         className: attributes.layout ? 'wsu-row wsu-row--' + attributes.layout : 'wsu-gutenberg-format-selector',
         style: {},
     } );
+
+	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
+
+	useEffect( () => {
+		
+		if(props.attributes.className && props.attributes.className.includes('wsu-color-background--')){
+			setSpacingDefaults({
+				spaceBefore: 'none',
+				spaceAfter: 'xmedium',
+				spaceTop: 'xmedium',
+				spaceBottom: 'none',
+			});
+		}else{
+			setSpacingDefaults(DEFAULT_SPACING);
+		}
+		
+	}, [props.attributes.className]);
 
     if ( ! attributes.layout ) {
 
@@ -147,7 +172,45 @@ const Edit = ( props ) => {
 						}
 					]}
 					{...props}>
-				</ColorClassNameSelector>				
+				</ColorClassNameSelector>
+
+				<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',									
+									default: spacingDefaults['spaceBefore'],
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',									
+									default: spacingDefaults['spaceAfter'],
+								}
+							]
+						},
+						{
+							label: 'Inside Spacing (Padding)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: spacingDefaults['spaceTop'],
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: spacingDefaults['spaceBottom'],									
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
+
 			</InspectorControls>
             <div { ...blockProps }  >
                 <InnerBlocks
