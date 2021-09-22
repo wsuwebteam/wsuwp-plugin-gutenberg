@@ -17,6 +17,7 @@
 /** ===== Front-End Styles ===== */
 .block-editor-block-list__layout {
     @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss';
+    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss';
     @import '../../../blocks/wsuwp-news/editor/style';
     @import '../scss/partials/front-end-style-fixes';    
 }  
