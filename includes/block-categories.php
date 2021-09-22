@@ -1,0 +1,69 @@
+<?php namespace WSUWP\Plugin\Gutenberg;
+
+class BlockCategories {
+
+	public static $BLOCK_CATEGORY_MAP = array(
+		'core/code'      => 'advanced',
+		'core/html'      => 'advanced',
+		'core/buttons'   => 'text',
+		'core/shortcode' => 'text',
+	);
+
+	public static function register_block_categories( $block_categories, $block_editor_context ) {
+
+		if ( ! ( $block_editor_context instanceof \WP_Block_Editor_Context ) ) {
+			return $block_categories;
+		}
+
+		// change text category title to 'Content'.
+		foreach ( $block_categories as &$c ) {
+			if ( 'text' === $c['slug'] ) {
+				$c['title'] = 'Content';
+				break;
+			}
+		}
+		unset( $c );
+
+		// return new list of categories.
+		return array_merge(
+			$block_categories,
+			array(
+				array(
+					'slug'  => 'feeds',
+					'title' => 'Feeds',
+				),
+				array(
+					'slug'  => 'advanced',
+					'title' => 'Advanced',
+				),
+			)
+		);
+
+	}
+
+
+	public static function categorize_blocks( $metadata ) {
+
+		if ( self::$BLOCK_CATEGORY_MAP[ $metadata['name'] ] ) {
+			$metadata['category'] = self::$BLOCK_CATEGORY_MAP[ $metadata['name'] ];
+		}
+
+		return $metadata;
+	}
+
+
+	public static function init() {
+
+		if ( version_compare( $GLOBALS['wp_version'], '5.8-alpha-1', '<' ) ) {
+			add_filter( 'block_categories', array( __CLASS__, 'register_block_categories' ), 10, 2 );
+		} else {
+			add_filter( 'block_categories_all', array( __CLASS__, 'register_block_categories' ), 10, 2 );
+		}
+
+		add_filter( 'block_type_metadata', array( __CLASS__, 'categorize_blocks' ) );
+
+	}
+
+}
+
+BlockCategories::init();
