@@ -44,7 +44,7 @@ class BlockCategories {
 
 	public static function categorize_blocks( $metadata ) {
 
-		if ( self::$BLOCK_CATEGORY_MAP[ $metadata['name'] ] ) {
+		if ( array_key_exists( $metadata['name'], self::$BLOCK_CATEGORY_MAP ) ) {
 			$metadata['category'] = self::$BLOCK_CATEGORY_MAP[ $metadata['name'] ];
 		}
 
