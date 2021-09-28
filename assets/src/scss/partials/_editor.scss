@@ -1,6 +1,26 @@
+.block-editor-block-list__layout.is-root-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
 .wp-block {
     max-width: 1200px;
 }
+
+.editor-styles-wrapper p.wp-block {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.wsu-row--single .wsu-column {
+    flex-grow: 1;
+}
+
+
 
 // Hack to hide panels on 5.6. TODO: Remove in 5.8 upgrade
 .is-inspector-for-core--button + .components-panel__body,

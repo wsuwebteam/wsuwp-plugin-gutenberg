@@ -146,6 +146,12 @@ class WSU_Query {
 
 		}
 
+		if ( ! empty( $attrs['offset'] ) ) {
+
+			$query_args['offset'] = $attrs['offset'];
+
+		}
+
 		if ( ! empty( $attrs['hideShownPosts'] ) ) {
 
 			if ( empty( $query_args['post__not_in'] ) ) {
