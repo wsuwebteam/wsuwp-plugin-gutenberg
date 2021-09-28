@@ -41,26 +41,9 @@ class BlockCategories {
 
 	}
 
-
-	public static function categorize_blocks( $metadata ) {
-
-		if ( array_key_exists( $metadata['name'], self::$BLOCK_CATEGORY_MAP ) ) {
-			$metadata['category'] = self::$BLOCK_CATEGORY_MAP[ $metadata['name'] ];
-		}
-
-		return $metadata;
-	}
-
-
 	public static function init() {
 
-		if ( version_compare( $GLOBALS['wp_version'], '5.8-alpha-1', '<' ) ) {
-			add_filter( 'block_categories', array( __CLASS__, 'register_block_categories' ), 10, 2 );
-		} else {
-			add_filter( 'block_categories_all', array( __CLASS__, 'register_block_categories' ), 10, 2 );
-		}
-
-		add_filter( 'block_type_metadata', array( __CLASS__, 'categorize_blocks' ) );
+		add_filter( 'block_categories', array( __CLASS__, 'register_block_categories' ), 10, 2 );
 
 	}
 

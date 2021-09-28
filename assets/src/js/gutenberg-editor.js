@@ -5,3 +5,5 @@ import '../../../blocks/wsuwp-callout/editor/block';
 import '../js/partials/editor-config/spacing-control';
 import '../js/partials/editor-config/allowed-embeds';
 import '../js/partials/editor-config/block-styles';
+import '../js/partials/editor-config/block-categories';
+import '../js/partials/editor-config/block-class-name';

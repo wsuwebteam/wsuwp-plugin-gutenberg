@@ -2,7 +2,8 @@ import { InspectorControls } from '@wordpress/block-editor';
 import { SpacingClassNameSelector } from '../block-controls/blockControls';
 
 function insertSpacingControl( OriginalComponent ) {
-    return function( props ) {
+    return function( props ) {       
+
         const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button'];
 
         if( !unsupportedBlockTypes.includes(props.name) ){
