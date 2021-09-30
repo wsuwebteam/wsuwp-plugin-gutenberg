@@ -1,4 +1,4 @@
-wp.domReady( function() {
+jQuery(document).ready( function() {
 
     wp.blocks.unregisterBlockStyle(
 		'core/button', [ 'fill', 'outline' ]
