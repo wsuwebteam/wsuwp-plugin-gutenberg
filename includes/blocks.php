@@ -8,12 +8,16 @@ class Blocks {
 		'wsuwp/column'    => 'Block_WSUWP_Column',
 		'wsuwp/news'      => 'Block_WSUWP_News',
 		'wsuwp/callout'   => 'Block_WSUWP_Callout',
+		'wsuwp/hero'      => 'Block_WSUWP_Hero',
+		'wsuwp/pagetitle' => 'Block_WSUWP_Page_Title',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
 		'wsuwp/news',
 		'wsuwp/callout',
+		'wsuwp/hero',
+		'wsuwp/pagetitle',
 		'core/button',
 		'core/code',
 		'core/embed',
