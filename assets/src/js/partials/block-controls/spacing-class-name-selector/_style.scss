@@ -1,0 +1,40 @@
+.block-editor .wsu-gutenberg-spacing{
+    &__setting{
+        margin-bottom: 2em;
+    }
+
+    &__setting-label{
+        display: block;
+        margin-bottom: 1em;
+    }
+
+    &__setting-properties{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1em;
+
+        .components-custom-select-control__label{
+            font-style: italic;
+        }        
+    }
+
+    &__reset-btn {
+        white-space: nowrap;
+        padding: 0;
+        color: var(--wp-admin-theme-color);
+    }
+
+    .components-custom-select-control__button{
+        min-width: 100%;
+    }
+
+    .components-custom-select-control__menu{
+        margin: 0;
+        margin-top: -1px;
+    }
+
+    .components-custom-select-control__item {
+        margin: 0;
+    }
+}
+

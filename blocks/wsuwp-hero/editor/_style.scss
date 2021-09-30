@@ -1,0 +1,11 @@
+@import '../../../assets/src/scss/utilities/variables';
+@import '../../../assets/src/scss/utilities/mixins';
+
+.block-editor {
+
+    .wsu-hero {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        overflow: hidden !important;
+    } 
+}

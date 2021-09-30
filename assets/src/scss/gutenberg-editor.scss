@@ -4,21 +4,31 @@
 
 /** ===== Block Constrols ===== */
 @import '../js/partials/block-controls/post-picker/style';
+@import '../js/partials/block-controls/spacing-class-name-selector/style';
 
 
 
 /** ===== Blocks ===== */
 @import '../../../blocks/wsuwp-column/editor/style';
 @import '../../../blocks/wsuwp-row/editor/style';
+@import '../../../blocks/wsuwp-hero/editor/style';
+@import '../../../blocks/wsuwp-pagetitle/editor/style';
 
 
-#editor {
 
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.utilities.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/title/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/image-frame/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/components/callout/_style.scss';
-    @import 'node_modules/@wsuwebteam/wsu-web-design-system/src/modules/card/_style.scss';
-    @import '../../../blocks/wsuwp-news/editor/style'; 
+/** ===== Front-End Styles ===== */
+.block-editor-block-list__layout {
+    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss';
+    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss';
+    @import '../../../blocks/wsuwp-news/editor/style';
+    @import '../scss/partials/front-end-style-fixes';    
+} 
 
-}  
+/** ===== Front-End Styles Fixes ===== */
+.block-editor-block-list__layout .wsu-row {
+    display: block;
+}
+
+.wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
+    width: auto;
+}

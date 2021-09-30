@@ -107,7 +107,7 @@ class Rest_API {
 			array(
 				'posts_per_page' => 5,
 				'post_type'      => explode( ',', $params['post_types'] ),
-				'post_status'    => array( 'publish', 'draft', 'private' ),
+				'post_status'    => array( 'publish', 'draft', 'private', 'future' ),
 				's'              => $params['search_term'],
 			)
 		);
@@ -140,7 +140,7 @@ class Rest_API {
 			array(
 				'posts_per_page' => 20,
 				'post__in'    => explode( ',', $params['ids'] ),
-				'post_status' => array( 'publish', 'draft', 'private' ),
+				'post_status' => array( 'publish', 'draft', 'private', 'future' ),
 				'post_type'   => 'any',
 				'orderby'     => 'post__in',
 			)

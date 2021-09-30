@@ -1,0 +1,15 @@
+/** ===== TinyMCE ===== */
+.mce-tinymce {
+    button, input[type=button], input[type=reset],  input[type=submit] {
+        background-color: transparent;            
+        color: #595959;
+        font-family: inherit;
+    }
+}
+
+
+
+/** ===== Lists ===== */
+ol, ul{
+    padding-left: 1.25em;
+}
