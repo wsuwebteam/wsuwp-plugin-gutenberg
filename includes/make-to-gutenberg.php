@@ -108,7 +108,14 @@ class Make_To_Gutenberg {
 	}
 
 	public static function append_markup_for_header( $content, $config, $meta_prefix, $meta_data ) {
-		// TODO
+		$title = $meta_data[ "{$meta_prefix}title" ][0];
+
+		$content .= '<!-- wp:wsuwp/pagetitle ';
+		if ( ! empty( $title ) ) {
+			$content .= '{"title":"' . $title . '"} ';
+		}
+		$content .= '/-->';
+
 		return $content;
 	}
 
