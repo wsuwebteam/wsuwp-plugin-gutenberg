@@ -32,3 +32,24 @@
 .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
     width: auto;
 }
+
+.wsu-gutenberg-format-selector__options {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;;
+}
+
+.wsu-gutenberg-format-selector__option {
+    text-align: center;
+    list-style-type: none;
+    cursor: pointer;
+    border: 1px solid #eee;
+    padding: 0.5rem !important;
+    border-radius: 5px;
+    margin: 0 0.5rem !important;
+    display: block;
+
+    span {
+        display: block;
+    }
+}

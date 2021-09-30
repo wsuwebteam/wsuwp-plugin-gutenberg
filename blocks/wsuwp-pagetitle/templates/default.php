@@ -1,5 +1,11 @@
 <header class="wsu-article-header">
-	<h1 class="wsu-article-header__title"><?php the_title(); ?></h1>
+	<h1 class="wsu-article-header__title">
+		<?php if ( ! empty( $attrs['title'] ) ) {
+				echo wp_kses_post( $attrs['title'] );
+			} else {
+				the_title();
+			}?>
+	</h1>
 	<?php if ( apply_filters( 'wsu_wds_template_option', false, 'show_publish_date', 'single' ) ) : ?>
 		<div class="wsu-meta-date"><time><?php echo esc_html( get_the_date() ); ?></time></div>
 	<?php endif; ?>
