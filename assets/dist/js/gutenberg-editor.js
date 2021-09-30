@@ -2298,7 +2298,12 @@ registerBlockType("wsuwp/pagetitle", {
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
     d: "M14.8028 5.79354V8.68431H17.259V19.0193H21V5.79354H14.8028Z"
   })),
-  attributes: {},
+  attributes: {
+    title: {
+      type: 'string',
+      default: ''
+    }
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
@@ -2333,14 +2338,28 @@ const Edit = ({
   attributes,
   setAttributes
 }) => {
-  const title = select("core/editor").getEditedPostAttribute('title');
+  const title = attributes.title ? attributes.title : select("core/editor").getEditedPostAttribute('title');
   const blockProps = useBlockProps({
     className: 'wsu-article-header',
     style: {}
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("header", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
     className: "wsu-article-header__title"
-  }, title));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    className: "wsu-article-header__title-input",
+    tagName: "span" // The tag here is the element output and editable in the admin
+    ,
+    value: attributes.title // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: [] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: title => setAttributes({
+      title
+    }) // Store updated content as a block attribute
+    ,
+    placeholder: title // Display this text before any content has been added by the user
+
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
