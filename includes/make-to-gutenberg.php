@@ -103,7 +103,21 @@ class Make_To_Gutenberg {
 
 
 	public static function append_markup_for_banner( $content, $config, $meta_prefix, $meta_data ) {
-		// TODO
+		$count = self::get_slide_count( $meta_prefix, $meta_data );
+
+		for ( $i = 0; $i < $count; $i++ ) {
+			$slide_id     = $meta_data[ "{$meta_prefix}banner-slide-order:$i" ][0];
+			$slide_prefix = "{$meta_prefix}banner-slides:{$slide_id}:";
+
+			$content .= '<!-- wp:wsuwp/hero {';
+			$content .= '"title":"' . $meta_data[ "{$slide_prefix}slide-title" ][0] . '",';
+			$content .= '"caption":"' . $meta_data[ "{$slide_prefix}content" ][0] . '",';
+			$content .= '"imageId":' . $meta_data[ "{$slide_prefix}image-id" ][0] . ',';
+			$content .= '"imageSrc":"' . wp_get_attachment_image_url( $meta_data[ "{$slide_prefix}image-id" ][0] ) . '",';
+			$content .= '"imageFocalPoint": {"x":"0.46","y":"0.25"}';
+			$content .= '} /-->';
+		}
+
 		return $content;
 	}
 
@@ -158,6 +172,22 @@ class Make_To_Gutenberg {
 
 		return $content;
 
+	}
+
+	public static function get_slide_count( $meta_prefix, $meta_data ) {
+		$has_slide = true;
+		$count     = 0;
+
+		do {
+			if ( ! empty( $meta_data[ "{$meta_prefix}banner-slide-order:$count" ][0] ) ) {
+				$count++;
+				continue;
+			}
+
+			$has_slide = false;
+		} while ( $has_slide );
+
+		return $count;
 	}
 
 	public static function map_color_classes( $classes ) {
