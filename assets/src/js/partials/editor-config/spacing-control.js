@@ -3,7 +3,7 @@ import { SpacingClassNameSelector } from '../block-controls/blockControls';
 
 function insertSpacingControl( OriginalComponent ) {
     return function( props ) {
-        const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column'];
+        const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button'];
 
         if( !unsupportedBlockTypes.includes(props.name) ){
             return (
