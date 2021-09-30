@@ -114,7 +114,7 @@ class Make_To_Gutenberg {
 			$content .= '"caption":"' . $meta_data[ "{$slide_prefix}content" ][0] . '",';
 			$content .= '"imageId":' . $meta_data[ "{$slide_prefix}image-id" ][0] . ',';
 			$content .= '"imageSrc":"' . wp_get_attachment_image_url( $meta_data[ "{$slide_prefix}image-id" ][0] ) . '",';
-			$content .= '"imageFocalPoint": {"x":"0.46","y":"0.25"}';
+			$content .= '"imageFocalPoint": {"x":".5","y":".5"}';
 			$content .= '} /-->';
 		}
 
