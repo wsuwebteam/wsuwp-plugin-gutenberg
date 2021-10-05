@@ -1,4 +1,4 @@
-wp.domReady( function() {
+jQuery(document).ready( function() {
 
     const enabledEmbeds = [
         'ted',
