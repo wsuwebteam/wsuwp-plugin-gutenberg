@@ -1,10 +1,10 @@
 <div class="wsu-hero  wsu-pattern--wsu-light-radial-left">
 	<div class="wsu-image-frame wsu-image-frame--fill">
 	<?php if ( $attrs['imageId'] ) : ?>
-		<img src="<?php echo esc_attr( wp_get_attachment_image_src( $attrs['imageId'], $attrs['imageSize'] ) ); ?>"
-			srcset="<?php echo esc_attr( wp_get_attachment_image_srcset( $attrs['imageId'], $attrs['imageSize'] ) ); ?>"
-			sizes="<?php echo esc_attr( wp_get_attachment_image_sizes( $attrs['imageId'], $attrs['imageSize']) ); ?>"
-			alt="<?php echo esc_attr( wp_get_attachment_caption( $attrs['imageId'] ) ); ?>"
+		<img src="<?php echo esc_attr( $attrs['imageSrc'] ); ?>"
+			srcset="<?php echo esc_attr( $attrs['imageSrcSet'] ); ?>"
+			sizes="<?php echo esc_attr( $attrs['imageSizes'] ); ?>"
+			alt="<?php echo esc_attr( $attrs['imageAlt']); ?>"
 			style="object-position: <?php echo esc_attr( $attrs['imageFocalPointX'] ); ?> <?php echo esc_attr( $attrs['imageFocalPointY'] ); ?>"
 			/>
 	<?php endif; ?>
