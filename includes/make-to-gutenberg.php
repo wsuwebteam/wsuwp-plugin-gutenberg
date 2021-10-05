@@ -68,7 +68,8 @@ class Make_To_Gutenberg {
 		'black-bac'          => 'wsu-color-background--gray-95',
 	);
 
-	public static function convert_sections_to_gutenberg( $post ) {
+
+	public static function admin_make_to_gutenberg( $post ) {
 
 		if ( 'page' === $post->post_type &&
 			isset( $_GET['action'] ) &&
@@ -76,24 +77,7 @@ class Make_To_Gutenberg {
 			self::is_gutenberg_page() &&
 			! self::content_has_blocks( $post->post_content ) ) {
 
-			$section_ids = get_post_meta( $post->ID, '_ttfmake-section-ids', true );
-
-			if ( ! empty( $section_ids ) ) {
-				$content   = '';
-				$meta_data = get_post_meta( $post->ID );
-
-				foreach ( $section_ids as $section_id ) {
-					$meta_prefix  = "_ttfmake:{$section_id}:";
-					$section_type = $meta_data[ "{$meta_prefix}section-type" ][0];
-					$config       = self::$parsing_config[ $section_type ];
-
-					$content = self::{$config['method']}( $content, $config, $meta_prefix, $meta_data );
-				}
-
-				$post->post_content = $content;
-
-				remove_filter( 'the_post', array( __CLASS__, 'convert_sections_to_gutenberg' ) );
-			}
+			$post->post_content = self::get_converted_content( $post );
 		}
 
 		return $post;
@@ -101,8 +85,47 @@ class Make_To_Gutenberg {
 	}
 
 
+	public static function frontend_make_to_gutenberg() {
+
+		global $post;
+
+		if ( ! is_admin() &&
+			is_singular( 'page' ) &&
+			! self::content_has_blocks( $post->post_content ) ) {
+
+			$post->post_content = self::get_converted_content( $post );
+
+		}
+
+	}
+
+
+	public static function get_converted_content( $post ) {
+
+		$section_ids = get_post_meta( $post->ID, '_ttfmake-section-ids', true );
+
+		if ( ! empty( $section_ids ) ) {
+			$content   = '';
+			$meta_data = get_post_meta( $post->ID );
+
+			foreach ( $section_ids as $section_id ) {
+				$meta_prefix  = "_ttfmake:{$section_id}:";
+				$section_type = $meta_data[ "{$meta_prefix}section-type" ][0];
+				$config       = self::$parsing_config[ $section_type ];
+
+				$content = self::{$config['method']}( $content, $config, $meta_prefix, $meta_data );
+			}
+
+			return $content;
+		}
+
+		return $post->post_content;
+
+	}
+
 
 	public static function append_markup_for_banner( $content, $config, $meta_prefix, $meta_data ) {
+
 		$count = self::get_slide_count( $meta_prefix, $meta_data );
 
 		for ( $i = 0; $i < $count; $i++ ) {
@@ -119,9 +142,12 @@ class Make_To_Gutenberg {
 		}
 
 		return $content;
+
 	}
 
+
 	public static function append_markup_for_header( $content, $config, $meta_prefix, $meta_data ) {
+
 		$title = $meta_data[ "{$meta_prefix}title" ][0];
 
 		$content .= '<!-- wp:wsuwp/pagetitle ';
@@ -131,7 +157,9 @@ class Make_To_Gutenberg {
 		$content .= '/-->';
 
 		return $content;
+
 	}
+
 
 	public static function append_markup_for_row( $content, $config, $meta_prefix, $meta_data ) {
 
@@ -174,7 +202,9 @@ class Make_To_Gutenberg {
 
 	}
 
+
 	public static function get_slide_count( $meta_prefix, $meta_data ) {
+
 		$has_slide = true;
 		$count     = 0;
 
@@ -188,9 +218,12 @@ class Make_To_Gutenberg {
 		} while ( $has_slide );
 
 		return $count;
+
 	}
 
+
 	public static function map_color_classes( $classes ) {
+
 		if ( empty( $classes ) ) {
 			return '';
 		}
@@ -204,7 +237,9 @@ class Make_To_Gutenberg {
 		}
 
 		return join( ' ', array_unique( $classes_array ) );
+
 	}
+
 
 	public static function filter_section_classes( $classes ) {
 
@@ -225,28 +260,13 @@ class Make_To_Gutenberg {
 
 	}
 
-	/*
-	$meta["_ttfmake:1569601132204:title"]
-
-	$meta["_ttfmake:1569601154570:header-level"]
-
-	$meta["_ttfmake:1569601132204:section-classes"]
-
-	$meta["_ttfmake:1569601154570:columns-order:0"]
-	$meta["_ttfmake:1569601154570:columns:1:title"]
-	$meta["_ttfmake:1569601154570:columns:1:header-level"]
-	$meta["_ttfmake:1569601154570:columns:1:column-classes"]
-	$meta["_ttfmake:1569601154570:columns:1:content"]
-	$meta["_ttfmake:1569601154570:section-layout"]
-	*/
-
-
 
 	public static function content_has_blocks( $content ) {
 
 		return false !== strpos( $content, '<!-- wp:' );
 
 	}
+
 
 	public static function is_gutenberg_page() {
 
@@ -263,9 +283,11 @@ class Make_To_Gutenberg {
 
 	}
 
+
 	public static function init() {
 
-		add_filter( 'the_post', array( __CLASS__, 'convert_sections_to_gutenberg' ) );
+		add_filter( 'the_post', array( __CLASS__, 'admin_make_to_gutenberg' ), 10, 2 );
+		add_action( 'wp', array( __CLASS__, 'frontend_make_to_gutenberg' ) );
 
 	}
 
