@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: (BETA) WSUWP Gutenberg 
+ * Plugin Name: WSUWP Gutenberg 
  * Plugin URI: https://github.com/wsuwebteam/wsuwp-plugin-gutenberg
  * Description: Describe the plugin
  * Version: 1.1.3
