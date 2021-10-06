@@ -1,4 +1,4 @@
-<div class="wsu-hero  wsu-pattern--wsu-light-radial-left">
+<div class="wsu-hero wsu-width--full wsu-pattern--wsu-light-radial-left">
 	<div class="wsu-image-frame wsu-image-frame--fill">
 	<?php if ( $attrs['imageId'] ) : ?>
 		<img src="<?php echo esc_attr( $attrs['imageSrc'] ); ?>"
