@@ -114,6 +114,8 @@ class Make_To_Gutenberg {
 				$config       = self::$parsing_config[ $section_type ];
 
 				$content = self::{$config['method']}( $content, $config, $meta_prefix, $meta_data );
+
+				$content = call_user_func( array( __CLASS__, $config['method'] ), $content, $config, $meta_prefix, $meta_data );
 			}
 
 			return $content;
