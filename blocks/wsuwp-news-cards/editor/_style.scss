@@ -1,0 +1,31 @@
+
+@import '../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/variables';
+
+.block-editor {
+    .wsu-card-wrapper {
+
+        &.wp-block {
+            display: block !important;
+        }
+
+    }
+
+    .wsu-card-news__placeholder {
+
+        &-message {
+            display: block;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: $wsu-font-size--xlarge;
+            color: $wsu-color--gray-50;
+        }
+
+        &-text {
+            display: block;
+            font-weight: 600;
+            color: $wsu-color--gray-50;
+        }
+
+    }
+
+}

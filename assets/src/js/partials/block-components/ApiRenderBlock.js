@@ -33,7 +33,6 @@ const ApiRenderBlock = ( { attributes, blockName, onChange, children } ) => {
 
     } else {
 
-
         return children;
 
     }

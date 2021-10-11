@@ -10,6 +10,8 @@ class Blocks {
 		'wsuwp/callout'   => 'Block_WSUWP_Callout',
 		'wsuwp/hero'      => 'Block_WSUWP_Hero',
 		'wsuwp/pagetitle' => 'Block_WSUWP_Page_Title',
+		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
+		'wsuwp/news-card'  => 'Block_WSUWP_News_Card',
 	);
 
 	protected static $allowed_blocks = array(
@@ -18,6 +20,7 @@ class Blocks {
 		'wsuwp/callout',
 		'wsuwp/hero',
 		'wsuwp/pagetitle',
+		'wsuwp/news-cards',
 		'core/button',
 		'core/code',
 		'core/embed',
