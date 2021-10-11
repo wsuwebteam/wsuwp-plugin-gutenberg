@@ -13,8 +13,9 @@
     "@wordpress/api-fetch": "^5.2.2",
     "@wordpress/prettier-config": "^1.1.1",
     "@wordpress/scripts": "^16.1.5",
+    "@wordpress/server-side-render": "^3.0.2",
     "@wsuwebteam/build-tools": "^2.0.0",
-    "@wsuwebteam/wsu-web-design-system": "^0.0.5",
+    "@wsuwebteam/wsu-web-design-system": "^0.0.6",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -30,5 +31,6 @@
   "bugs": {
     "url": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg/issues"
   },
-  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme"
+  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme",
+  "dependencies": {}
 }
