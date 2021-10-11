@@ -4,6 +4,7 @@ const {
 	MediaUpload,
 	MediaUploadCheck,
 	InspectorControls,
+	URLInput,
 } = wp.blockEditor;
 
 const {
@@ -11,10 +12,13 @@ const {
 	PanelBody,
 	TextControl,
 	SelectControl,
+	ToggleControl,
 	Button,
 	FocalPointPicker,
 	BaseControl
 } = wp.components;
+
+import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 
@@ -26,6 +30,30 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 	return (
 		<>
 			<InspectorControls>
+				<PanelGeneralOptions>
+					<TextControl
+						label="Hero Banner Link"
+						value={ attributes.link ? attributes.link : '' }
+						onChange= { ( link ) => setAttributes( { link } ) }
+					/>
+					<TextControl
+						label="Button Text"
+						value={ attributes.buttonText ? attributes.buttonText : '' }
+						onChange= { ( buttonText ) => setAttributes( { buttonText } ) }
+					/>
+					<TextControl
+						label="Photo Credits"
+						value={ attributes.photoCredit ? attributes.photoCredit : '' }
+						onChange= { ( photoCredit ) => setAttributes( { photoCredit } ) }
+					/>
+				</PanelGeneralOptions>
+				<PanelDisplayOptions>
+					<ToggleControl
+						label="Lighten Overlay"
+						checked={ attributes.lightOverlay }
+						onChange={ ( lightOverlay ) => { setAttributes( { lightOverlay } ) } }
+						/>
+				</PanelDisplayOptions>
 				<Panel>
 					<PanelBody title="Background" initialOpen={false}>
 						{ attributes.imageSrc &&
@@ -65,6 +93,14 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 				<div className="wsu-hero__content">
 					<div className="wsu-hero__caption">
 						<RichText
+							className="wsu-eyebrow-heading"
+							tagName="div" // The tag here is the element output and editable in the admin
+							value={ attributes.eyebrowHeading } // Any existing content, either from the database or an attribute default
+							allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
+							onChange={ ( eyebrowHeading ) => setAttributes( { eyebrowHeading } ) } // Store updated content as a block attribute
+							placeholder="Intro Text..." // Display this text before any content has been added by the user
+						/>
+						<RichText
 							className="wsu-title"
 							tagName="div" // The tag here is the element output and editable in the admin
 							value={ attributes.title } // Any existing content, either from the database or an attribute default
@@ -80,6 +116,7 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 							onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
 							placeholder="Add Hero Banner caption text here..." // Display this text before any content has been added by the user
 						/>
+						{ attributes.link && <span class="wsu-hero__read-more" href="#" aria-label="Read more Hero Banner Title">{ attributes.buttonText }</span> }
 					</div>
 				</div>
 			</div>
