@@ -47,22 +47,19 @@ class Block {
 		$customizer_name = str_replace( '/', '_', self::get( 'blockname' ) );
 		$customizer_base = self::get( 'customizer_prefix' ) . '_' . $customizer_name . '_';
 
-		foreach ( $default_attrs as $attr_key => $default_value ) {
+		// Add default classname it additional classnames are provided
+		if ( ! empty( $attrs['className'] ) && ! empty( $default_attrs['className'] ) ) {
 
-			$customizer_setting = $customizer_base . str_replace( '-', '_', $attr_key );
+			$attrs['className'] = $default_attrs['className'] . ' ' . $attrs['className'];
 
-			if ( ! self::is_set( $attrs, $attr_key ) ) {
-
-				$attrs[ $attr_key ] = get_theme_mod( $customizer_setting, $default_value );
-
-			}
 		}
 
+		// If no value is set for key add default
 		foreach ( $default_attrs as $attr_key => $default_value ) {
 
-			$customizer_setting = $customizer_base . str_replace( '-', '_', $attr_key );
-
 			if ( ! self::is_set( $attrs, $attr_key ) ) {
+
+				$customizer_setting = $customizer_base . str_replace( '-', '_', $attr_key );
 
 				$attrs[ $attr_key ] = get_theme_mod( $customizer_setting, $default_value );
 
@@ -82,7 +79,13 @@ class Block {
 
 	protected static function is_set( $attrs, $key ) {
 
-		if ( empty( $attrs[ $key ] ) || 'default' === $attrs[ $key ] ) {
+		if ( ! isset( $attrs[ $key ] ) ) {
+
+			return false;
+
+		}
+
+		if ( '' === $attrs[ $key ] || 'default' === $attrs[ $key ] ) {
 
 			return false;
 
