@@ -2229,6 +2229,10 @@ registerBlockType("wsuwp/hero", {
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
   attributes: {
+    eyebrowHeading: {
+      type: 'string',
+      default: ''
+    },
     title: {
       type: 'string',
       default: ''
@@ -2530,9 +2534,23 @@ registerBlockType("wsuwp/news-cards", {
       type: 'string',
       default: '1'
     },
+<<<<<<< HEAD
     offset: {
       type: 'string',
       default: '0'
+=======
+    buttonText: {
+      type: 'string',
+      default: 'Read More'
+    },
+    photoCredit: {
+      type: 'string',
+      default: ''
+    },
+    imageId: {
+      type: 'integer',
+      default: 0
+>>>>>>> 1.x
     },
     host: {
       type: 'string',
@@ -2541,6 +2559,27 @@ registerBlockType("wsuwp/news-cards", {
     postIn: {
       type: 'string',
       default: ''
+<<<<<<< HEAD
+=======
+    },
+    imageFocalPoint: {
+      type: 'object',
+      default: {
+        x: 0.2,
+        y: 0.5
+      }
+    },
+    imageDimensions: {
+      type: 'object',
+      default: {
+        width: 1070,
+        height: 500
+      }
+    },
+    lightOverlay: {
+      type: 'boolean',
+      default: false
+>>>>>>> 1.x
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2635,6 +2674,7 @@ wp.hooks.addFilter('editor.BlockEdit', 'wsu/news-card-advanced-controls', newsCa
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+<<<<<<< HEAD
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
@@ -2652,11 +2692,23 @@ const {
 const {
   InspectorControls,
   useBlockProps
+=======
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+
+const {
+  useBlockProps,
+  RichText,
+  MediaUpload,
+  MediaUploadCheck,
+  InspectorControls,
+  URLInput
+>>>>>>> 1.x
 } = wp.blockEditor;
 const {
   PanelBody,
   TextControl,
   SelectControl,
+  ToggleControl,
   Button,
   FocalPointPicker,
   BaseControl,
@@ -2665,6 +2717,7 @@ const {
 } = wp.components;
 
 
+<<<<<<< HEAD
 
 
 
@@ -2784,10 +2837,19 @@ const Edit = props => {
     setAttributes,
     clientId
   } = props;
+=======
+const Edit = ({
+  className,
+  isSelected,
+  attributes,
+  setAttributes
+}) => {
+>>>>>>> 1.x
   const blockProps = useBlockProps({
     className: 'wsu-card-wrapper wsu-card-wrapper--news wsu-card-wrapper--per-row-' + attributes.perRow,
     style: {}
   });
+<<<<<<< HEAD
   let queryAttrs = attributes;
   queryAttrs['hideLink'] = true;
 
@@ -2809,6 +2871,119 @@ const Edit = props => {
       blockName: "wsuwp/news-cards"
     }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
   }
+=======
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__["PanelGeneralOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Hero Banner Link",
+    value: attributes.link ? attributes.link : '',
+    onChange: link => setAttributes({
+      link
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Button Text",
+    value: attributes.buttonText ? attributes.buttonText : '',
+    onChange: buttonText => setAttributes({
+      buttonText
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Photo Credits",
+    value: attributes.photoCredit ? attributes.photoCredit : '',
+    onChange: photoCredit => setAttributes({
+      photoCredit
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Lighten Overlay",
+    checked: attributes.lightOverlay,
+    onChange: lightOverlay => {
+      setAttributes({
+        lightOverlay
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+    title: "Background",
+    initialOpen: false
+  }, attributes.imageSrc && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
+    label: "Focal Point Picker",
+    help: "Select where you would like the background to resize around."
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FocalPointPicker, {
+    url: attributes.imageSrc,
+    dimensions: attributes.imageDimensions,
+    value: attributes.imageFocalPoint,
+    onChange: focalPoint => setAttributes({
+      imageFocalPoint: focalPoint
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUploadCheck, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    onSelect: media => setAttributes({
+      imageId: media.id,
+      imageSrc: media.url
+    }) // allowedTypes={ALLOWED_MEDIA_TYPES}
+    // value={mediaId}
+    ,
+    render: ({
+      open
+    }) => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
+      label: "Replace Background Image"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+      isLink: true,
+      onClick: open
+    }, "Open Media Library"))
+  }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-image-frame wsu-image-frame--fill"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: attributes.imageSrc
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-overlay wsu-overlay--dark-left wsu-pattern-after"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-hero__content"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-hero__caption"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    className: "wsu-eyebrow-heading",
+    tagName: "div" // The tag here is the element output and editable in the admin
+    ,
+    value: attributes.eyebrowHeading // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: [] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: eyebrowHeading => setAttributes({
+      eyebrowHeading
+    }) // Store updated content as a block attribute
+    ,
+    placeholder: "Intro Text..." // Display this text before any content has been added by the user
+
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    className: "wsu-title",
+    tagName: "div" // The tag here is the element output and editable in the admin
+    ,
+    value: attributes.title // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: [] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: title => setAttributes({
+      title
+    }) // Store updated content as a block attribute
+    ,
+    placeholder: "Add Hero Banner Text..." // Display this text before any content has been added by the user
+
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    className: "wsu-caption",
+    tagName: "div" // The tag here is the element output and editable in the admin
+    ,
+    value: attributes.caption // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: [] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: caption => setAttributes({
+      caption
+    }) // Store updated content as a block attribute
+    ,
+    placeholder: "Add Hero Banner caption text here..." // Display this text before any content has been added by the user
+
+  }), attributes.link && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-hero__read-more",
+    href: "#",
+    "aria-label": "Read more Hero Banner Title"
+  }, attributes.buttonText)))));
+>>>>>>> 1.x
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);

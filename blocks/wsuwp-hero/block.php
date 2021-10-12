@@ -4,7 +4,7 @@ class Block_WSUWP_Hero extends Block {
 
 	protected static $block_name    = 'wsuwp/hero';
 	protected static $default_attrs = array(
-		'className'        => '',
+		'className'        => 'wsu-hero wsu-width--full wsu-pattern--wsu-light-radial-left',
 		'imageSize'        => 'full',
 		'imageId'          => '0',
 		'imageSrc'         => '',
@@ -17,12 +17,14 @@ class Block_WSUWP_Hero extends Block {
 		'imageFocalPoint'  => '',
 		'imageFocalPointX' => '50%',
 		'imageFocalPointY' => '50%',
+		'eyebrowHeading'   => '',
+		'buttonText'       => 'Read More',
+		'photoCredit'      => '',
+		'lightOverlay'     => false,
  	);
 
 
 	public static function render( $attrs, $content = '' ) {
-
-		$wrapper_classes = 'wsu-row';
 
 		$attrs['imageId'] = (int) $attrs['imageId'];
 
