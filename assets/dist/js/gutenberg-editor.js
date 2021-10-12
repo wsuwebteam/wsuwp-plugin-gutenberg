@@ -106,6 +106,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/partials/editor-config/block-styles */ "./assets/src/js/partials/editor-config/block-styles.js");
 /* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/partials/editor-config/block-categories */ "./assets/src/js/partials/editor-config/block-categories.js");
+/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../js/partials/editor-config/block-class-name */ "./assets/src/js/partials/editor-config/block-class-name.js");
+/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10__);
+
+
 
 
 
@@ -1171,7 +1177,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-wp.domReady(function () {
+jQuery(document).ready(function () {
   const enabledEmbeds = ['ted', 'twitter', 'vimeo', 'wordpress', 'youtube'];
   const embedBlock = wp.blocks.getBlockVariations('core/embed');
 
@@ -1186,6 +1192,54 @@ wp.domReady(function () {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/editor-config/block-categories.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/partials/editor-config/block-categories.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const rearrangeBlockCategoriesMap = {
+  'core/code': 'advanced',
+  'core/html': 'advanced',
+  'core/buttons': 'text',
+  'core/shortcode': 'text'
+};
+
+function rearrangeBlockCategories(settings, name) {
+  if (rearrangeBlockCategoriesMap[name]) {
+    settings.category = rearrangeBlockCategoriesMap[name];
+  }
+
+  return settings;
+}
+
+wp.hooks.addFilter('blocks.registerBlockType', 'wsuwp-plugin-gutenberg/block-categories', rearrangeBlockCategories);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/editor-config/block-class-name.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/partials/editor-config/block-class-name.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const el = wp.element.createElement;
+
+function injectBlockClassName(OriginalComponent) {
+  return function (props) {
+    return el(wp.element.Fragment, {}, el(wp.blockEditor.InspectorControls, {}, el('div', {
+      className: "is-inspector-for-" + props.name.replace('core/', 'core--'),
+      "aria-hidden": "true"
+    }, '')), el(OriginalComponent, props));
+  };
+}
+
+wp.hooks.addFilter('editor.BlockEdit', 'wsuwp-plugin-gutenberg/inject-block-class-name', injectBlockClassName);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/editor-config/block-styles.js":
 /*!**************************************************************!*\
   !*** ./assets/src/js/partials/editor-config/block-styles.js ***!
@@ -1193,7 +1247,7 @@ wp.domReady(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-wp.domReady(function () {
+jQuery(document).ready(function () {
   wp.blocks.unregisterBlockStyle('core/button', ['fill', 'outline']);
   wp.blocks.unregisterBlockStyle('core/image', ['default', 'rounded']);
   wp.blocks.unregisterBlockStyle('core/separator', ['default', 'wide', 'dots']);
@@ -1670,11 +1724,23 @@ registerBlockType("wsuwp/hero", {
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
   attributes: {
+    eyebrowHeading: {
+      type: 'string',
+      default: ''
+    },
     title: {
       type: 'string',
       default: ''
     },
     caption: {
+      type: 'string',
+      default: ''
+    },
+    buttonText: {
+      type: 'string',
+      default: 'Read More'
+    },
+    photoCredit: {
       type: 'string',
       default: ''
     },
@@ -1703,6 +1769,10 @@ registerBlockType("wsuwp/hero", {
         width: 1070,
         height: 500
       }
+    },
+    lightOverlay: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -1721,23 +1791,27 @@ registerBlockType("wsuwp/hero", {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
 
 const {
   useBlockProps,
   RichText,
   MediaUpload,
   MediaUploadCheck,
-  InspectorControls
+  InspectorControls,
+  URLInput
 } = wp.blockEditor;
 const {
   Panel,
   PanelBody,
   TextControl,
   SelectControl,
+  ToggleControl,
   Button,
   FocalPointPicker,
   BaseControl
 } = wp.components;
+
 
 const Edit = ({
   className,
@@ -1749,7 +1823,33 @@ const Edit = ({
     className: 'wsu-hero  wsu-pattern--wsu-light-radial-left',
     style: {}
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__["PanelGeneralOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Hero Banner Link",
+    value: attributes.link ? attributes.link : '',
+    onChange: link => setAttributes({
+      link
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Button Text",
+    value: attributes.buttonText ? attributes.buttonText : '',
+    onChange: buttonText => setAttributes({
+      buttonText
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Photo Credits",
+    value: attributes.photoCredit ? attributes.photoCredit : '',
+    onChange: photoCredit => setAttributes({
+      photoCredit
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Lighten Overlay",
+    checked: attributes.lightOverlay,
+    onChange: lightOverlay => {
+      setAttributes({
+        lightOverlay
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
     title: "Background",
     initialOpen: false
   }, attributes.imageSrc && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
@@ -1788,6 +1888,20 @@ const Edit = ({
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "wsu-hero__caption"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    className: "wsu-eyebrow-heading",
+    tagName: "div" // The tag here is the element output and editable in the admin
+    ,
+    value: attributes.eyebrowHeading // Any existing content, either from the database or an attribute default
+    ,
+    allowedFormats: [] // Allow the content to be made bold or italic, but do not allow other formatting options
+    ,
+    onChange: eyebrowHeading => setAttributes({
+      eyebrowHeading
+    }) // Store updated content as a block attribute
+    ,
+    placeholder: "Intro Text..." // Display this text before any content has been added by the user
+
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
     className: "wsu-title",
     tagName: "div" // The tag here is the element output and editable in the admin
     ,
@@ -1815,7 +1929,11 @@ const Edit = ({
     ,
     placeholder: "Add Hero Banner caption text here..." // Display this text before any content has been added by the user
 
-  })))));
+  }), attributes.link && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-hero__read-more",
+    href: "#",
+    "aria-label": "Read more Hero Banner Title"
+  }, attributes.buttonText)))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
