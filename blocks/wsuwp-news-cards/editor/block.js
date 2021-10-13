@@ -99,6 +99,14 @@
                 type: 'string',
                 default: '',
             },
+            requireFirstImage: {
+                type: 'boolean',
+                default: false,
+            },
+            requireImage: {
+                type: 'boolean',
+                default: false,
+            },
          },
          edit,
      }

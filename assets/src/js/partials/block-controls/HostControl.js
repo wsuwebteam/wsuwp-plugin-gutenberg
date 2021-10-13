@@ -5,7 +5,7 @@ const HostControl = ( { attributes, setAttributes } ) => {
     return (
         <TextControl
             label="Host"
-            value={ attributes.host ? attributes.host : '0' }
+            value={ attributes.host ? attributes.host : '' }
             onChange={ ( host ) => setAttributes( {host} ) }
             placeholder="https://...."
         /> 

@@ -11,7 +11,6 @@ class Blocks {
 		'wsuwp/hero'      => 'Block_WSUWP_Hero',
 		'wsuwp/pagetitle' => 'Block_WSUWP_Page_Title',
 		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
-		'wsuwp/news-card'  => 'Block_WSUWP_News_Card',
 	);
 
 	protected static $allowed_blocks = array(

@@ -9,6 +9,9 @@ function insertSpacingControl( OriginalComponent ) {
         if( !unsupportedBlockTypes.includes(props.name) ){
             return (
                 <>
+
+                    <OriginalComponent { ...props } />
+                    
                     <InspectorControls>
                         <SpacingClassNameSelector                        
                             spaceSettings={[
@@ -32,7 +35,6 @@ function insertSpacingControl( OriginalComponent ) {
                         </SpacingClassNameSelector>
                     </InspectorControls>
                     
-                    <OriginalComponent { ...props } />
                 </>
             );
         }

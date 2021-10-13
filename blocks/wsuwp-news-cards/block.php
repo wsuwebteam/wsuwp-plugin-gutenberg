@@ -34,6 +34,11 @@ class Block_WSUWP_News_Cards extends Block {
 		'host'              => '',
 		'excludePosts'      => '',
 		'hideShownPosts'    => false,
+		'showButton'        => false,
+		'showHeading'       => false,
+		'headingText'       => '',
+		'headingTag'        => '',
+		'linkHeading'       => false,
 	);
 
 
@@ -59,13 +64,18 @@ class Block_WSUWP_News_Cards extends Block {
 
 	protected static function render_feed_posts( $attrs ) {
 
+		$temp_attrs = $attrs;
+
 		$posts = self::get_posts( $attrs );
 
 		ob_start();
 
 		if ( ! empty( $posts ) ) {
 
-			foreach ( $posts as $post ) {
+			foreach ( $posts as $index => $post ) {
+
+				// Require first image should override hide image on the first post
+				$attrs['hideImage'] = ( 0 === $index && $attrs['requireFirstImage'] ) ?  false : $temp_attrs['hideImage'];
 
 				include __DIR__ . '/templates/card.php';
 

@@ -13,7 +13,9 @@ class Query_Posts {
 	public $host;
 	public $exclude_posts;
 	public $image_size;
-	public $showSticky;
+	public $show_sticky;
+	public $require_image;
+	public $require_first_image;
 
 
 	public function __construct( $attrs ) {
@@ -24,19 +26,20 @@ class Query_Posts {
 
 	public function set_args( $attrs ) {
 
-		$this->rest_api       = ( ! empty( $attrs['restApi'] ) ) ? $attrs['restApi'] : 'wp-json/wp/v2/';
-		$this->post_type      = ( ! empty( $attrs['postType'] ) ) ? explode( ',', $attrs['postType'] ) : array( 'post' );
-		$this->posts_per_page = ( ! empty( $attrs['count'] ) ) ? (int) $attrs['count'] : 5;
-		$this->post__in       = ( ! empty( $attrs['postIn'] ) ) ? array_filter( explode( ',', $attrs['postIn'] ) ) : array();
-		$this->offset         = ( ! empty( $attrs['offset'] ) ) ? (int) $attrs['offset'] : 0;
-		$this->order          = ( ! empty( $attrs['order'] ) ) ? $attrs['order'] : 'DESC';
-		$this->taxonomy       = ( ! empty( $attrs['taxonomy'] ) ) ? $attrs['taxonomy'] : 'category';
-		$this->terms          = ( ! empty( $attrs['terms'] ) ) ? explode( ',', $attrs['terms'] ) : array();
-		$this->host           = ( ! empty( $attrs['host'] ) ) ? $attrs['host'] : '';
-		$this->exclude_posts  = ( ! empty( $attrs['exclude_posts'] ) ) ? explode( ',', $attrs['exclude_posts'] ) : array();
-		$this->image_size     = ( ! empty( $attrs['imageSize'] ) ) ? $attrs['imageSize'] : 'large';
-		$this->show_sticky    = ( ! empty( $attrs['showSticky'] ) ) ? $attrs['showSticky'] : false; 
-
+		$this->rest_api             = ( ! empty( $attrs['restApi'] ) ) ? $attrs['restApi'] : 'wp-json/wp/v2/';
+		$this->post_type            = ( ! empty( $attrs['postType'] ) ) ? explode( ',', $attrs['postType'] ) : array( 'post' );
+		$this->posts_per_page       = ( ! empty( $attrs['count'] ) ) ? (int) $attrs['count'] : 5;
+		$this->post__in             = ( ! empty( $attrs['postIn'] ) ) ? array_filter( explode( ',', $attrs['postIn'] ) ) : array();
+		$this->offset               = ( ! empty( $attrs['offset'] ) ) ? (int) $attrs['offset'] : 0;
+		$this->order                = ( ! empty( $attrs['order'] ) ) ? $attrs['order'] : 'DESC';
+		$this->taxonomy             = ( ! empty( $attrs['taxonomy'] ) ) ? $attrs['taxonomy'] : 'category';
+		$this->terms                = ( ! empty( $attrs['terms'] ) ) ? explode( ',', $attrs['terms'] ) : array();
+		$this->host                 = ( ! empty( $attrs['host'] ) ) ? $attrs['host'] : '';
+		$this->exclude_posts        = ( ! empty( $attrs['exclude_posts'] ) ) ? explode( ',', $attrs['exclude_posts'] ) : array();
+		$this->image_size           = ( ! empty( $attrs['imageSize'] ) ) ? $attrs['imageSize'] : 'large';
+		$this->show_sticky          = ( ! empty( $attrs['showSticky'] ) ) ? $attrs['showSticky'] : false;
+		$this->require_image        = ( ! empty( $attrs['requireImage'] ) ) ? $attrs['requireImage'] : false;
+		$this->require_first_image  = ( ! empty( $attrs['requireFirstImage'] ) ) ? $attrs['requireFirstImage'] : false;
 
 	}
 
@@ -45,7 +48,9 @@ class Query_Posts {
 
 		$query_args = $this->get_local_query_args();
 
-		$posts = $this->get_local_posts( $query_args );
+		$posts = ( $this->require_first_image ) ? $this->get_first_image_post( $query_args ) : array();
+
+		$posts = array_merge( $posts, $this->get_local_posts( $query_args ) );
 
 		return $posts;
 
@@ -148,6 +153,16 @@ class Query_Posts {
 		if ( ! empty( $this->exclude_posts ) ) {
 
 			$query_args['post__not_in'] = $this->exclude_posts;
+
+		}
+
+		if ( ! empty( $this->require_image ) ) {
+
+			$query_args['meta_query'] = array( 
+				array(
+					'key' => '_thumbnail_id',
+				),
+			);
 
 		}
 
@@ -257,6 +272,46 @@ class Query_Posts {
 		}
 
 		return $query_args;
+
+	}
+
+
+	protected function get_first_image_post( &$query_args ) {
+
+		$temp_query = $query_args;
+		$temp_query['posts_per_page'] = 1;
+
+		$temp_query['meta_query'] = array(
+			array(
+				'key' => '_thumbnail_id',
+			),
+		);
+
+		$posts = $this->get_local_posts( $temp_query );
+
+		if ( ! empty( $posts[0]['id'] ) ) {
+
+			$post_id = $posts[0]['id'];
+
+			if ( ! empty( $query_args['post__not_in'] ) && is_array( $query_args['post__not_in'] ) ) {
+
+				$query_args['post__not_in'][] = $post_id;
+
+			} else {
+
+				$query_args['post__not_in'] = array( $post_id );
+
+			}
+
+			if ( '-1' !== $query_args['posts_per_page'] ) {
+
+				$query_args['posts_per_page'] = ( (int) $query_args['posts_per_page'] - 1 );
+
+			}
+
+		}
+
+		return $posts;
 
 	}
 

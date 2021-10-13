@@ -36,6 +36,8 @@ import {
     CountControl,
     OffsetControl,
     HostControl,
+    RequireImageControl,
+    RequireFirstImageControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { ColorClassNameSelector, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
@@ -158,7 +160,9 @@ const Edit = ( props ) => {
                     </PanelFeedOptions>
                     <PanelAdvancedFeedOptions>
                         <OffsetControl { ...props } /> 
-                        <HostControl { ...props } /> 
+                        <HostControl { ...props } />
+                        <RequireImageControl { ...props } />
+                        <RequireFirstImageControl { ...props } />
                     </PanelAdvancedFeedOptions>
                 </InspectorControls>
                 <div { ...blockProps }  >
