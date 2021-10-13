@@ -74,6 +74,8 @@ class Block_WSUWP_News_Cards extends Block {
 
 			foreach ( $posts as $index => $post ) {
 
+				Query::add_shown_post( $post['id'] );
+
 				// Require first image should override hide image on the first post
 				$attrs['hideImage'] = ( 0 === $index && $attrs['requireFirstImage'] ) ?  false : $temp_attrs['hideImage'];
 

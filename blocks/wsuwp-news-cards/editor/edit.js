@@ -99,11 +99,6 @@ const NewsCardDisplayOptions = ( props ) => {
                 onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
                 />
             <ToggleControl
-                label="Hide Shown Posts"
-                checked={ attributes.hideShownPosts }
-                onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
-                />
-            <ToggleControl
                 label="Show Button"
                 checked={ attributes.showButton }
                 onChange={ ( showButton ) => { setAttributes( { showButton } ) } }
@@ -163,6 +158,11 @@ const Edit = ( props ) => {
                         <HostControl { ...props } />
                         <RequireImageControl { ...props } />
                         <RequireFirstImageControl { ...props } />
+                        <ToggleControl
+                        label="Hide Shown Posts"
+                        checked={ attributes.hideShownPosts }
+                        onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
+                        />
                     </PanelAdvancedFeedOptions>
                 </InspectorControls>
                 <div { ...blockProps }  >

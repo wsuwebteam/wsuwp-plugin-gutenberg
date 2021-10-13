@@ -3,7 +3,7 @@
 class Plugin {
 
 
-	protected static $version = '1.2.0';
+	protected static $version = '1.2.1';
 
 
 	public static function get( $property ) {
@@ -43,6 +43,7 @@ class Plugin {
 		require_once __DIR__ . '/block-categories.php';
 		require_once __DIR__ . '/rest-api.php';
 		require_once __DIR__ . '/make-to-gutenberg.php';
+		require_once __DIR__ . '/query.php';
 
 		require_once __DIR__ . '/disable-drop-cap.php'; // 5.6 method
 	}

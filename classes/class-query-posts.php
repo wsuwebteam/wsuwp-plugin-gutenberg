@@ -16,6 +16,7 @@ class Query_Posts {
 	public $show_sticky;
 	public $require_image;
 	public $require_first_image;
+	public $hide_shown_posts;
 
 
 	public function __construct( $attrs ) {
@@ -40,6 +41,8 @@ class Query_Posts {
 		$this->show_sticky          = ( ! empty( $attrs['showSticky'] ) ) ? $attrs['showSticky'] : false;
 		$this->require_image        = ( ! empty( $attrs['requireImage'] ) ) ? $attrs['requireImage'] : false;
 		$this->require_first_image  = ( ! empty( $attrs['requireFirstImage'] ) ) ? $attrs['requireFirstImage'] : false;
+		$this->hide_shown_posts     = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
+
 
 	}
 
@@ -150,6 +153,14 @@ class Query_Posts {
 
 		}
 
+
+		if ( ! empty( $this->hide_shown_posts ) ) {
+
+
+			$this->exclude_posts = array_merge( $this->exclude_posts, Query::get_show_posts() );
+
+		}
+
 		if ( ! empty( $this->exclude_posts ) ) {
 
 			$query_args['post__not_in'] = $this->exclude_posts;
@@ -165,6 +176,7 @@ class Query_Posts {
 			);
 
 		}
+
 
 		return $query_args;
 
