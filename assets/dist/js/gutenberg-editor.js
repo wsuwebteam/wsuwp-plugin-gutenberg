@@ -101,15 +101,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_wsuwp_news_editor_block__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../blocks/wsuwp-news/editor/block */ "./blocks/wsuwp-news/editor/block.js");
 /* harmony import */ var _blocks_wsuwp_row_editor_block__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../blocks/wsuwp-row/editor/block */ "./blocks/wsuwp-row/editor/block.js");
 /* harmony import */ var _blocks_wsuwp_pagetitle_editor_block__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../blocks/wsuwp-pagetitle/editor/block */ "./blocks/wsuwp-pagetitle/editor/block.js");
-/* harmony import */ var _js_partials_editor_config_spacing_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../js/partials/editor-config/spacing-control */ "./assets/src/js/partials/editor-config/spacing-control.js");
-/* harmony import */ var _js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../js/partials/editor-config/allowed-embeds */ "./assets/src/js/partials/editor-config/allowed-embeds.js");
-/* harmony import */ var _js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/partials/editor-config/block-styles */ "./assets/src/js/partials/editor-config/block-styles.js");
-/* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/partials/editor-config/block-categories */ "./assets/src/js/partials/editor-config/block-categories.js");
-/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../js/partials/editor-config/block-class-name */ "./assets/src/js/partials/editor-config/block-class-name.js");
-/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _blocks_wsuwp_news_cards_editor_block__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../blocks/wsuwp-news-cards/editor/block */ "./blocks/wsuwp-news-cards/editor/block.js");
+/* harmony import */ var _blocks_wsuwp_news_cards_editor_blockEditFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../blocks/wsuwp-news-cards/editor/blockEditFilter */ "./blocks/wsuwp-news-cards/editor/blockEditFilter.js");
+/* harmony import */ var _blocks_core_heading_editor_blockEditFilter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../blocks/core-heading/editor/blockEditFilter */ "./blocks/core-heading/editor/blockEditFilter.js");
+/* harmony import */ var _js_partials_editor_config_spacing_control__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/partials/editor-config/spacing-control */ "./assets/src/js/partials/editor-config/spacing-control.js");
+/* harmony import */ var _js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../js/partials/editor-config/allowed-embeds */ "./assets/src/js/partials/editor-config/allowed-embeds.js");
+/* harmony import */ var _js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_allowed_embeds__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../js/partials/editor-config/block-styles */ "./assets/src/js/partials/editor-config/block-styles.js");
+/* harmony import */ var _js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_styles__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../js/partials/editor-config/block-categories */ "./assets/src/js/partials/editor-config/block-categories.js");
+/* harmony import */ var _js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_categories__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../js/partials/editor-config/block-class-name */ "./assets/src/js/partials/editor-config/block-class-name.js");
+/* harmony import */ var _js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_js_partials_editor_config_block_class_name__WEBPACK_IMPORTED_MODULE_13__);
+
+
+
 
 
 
@@ -192,6 +198,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ApiRenderBlock", function() { return _ApiRenderBlock__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
 
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/ButtonControl.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/ButtonControl.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const ButtonControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Button Text",
+    value: attributes.buttonText ? attributes.buttonText : '',
+    onChange: buttonText => setAttributes({
+      buttonText
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Button Link",
+    value: attributes.buttonLink ? attributes.buttonLink : '',
+    onChange: buttonLink => setAttributes({
+      buttonLink
+    })
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ButtonControl);
 
 /***/ }),
 
@@ -320,6 +365,39 @@ const ColorClassNameSelector = props => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/CountControl.js":
+/*!***************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/CountControl.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const CountControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Count",
+    value: attributes.count ? attributes.count : '0',
+    onChange: count => setAttributes({
+      count
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CountControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/FeedPostsControl.js":
 /*!*******************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/FeedPostsControl.js ***!
@@ -399,6 +477,94 @@ const FeedPostsControl = props => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/FontSizeControl.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/FontSizeControl.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+/* harmony import */ var _blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+
+
+
+const wsuFontSizes = [{
+  label: 'Not Set',
+  value: ''
+}, {
+  label: 'xxSmall',
+  value: 'xxsmall'
+}, {
+  label: 'xSmall',
+  value: 'xsmall'
+}, {
+  label: 'Small',
+  value: 'small'
+}, {
+  label: 'Medium',
+  value: 'medium'
+}, {
+  label: 'xMedium',
+  value: 'xmedium'
+}, {
+  label: 'xxMedium',
+  value: 'xxmedium'
+}, {
+  label: 'Large',
+  value: 'large'
+}, {
+  label: 'xLarge',
+  value: 'xlarge'
+}, {
+  label: 'xxLarge',
+  value: 'xxlarge'
+}, {
+  label: 'Hero',
+  value: 'hero'
+}];
+
+const FontSizeControl = props => {
+  var _attributes$prefix, _attributes$label, _sizes, _attributes$className, _attributes$value;
+
+  let {
+    attributes,
+    setAttributes,
+    sizes
+  } = props;
+  let prefix = (_attributes$prefix = attributes.prefix) !== null && _attributes$prefix !== void 0 ? _attributes$prefix : 'wsu-font-size--';
+  let label = (_attributes$label = attributes.label) !== null && _attributes$label !== void 0 ? _attributes$label : 'Font Size';
+  sizes = (_sizes = sizes) !== null && _sizes !== void 0 ? _sizes : wsuFontSizes;
+  let classNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
+  let value = (_attributes$value = attributes.value) !== null && _attributes$value !== void 0 ? _attributes$value : Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameOption"])(classNames, prefix);
+
+  const setFontSize = size => {
+    if ('onChange' in attributes) {
+      attributes.onChange(size);
+    } else {
+      Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, prefix, size);
+    }
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: label,
+    value: value,
+    options: sizes,
+    onChange: fontSize => setFontSize(fontSize)
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FontSizeControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/FormatSelector.js":
 /*!*****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/FormatSelector.js ***!
@@ -447,6 +613,161 @@ const FormatSelector = ({
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/HeadingControl.js":
+/*!*****************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/HeadingControl.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+
+
+
+const HeadingControl = props => {
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_blockControls__WEBPACK_IMPORTED_MODULE_2__["HeadingTagControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Heading Text",
+    value: attributes.headingText ? attributes.headingText : '',
+    onChange: headingText => setAttributes({
+      headingText
+    })
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (HeadingControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/HeadingTagControl.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/HeadingTagControl.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const HeadingTagControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Heading Tag",
+    value: attributes.headingTag ? attributes.headingTag : 'h2',
+    options: [{
+      label: 'H2',
+      value: 'h2'
+    }, {
+      label: 'H3',
+      value: 'h3'
+    }, {
+      label: 'H4',
+      value: 'h4'
+    }, {
+      label: 'H5',
+      value: 'h5'
+    }, {
+      label: 'H6',
+      value: 'h6'
+    }, {
+      label: 'div',
+      value: 'div'
+    }],
+    onChange: headingTag => setAttributes({
+      headingTag
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (HeadingTagControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/HostControl.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/HostControl.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const HostControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Host",
+    value: attributes.host ? attributes.host : '',
+    onChange: host => setAttributes({
+      host
+    }),
+    placeholder: "https://...."
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (HostControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/OffsetControl.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/OffsetControl.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const OffsetControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Offset",
+    value: attributes.offset ? attributes.offset : '0',
+    onChange: offset => setAttributes({
+      offset
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (OffsetControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/PerRowControl.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/PerRowControl.js ***!
@@ -478,11 +799,247 @@ const PerRow = ({
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/PostTypeSelectControl.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/PostTypeSelectControl.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const PostTypeSelectControl = props => {
+  console.log(props);
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Post Type",
+    value: attributes.postType ? attributes.postType : 'post',
+    options: [{
+      label: 'Post',
+      value: 'post'
+    }, {
+      label: 'Page',
+      value: 'page'
+    }, {
+      label: 'Any',
+      value: 'any'
+    }],
+    onChange: postType => setAttributes({
+      postType
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PostTypeSelectControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/RequireFirstImageControl.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/RequireFirstImageControl.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const RequireFirstImageControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["ToggleControl"], {
+    label: "Require First Image",
+    checked: attributes.requireFirstImage ? attributes.requireFirstImage : false,
+    onChange: requireFirstImage => setAttributes({
+      requireFirstImage
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (RequireFirstImageControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/RequireImageControl.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/RequireImageControl.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const RequireImageControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["ToggleControl"], {
+    label: "Require Image",
+    checked: attributes.requireImage ? attributes.requireImage : false,
+    onChange: requireImage => setAttributes({
+      requireImage
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (RequireImageControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/TaxonomyTermSelectControl.js":
+/*!****************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/TaxonomyTermSelectControl.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const TaxonomyTermSelectControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "Term IDs",
+    value: attributes.terms ? attributes.terms : '',
+    onChange: terms => setAttributes({
+      terms
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TaxonomyTermSelectControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/TaxonomyTypeSelectControl.js":
+/*!****************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/TaxonomyTypeSelectControl.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const TaxonomyTypeSelectControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Filter By",
+    value: attributes.taxonomy ? attributes.taxonomy : '',
+    options: [{
+      label: 'Category',
+      value: 'category'
+    }, {
+      label: 'Tags',
+      value: 'post_tag'
+    }],
+    onChange: taxonomy => setAttributes({
+      taxonomy
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TaxonomyTypeSelectControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/TitleTagControl.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/TitleTagControl.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const TitleTagControl = ({
+  attributes,
+  setAttributes
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Title Tag",
+    value: attributes.titleTag ? attributes.titleTag : 'h2',
+    options: [{
+      label: 'H2',
+      value: 'h2'
+    }, {
+      label: 'H3',
+      value: 'h3'
+    }, {
+      label: 'H4',
+      value: 'h4'
+    }, {
+      label: 'H5',
+      value: 'h5'
+    }, {
+      label: 'H6',
+      value: 'h6'
+    }, {
+      label: 'div',
+      value: 'div'
+    }],
+    onChange: titleTag => setAttributes({
+      titleTag
+    })
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TitleTagControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/blockControls.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector */
+/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector, TaxonomyTypeSelectControl, PostTypeSelectControl, TaxonomyTermSelectControl, CountControl, OffsetControl, HostControl, ButtonControl, HeadingControl, HeadingTagControl, TitleTagControl, FontSizeControl, ResetControl, RequireImageControl, RequireFirstImageControl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -504,6 +1061,62 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _spacing_class_name_selector_spacing_class_name_selector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./spacing-class-name-selector/spacing-class-name-selector */ "./assets/src/js/partials/block-controls/spacing-class-name-selector/spacing-class-name-selector.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SpacingClassNameSelector", function() { return _spacing_class_name_selector_spacing_class_name_selector__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+/* harmony import */ var _TaxonomyTypeSelectControl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TaxonomyTypeSelectControl */ "./assets/src/js/partials/block-controls/TaxonomyTypeSelectControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TaxonomyTypeSelectControl", function() { return _TaxonomyTypeSelectControl__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _PostTypeSelectControl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PostTypeSelectControl */ "./assets/src/js/partials/block-controls/PostTypeSelectControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PostTypeSelectControl", function() { return _PostTypeSelectControl__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _TaxonomyTermSelectControl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./TaxonomyTermSelectControl */ "./assets/src/js/partials/block-controls/TaxonomyTermSelectControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TaxonomyTermSelectControl", function() { return _TaxonomyTermSelectControl__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+/* harmony import */ var _CountControl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./CountControl */ "./assets/src/js/partials/block-controls/CountControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CountControl", function() { return _CountControl__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
+/* harmony import */ var _OffsetControl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./OffsetControl */ "./assets/src/js/partials/block-controls/OffsetControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OffsetControl", function() { return _OffsetControl__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+
+/* harmony import */ var _HostControl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./HostControl */ "./assets/src/js/partials/block-controls/HostControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HostControl", function() { return _HostControl__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
+/* harmony import */ var _ButtonControl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ButtonControl */ "./assets/src/js/partials/block-controls/ButtonControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonControl", function() { return _ButtonControl__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+
+/* harmony import */ var _HeadingControl__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./HeadingControl */ "./assets/src/js/partials/block-controls/HeadingControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HeadingControl", function() { return _HeadingControl__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+
+/* harmony import */ var _HeadingTagControl__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./HeadingTagControl */ "./assets/src/js/partials/block-controls/HeadingTagControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HeadingTagControl", function() { return _HeadingTagControl__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+
+/* harmony import */ var _TitleTagControl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./TitleTagControl */ "./assets/src/js/partials/block-controls/TitleTagControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TitleTagControl", function() { return _TitleTagControl__WEBPACK_IMPORTED_MODULE_15__["default"]; });
+
+/* harmony import */ var _FontSizeControl__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./FontSizeControl */ "./assets/src/js/partials/block-controls/FontSizeControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FontSizeControl", function() { return _FontSizeControl__WEBPACK_IMPORTED_MODULE_16__["default"]; });
+
+/* harmony import */ var _reset_control_ResetControl__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./reset-control/ResetControl */ "./assets/src/js/partials/block-controls/reset-control/ResetControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResetControl", function() { return _reset_control_ResetControl__WEBPACK_IMPORTED_MODULE_17__["default"]; });
+
+/* harmony import */ var _RequireImageControl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./RequireImageControl */ "./assets/src/js/partials/block-controls/RequireImageControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RequireImageControl", function() { return _RequireImageControl__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+
+/* harmony import */ var _RequireFirstImageControl__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./RequireFirstImageControl */ "./assets/src/js/partials/block-controls/RequireFirstImageControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RequireFirstImageControl", function() { return _RequireFirstImageControl__WEBPACK_IMPORTED_MODULE_19__["default"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -833,6 +1446,41 @@ function TextControl({
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/reset-control/ResetControl.js":
+/*!*****************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/reset-control/ResetControl.js ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+
+
+
+
+const ResetControl = props => {
+  let {
+    attributes,
+    setAttributes,
+    prefix,
+    label = 'Reset'
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    className: "wsu-block-control-reset",
+    onClick: () => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, prefix, '')
+  }, label);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ResetControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/spacing-class-name-selector/spacing-class-name-selector.js":
 /*!**********************************************************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/spacing-class-name-selector/spacing-class-name-selector.js ***!
@@ -1030,6 +1678,33 @@ const SpacingClassNameSelector = props => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-panels/PanelAdvancedFeedOptions.js":
+/*!*************************************************************************!*\
+  !*** ./assets/src/js/partials/block-panels/PanelAdvancedFeedOptions.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const PanelAdvancedFeedOptions = props => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
+    title: "Advanced Feed Options",
+    initialOpen: false
+  }, props.children);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PanelAdvancedFeedOptions);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-panels/PanelDisplayOptions.js":
 /*!********************************************************************!*\
   !*** ./assets/src/js/partials/block-panels/PanelDisplayOptions.js ***!
@@ -1054,6 +1729,33 @@ const PanelDisplayOptions = props => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PanelDisplayOptions);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-panels/PanelFeedOptions.js":
+/*!*****************************************************************!*\
+  !*** ./assets/src/js/partials/block-panels/PanelFeedOptions.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const PanelFeedOptions = props => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
+    title: "Feed Options",
+    initialOpen: false
+  }, props.children);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PanelFeedOptions);
 
 /***/ }),
 
@@ -1146,7 +1848,7 @@ const PanelInsertPost = props => {
 /*!************************************************************!*\
   !*** ./assets/src/js/partials/block-panels/blockPanels.js ***!
   \************************************************************/
-/*! exports provided: PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions */
+/*! exports provided: PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelFeedOptions, PanelAdvancedFeedOptions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1163,10 +1865,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PanelGeneralOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PanelGeneralOptions */ "./assets/src/js/partials/block-panels/PanelGeneralOptions.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PanelGeneralOptions", function() { return _PanelGeneralOptions__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
+/* harmony import */ var _PanelFeedOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PanelFeedOptions */ "./assets/src/js/partials/block-panels/PanelFeedOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PanelFeedOptions", function() { return _PanelFeedOptions__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _PanelAdvancedFeedOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PanelAdvancedFeedOptions */ "./assets/src/js/partials/block-panels/PanelAdvancedFeedOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PanelAdvancedFeedOptions", function() { return _PanelAdvancedFeedOptions__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
 
 
 
+
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-utilities/blockUtilities.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/partials/block-utilities/blockUtilities.js ***!
+  \******************************************************************/
+/*! exports provided: getBlockClassNameOption, setBlockClassName */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getBlockClassNameOption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getBlockClassNameOption */ "./assets/src/js/partials/block-utilities/getBlockClassNameOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getBlockClassNameOption", function() { return _getBlockClassNameOption__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _setBlockClassName__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setBlockClassName */ "./assets/src/js/partials/block-utilities/setBlockClassName.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setBlockClassName", function() { return _setBlockClassName__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-utilities/getBlockClassNameOption.js":
+/*!***************************************************************************!*\
+  !*** ./assets/src/js/partials/block-utilities/getBlockClassNameOption.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const getBlockClassNameOption = (className, prefix) => {
+  let classArray = className.split(' ');
+  let value = '';
+
+  if (Array.isArray(classArray)) {
+    classArray.forEach((itemClass, index) => {
+      if (itemClass.includes(prefix)) {
+        value = itemClass.replace(prefix, '');
+      }
+    });
+  }
+
+  return value;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (getBlockClassNameOption);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-utilities/setBlockClassName.js":
+/*!*********************************************************************!*\
+  !*** ./assets/src/js/partials/block-utilities/setBlockClassName.js ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const setBlockClassName = (attributes, setAttributes, prefix, value) => {
+  var _attributes$className;
+
+  let classNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
+  let classArray = classNames.split(' ');
+  let newClasses = [];
+
+  if (Array.isArray(classArray)) {
+    classArray.forEach((itemClass, index) => {
+      if (!itemClass.includes(prefix)) {
+        newClasses.push(itemClass);
+      }
+    });
+
+    if ('' !== value) {
+      newClasses.push(prefix + value);
+    }
+  }
+
+  setAttributes({
+    className: newClasses.join(' ')
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (setBlockClassName);
 
 /***/ }),
 
@@ -1178,16 +1973,27 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 jQuery(document).ready(function () {
-  const enabledEmbeds = ['ted', 'twitter', 'vimeo', 'wordpress', 'youtube'];
-  const embedBlock = wp.blocks.getBlockVariations('core/embed');
+  let blockLoaded = false;
+  let blockLoadedInterval = setInterval(function () {
+    if (document.getElementById('post-title-0')) {
+      const enabledEmbeds = ['ted', 'twitter', 'vimeo', 'wordpress', 'youtube'];
+      const embedBlock = wp.blocks.getBlockVariations('core/embed');
 
-  if (embedBlock) {
-    embedBlock.forEach(function (el) {
-      if (!enabledEmbeds.includes(el.name)) {
-        wp.blocks.unregisterBlockVariation('core/embed', el.name);
+      if (embedBlock) {
+        embedBlock.forEach(function (el) {
+          if (!enabledEmbeds.includes(el.name)) {
+            wp.blocks.unregisterBlockVariation('core/embed', el.name);
+          }
+        });
       }
-    });
-  }
+
+      blockLoaded = true;
+    }
+
+    if (blockLoaded) {
+      clearInterval(blockLoadedInterval);
+    }
+  }, 500);
 });
 
 /***/ }),
@@ -1248,9 +2054,19 @@ wp.hooks.addFilter('editor.BlockEdit', 'wsuwp-plugin-gutenberg/inject-block-clas
 /***/ (function(module, exports) {
 
 jQuery(document).ready(function () {
-  wp.blocks.unregisterBlockStyle('core/button', ['fill', 'outline']);
-  wp.blocks.unregisterBlockStyle('core/image', ['default', 'rounded']);
-  wp.blocks.unregisterBlockStyle('core/separator', ['default', 'wide', 'dots']);
+  let blockLoaded = false;
+  let blockLoadedInterval = setInterval(function () {
+    if (document.getElementById('post-title-0')) {
+      wp.blocks.unregisterBlockStyle('core/button', ['fill', 'outline']);
+      wp.blocks.unregisterBlockStyle('core/image', ['default', 'rounded']);
+      wp.blocks.unregisterBlockStyle('core/separator', ['default', 'wide', 'dots']);
+      blockLoaded = true;
+    }
+
+    if (blockLoaded) {
+      clearInterval(blockLoadedInterval);
+    }
+  }, 500);
 });
 
 /***/ }),
@@ -1281,7 +2097,7 @@ function insertSpacingControl(OriginalComponent) {
     const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button'];
 
     if (!unsupportedBlockTypes.includes(props.name)) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
         spaceSettings: [{
           label: 'Outside Spacing (Margin)',
           properties: [{
@@ -1294,7 +2110,7 @@ function insertSpacingControl(OriginalComponent) {
             default: 'xmedium'
           }]
         }]
-      }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(OriginalComponent, props));
+      }, props))));
     } // return default
 
 
@@ -1303,6 +2119,89 @@ function insertSpacingControl(OriginalComponent) {
 }
 
 wp.hooks.addFilter('editor.BlockEdit', 'wsuwp-plugin-gutenberg/insert-spacing-control', insertSpacingControl);
+
+/***/ }),
+
+/***/ "./blocks/core-heading/editor/blockEditFilter.js":
+/*!*******************************************************!*\
+  !*** ./blocks/core-heading/editor/blockEditFilter.js ***!
+  \*******************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+
+const {
+  addFilter
+} = wp.hooks;
+const {
+  Fragment
+} = wp.element;
+const {
+  InspectorAdvancedControls
+} = wp.editor;
+const {
+  createHigherOrderComponent
+} = wp.compose;
+
+const {
+  InspectorControls
+} = wp.blockEditor;
+const {
+  ToggleControl
+} = wp.components;
+
+const coreHeadingControls = wp.compose.createHigherOrderComponent(BlockEdit => {
+  return props => {
+    const {
+      Fragment
+    } = wp.element;
+    const {
+      ToggleControl
+    } = wp.components;
+    const {
+      InspectorAdvancedControls
+    } = wp.blockEditor;
+    const {
+      attributes,
+      setAttributes,
+      isSelected
+    } = props;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockEdit, props), isSelected && props.name == 'core/heading' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FontSizeControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+      sizes: [{
+        label: 'Not Set',
+        value: ''
+      }, {
+        label: 'Medium',
+        value: 'medium'
+      }, {
+        label: 'xMedium',
+        value: 'xmedium'
+      }, {
+        label: 'xxMedium',
+        value: 'xxmedium'
+      }, {
+        label: 'Large',
+        value: 'large'
+      }, {
+        label: 'xLarge',
+        value: 'xlarge'
+      }, {
+        label: 'xxLarge',
+        value: 'xxlarge'
+      }]
+    }))))));
+  };
+}, 'coreHeadingControls');
+wp.hooks.addFilter('editor.BlockEdit', 'wsu/core-heading-controls', coreHeadingControls);
 
 /***/ }),
 
@@ -1940,6 +2839,448 @@ const Edit = ({
 
 /***/ }),
 
+/***/ "./blocks/wsuwp-news-cards/editor/block.js":
+/*!*************************************************!*\
+  !*** ./blocks/wsuwp-news-cards/editor/block.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./blocks/wsuwp-news-cards/editor/edit.js");
+
+
+/**
+ *
+ * WordPress Dependencies
+ *
+ */
+const {
+  __
+} = wp.i18n;
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  Icon
+} = wp.components;
+
+registerBlockType("wsuwp/news-cards", {
+  title: "News Cards",
+  apiVersion: 2,
+  category: "feeds",
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("defs", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("clipPath", {
+    id: "b"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+    width: "24",
+    height: "24"
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", {
+    id: "a",
+    "clip-path": "url(#b)"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+    width: "24",
+    height: "24",
+    fill: "#fff"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", {
+    transform: "translate(2 2)",
+    fill: "#fff",
+    stroke: "#030000",
+    "stroke-width": "2"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M3,0H18a2,2,0,0,1,2,2V18a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V3A3,3,0,0,1,3,0Z",
+    stroke: "none"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M3,1H18a1,1,0,0,1,1,1V18a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V3A2,2,0,0,1,3,1Z",
+    fill: "none"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+    width: "14",
+    height: "10",
+    rx: "2",
+    transform: "translate(5 5)",
+    fill: "#0a0000"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("line", {
+    x2: "13",
+    transform: "translate(5.5 16.5)",
+    fill: "none",
+    stroke: "#060000",
+    "stroke-width": "1"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("line", {
+    x2: "13",
+    transform: "translate(5.5 18.5)",
+    fill: "none",
+    stroke: "#070000",
+    "stroke-width": "1"
+  }))),
+  attributes: {
+    perRow: {
+      type: 'string',
+      default: '1'
+    },
+    source: {
+      type: 'string',
+      default: 'feed'
+    },
+    hideDate: {
+      type: 'boolean',
+      default: false
+    },
+    hideCaption: {
+      type: 'boolean',
+      default: true
+    },
+    hideImage: {
+      type: 'boolean',
+      default: false
+    },
+    showButton: {
+      type: 'boolean',
+      default: false
+    },
+    showHeading: {
+      type: 'boolean',
+      default: false
+    },
+    hideShownPosts: {
+      type: 'boolean',
+      default: false
+    },
+    buttonText: {
+      type: 'string',
+      default: 'More News'
+    },
+    buttonLink: {
+      type: 'string',
+      default: ''
+    },
+    headingText: {
+      type: 'string',
+      default: ''
+    },
+    headingTag: {
+      type: 'string',
+      default: 'h2'
+    },
+    linkHeading: {
+      type: 'boolean',
+      default: false
+    },
+    postType: {
+      type: 'string',
+      default: 'post'
+    },
+    taxonomy: {
+      type: 'string',
+      default: 'category'
+    },
+    terms: {
+      type: 'string',
+      default: ''
+    },
+    count: {
+      type: 'string',
+      default: '1'
+    },
+    offset: {
+      type: 'string',
+      default: '0'
+    },
+    host: {
+      type: 'string',
+      default: ''
+    },
+    postIn: {
+      type: 'string',
+      default: ''
+    },
+    requireFirstImage: {
+      type: 'boolean',
+      default: false
+    },
+    requireImage: {
+      type: 'boolean',
+      default: false
+    }
+  },
+  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
+
+/***/ }),
+
+/***/ "./blocks/wsuwp-news-cards/editor/blockEditFilter.js":
+/*!***********************************************************!*\
+  !*** ./blocks/wsuwp-news-cards/editor/blockEditFilter.js ***!
+  \***********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+const {
+  addFilter
+} = wp.hooks;
+const {
+  Fragment
+} = wp.element;
+const {
+  InspectorAdvancedControls
+} = wp.editor;
+const {
+  createHigherOrderComponent
+} = wp.compose;
+const {
+  ToggleControl
+} = wp.components;
+
+const newsCardAdvancedControls = wp.compose.createHigherOrderComponent(BlockEdit => {
+  return props => {
+    const {
+      Fragment
+    } = wp.element;
+    const {
+      ToggleControl
+    } = wp.components;
+    const {
+      InspectorAdvancedControls
+    } = wp.blockEditor;
+    const {
+      attributes,
+      setAttributes,
+      isSelected
+    } = props;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockEdit, props), isSelected && props.name == 'wsuwp/news-cards' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: "Show Feed Button",
+      checked: attributes.showButton,
+      onChange: showButton => {
+        setAttributes({
+          showButton
+        });
+      }
+    }), attributes.showButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__["ButtonControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: "Show Feed Heading",
+      checked: attributes.showHeading,
+      onChange: showHeading => {
+        setAttributes({
+          showHeading
+        });
+      }
+    }), attributes.showHeading && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__["HeadingControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: "Link Heading",
+      checked: attributes.linkHeading,
+      onChange: linkHeading => {
+        setAttributes({
+          linkHeading
+        });
+      }
+    }))));
+  };
+}, 'newsCardAdvancedControls');
+wp.hooks.addFilter('editor.BlockEdit', 'wsu/news-card-advanced-controls', newsCardAdvancedControls);
+
+/***/ }),
+
+/***/ "./blocks/wsuwp-news-cards/editor/edit.js":
+/*!************************************************!*\
+  !*** ./blocks/wsuwp-news-cards/editor/edit.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-components/blockComponents */ "./assets/src/js/partials/block-components/blockComponents.js");
+
+const {
+  __
+} = wp.i18n;
+const {
+  InnerBlocks
+} = wp.blockEditor;
+const {
+  InspectorControls,
+  useBlockProps
+} = wp.blockEditor;
+const {
+  PanelBody,
+  TextControl,
+  SelectControl,
+  Button,
+  FocalPointPicker,
+  BaseControl,
+  IconButton,
+  ToggleControl
+} = wp.components;
+
+
+
+
+
+
+
+
+const NewsCardGeneralOptions = props => {
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelGeneralOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: "Content Source",
+    value: attributes.source,
+    options: [{
+      label: 'Feed',
+      value: 'feed'
+    }, {
+      label: 'Select Posts',
+      value: 'select'
+    }],
+    onChange: source => setAttributes({
+      source
+    })
+  }));
+};
+
+const NewsCardDisplayOptions = props => {
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: "Cards Per Row",
+    value: attributes.perRow,
+    options: [{
+      label: '1',
+      value: '1'
+    }, {
+      label: '2',
+      value: '2'
+    }, {
+      label: '3',
+      value: '3'
+    }, {
+      label: '4',
+      value: '4'
+    }],
+    onChange: perRow => setAttributes({
+      perRow
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Hide Caption",
+    checked: attributes.hideCaption,
+    onChange: hideCaption => {
+      setAttributes({
+        hideCaption
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Hide Date",
+    checked: attributes.hideDate,
+    onChange: hideDate => {
+      setAttributes({
+        hideDate
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Hide Image",
+    checked: attributes.hideImage,
+    onChange: hideImage => {
+      setAttributes({
+        hideImage
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Hide Shown Posts",
+    checked: attributes.hideShownPosts,
+    onChange: hideShownPosts => {
+      setAttributes({
+        hideShownPosts
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Show Button",
+    checked: attributes.showButton,
+    onChange: showButton => {
+      setAttributes({
+        showButton
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Show Heading",
+    checked: attributes.showHeading,
+    onChange: showHeading => {
+      setAttributes({
+        showHeading
+      });
+    }
+  }));
+};
+
+const FeedPlaceHolder = () => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-card-news__placeholder"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-card-news__placeholder-message"
+  }, "No Cards Found"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-card-news__placeholder-text"
+  }, "Try changing your feed settings!"));
+};
+
+const Edit = props => {
+  let {
+    className,
+    attributes,
+    setAttributes,
+    clientId
+  } = props;
+  const blockProps = useBlockProps({
+    className: 'wsu-card-wrapper wsu-card-wrapper--news wsu-card-wrapper--per-row-' + attributes.perRow,
+    style: {}
+  });
+  let queryAttrs = attributes;
+  queryAttrs['hideLink'] = true;
+
+  if ('feed' === attributes.source) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelFeedOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["PostTypeSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["TaxonomyTypeSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["TaxonomyTermSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["CountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelAdvancedFeedOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["OffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["HostControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireFirstImageControl"], props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__["ApiRenderBlock"], {
+      attributes: queryAttrs,
+      blockName: "wsuwp/news-cards"
+    }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
+  } else if ('select' === attributes.source) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelInsertPost"], {
+      attributes: attributes,
+      onChange: value => setAttributes({
+        postIn: value
+      }),
+      postTypes: ['post', 'page'],
+      placeholder: "Search posts..."
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__["ApiRenderBlock"], {
+      attributes: queryAttrs,
+      blockName: "wsuwp/news-cards"
+    }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Edit);
+
+/***/ }),
+
 /***/ "./blocks/wsuwp-news/editor/block.js":
 /*!*******************************************!*\
   !*** ./blocks/wsuwp-news/editor/block.js ***!
@@ -1976,7 +3317,7 @@ const {
 
 
 registerBlockType("wsuwp/news", {
-  title: "News",
+  title: "News (Deprecated)",
   apiVersion: 2,
   category: "feeds",
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
@@ -2940,6 +4281,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "@wordpress/blocks":
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blocks"]; }());
+
+/***/ }),
+
 /***/ "@wordpress/components":
 /*!************************************!*\
   !*** external ["wp","components"] ***!
@@ -2959,6 +4311,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["compose"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["data"]; }());
 
 /***/ }),
 

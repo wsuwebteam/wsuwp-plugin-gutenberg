@@ -5,6 +5,7 @@
 /** ===== Block Constrols ===== */
 @import '../js/partials/block-controls/post-picker/style';
 @import '../js/partials/block-controls/spacing-class-name-selector/style';
+@import '../js/partials/block-controls/reset-control/style';
 
 
 
@@ -13,6 +14,8 @@
 @import '../../../blocks/wsuwp-row/editor/style';
 @import '../../../blocks/wsuwp-hero/editor/style';
 @import '../../../blocks/wsuwp-pagetitle/editor/style';
+@import '../../../blocks/wsuwp-news-cards/editor/style'; 
+
 
 
 
@@ -26,7 +29,7 @@
 
 /** ===== Front-End Styles Fixes ===== */
 .block-editor-block-list__layout .wsu-row {
-    display: block;
+    display: block; 
 }
 
 .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
