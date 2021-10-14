@@ -97,16 +97,6 @@ const NewsCardDisplayOptions = ( props ) => {
                 label="Hide Image"
                 checked={ attributes.hideImage }
                 onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
-                />
-            <ToggleControl
-                label="Show Button"
-                checked={ attributes.showButton }
-                onChange={ ( showButton ) => { setAttributes( { showButton } ) } }
-                />
-            <ToggleControl
-                label="Show Heading"
-                checked={ attributes.showHeading }
-                onChange={ ( showHeading ) => { setAttributes( { showHeading } ) } }
                 />							
         </PanelDisplayOptions>
 
@@ -185,7 +175,7 @@ const Edit = ( props ) => {
                     <PanelInsertPost 
                         attributes={attributes}
                         onChange={ ( value ) => setAttributes( { postIn: value } ) }
-                        postTypes={ [ 'post', 'page' ] }
+                        postTypes={ [ 'any' ] }
                         placeholder="Search posts..."
                         />
                 </InspectorControls>
