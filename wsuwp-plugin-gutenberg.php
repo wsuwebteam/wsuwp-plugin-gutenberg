@@ -3,7 +3,7 @@
  * Plugin Name: WSUWP Gutenberg 
  * Plugin URI: https://github.com/wsuwebteam/wsuwp-plugin-gutenberg
  * Description: Describe the plugin
- * Version: 1.2.1
+ * Version: 1.2.2
  * Requires PHP: 7.3
  * Author: Washington State University, Danial Bleile
  * Author URI: https://web.wsu.edu/
