@@ -38,6 +38,7 @@ class Blocks {
 		'core/spacer',
 		'core/table',
 		'core/video',
+		'gravityforms/form',
 	);
 
 
