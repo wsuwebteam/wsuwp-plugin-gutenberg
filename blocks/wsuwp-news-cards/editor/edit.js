@@ -38,6 +38,7 @@ import {
     HostControl,
     RequireImageControl,
     RequireFirstImageControl,
+    HeadingTagControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { ColorClassNameSelector, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
@@ -83,6 +84,7 @@ const NewsCardDisplayOptions = ( props ) => {
                 ] }
                 onChange={ ( perRow ) => setAttributes( { perRow } ) }
             />
+            <HeadingTagControl { ...props } />
             <ToggleControl
                 label="Hide Caption"
                 checked={ attributes.hideCaption }

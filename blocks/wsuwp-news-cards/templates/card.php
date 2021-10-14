@@ -11,11 +11,11 @@
 	<?php endif; ?>
 	<div class="wsu-card__content">
 		<?php if ( empty( $attrs['hideTitle'] ) && ! empty( $post['title'] ) ) : ?> 
-		<h2 class="wsu-title">
+		<<?php echo esc_attr( $attrs['headingTag'] ); ?> class="wsu-title">
 			<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>"><?php endif; ?>
 			<?php echo wp_kses_post( $post['title'] ); ?>
 			<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?></a><?php endif; ?>
-		</h2>
+		</<?php echo esc_attr( $attrs['headingTag'] ); ?>>
 		<?php endif; ?>
         <?php if ( empty( $attrs['hideDate'] ) && ! empty( $post['date'] ) ) : ?>
 		<div class="wsu-meta-date">

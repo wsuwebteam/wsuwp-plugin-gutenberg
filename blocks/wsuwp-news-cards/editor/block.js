@@ -65,7 +65,7 @@
             },
             headingTag: {
                 type: 'string',
-                default: 'h2',
+                default: 'h3',
             },
             linkHeading: {
                 type: 'boolean',

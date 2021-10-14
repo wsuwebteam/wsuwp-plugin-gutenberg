@@ -12,7 +12,7 @@ export {default as OffsetControl } from './OffsetControl';
 export {default as HostControl } from './HostControl';
 export {default as ButtonControl } from './ButtonControl';
 export {default as HeadingControl } from './HeadingControl';
-export {default as HeadingTagControl } from './HeadingTagControl';
+export {default as HeadingTagControl } from './heading-tag-control.js/HeadingTagControl';
 export {default as TitleTagControl } from './TitleTagControl';
 export {default as FontSizeControl} from './FontSizeControl';
 export {default as ResetControl } from './reset-control/ResetControl';

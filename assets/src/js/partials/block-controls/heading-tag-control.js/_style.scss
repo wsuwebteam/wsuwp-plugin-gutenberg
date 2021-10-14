@@ -1,0 +1,30 @@
+.wsu-heading-tag-block-control {
+
+    label {
+        display: block;
+    }
+
+
+    &__button {
+
+        padding: 0 4px !important;
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            path {
+                fill: #000;
+            }
+        }
+
+        &[aria-pressed="true"] {
+            background-color: #007cba;
+            color: #fff;
+            
+            svg path {
+                fill: #fff;
+            }
+        }
+    }
+}
