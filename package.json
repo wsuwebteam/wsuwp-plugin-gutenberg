@@ -15,7 +15,7 @@
     "@wordpress/scripts": "^16.1.5",
     "@wordpress/server-side-render": "^3.0.2",
     "@wsuwebteam/build-tools": "^2.0.0",
-    "@wsuwebteam/wsu-web-design-system": "^0.0.6",
+    "@wsuwebteam/wsu-web-design-system": "^2.0.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
