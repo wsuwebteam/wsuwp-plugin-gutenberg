@@ -1,0 +1,33 @@
+@import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss';
+@import '../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/variables';
+@import '../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/mixins';
+
+.block-editor-block-list__layout {
+
+
+
+    .has-child-selected.wsu-accordion,
+    .is-selected.wsu-accordion {
+
+        border: 1px solid $wsu-color--gray-20;
+
+        .wsu-accordion__content {
+            max-height: none ;
+            visibility: visible;
+            background: repeating-linear-gradient(
+            45deg,
+            #ffffff,
+            #ffffff 10px,
+            $wsu-color--gray-5 10px,
+            $wsu-color--gray-5 20px
+            );
+        }
+
+        .wsu-accordion__content-inner {
+            background-color: #fff;
+            margin: $wsu-spacing--medium;
+            padding: $wsu-spacing--small;
+        }
+
+    } 
+}
