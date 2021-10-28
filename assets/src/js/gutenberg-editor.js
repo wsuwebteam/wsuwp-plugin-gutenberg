@@ -1,3 +1,4 @@
+import '../../../blocks/wsuwp-accordion/editor/block';
 import '../../../blocks/wsuwp-callout/editor/block';
 import '../../../blocks/wsuwp-column/editor/block';
 import '../../../blocks/wsuwp-hero/editor/block';
