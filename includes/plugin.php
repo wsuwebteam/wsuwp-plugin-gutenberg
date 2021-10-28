@@ -3,15 +3,12 @@
 class Plugin {
 
 
-	protected static $version = '1.2.2';
-
-
 	public static function get( $property ) {
 
 		switch ( $property ) {
 
 			case 'version':
-				return self::$version;
+				return WSUWPPLUGINGUTENBERGVERSION;
 
 			case 'dir':
 				return plugin_dir_path( dirname( __FILE__ ) );

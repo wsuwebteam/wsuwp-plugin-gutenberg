@@ -21,7 +21,7 @@ const HeadingTagControl = ( props ) => {
     }
 
     return (
-        <BaseControl className="wsu-heading-tag-block-control" id="heading-tag" label="Heading" help="">
+        <BaseControl className="wsu-heading-tag-block-control" id="heading-tag" label="Heading Level" help="">
             <ButtonGroup>
                 { allowedTags.includes('h1') && <Button onClick={ () => setTag( 'h1') } isPressed={ isActive('h1') } className="wsu-heading-tag-block-control__button" variant="primary"  aria-label="h1"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.81,6.75v10.5h-2v-4.5H6.43v4.5H4.49V6.75H6.43v4.34h5.43V6.75Z" /><path d="M19.51,6.75v10.5h-2V8.39H15.34V6.75Z" /></svg></Button>}
                 { allowedTags.includes('h2') && <Button onClick={ () => setTag( 'h2') } isPressed={ isActive('h2') } className="wsu-heading-tag-block-control__button" variant="primary"  aria-label="h2"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.83,6.83V17.32H9.88v-4.5H4.45v4.5H2.5V6.83h2v4.33H9.88V6.83Z" /><path d="M21.5,15.68v1.64H13.76V16l4.17-4c1-1,1.2-1.59,1.2-2.17,0-1-.66-1.52-1.95-1.52a3,3,0,0,0-2.46,1.1L13.36,8.42a4.83,4.83,0,0,1,4-1.74c2.28,0,3.75,1.15,3.75,3,0,1-.29,2-1.74,3.32l-2.81,2.67Z" /></svg></Button>}
