@@ -21,6 +21,7 @@ class Block_WSUWP_Hero extends Block {
 		'buttonText'       => 'Read More',
 		'photoCredit'      => '',
 		'lightOverlay'     => false,
+		'pattern'          => 'wsu',
  	);
 
 

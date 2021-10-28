@@ -53,6 +53,20 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 						checked={ attributes.lightOverlay }
 						onChange={ ( lightOverlay ) => { setAttributes( { lightOverlay } ) } }
 						/>
+					<SelectControl
+						label="Pattern"
+						value={ attributes.pattern }
+						options={ [
+							{ label: 'WSU', value: 'wsu' },
+							{ label: 'None', value: 'none' },
+						] }
+						onChange={ ( pattern ) => { setAttributes( { pattern } ) } }
+					/>
+					<ToggleControl
+						label="Remove Pattern"
+						checked={ attributes.hidePattern }
+						onChange={ ( hidePattern ) => { setAttributes( { hidePattern } ) } }
+						/>
 				</PanelDisplayOptions>
 				<Panel>
 					<PanelBody title="Background" initialOpen={false}>

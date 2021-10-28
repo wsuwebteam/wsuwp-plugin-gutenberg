@@ -70,6 +70,10 @@
                 type: 'boolean',
                 default: false,
             },
+            pattern: {
+                type: 'string',
+                default: 'wsu',
+            },
          },
          edit
      }

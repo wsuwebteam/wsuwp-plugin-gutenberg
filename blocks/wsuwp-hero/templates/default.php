@@ -14,7 +14,7 @@
 			/>
 	<?php endif; ?>
 	</div>
-	<div class="wsu-overlay wsu-overlay--dark-left wsu-pattern-after <?php if ( $attrs['lightOverlay'] ) : ?> wsu-overlay--light<?php endif; ?>"></div>
+	<div class="wsu-overlay wsu-overlay--dark-left<?php if ( 'wsu' === $attrs['pattern'] ) : ?> wsu-pattern-after<?php endif; ?> <?php if ( $attrs['lightOverlay'] ) : ?> wsu-overlay--light<?php endif; ?>"></div>
 	<div class="wsu-hero__content">
 		<div class="wsu-hero__caption">
 			<?php if ( ! empty( $attrs['eyebrowHeading'] ) ) : ?>
