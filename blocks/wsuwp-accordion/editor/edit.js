@@ -73,7 +73,7 @@ const Edit = ( props ) => {
 		<>
 			<InspectorControls>
                 <PanelDisplayOptions isOpen={true} >
-                    <HeadingTagControl { ...props } />
+                    <HeadingTagControl { ...props } /> 
                     <ToggleControl
                         label="Reduce Size"
                         checked={ hasBlockClassName( ( attributes.className ?? '' ), 'wsu-accordion--size-small'  ) }
