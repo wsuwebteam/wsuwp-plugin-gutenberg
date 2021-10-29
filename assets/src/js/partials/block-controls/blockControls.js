@@ -18,4 +18,5 @@ export {default as FontSizeControl} from './FontSizeControl';
 export {default as ResetControl } from './reset-control/ResetControl';
 export {default as RequireImageControl } from './RequireImageControl';
 export {default as RequireFirstImageControl } from './RequireFirstImageControl';
+export {default as ColorClassControl } from './ColorClassControl';
 

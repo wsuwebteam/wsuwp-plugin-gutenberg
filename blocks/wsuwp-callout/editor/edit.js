@@ -1,89 +1,96 @@
 const { __ } = wp.i18n;
 
-const { InnerBlocks } = wp.blockEditor;
-
 const {
+	InnerBlocks,
 	InspectorControls,
-	BlockControls,
 	useBlockProps
 } = wp.blockEditor;
 
 const {
-	PanelBody,
 	TextControl,
-	SelectControl,
-	Button,
-	FocalPointPicker,
-	BaseControl
+	ToggleControl,
 } = wp.components;
 
+import { 
+    HeadingTagControl,
+	ColorClassControl,
+} from "../../../assets/src/js/partials/block-controls/blockControls";
+
+import { 
+    PanelDisplayOptions,
+	PanelColorOptions,
+} from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
-const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
+const Edit = ( props ) => {
+
+	let {
+		attributes, 
+		setAttributes 
+	} = props;
 
 	const blockProps = useBlockProps( {
         className: 'wsu-callout',
         style: {},
     } );
 
-    return (
+	const backgroundColors = [
+        { name: 'gray-5', color: '#f2f2f2' },
+        { name: 'white', color: '#ffffff' },
+        { name: 'gray-85', color: '#262626' },
+    ];
 
+	const borderColors = [
+		{ name: 'default', color: '#e6e6e6' },
+		{ name: 'crimson', color: '#A60F2D' },
+		{ name: 'crimson-light', color: '#CA1237' },
+		{ name: 'autumn', color: '#FF6727' },
+		{ name: 'goldfinch', color: '#F3E700' },
+		{ name: 'vineyard', color: '#AADC24' },
+		{ name: 'pacificsky', color: '#5BC3F5' },
+		{ name: 'midnight', color: '#002D61' },
+    ];
+
+    return (
+		<>
+		<InspectorControls>
+			<PanelDisplayOptions isOpen={true} >
+				<TextControl
+						label="Callout Heading"
+						value={ attributes.title ? attributes.title : '' }
+						onChange= { ( title ) => setAttributes( { title } ) }
+					/>
+					{ attributes.title && <HeadingTagControl { ...props } /> }
+					<ToggleControl
+						label="Use HTML <aside> tag"
+						checked={ attributes.useAsideTag }
+						onChange={ ( useAsideTag ) => { setAttributes( { useAsideTag } ) } }
+						/>
+			</PanelDisplayOptions>
+			<PanelColorOptions>
+				<ColorClassControl
+					{ ...props }
+					colors={backgroundColors}
+					label='Background Color'
+					value='#f2f2f2'
+					/>
+				<ColorClassControl
+					{ ...props }
+					colors={borderColors}
+					label='Border Color'
+					value='#e6e6e6'
+					prefix='wsu-callout--color-'
+					/>
+			</PanelColorOptions>
+		</InspectorControls>
 		<div { ...blockProps }  >
+			{ attributes.title && <h2 class="wsu-callout__title">{attributes.title}</h2> }
 			<InnerBlocks
 				templateLock={ false }
 			/>
 		</div>
+		</>
     )
-
-	/*{ 
-		if ( ! attributes.layout ) {
-
-			return (
-				<div className="wsu-c-columns-editor__wrapper">
-					<div className="wsu-c-columns-editor__title">Select Column Layout</div>
-					<ul className="wsu-c-columns-editor__options">
-					{ columnFormats.map( ( layout ) => LayoutOption( layout, attributes, setAttributes ) ) }
-					</ul>
-				</div>
-			)
-
-		} else {
-			return (
-				<>
-					{
-						<InspectorControls>
-							<DecoratorControl 
-								decorators={attributes.decorators}
-								onChange={ ( decoratorArray ) => { setAttributes( { decorators:decoratorArray } ) } }
-								/>
-							<PanelBody title="Style" initialOpen={false}>
-								<SelectControl
-									label="Background Color"
-									value={attributes.backgroundColor}
-									onChange={ (backgroundColor) => setAttributes( { backgroundColor } ) }
-									options={[
-										{ label: 'Default', value: 'default' },
-										{ label: 'White', value: 'white' },
-										{ label: 'Gray 5%', value: 'gray-5' },
-										{ label: 'Gray 10%', value: 'gray-10' },
-									]}
-								/>
-							</PanelBody>
-
-							<SpacingPanelVertical attributes={attributes} setAttributes={setAttributes} />
-						</InspectorControls>
-					}
-					<div className={'wsu-c-column__wrapper wsu-u-no-js wsu-c-columns--' + attributes.layout }  >
-						<InnerBlocks
-							template={ getColumnsTemplate( attributes ) }
-							templateLock={ "insert" }
-							allowedBlocks={ ['wsuwp/column'] }
-						/>
-					</div>
-				</>
-			)
-		}
-	}*/
 
 }
 
