@@ -17,6 +17,7 @@ class Query_Posts {
 	public $require_image;
 	public $require_first_image;
 	public $hide_shown_posts;
+	public $use_and_logic;
 
 
 	public function __construct( $attrs ) {
@@ -42,6 +43,7 @@ class Query_Posts {
 		$this->require_image        = ( ! empty( $attrs['requireImage'] ) ) ? $attrs['requireImage'] : false;
 		$this->require_first_image  = ( ! empty( $attrs['requireFirstImage'] ) ) ? $attrs['requireFirstImage'] : false;
 		$this->hide_shown_posts     = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
+		$this->use_and_logic        = ( ! empty( $attrs['useAndLogic'] ) ) ? $attrs['useAndLogic'] : false;
 
 
 	}
@@ -143,6 +145,7 @@ class Query_Posts {
 					'taxonomy' => $this->taxonomy,
 					'field'    => 'term_id',
 					'terms'    => $this->terms,
+					'operator' => ( ! empty( $this->use_and_logic ) ) ? 'AND' : 'IN',
 				),
 			);
 		}
@@ -274,6 +277,11 @@ class Query_Posts {
 					break;
 
 			}
+		}
+
+		if ( ! empty( $this->use_and_logic ) ) {
+
+			$query_args['term_relation'] = 'AND';
 
 		}
 

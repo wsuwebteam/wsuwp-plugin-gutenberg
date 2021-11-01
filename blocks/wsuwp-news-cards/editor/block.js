@@ -107,6 +107,10 @@
                 type: 'boolean',
                 default: false,
             },
+            useAndLogic: {
+                type: 'boolean',
+                default: false,
+            },
          },
          edit,
      }

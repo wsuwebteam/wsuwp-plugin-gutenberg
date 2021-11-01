@@ -8,4 +8,4 @@ const columnSave = ( props ) => {
 	)
 }
 
-export default columnSave;
+export default columnSave; 

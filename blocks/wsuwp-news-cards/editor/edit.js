@@ -155,6 +155,11 @@ const Edit = ( props ) => {
                         checked={ attributes.hideShownPosts }
                         onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
                         />
+                        <ToggleControl
+                        label="Use AND logic for terms"
+                        checked={ attributes.useAndLogic }
+                        onChange={ ( useAndLogic ) => { setAttributes( { useAndLogic } ) } }
+                        />
                     </PanelAdvancedFeedOptions>
                 </InspectorControls>
                 <div { ...blockProps }  >
