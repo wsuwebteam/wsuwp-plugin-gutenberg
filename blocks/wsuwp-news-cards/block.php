@@ -39,6 +39,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'headingText'       => '',
 		'headingTag'        => 'h3',
 		'linkHeading'       => false,
+		'useAndLogic'       => false,
 	);
 
 
