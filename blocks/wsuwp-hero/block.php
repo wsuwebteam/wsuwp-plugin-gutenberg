@@ -21,7 +21,8 @@ class Block_WSUWP_Hero extends Block {
 		'buttonText'       => 'Read More',
 		'photoCredit'      => '',
 		'lightOverlay'     => false,
-		'pattern'          => 'wsu',
+		'pattern'          => 'wsu-light-radial-left',
+		'overlay'          => 'dark-left',
  	);
 
 
@@ -44,8 +45,10 @@ class Block_WSUWP_Hero extends Block {
 			$attrs['imageAlt']    = wp_get_attachment_caption( $attrs['imageId'] );
 		}
 
-		static::add_class( $wrapper_classes, '', 'className', $attrs );
-		static::add_class( $wrapper_classes, 'wsu-row--', 'layout', $attrs );
+		$overlay_classes = 'wsu-overlay wsu-pattern-after';
+
+		static::add_class( $overlay_classes, 'wsu-overlay--', 'overlay', $attrs );
+		static::add_class( $overlay_classes, 'wsu-pattern--', 'pattern', $attrs );
 
 		ob_start();
 

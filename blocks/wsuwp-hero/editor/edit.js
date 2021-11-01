@@ -22,6 +22,18 @@ import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptio
 
 const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 
+	const getOverlayClasses = () => {
+
+		let classArray = ['wsu-overlay','wsu-pattern-after'];
+
+		classArray.push( 'wsu-overlay--' + attributes.overlay );
+
+		classArray.push( 'wsu-pattern--' + attributes.pattern );
+
+		return classArray.join( ' ' );
+
+	}
+
 	const blockProps = useBlockProps( {
 		className: 'wsu-hero  wsu-pattern--wsu-light-radial-left',
 		style: {},
@@ -48,25 +60,25 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 					/>
 				</PanelGeneralOptions>
 				<PanelDisplayOptions>
-					<ToggleControl
-						label="Lighten Overlay"
-						checked={ attributes.lightOverlay }
-						onChange={ ( lightOverlay ) => { setAttributes( { lightOverlay } ) } }
-						/>
+					<SelectControl
+						label="Overlay"
+						value={ attributes.overlay }
+						options={ [
+							{ label: 'Default', value: 'dark-left' },
+							{ label: 'Lighter', value: 'light' },
+							{ label: 'None', value: 'none' },
+						] }
+						onChange={ ( overlay ) => { setAttributes( { overlay } ) } }
+					/>
 					<SelectControl
 						label="Pattern"
 						value={ attributes.pattern }
 						options={ [
-							{ label: 'WSU', value: 'wsu' },
+							{ label: 'WSU', value: 'wsu-light-radial-left' },
 							{ label: 'None', value: 'none' },
 						] }
 						onChange={ ( pattern ) => { setAttributes( { pattern } ) } }
 					/>
-					<ToggleControl
-						label="Remove Pattern"
-						checked={ attributes.hidePattern }
-						onChange={ ( hidePattern ) => { setAttributes( { hidePattern } ) } }
-						/>
 				</PanelDisplayOptions>
 				<Panel>
 					<PanelBody title="Background" initialOpen={false}>
@@ -103,7 +115,7 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 				<div className="wsu-image-frame wsu-image-frame--fill">
 					<img src={ attributes.imageSrc } />
 				</div>
-				<div className="wsu-overlay wsu-overlay--dark-left wsu-pattern-after"></div>
+				<div className={getOverlayClasses()}></div>
 				<div className="wsu-hero__content">
 					<div className="wsu-hero__caption">
 						<RichText

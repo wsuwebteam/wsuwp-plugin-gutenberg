@@ -40,6 +40,10 @@
                 type: 'string',
                 default: '',
             },
+            overlay: {
+                type: 'string',
+                default: 'dark-left',
+            },
             imageId: {
                 type: 'integer',
                 default: 0,
@@ -72,7 +76,7 @@
             },
             pattern: {
                 type: 'string',
-                default: 'wsu',
+                default: 'wsu-light-radial-left',
             },
          },
          edit
