@@ -30,13 +30,37 @@ const addBlockClassName = ( className, prefix, value, remove=true ) => {
 
 }
 
-const hasBlockClassName = ( className, prefix ) => {
+const hasBlockClassName = ( classNames, value ) => {
 
-    return ( className.includes( prefix ) ) ? true : false;
+    return ( classNames.includes( value ) ) ? true : false;
 
 }
 
 const getBlockClassName = ( className, prefix ) => {
+
+    let classArray = className.split(' ');
+
+    let value = '';
+
+    if ( Array.isArray( classArray ) ) {
+
+        classArray.forEach( ( itemClass, index ) => {
+
+            if ( itemClass.includes( prefix ) ) {
+
+                value = itemClass.replace( prefix, '' );
+
+            }
+
+        } );
+
+    }
+
+    return value;
+
+}
+
+const getBlockClassNameValue = ( className, prefix ) => {
 
     let classArray = className.split(' ');
 
@@ -121,4 +145,4 @@ const setBlockClassName = ( attributes, setAttributes, prefix, value ) => {
 
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, removeBlockClassName, setBlockClassName } 
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setBlockClassName } 

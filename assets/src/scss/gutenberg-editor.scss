@@ -8,17 +8,20 @@
 @import '../js/partials/block-controls/reset-control/style';
 @import '../js/partials/block-controls/heading-tag-control.js/style';
 
+/** ===== Panels ===== */
+@import '../js/partials/block-panels/panel-style-options/style'; 
+
 /** ===== Front-End Styles ===== */
 .block-editor-block-list__layout {
     @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss';
     @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss';
-    @import '../../../blocks/wsuwp-news/editor/style';
-    @import '../scss/partials/front-end-style-fixes';    
+    @import '../../../blocks/wsuwp-news/editor/style'; 
+    @import '../scss/partials/front-end-style-fixes';                     
 } 
 
 
 /** ===== Blocks ===== */
-@import '../../../blocks/wsuwp-column/editor/style';
+@import '../../../blocks/wsuwp-column/editor/style';  
 @import '../../../blocks/wsuwp-row/editor/style';
 @import '../../../blocks/wsuwp-hero/editor/style';
 @import '../../../blocks/wsuwp-pagetitle/editor/style';
@@ -53,6 +56,6 @@
     display: block;
 
     span {
-        display: block;
+        display: block; 
     }
 }
