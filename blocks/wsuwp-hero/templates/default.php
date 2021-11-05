@@ -23,15 +23,15 @@
             </div>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['title'] ) ) : ?>
-			<div class="wsu-title"><?php echo wp_kses_post( $attrs['title'] ); ?></div>
+			<div id="<?php echo esc_attr( $attrs['titleId'] ); ?>" class="wsu-title"><?php echo wp_kses_post( $attrs['title'] ); ?></div>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['caption'] ) ) : ?>
 			<div class="wsu-caption">
 				<?php echo wp_kses_post( $attrs['caption'] ); ?>
 			</div>
 			<?php endif; ?>
-			<?php if ( ! empty( $attrs['link'] ) ) : ?>
-			<a class="wsu-hero__read-more" href="#" aria-label="<?php echo esc_attr( $attrs['buttonText'] ); ?> <?php echo esc_attr( $attrs['title'] ); ?>">
+			<?php if ( ! empty( $attrs['link'] ) && ! empty( $attrs['buttonText'] ) ) : ?>
+			<a class="wsu-button wsu-button--size-small" href="#" aria-labelledby="<?php echo esc_attr( $attrs['titleId'] ); ?>">
 				<?php echo esc_html( $attrs['buttonText'] ); ?>
 			</a>
 			<?php endif; ?>

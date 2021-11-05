@@ -34,7 +34,7 @@
             },
             buttonText: {
                 type: 'string',
-                default: 'Read More',
+                default: '',
             },
             photoCredit: {
                 type: 'string',

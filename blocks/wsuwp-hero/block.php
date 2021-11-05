@@ -18,7 +18,7 @@ class Block_WSUWP_Hero extends Block {
 		'imageFocalPointX' => '50%',
 		'imageFocalPointY' => '50%',
 		'eyebrowHeading'   => '',
-		'buttonText'       => 'Read More',
+		'buttonText'       => '',
 		'photoCredit'      => '',
 		'lightOverlay'     => false,
 		'pattern'          => 'wsu-light-radial-left',
@@ -27,6 +27,8 @@ class Block_WSUWP_Hero extends Block {
 
 
 	public static function render( $attrs, $content = '' ) {
+		
+		$attrs['titleId'] = uniqid('title-id-');
 
 		$attrs['imageId'] = (int) $attrs['imageId'];
 
