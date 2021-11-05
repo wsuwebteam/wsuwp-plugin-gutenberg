@@ -20,7 +20,15 @@ const {
 
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
+import {
+	getBlockClassName,
+	addBlockClassName,
+	getBlockClassNameValue,
+} from '../../../assets/src/js/partials/block-utilities/blockUtilities';
+
 const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
+
+	let blockClasses = attributes.className ?? '';
 
 	const getOverlayClasses = () => {
 
@@ -60,6 +68,19 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 					/>
 				</PanelGeneralOptions>
 				<PanelDisplayOptions>
+					<SelectControl
+						label="Height"
+						value={ getBlockClassNameValue( blockClasses, 'wsu-hero--size-' ) }
+						options={ [
+							{ label: 'Default', value: '' },
+							{ label: 'xSmall', value: 'xsmall' },
+							{ label: 'Small', value: 'small' },
+							{ label: 'Medium', value: 'medium' },
+							{ label: 'Large', value: 'large' },
+							{ label: 'Full', value: 'full' },
+						] }
+						onChange={ ( size ) => { setAttributes( { className: addBlockClassName( blockClasses, 'wsu-hero--size-', size ) } ) } }
+					/>
 					<SelectControl
 						label="Overlay"
 						value={ attributes.overlay }
@@ -142,7 +163,7 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 							onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
 							placeholder="Add Hero Banner caption text here..." // Display this text before any content has been added by the user
 						/>
-						{ attributes.link && <span class="wsu-hero__read-more" href="#" aria-label="Read more Hero Banner Title">{ attributes.buttonText }</span> }
+						{ attributes.link && attributes.buttonText && <span class="wsu-button wsu-button--size-small" href="#" aria-labelledby="unique-id-hero-banner-title">{ attributes.buttonText }</span> }
 					</div>
 				</div>
 			</div>
