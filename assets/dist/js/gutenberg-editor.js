@@ -3596,7 +3596,7 @@ registerBlockType("wsuwp/hero", {
     },
     buttonText: {
       type: 'string',
-      default: 'Read More'
+      default: ''
     },
     photoCredit: {
       type: 'string',
@@ -3658,6 +3658,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
 
 const {
   useBlockProps,
@@ -3679,12 +3680,17 @@ const {
 } = wp.components;
 
 
+
 const Edit = ({
   className,
   isSelected,
   attributes,
   setAttributes
 }) => {
+  var _attributes$className;
+
+  let blockClasses = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
+
   const getOverlayClasses = () => {
     let classArray = ['wsu-overlay', 'wsu-pattern-after'];
     classArray.push('wsu-overlay--' + attributes.overlay);
@@ -3715,6 +3721,33 @@ const Edit = ({
       photoCredit
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_1__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: "Height",
+    value: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(blockClasses, 'wsu-hero--size-'),
+    options: [{
+      label: 'Default',
+      value: ''
+    }, {
+      label: 'xSmall',
+      value: 'xsmall'
+    }, {
+      label: 'Small',
+      value: 'small'
+    }, {
+      label: 'Medium',
+      value: 'medium'
+    }, {
+      label: 'Large',
+      value: 'large'
+    }, {
+      label: 'Full',
+      value: 'full'
+    }],
+    onChange: size => {
+      setAttributes({
+        className: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["addBlockClassName"])(blockClasses, 'wsu-hero--size-', size)
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
     label: "Overlay",
     value: attributes.overlay,
     options: [{
@@ -3827,10 +3860,10 @@ const Edit = ({
     ,
     placeholder: "Add Hero Banner caption text here..." // Display this text before any content has been added by the user
 
-  }), attributes.link && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
-    class: "wsu-hero__read-more",
+  }), attributes.link && attributes.buttonText && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    class: "wsu-button wsu-button--size-small",
     href: "#",
-    "aria-label": "Read more Hero Banner Title"
+    "aria-labelledby": "unique-id-hero-banner-title"
   }, attributes.buttonText)))));
 };
 
