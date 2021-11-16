@@ -86,6 +86,8 @@ class Query_Posts {
 
 		}
 
+		$date_format = get_option( 'date_format' );
+
 		foreach ( $post_array as $api_post ) {
 
 			$post = array();
@@ -95,7 +97,7 @@ class Query_Posts {
 			$post['caption'] = $api_post['excerpt']['rendered'];
 			$post['content'] = $api_post['content']['rendered'];
 			$post['link']    = $api_post['link'];
-			$post['date']    = $api_post['date'];
+			$post['date']    = date_i18n( $date_format, strtotime( $api_post['date'] ) );
 
 			if ( isset( $api_post['_embedded']['wp:featuredmedia'][0] ) && ! empty( $api_post['_embedded']['wp:featuredmedia'][0] ) ) {
 
