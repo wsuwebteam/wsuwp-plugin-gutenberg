@@ -31,7 +31,7 @@
 			</div>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['link'] ) && ! empty( $attrs['buttonText'] ) ) : ?>
-			<a class="wsu-button wsu-button--size-small" href="#" aria-labelledby="<?php echo esc_attr( $attrs['titleId'] ); ?>">
+			<a class="wsu-button wsu-button--size-small" href="<?php echo esc_url( $attrs['link'] ); ?>" aria-labelledby="<?php echo esc_attr( $attrs['titleId'] ); ?>">
 				<?php echo esc_html( $attrs['buttonText'] ); ?>
 			</a>
 			<?php endif; ?>
