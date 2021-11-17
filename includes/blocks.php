@@ -73,7 +73,7 @@ class Blocks {
 
 		add_filter( 'allowed_block_types', array( __CLASS__, 'remove_blocks' ) );
 
-		add_action( 'init', array( __CLASS__, 'register' ) );
+		add_action( 'init', array( __CLASS__, 'register' ), 9 );
 
 	}
 
