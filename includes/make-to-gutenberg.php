@@ -93,7 +93,7 @@ class Make_To_Gutenberg {
 			is_singular( 'page' ) &&
 			! self::content_has_blocks( $post->post_content ) ) {
 
-			$post->post_content = self::get_converted_content( $post );
+			$post->post_content = wpautop( self::get_converted_content( $post ) );
 
 		}
 

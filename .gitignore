@@ -31,3 +31,5 @@ package-lock.json
 # Ignore VSCode folder
 .vscode
 
+# Ignore npmrc files
+.npmrc
