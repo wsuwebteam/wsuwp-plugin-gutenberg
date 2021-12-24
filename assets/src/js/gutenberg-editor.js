@@ -6,6 +6,7 @@ import '../../../blocks/wsuwp-news/editor/block';
 import '../../../blocks/wsuwp-row/editor/block';
 import '../../../blocks/wsuwp-pagetitle/editor/block';
 import '../../../blocks/wsuwp-news-cards/editor/block';
+import '../../../blocks/wsuwp-people-list/editor/block';
 import '../../../blocks/wsuwp-news-cards/editor/blockEditFilter';
 import '../../../blocks/core-heading/editor/blockEditFilter';
 import '../../../blocks/core-button/blockEditFilter';

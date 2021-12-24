@@ -4,14 +4,15 @@ class Blocks {
 
 
 	protected static $register_blocks = array(
-		'wsuwp/row'        => 'Block_WSUWP_Row',
-		'wsuwp/column'     => 'Block_WSUWP_Column',
-		'wsuwp/news'       => 'Block_WSUWP_News',
-		'wsuwp/callout'    => 'Block_WSUWP_Callout',
-		'wsuwp/hero'       => 'Block_WSUWP_Hero',
-		'wsuwp/pagetitle'  => 'Block_WSUWP_Page_Title',
-		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
-		'wsuwp/accordion'  => 'Block_WSUWP_Accordion',
+		'wsuwp/row'         => 'Block_WSUWP_Row',
+		'wsuwp/column'      => 'Block_WSUWP_Column',
+		'wsuwp/news'        => 'Block_WSUWP_News',
+		'wsuwp/callout'     => 'Block_WSUWP_Callout',
+		'wsuwp/hero'        => 'Block_WSUWP_Hero',
+		'wsuwp/pagetitle'   => 'Block_WSUWP_Page_Title',
+		'wsuwp/news-cards'  => 'Block_WSUWP_News_Cards',
+		'wsuwp/accordion'   => 'Block_WSUWP_Accordion',
+		'wsuwp/people-list' => 'Block_WSUWP_People_List',
 	);
 
 	protected static $allowed_blocks = array(
@@ -22,6 +23,7 @@ class Blocks {
 		'wsuwp/pagetitle',
 		'wsuwp/news-cards',
 		'wsuwp/accordion',
+		'wsuwp/people-list',
 		'core/button',
 		'core/code',
 		'core/embed',
@@ -95,7 +97,7 @@ class Blocks {
 
 			require_once $block_dir . $block_folder . '/block.php';
 
-			// Call get('register_block') to check if the block should be registered, default is true in class-block.php 
+			// Call get('register_block') to check if the block should be registered, default is true in class-block.php
 			if ( call_user_func( array( $block_class, 'get' ), 'register_block' ) ) {
 
 				register_block_type(

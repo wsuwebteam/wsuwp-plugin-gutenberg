@@ -1,0 +1,58 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+.block-editor {
+  .wsu-people-list-block__checkboxlist {
+    .components-base-control__label {
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .components-checkbox-control__label {
+      display: inline-block;
+
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .wsu-people-list-block__checkboxlist-item {
+    margin-bottom: 8px;
+  }
+
+  /*=============================================
+  =            Term Selector            =
+  =============================================*/
+  .wsu-gutenberg-people-list-term-selector {
+    position: relative;
+  }
+
+  .wsu-gutenberg-people-list-term-selector .components-spinner {
+    position: absolute;
+    right: 0.55em;
+    top: 2.55em;
+    margin: 0;
+  }
+
+  .wsu-gutenberg-people-list-term-selector__selected_terms {
+    overflow: hidden;
+  }
+
+  .wsu-gutenberg-people-list-term-selector__selected_term {
+  }
+
+  .wsu-gutenberg-people-list-term-selector__remove-btn {
+    height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .wsu-gutenberg-people-list-term-selector__remove-btn-text {
+    text-align: left;
+    margin-right: 1em;
+    flex-grow: 1;
+  }
+  /*=====  End of Term Selector  ======*/
+}
