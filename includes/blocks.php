@@ -12,6 +12,7 @@ class Blocks {
 		'wsuwp/pagetitle'  => 'Block_WSUWP_Page_Title',
 		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
 		'wsuwp/accordion'  => 'Block_WSUWP_Accordion',
+		'wsuwp/section'   => 'Block_WSUWP_Section',
 	);
 
 	protected static $allowed_blocks = array(
@@ -22,6 +23,7 @@ class Blocks {
 		'wsuwp/pagetitle',
 		'wsuwp/news-cards',
 		'wsuwp/accordion',
+		'wsuwp/section',
 		'core/button',
 		'core/code',
 		'core/embed',
