@@ -6,7 +6,6 @@ class Scripts {
 	public static function setup_classes() {
 
 		// Load any of the /classes/... used
-
 	}
 
 
@@ -15,7 +14,12 @@ class Scripts {
 		self::setup_classes();
 
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+	}
 
+
+	public static function enqueue_scripts() {
+		wp_register_script( 'wsu_design_system_script_people_list', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/people-list/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
 	}
 
 
