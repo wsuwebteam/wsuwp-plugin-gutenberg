@@ -13,6 +13,7 @@ class Blocks {
 		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
 		'wsuwp/accordion'  => 'Block_WSUWP_Accordion',
 		'wsuwp/section'   => 'Block_WSUWP_Section',
+		'wsuwp/people-list' => 'Block_WSUWP_People_List',
 	);
 
 	protected static $allowed_blocks = array(
@@ -24,6 +25,7 @@ class Blocks {
 		'wsuwp/news-cards',
 		'wsuwp/accordion',
 		'wsuwp/section',
+		'wsuwp/people-list',
 		'core/button',
 		'core/code',
 		'core/embed',
@@ -97,7 +99,7 @@ class Blocks {
 
 			require_once $block_dir . $block_folder . '/block.php';
 
-			// Call get('register_block') to check if the block should be registered, default is true in class-block.php 
+			// Call get('register_block') to check if the block should be registered, default is true in class-block.php
 			if ( call_user_func( array( $block_class, 'get' ), 'register_block' ) ) {
 
 				register_block_type(
