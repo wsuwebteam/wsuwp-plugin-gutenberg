@@ -7,7 +7,7 @@ class Block_WSUWP_Callout extends Block {
 		'className'   => 'wsu-callout',
 		'layout'      => 'title',
 		'headingTag'  => 'h3',
-		'useAsideTag' => true,
+		'useAsideTag' => false,
 	);
 
 

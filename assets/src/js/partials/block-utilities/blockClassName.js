@@ -32,6 +32,12 @@ const addBlockClassName = ( className, prefix, value, remove=true ) => {
 
 const hasBlockClassName = ( classNames, value ) => {
 
+    if ( typeof classNames === 'object' ) {
+
+        classNames = classNames.className ?? '';
+
+    }
+
     return ( classNames.includes( value ) ) ? true : false;
 
 }
@@ -143,6 +149,38 @@ const setBlockClassName = ( attributes, setAttributes, prefix, value ) => {
 
 }
 
+const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) => {
+
+    let classNames = attributes.className ?? '';
+
+    let classArray = classNames.split(' ');
+
+    let newClasses = [];
+
+    if ( Array.isArray( classArray ) ) {
+
+        classArray.forEach( ( itemClass, index ) => {
+
+            if ( itemClass != blockClass ) {
+
+                newClasses.push( itemClass );
+
+            }
+
+        } );
+
+        if ( value ) {
+
+            newClasses.push( blockClass );
+
+        }
+
+    }
+
+    setAttributes( { className: newClasses.join(' ') } );
+
+}
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setBlockClassName } 
+
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setBlockClassName, setBlockClassNameBool } 

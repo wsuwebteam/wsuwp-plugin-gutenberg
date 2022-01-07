@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WSUWP Gutenberg 
+ * Plugin Name: WSUWP Gutenberg
  * Plugin URI: https://github.com/wsuwebteam/wsuwp-plugin-gutenberg
  * Description: Describe the plugin
- * Version: 1.3.6
+ * Version: 1.3.7
  * Requires PHP: 7.3
  * Author: Washington State University, Danial Bleile
  * Author URI: https://web.wsu.edu/
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WSUWPPLUGINGUTENBERGVERSION', '1.3.6' );
+define( 'WSUWPPLUGINGUTENBERGVERSION', '1.3.7' );
 
 add_action( 'after_setup_theme', 'wsuwp_plugin_gutenberg_init' );
 
@@ -26,11 +26,7 @@ function wsuwp_plugin_gutenberg_init() {
 
 		// Initiate plugin
 		require_once __DIR__ . '/includes/plugin.php';
-	
+
 	}
 
 }
-
-
-
-
