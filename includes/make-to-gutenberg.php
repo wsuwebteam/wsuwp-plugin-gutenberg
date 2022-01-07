@@ -109,8 +109,13 @@ class Make_To_Gutenberg {
 			$meta_data = get_post_meta( $post->ID );
 
 			foreach ( $section_ids as $section_id ) {
+
 				$meta_prefix  = "_ttfmake:{$section_id}:";
 				$section_type = $meta_data[ "{$meta_prefix}section-type" ][0];
+
+				// Add check for custom fais section types
+				$section_type = str_replace( array( 'fais' ), '', $section_type );
+
 				$config       = self::$parsing_config[ $section_type ];
 
 				//$content = self::{$config['method']}( $content, $config, $meta_prefix, $meta_data );
