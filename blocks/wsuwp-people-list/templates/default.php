@@ -1,4 +1,3 @@
-<?php echo var_dump( $data_attrs ); ?>
 <div 
 	class="wsu-people-list <?php echo esc_attr( $attrs['className'] ); ?>"
 	data-component-id="<?php echo str_replace( '-', '', wp_generate_uuid4() ); ?>"

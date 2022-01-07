@@ -5,7 +5,10 @@ import { differenceBy } from "lodash";
 
 const { ComboboxControl, Spinner } = wp.components;
 
-const apiEndpoint = "http://wsuwp.local/wp-json/peopleapi/v1/terms?";
+const apiEndpoint = window.location.hostname.includes(".local")
+  ? "http://wsuwp.local/wp-json/peopleapi/v1/terms?"
+  : "https://people.wsu.edu/wp-json/peopleapi/v1/terms?"; // FIXME: Find a way to set via environment config
+
 let abortController = null;
 
 const TermSelector = function (props) {
@@ -15,8 +18,6 @@ const TermSelector = function (props) {
   const [selectedTerms, setSelectedTerms] = useState(props.value);
 
   const handleInputChange = useDebounce(updateSuggestions, 250);
-
-  useEffect(() => {}, []);
 
   async function updateSuggestions(input) {
     if (input.length < 2) {
@@ -117,7 +118,7 @@ const TermSelector = function (props) {
                   <span class="wsu-gutenberg-people-list-term-selector__remove-btn-text">
                     {term.name}
                   </span>
-                  <span class="dashicon dashicons dashicons-no-alt"></span>
+                  <span class="dashicon dashicons dashicons-no-alt wsu-gutenberg-people-list-term-selector__remove-btn-icon"></span>
                 </button>
               </li>
             );

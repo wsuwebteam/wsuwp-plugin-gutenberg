@@ -2,20 +2,20 @@ const { __ } = wp.i18n;
 const { useBlockProps, InspectorControls } = wp.blockEditor;
 const {
   TextControl,
-  SelectControl,
   PanelBody,
   PanelRow,
   BaseControl,
   CheckboxControl,
   RangeControl,
-  FormTokenField,
 } = wp.components;
 
 import React, { useState, useEffect } from "react";
-
 import { HeadingTagControl } from "../../../assets/src/js/partials/block-controls/blockControls";
-
 import TermSelector from "./term-selector";
+
+const apiEndpoint = window.location.hostname.includes(".local")
+  ? "http://wsuwp.local/wp-json/peopleapi/v1/people?"
+  : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
 const queryAttributes = [
   "count",
@@ -26,15 +26,16 @@ const queryAttributes = [
   "university_location",
   "university_organization",
   "photo_size",
+  "profile_order",
 ];
 
 const filterOptions = [
-  "search",
   "classification",
   "organization",
   "location",
   "category",
   "tag",
+  "search",
 ];
 
 const displayOptions = [
@@ -50,11 +51,12 @@ const displayOptions = [
 ];
 
 export default function Edit(props) {
-  const [selectedContinents, setSelectedContinents] = useState([]);
   const { attributes, setAttributes } = props;
 
   const [profiles, setProfiles] = useState([]);
-  const debouncedAttributes = useDebounce(attributes, 1000);
+  const [loading, setLoading] = useState(false);
+  const debouncedAttributes = useValueDebounce(attributes, 1000);
+
   function handleCheckboxListChange(listKey, option, value) {
     let selectedItemList = attributes[listKey].slice();
 
@@ -69,35 +71,51 @@ export default function Edit(props) {
     setAttributes({ [listKey]: selectedItemList });
   }
 
-  useEffect(() => {
-    async function loadProfiles() {
-      // build url params based on attributes
-      const params = queryAttributes
-        .reduce(function (acc, curr, idx) {
-          if (attributes[curr]) {
-            acc.push(curr.replace("_", "-") + "=" + attributes[curr]);
-          }
-
-          return acc;
-        }, [])
-        .join("&");
-
-      // make request
-      const response = await fetch(
-        "http://wsuwp.local/wp-json/peopleapi/v1/people?" + params
-      ); // FIXME: Needs to work locally and on production
-
-      if (!response.ok) {
-        return;
-      }
-
-      // update state
-      const profilesJson = await response.json();
-      setProfiles(JSON.parse(profilesJson));
+  function getQueryAttributeSlugs(terms) {
+    if (terms.length > 0) {
+      return terms.map((t) => t.slug).join(",");
     }
 
-    loadProfiles();
-  }, [debouncedAttributes]); // only run on init and when attributes are changed
+    return "";
+  }
+
+  useEffect(
+    () => {
+      async function loadProfiles() {
+        setLoading(true);
+
+        // build url params based on attributes
+        const params = queryAttributes
+          .reduce(function (acc, curr, idx) {
+            if (attributes[curr]) {
+              const val = Array.isArray(attributes[curr])
+                ? getQueryAttributeSlugs(attributes[curr])
+                : attributes[curr];
+              acc.push(curr.replace("_", "-") + "=" + val);
+            }
+
+            return acc;
+          }, [])
+          .join("&");
+
+        // make request
+        const response = await fetch(apiEndpoint + params);
+
+        if (!response.ok) {
+          setLoading(false);
+          return;
+        }
+
+        // update state
+        const profilesJson = await response.json();
+        setProfiles(JSON.parse(profilesJson));
+        setLoading(false);
+      }
+
+      loadProfiles();
+    },
+    queryAttributes.map((k) => debouncedAttributes[k])
+  ); // only run on init and when query attributes are changed
 
   return (
     <div {...useBlockProps()}>
@@ -174,6 +192,16 @@ export default function Edit(props) {
               onChange={(newval) =>
                 setAttributes({ university_organization: newval })
               }
+            />
+          </PanelRow>
+
+          <PanelRow>
+            <TextControl
+              label="Profile Order"
+              help="Comma delimited list of people network ids to sort them at the top of the list"
+              placeholder="butch.cougar"
+              value={attributes.profile_order}
+              onChange={(newval) => setAttributes({ profile_order: newval })}
             />
           </PanelRow>
         </PanelBody>
@@ -332,6 +360,15 @@ export default function Edit(props) {
           </PanelRow>
           <PanelRow>
             <TextControl
+              label="Tag Filter Label"
+              help="Label to display for filter. Defaults to 'Filter by Tag'"
+              placeholder="Filter by Tag"
+              value={attributes.tag_filter_label}
+              onChange={(newval) => setAttributes({ tag_filter_label: newval })}
+            />
+          </PanelRow>
+          <PanelRow>
+            <TextControl
               label="Search Filter Label"
               help="Label to display for filter. Defaults to 'Type to search'"
               placeholder="Type to search"
@@ -341,44 +378,132 @@ export default function Edit(props) {
               }
             />
           </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Tag Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Tag'"
-              placeholder="Filter by Tag"
-              value={attributes.tag_filter_labeld}
-              onChange={(newval) => setAttributes({ tag_filter_label: newval })}
-            />
-          </PanelRow>
         </PanelBody>
       </InspectorControls>
 
-      <div className="profiles">
-        <p>sdafadsf</p>
+      <div className="wsu-gutenberg-people-list">
+        {attributes.filters.length > 0 && (
+          <div className="wsu-gutenberg-people-list__filters">
+            {attributes.filters
+              .filter((f) => f !== "search")
+              .map((filter, index) => (
+                <div
+                  key={"filter-" + index}
+                  className="wsu-gutenberg-people-list__filter"
+                >
+                  {attributes[filter + "_filter_label"]}
+                  <span class="wsu-gutenberg-people-list__filter-icon dashicons dashicons-arrow-down-alt2"></span>
+                </div>
+              ))}
+
+            {attributes.filters.includes("search") && (
+              <div
+                key="filter-search"
+                className="wsu-gutenberg-people-list__filter"
+              >
+                {attributes["search_filter_label"]}
+                <span class="wsu-gutenberg-people-list__filter-icon dashicons dashicons-search"></span>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div
+          className={`wsu-gutenberg-people-list__profiles wsu-gutenberg-people-list__profiles--per-row-${attributes.columns}`}
+        >
+          {[...Array(attributes.columns)].map((e, i) => (
+            <div className="wsu-gutenberg-people-list__profile">
+              {attributes.display_fields.includes("photo") && (
+                <div className="wsu-gutenberg-people-list__profile-image"></div>
+              )}
+
+              <div className="wsu-gutenberg-people-list__profile-content">
+                {attributes.display_fields.includes("name") && (
+                  <h2 className="wsu-gutenberg-people-list__profile-name">
+                    Person Name
+                  </h2>
+                )}
+
+                {attributes.display_fields.includes("title") && (
+                  <div class="wsu-gutenberg-people-list__profile-title">
+                    Position Title
+                  </div>
+                )}
+
+                {attributes.display_fields.includes("email") && (
+                  <div class="dashicons-before dashicons-email-alt wsu-gutenberg-people-list__profile-icon-text">
+                    <span>butch.cougar@wsu.edu</span>
+                  </div>
+                )}
+
+                {attributes.display_fields.includes("office") && (
+                  <div class="dashicons-before dashicons-location wsu-gutenberg-people-list__profile-icon-text">
+                    <span>Office Location</span>
+                  </div>
+                )}
+
+                {attributes.display_fields.includes("phone") && (
+                  <div class="dashicons-before dashicons-phone wsu-gutenberg-people-list__profile-icon-text">
+                    <span>555-555-5555</span>
+                  </div>
+                )}
+
+                {attributes.display_fields.includes("website") && (
+                  <div class="dashicons-before dashicons-admin-links wsu-gutenberg-people-list__profile-icon-text">
+                    <span>{attributes.website_link_text}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="wsu-gutenberg-people-list__names-label">
+          Profiles to be displayed:
+        </h3>
+
+        {loading && <div>Loading...</div>}
+
+        {!loading && profiles.length > 0 && (
+          <>
+            <ol className="wsu-gutenberg-people-list__names">
+              {profiles.map((p, index) => (
+                <li
+                  key={p.nid}
+                  className="wsu-gutenberg-people-list__name"
+                  dangerouslySetInnerHTML={{
+                    __html: `${p.name}<br/>(${p.nid})`,
+                  }}
+                ></li>
+              ))}
+            </ol>
+          </>
+        )}
+
         {/* {profiles.map((p, index) =>
-                    <div className="profile" key={index}>
-                        <div className="profile__img-container">
-                            <img className="profile__img" src={p.photo}/>
-                        </div>
+          <div className="wsu-gutenberg-people-list__profile" key={index}>
+              <div className="profile__img-container">
+                  <img className="profile__img" src={p.photo}/>
+              </div>
 
-                        <h2 className="profile__name">{p.name}</h2>
+              <h2 className="profile__name">{p.name}</h2>
 
-                        {p.title.map((t, index) =>
-                            <div key={index}>{t}</div>
-                        )}
+              {p.title.map((t, index) =>
+                  <div key={index}>{t}</div>
+              )}
 
-                        {p.university_organization.map((o, index) =>
-                            <div key={index}>{o.name}</div>
-                        )}
-                    </div>
-                )} */}
+              {p.university_organization.map((o, index) =>
+                  <div key={index}>{o.name}</div>
+              )}
+          </div>
+          )} */}
       </div>
     </div>
   );
 }
 
 // useDebounce Hook - https://usehooks.com/useDebounce/
-function useDebounce(value, delay) {
+function useValueDebounce(value, delay) {
   // State and setters for debounced value
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(

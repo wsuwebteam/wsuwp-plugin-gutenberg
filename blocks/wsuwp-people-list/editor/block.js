@@ -19,10 +19,6 @@ registerBlockType("wsuwp/people-list", {
       type: "string",
       default: "",
     },
-    test_terms: {
-      type: "array",
-      default: [],
-    },
     classification: {
       type: "array",
       default: [],
@@ -39,13 +35,17 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
+    profile_order: {
+      type: "string",
+      default: "",
+    },
     display_fields: {
       type: "array",
       default: ["photo", "name", "title", "office", "email"],
     },
     website_link_text: {
       type: "string",
-      default: "",
+      default: "Website",
     },
     columns: {
       type: "integer",
@@ -69,27 +69,27 @@ registerBlockType("wsuwp/people-list", {
     },
     category_filter_label: {
       type: "string",
-      default: "",
+      default: "Filter by Category",
     },
     classification_filter_label: {
       type: "string",
-      default: "",
+      default: "Filter by Classification",
     },
     location_filter_label: {
       type: "string",
-      default: "",
+      default: "Filter by Location",
     },
     organization_filter_label: {
       type: "string",
-      default: "",
-    },
-    search_filter_label: {
-      type: "string",
-      default: "",
+      default: "Filter by Organization",
     },
     tag_filter_label: {
       type: "string",
-      default: "",
+      default: "Filter by Tag",
+    },
+    search_filter_label: {
+      type: "string",
+      default: "Type to search",
     },
   },
   edit: Edit,

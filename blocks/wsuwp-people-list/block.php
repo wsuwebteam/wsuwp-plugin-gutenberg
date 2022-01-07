@@ -11,6 +11,7 @@ class Block_WSUWP_People_List extends Block {
 		'university_category'         => array(),
 		'university_location'         => array(),
 		'university_organization'     => array(),
+		'profile_order'               => '',
 		'display_fields'              => array(
 			'photo',
 			'name',
@@ -35,6 +36,8 @@ class Block_WSUWP_People_List extends Block {
 
 
 	public static function render( $attrs, $content = '' ) {
+		// enqueue scripts and styles
+		wp_enqueue_script( 'wsu_design_system_script_people_list');
 
 		// extend default data attributes and filter out non-data attributes
 		$data_attrs = array_filter(
@@ -51,6 +54,7 @@ class Block_WSUWP_People_List extends Block {
 		$data_attrs['university_organization'] = implode( ',', array_column( $data_attrs['university_organization'], 'slug' ) );
 		$data_attrs['exclude_term_values']     = implode( ',', array_column( $data_attrs['exclude_term_values'], 'slug' ) );
 
+		// render block
 		ob_start();
 
 		include __DIR__ . '/templates/default.php';
