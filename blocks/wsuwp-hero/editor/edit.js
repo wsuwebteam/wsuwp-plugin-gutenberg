@@ -15,7 +15,8 @@ const {
 	ToggleControl,
 	Button,
 	FocalPointPicker,
-	BaseControl
+	BaseControl,
+	TextareaControl,
 } = wp.components;
 
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
@@ -25,6 +26,10 @@ import {
 	addBlockClassName,
 	getBlockClassNameValue,
 } from '../../../assets/src/js/partials/block-utilities/blockUtilities';
+
+import {
+	RequiredAlertControl,
+} from '../../../assets/src/js/partials/block-controls/blockControls';
 
 const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 
@@ -128,7 +133,39 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 									</BaseControl>
 								)}
 							/>
-						</MediaUploadCheck> 
+						</MediaUploadCheck>
+						<ToggleControl
+							label="Background Video"
+							checked={ attributes.backgroundVideo }
+							onChange= { ( backgroundVideo ) => setAttributes( { backgroundVideo } ) }
+						/>
+						{ attributes.backgroundVideo && 
+							<TextControl
+								label="Background Video ID (Vimeo)"
+								value={ attributes.videoId ? attributes.videoId : '' }
+								onChange= { ( videoId ) => setAttributes( { videoId } ) }
+								help='Video ID only. Example: 76979871 from https://player.vimeo.com/video/76979871'
+							/>
+						}
+						{ attributes.backgroundVideo && attributes.videoId && ( ! attributes.videoTitle || ! attributes.videoDescription )  &&  
+							<RequiredAlertControl>
+								Video title and text description are required for the video to render.
+							</RequiredAlertControl>
+						}
+						{ attributes.backgroundVideo && 
+							<TextControl
+								label="Background Video Title"
+								value={ attributes.videoTitle ? attributes.videoTitle : '' }
+								onChange= { ( videoTitle ) => setAttributes( { videoTitle } ) }
+							/>
+						}
+						{ attributes.backgroundVideo && 
+							<TextareaControl
+								label="Background Video Text Description"
+								value={ attributes.videoDescription ? attributes.videoDescription : '' }
+								onChange= { ( videoDescription ) => setAttributes( { videoDescription } ) }
+							/>
+						}
 					</PanelBody>
 				</Panel>
 			</InspectorControls>

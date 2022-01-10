@@ -19,4 +19,5 @@ export {default as ResetControl } from './reset-control/ResetControl';
 export {default as RequireImageControl } from './RequireImageControl';
 export {default as RequireFirstImageControl } from './RequireFirstImageControl';
 export {default as ColorClassControl } from './ColorClassControl';
+export {default as RequiredAlertControl } from './required-alert-control/RequiredAlertControl';
 

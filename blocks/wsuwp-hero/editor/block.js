@@ -78,6 +78,22 @@
                 type: 'string',
                 default: 'wsu-light-radial-left',
             },
+            backgroundVideo: {
+                type: 'boolean',
+                default: false,
+            },
+            videoId: {
+                type: 'string',
+                default: '',
+            },
+            videoTitle: {
+                type: 'string',
+                default: '',
+            },
+            videoDescription: {
+                type: 'string',
+                default: '',
+            },
          },
          edit
      }
