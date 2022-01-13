@@ -1,3 +1,6 @@
+<?php if( function_exists( 'bcn_display' ) ) : ?><div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
+	<?php bcn_display(); ?>
+</div><?php endif; ?>
 <header class="wsu-article-header<?php if ( ! empty( $attrs['className'] ) ) : ?> <?php echo esc_attr( $attrs['className'] ); ?><?php endif; ?> ">
 	<h1 class="wsu-article-header__title">
 		<?php if ( ! empty( $attrs['title'] ) ) {
