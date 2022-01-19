@@ -26,6 +26,7 @@ class Blocks {
 		'wsuwp/accordion',
 		'wsuwp/section',
 		'wsuwp/people-list',
+		'bcn/breadcrumb-trail',
 		'core/button',
 		'core/buttons',
 		'core/code',
