@@ -1775,6 +1775,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const CSSNAMESPACE = 'wsu-gutenberg-spacing';
 const ALLOPTIONS = [{
+  key: 'default',
+  name: 'default'
+}, {
   key: 'none',
   name: 'none'
 }, {
@@ -2640,7 +2643,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function insertSpacingControl(OriginalComponent) {
   return function (props) {
-    const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button'];
+    const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button', 'wsuwp/section'];
 
     if (!unsupportedBlockTypes.includes(props.name)) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -6212,6 +6215,9 @@ const Edit = props => {
     name: 'default',
     color: '#e6e6e6'
   }, {
+    name: 'white',
+    color: '#ffffff'
+  }, {
     name: 'crimson',
     color: '#A60F2D'
   }, {
@@ -6250,7 +6256,32 @@ const Edit = props => {
     label: "Border Color",
     value: "#e6e6e6",
     prefix: "wsu-callout--color-"
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    title: "Space Settings",
+    spaceSettings: [{
+      label: 'Outside Spacing (Margin)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-before--',
+        default: 'default'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-after--',
+        default: 'default'
+      }]
+    }, {
+      label: 'Inside Spacing (Padding)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-top--',
+        default: 'default'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-bottom--',
+        default: 'default'
+      }]
+    }]
+  }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
     templateLock: false
   })));
 };
