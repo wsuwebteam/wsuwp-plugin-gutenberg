@@ -42,6 +42,7 @@ const Edit = ( props ) => {
 
 	const borderColors = [
 		{ name: 'default', color: '#e6e6e6' },
+		{ name: 'white', color: '#ffffff' },
 		{ name: 'crimson', color: '#A60F2D' },
 		{ name: 'crimson-light', color: '#CA1237' },
 		{ name: 'autumn', color: '#FF6727' },
