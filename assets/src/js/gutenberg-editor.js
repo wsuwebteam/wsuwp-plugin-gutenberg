@@ -11,6 +11,8 @@ import '../../../blocks/wsuwp-people-list/editor/block';
 import '../../../blocks/wsuwp-news-cards/editor/blockEditFilter';
 import '../../../blocks/core-heading/editor/blockEditFilter';
 import '../../../blocks/core-button/blockEditFilter';
+import '../../../blocks/core-paragraph/editor/blockEditFilter';
+import '../../../blocks/core-quote/editor/block-filter';
 import '../js/partials/editor-config/spacing-control';
 import '../js/partials/editor-config/allowed-embeds';
 import '../js/partials/editor-config/block-styles';

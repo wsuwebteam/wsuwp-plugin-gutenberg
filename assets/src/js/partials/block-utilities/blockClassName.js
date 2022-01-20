@@ -68,6 +68,12 @@ const getBlockClassName = ( className, prefix ) => {
 
 const getBlockClassNameValue = ( className, prefix ) => {
 
+    if ( typeof className === 'object' ) {
+
+        className = className.className ?? '';
+
+    }
+
     let classArray = className.split(' ');
 
     let value = '';

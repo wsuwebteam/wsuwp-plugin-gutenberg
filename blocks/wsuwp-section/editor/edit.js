@@ -12,8 +12,8 @@ const {
 } = wp.components;
 
 import { 
-    HeadingTagControl,
 	ColorClassControl,
+	SpacingClassNameSelector,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -48,6 +48,7 @@ const Edit = ( props ) => {
 
 	const borderColors = [
 		{ name: 'default', color: '#e6e6e6' },
+		{ name: 'white', color: '#ffffff' },
 		{ name: 'crimson', color: '#A60F2D' },
 		{ name: 'crimson-light', color: '#CA1237' },
 		{ name: 'autumn', color: '#FF6727' },
@@ -83,6 +84,42 @@ const Edit = ( props ) => {
 					prefix='wsu-callout--color-'
 					/>
 			</PanelColorOptions>
+			<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',									
+									default: 'default',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',									
+									default: 'default',
+								}
+							]
+						},
+						{
+							label: 'Inside Spacing (Padding)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: 'default',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: 'default',									
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
 		</InspectorControls>
 		<div { ...blockProps }  >
 			<InnerBlocks

@@ -47,7 +47,8 @@ import { find, filter } from 'lodash';
 */
 
 const CSSNAMESPACE = 'wsu-gutenberg-spacing';
-const ALLOPTIONS = [    
+const ALLOPTIONS = [
+    { key: 'default', name: 'default' },    
     { key: 'none', name: 'none' },
     { key: 'xxsmall', name: 'xxsmall' },
     { key: 'xsmall', name: 'xsmall' },

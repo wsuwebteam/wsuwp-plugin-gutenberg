@@ -27,7 +27,9 @@ const FontSizeControl = ( props ) => {
     sizes  = sizes ?? wsuFontSizes;
     let classNames = attributes.className ?? '';
 
-    let value = attributes.value ?? getBlockClassNameOption( classNames, prefix );
+    let value = getBlockClassNameOption( classNames, prefix );
+
+    console.log( value );
 
     const setFontSize = ( size ) => {
 
