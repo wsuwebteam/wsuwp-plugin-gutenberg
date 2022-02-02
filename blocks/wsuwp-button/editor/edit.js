@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "@wordpress/element";
 import { PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { FontIconPickerControl } from "../../../assets/src/js/partials/block-controls/blockControls";
+import {
+  hasBlockClassName,
+  setBlockClassNameBool,
+  setBlockClassName,
+  getBlockClassNameValue,
+} from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 const {
   URLPopover,
@@ -21,6 +27,7 @@ const {
   PanelBody,
   PanelRow,
   TextControl,
+  ToggleControl,
 } = wp.components;
 
 let buttonStyles = [
@@ -238,6 +245,7 @@ const edit = (props) => {
               onClose={toggleInlineLinkEditPopover}
             >
               <LinkControl
+                settings={[]}
                 value={{
                   url: attributes.buttonUrl,
                   opensInNewTab: attributes.opensInNewTab,
@@ -275,6 +283,7 @@ const edit = (props) => {
               {showSidebarLinkEdit && (
                 <Popover onClose={toggleSidebarLinkEditPopover}>
                   <LinkControl
+                    settings={[]}
                     value={{
                       url: attributes.buttonUrl,
                       opensInNewTab: attributes.opensInNewTab,
@@ -319,8 +328,20 @@ const edit = (props) => {
               </BaseControl.VisualLabel>
               <RadioGroup
                 className="wsu-gutenberg-button__radio-group"
-                onChange={(val) => setAttributes({ size: val })}
-                checked={attributes.size}
+                onChange={(val) =>
+                  setBlockClassName(
+                    attributes,
+                    setAttributes,
+                    "wsu-button--size-",
+                    val
+                  )
+                }
+                checked={
+                  getBlockClassNameValue(
+                    attributes.className || "",
+                    "wsu-button--size-"
+                  ) || "default"
+                }
               >
                 <Radio value="small">Small</Radio>
                 <Radio value="default">Medium</Radio>
@@ -328,31 +349,45 @@ const edit = (props) => {
               </RadioGroup>
             </BaseControl>
           </PanelRow>
+          <PanelRow>
+            <ToggleControl
+              label="Display Inline"
+              checked={hasBlockClassName(attributes, "wsu-cta--display-inline")}
+              onChange={(displayInline) => {
+                setBlockClassNameBool(
+                  attributes,
+                  setAttributes,
+                  "wsu-cta--display-inline",
+                  displayInline
+                );
+              }}
+            />
+          </PanelRow>
         </PanelBody>
       </InspectorControls>
 
-      <a
-        className={`wsu-button wsu-button--size-${attributes.size} ${className}`}
-      >
-        {attributes.iconBefore && (
-          <i className={`wsu-icon wsu-i-${attributes.iconBefore}`}></i>
-        )}
-        <RichText
-          allowedFormats={[]}
-          withoutInteractiveFormatting={true}
-          disableLineBreaks={true}
-          multiline={false}
-          placeholder="Button Text"
-          tagName="span"
-          onChange={(val) =>
-            setAttributes({ buttonText: val.replace(/<[^>]+>/g, "") })
-          }
-          value={attributes.buttonText}
-        />
-        {attributes.iconAfter && (
-          <i className={`wsu-icon wsu-i-${attributes.iconAfter}`}></i>
-        )}
-      </a>
+      <div className={`wsu-cta ${className}`}>
+        <a className={`wsu-button`}>
+          {attributes.iconBefore && (
+            <i className={`wsu-icon wsu-i-${attributes.iconBefore}`}></i>
+          )}
+          <RichText
+            allowedFormats={[]}
+            withoutInteractiveFormatting={true}
+            disableLineBreaks={true}
+            multiline={false}
+            placeholder="Button Text"
+            tagName="span"
+            onChange={(val) =>
+              setAttributes({ buttonText: val.replace(/<[^>]+>/g, "") })
+            }
+            value={attributes.buttonText}
+          />
+          {attributes.iconAfter && (
+            <i className={`wsu-icon wsu-i-${attributes.iconAfter}`}></i>
+          )}
+        </a>
+      </div>
     </>
   );
 };

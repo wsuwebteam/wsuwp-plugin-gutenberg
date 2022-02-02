@@ -33,18 +33,6 @@ registerBlockType("wsuwp/button", {
       type: "string",
       default: "",
     },
-    opensInNewTab: {
-      type: "boolean",
-      default: false,
-    },
-    style: {
-      type: "string",
-      default: "default",
-    },
-    size: {
-      type: "string",
-      default: "default",
-    },
     iconBefore: {
       type: "string",
       default: "",
