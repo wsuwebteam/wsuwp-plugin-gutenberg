@@ -1,0 +1,14 @@
+<a
+	<?php if ( ! empty( $attrs['buttonUrl'] ) ) :
+		?> href="<?php echo esc_url( $attrs['buttonUrl'] ); ?>"<?php endif; ?>
+    <?php if ( true === $attrs['opensInNewTab'] ) :
+		?> target="_blank" rel="noopener noreferrer" <?php endif; ?>
+	class="<?php echo esc_attr( $attrs['className'] ); ?>">
+	<?php if ( ! empty( $attrs['iconBefore'] ) ) : ?>
+		<i class="wsu-icon wsu-i-<?php echo esc_attr( $attrs['iconBefore'] ); ?>"></i>
+	<?php endif; ?>	
+	<?php echo esc_html( $attrs['buttonText'] ); ?>
+	<?php if ( ! empty( $attrs['iconAfter'] ) ) : ?>
+		<i class="wsu-icon wsu-i-<?php echo esc_attr( $attrs['iconAfter'] ); ?>"></i>
+	 <?php endif; ?>
+</a>

@@ -1,30 +1,39 @@
 .block-editor-block-list__layout.is-root-container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
 }
 
 .wp-block {
-    max-width: 1200px;
+  max-width: 1200px;
 }
 
 .editor-styles-wrapper p.wp-block {
-    margin-left: 0;
-    margin-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .wsu-row--single .wsu-column {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
+.wsu-settings__base-control {
+  width: 100%;
+}
 
+.wsu-settings__label {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.wsu-settings__properties {
+}
 
 // Hack to hide panels on 5.6. TODO: Remove in 5.8 upgrade
 .is-inspector-for-core--button + .components-panel__body,
-.is-inspector-for-core--table ~ .block-editor-panel-color-gradient-settings 
-{
-    display: none;
+.is-inspector-for-core--table ~ .block-editor-panel-color-gradient-settings {
+  display: none;
 }

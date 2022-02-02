@@ -1,0 +1,14 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+.block-editor {
+  .wsu-gutenberg-button__radio-group {
+    display: flex;
+
+    .components-button {
+      display: block;
+      text-align: center;
+      flex-grow: 1;
+    }
+  }
+}
