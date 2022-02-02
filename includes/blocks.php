@@ -29,8 +29,6 @@ class Blocks {
 		'wsuwp/people-list',
 		'wsuwp/button',
 		'bcn/breadcrumb-trail',
-		'core/button',
-		'core/buttons',
 		'core/code',
 		'core/embed',
 		'core/freeform',
