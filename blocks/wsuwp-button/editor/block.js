@@ -35,6 +35,10 @@ registerBlockType("wsuwp/button", {
       type: "string",
       default: "",
     },
+    wrapperClassName: {
+      type: "string",
+      default: "",
+    },
   },
   edit: Edit,
   save: function () {

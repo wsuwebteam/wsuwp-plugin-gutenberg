@@ -4,11 +4,12 @@ class Block_WSUWP_Button extends Block {
 
 	protected static $block_name    = 'wsuwp/button';
 	protected static $default_attrs = array(
-		'className'  => '',
-		'buttonText' => '',
-		'buttonUrl'  => '',
-		'iconBefore' => '',
-		'iconAfter'  => '',
+		'wrapperClassName' => '',
+		'className'        => '',
+		'buttonText'       => '',
+		'buttonUrl'        => '',
+		'iconBefore'       => '',
+		'iconAfter'        => '',
 	);
 
 	protected static function render( $attrs, $content ) {

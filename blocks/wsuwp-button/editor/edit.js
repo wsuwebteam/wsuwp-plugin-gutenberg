@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "@wordpress/element";
+import React, { useState } from "@wordpress/element";
 import { PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { FontIconPickerControl } from "../../../assets/src/js/partials/block-controls/blockControls";
 import {
-  hasBlockClassName,
-  setBlockClassNameBool,
   setBlockClassName,
   getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
@@ -12,6 +10,7 @@ const {
   URLPopover,
   RichText,
   InspectorControls,
+  InspectorAdvancedControls,
   BlockControls,
   __experimentalLinkControl: LinkControl,
 } = wp.blockEditor;
@@ -27,7 +26,6 @@ const {
   PanelBody,
   PanelRow,
   TextControl,
-  ToggleControl,
 } = wp.components;
 
 let buttonStyles = [
@@ -221,6 +219,44 @@ const edit = (props) => {
     setShowSidebarLinkEdit((state) => !state);
   }
 
+  function setClassField(classField, prefix, value) {
+    let classNames = attributes[classField] ?? "";
+
+    let classArray = classNames.split(" ");
+
+    let newClasses = [];
+
+    if (Array.isArray(classArray)) {
+      classArray.forEach((itemClass, index) => {
+        if (!itemClass.includes(prefix)) {
+          newClasses.push(itemClass);
+        }
+      });
+
+      if ("" !== value) {
+        newClasses.push(prefix + value);
+      }
+    }
+
+    setAttributes({ [classField]: newClasses.join(" ") });
+  }
+
+  function getClassFieldValue(className, prefix) {
+    let classArray = className.split(" ");
+
+    let value = "";
+
+    if (Array.isArray(classArray)) {
+      classArray.forEach((itemClass, index) => {
+        if (itemClass.includes(prefix)) {
+          value = itemClass.replace(prefix, "");
+        }
+      });
+    }
+
+    return value;
+  }
+
   return (
     <>
       <BlockControls>
@@ -350,21 +386,41 @@ const edit = (props) => {
             </BaseControl>
           </PanelRow>
           <PanelRow>
-            <ToggleControl
-              label="Display Inline"
-              checked={hasBlockClassName(attributes, "wsu-cta--display-inline")}
-              onChange={(displayInline) => {
-                setBlockClassNameBool(
-                  attributes,
-                  setAttributes,
-                  "wsu-cta--display-inline",
-                  displayInline
-                );
-              }}
-            />
+            <BaseControl className="wsu-settings__base-control" help="">
+              <BaseControl.VisualLabel className="wsu-settings__label">
+                Width
+              </BaseControl.VisualLabel>
+              <RadioGroup
+                className="wsu-gutenberg-button__radio-group"
+                onChange={(val) =>
+                  setClassField("wrapperClassName", "wsu-cta--width-", val)
+                }
+                checked={
+                  getClassFieldValue(
+                    attributes.wrapperClassName || "",
+                    "wsu-cta--width-"
+                  ) || "default"
+                }
+              >
+                <Radio value="inline">Inline</Radio>
+                <Radio value="default">Default</Radio>
+                <Radio value="full">Full</Radio>
+              </RadioGroup>
+            </BaseControl>
           </PanelRow>
         </PanelBody>
       </InspectorControls>
+
+      <InspectorAdvancedControls>
+        <PanelRow>
+          <TextControl
+            label="Wrapper CSS Class(es)"
+            help="Classes will be applied to the block's wrapper. Separate multiple classes with spaces."
+            value={attributes.wrapperClassName}
+            onChange={(val) => setAttributes({ wrapperClassName: val })}
+          />
+        </PanelRow>
+      </InspectorAdvancedControls>
 
       <div className={`wsu-cta ${className}`}>
         <a className={`wsu-button`}>
