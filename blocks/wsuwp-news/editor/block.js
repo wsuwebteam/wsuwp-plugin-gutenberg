@@ -115,4 +115,3 @@
  );
 
  import './variationCard';
- import './variationList';
