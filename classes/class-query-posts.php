@@ -18,6 +18,7 @@ class Query_Posts {
 	public $require_first_image;
 	public $hide_shown_posts;
 	public $use_and_logic;
+	public $exclude_shown_posts;
 
 
 	public function __construct( $attrs ) {
@@ -44,6 +45,7 @@ class Query_Posts {
 		$this->require_first_image  = ( ! empty( $attrs['requireFirstImage'] ) ) ? $attrs['requireFirstImage'] : false;
 		$this->hide_shown_posts     = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
 		$this->use_and_logic        = ( ! empty( $attrs['useAndLogic'] ) ) ? $attrs['useAndLogic'] : false;
+		$this->exclude_shown_posts  = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
 
 
 	}
@@ -170,6 +172,17 @@ class Query_Posts {
 
 			$query_args['post__not_in'] = $this->exclude_posts;
 
+		}
+
+		if ( ! empty( $this->exclude_shown_posts ) ) {
+
+			$shown_posts = Query::get_show_posts();
+
+			if ( ! empty( $shown_posts ) ) {
+
+				$query_args['post__not_in'] = array_merge( $this->exclude_posts, $shown_posts );
+
+			}
 		}
 
 		if ( ! empty( $this->require_image ) ) {
