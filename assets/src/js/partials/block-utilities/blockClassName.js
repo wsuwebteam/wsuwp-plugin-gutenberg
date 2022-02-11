@@ -1,6 +1,16 @@
-const addBlockClassName = ( className, prefix, value, remove=true ) => {
+/**
+ * Add a class prefix/value to a given string of classnames.
+ * 
+ * @param { string } classString String of class names
+ * @param {string } prefix Previx of class to add or remove
+ * @param { string } value Value to append to prefix
+ * @param { boolean } remove Remove class names with matching prefixes
+ * @returns String of classnames
+ */
 
-    let classNames = className ?? '';
+const addClassName = ( classString, prefix, value, remove=true ) => {
+
+    let classNames = classString ?? '';
 
     let classArray = classNames.split(' ');
 
@@ -27,6 +37,34 @@ const addBlockClassName = ( className, prefix, value, remove=true ) => {
     }
 
     return newClasses.join(' ');
+
+}
+
+/**
+ * Add class names from block attributes
+ * 
+ * @param { object } attributes | Block attributes
+ * @param { string } prefix | Class prefix to attach value to
+ * @param { string } value | Value to append to class prefix 
+ * @param { boolean } remove | Remove matching class prefixes 
+ * @returns { string } String of class values
+ */
+
+const addBlockClassName = ( attributes, prefix, value, remove = true ) => {
+
+    let classNames;
+
+    if ( typeof attributes === 'object' ) {
+
+        classNames = attributes.className ?? '';
+
+    } else {
+
+        classNames = attributes ?? '';
+        
+    }
+
+    return addClassName( classNames, prefix, value, remove );
 
 }
 
@@ -66,17 +104,13 @@ const getBlockClassName = ( className, prefix ) => {
 
 }
 
-const getBlockClassNameValue = ( className, prefix ) => {
+const getClassNameValue = ( classesString, prefix, defaultValue ='' ) => {
 
-    if ( typeof className === 'object' ) {
-
-        className = className.className ?? '';
-
-    }
+    let className = classesString ?? '';
 
     let classArray = className.split(' ');
 
-    let value = '';
+    let value = defaultValue;
 
     if ( Array.isArray( classArray ) ) {
 
@@ -93,6 +127,25 @@ const getBlockClassNameValue = ( className, prefix ) => {
     }
 
     return value;
+
+}
+
+
+const getBlockClassNameValue = ( attributes, prefix, defaultValue = '', setKey = 'className' ) => {
+
+    let className;
+
+    if ( typeof attributes === 'object' ) {
+
+        className = attributes[ setKey ] ?? '';
+
+    } else {
+
+        className = attributes ?? '';
+
+    }
+
+    return getClassNameValue( className, prefix, defaultValue );
 
 }
 
@@ -123,37 +176,47 @@ const removeBlockClassName = ( className, prefix ) => {
 
 }
 
-const setBlockClassName = ( attributes, setAttributes, prefix, value ) => {
+/**
+ * @param { string } classesString | String of class names 
+ * @param { string } prefix | Class Prefix to add 
+ * @param { string } value | Value to append to class prefix 
+ * @param { function } setAttributes | Block setAttributes method
+ * @param { string } setKey | Attribute key to set 
+ */
+const setClassName = ( classesString, prefix, value, setAttributes, setKey = 'className' ) => {
 
-    let classNames = attributes.className ?? '';
+    classesString = classesString ?? '';
 
-    let classArray = classNames.split(' ');
+    let classes = addClassName( classesString, prefix, value );
 
-    let newClasses = [];
-
-    if ( Array.isArray( classArray ) ) {
-
-        classArray.forEach( ( itemClass, index ) => {
-
-            if ( ! itemClass.includes( prefix ) ) {
-
-                newClasses.push( itemClass );
-
-            }
-
-        } );
-
-        if ( '' !== value ) {
-
-            newClasses.push( prefix + value );
-
-        }
-
-    }
-
-    setAttributes( { className: newClasses.join(' ') } );
+    setAttributes( { [ setKey ]: classes } );
 
 }
+
+/**
+ * @param { object } attributes | String of class names
+ * @param { function } setAttributes | Block setAttributes method
+ * @param { string } prefix | Class Prefix to add 
+ * @param { string } value | Value to append to class prefix 
+ */
+const setBlockClassName = ( attributes, setAttributes, prefix, value, setKey = 'className' ) => {
+
+    let classNames;
+
+    if ( typeof attributes === 'object' ) {
+
+        classNames = attributes[ setKey ] ?? '';
+
+    } else {
+
+        classNames = attributes ?? '';
+        
+    }
+
+    setClassName( classNames, prefix, value, setAttributes, setKey );
+
+}
+
 
 const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) => {
 
@@ -189,4 +252,4 @@ const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) =
 
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setBlockClassName, setBlockClassNameBool } 
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool } 

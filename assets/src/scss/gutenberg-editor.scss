@@ -1,63 +1,60 @@
-@import './partials/editor';
-
-
+@import "./partials/editor";
 
 /** ===== Block Constrols ===== */
-@import '../js/partials/block-controls/post-picker/style';
-@import '../js/partials/block-controls/spacing-class-name-selector/style';
-@import '../js/partials/block-controls/reset-control/style';
-@import '../js/partials/block-controls/heading-tag-control.js/style';
-@import '../js/partials/block-controls/required-alert-control/style';
+@import "../js/partials/block-controls/post-picker/style";
+@import "../js/partials/block-controls/font-icon-picker-control/style";
+@import "../js/partials/block-controls/spacing-class-name-selector/style";
+@import "../js/partials/block-controls/reset-control/style";
+@import "../js/partials/block-controls/heading-tag-control.js/style";
+@import "../js/partials/block-controls/required-alert-control/style";
 
 /** ===== Panels ===== */
-@import '../js/partials/block-panels/panel-style-options/style'; 
+@import "../js/partials/block-panels/panel-style-options/style";
 
 /** ===== Front-End Styles ===== */
 .block-editor-block-list__layout {
-    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss';
-    @import '../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss';
-    @import '../../../blocks/wsuwp-news/editor/style'; 
-    @import '../scss/partials/front-end-style-fixes';                     
-} 
-
+  @import "../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.scss";
+  @import "../../../node_modules/@wsuwebteam/wsu-web-design-system/src/bundles/wsu-design-system.wordpress.scss";
+  @import "../../../blocks/wsuwp-news/editor/style";
+  @import "../scss/partials/front-end-style-fixes";
+}
 
 /** ===== Blocks ===== */
-@import '../../../blocks/wsuwp-column/editor/style';  
-@import '../../../blocks/wsuwp-row/editor/style';
-@import '../../../blocks/wsuwp-hero/editor/style';
-@import '../../../blocks/wsuwp-pagetitle/editor/style';
-@import '../../../blocks/wsuwp-news-cards/editor/style';   
-@import '../../../blocks/wsuwp-accordion/editor/style';   
-@import '../../../blocks/wsuwp-people-list/editor/style';   
-
-
+@import "../../../blocks/wsuwp-button/editor/style";
+@import "../../../blocks/wsuwp-column/editor/style";
+@import "../../../blocks/wsuwp-row/editor/style";
+@import "../../../blocks/wsuwp-hero/editor/style";
+@import "../../../blocks/wsuwp-pagetitle/editor/style";
+@import "../../../blocks/wsuwp-news-cards/editor/style";
+@import "../../../blocks/wsuwp-accordion/editor/style";
+@import "../../../blocks/wsuwp-people-list/editor/style";
 
 /** ===== Front-End Styles Fixes ===== */
 .block-editor-block-list__layout .wsu-row {
-    display: block; 
+  display: block;
 }
 
 .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
-    width: auto;
+  width: auto;
 }
 
 .wsu-gutenberg-format-selector__options {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
 }
 
 .wsu-gutenberg-format-selector__option {
-    text-align: center;
-    list-style-type: none;
-    cursor: pointer;
-    border: 1px solid #eee;
-    padding: 0.5rem !important;
-    border-radius: 5px;
-    margin: 0 0.5rem !important;
-    display: block;
+  text-align: center;
+  list-style-type: none;
+  cursor: pointer;
+  border: 1px solid #eee;
+  padding: 0.5rem !important;
+  border-radius: 5px;
+  margin: 0 0.5rem !important;
+  display: block;
 
-    span {
-        display: block; 
-    }
+  span {
+    display: block; 
+  }
 }

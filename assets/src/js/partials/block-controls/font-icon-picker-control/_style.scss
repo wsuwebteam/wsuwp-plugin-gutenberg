@@ -1,0 +1,31 @@
+.block-editor .wsu-gutenberg-font-icon-picker {
+  &__select-icon-button {
+    border: 1px dashed var(--wp-admin-theme-color);
+    color: var(--wp-admin-theme-color);
+  }
+
+  &__selected-icon {
+    line-height: 1;
+    border: 1px solid var(--wp-admin-theme-color);
+    color: var(--wp-admin-theme-color);
+  }
+
+  &__icon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 4em);
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  &__icon-button {
+    height: 3em;
+    font-size: 1.4em;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+}

@@ -4,16 +4,18 @@ class Blocks {
 
 
 	protected static $register_blocks = array(
-		'wsuwp/row'        => 'Block_WSUWP_Row',
-		'wsuwp/column'     => 'Block_WSUWP_Column',
-		'wsuwp/news'       => 'Block_WSUWP_News',
-		'wsuwp/callout'    => 'Block_WSUWP_Callout',
-		'wsuwp/hero'       => 'Block_WSUWP_Hero',
-		'wsuwp/pagetitle'  => 'Block_WSUWP_Page_Title',
-		'wsuwp/news-cards' => 'Block_WSUWP_News_Cards',
-		'wsuwp/accordion'  => 'Block_WSUWP_Accordion',
-		'wsuwp/section'   => 'Block_WSUWP_Section',
+		'wsuwp/news-list'  => 'Block_WSUWP_News_List',
+		'wsuwp/row'         => 'Block_WSUWP_Row',
+		'wsuwp/column'      => 'Block_WSUWP_Column',
+		'wsuwp/news'        => 'Block_WSUWP_News',
+		'wsuwp/callout'     => 'Block_WSUWP_Callout',
+		'wsuwp/hero'        => 'Block_WSUWP_Hero',
+		'wsuwp/pagetitle'   => 'Block_WSUWP_Page_Title',
+		'wsuwp/news-cards'  => 'Block_WSUWP_News_Cards',
+		'wsuwp/accordion'   => 'Block_WSUWP_Accordion',
+		'wsuwp/section'     => 'Block_WSUWP_Section',
 		'wsuwp/people-list' => 'Block_WSUWP_People_List',
+		'wsuwp/button'      => 'Block_WSUWP_Button',
 	);
 
 	protected static $allowed_blocks = array(
@@ -23,12 +25,12 @@ class Blocks {
 		'wsuwp/hero',
 		'wsuwp/pagetitle',
 		'wsuwp/news-cards',
+		'wsuwp/news-list',
 		'wsuwp/accordion',
 		'wsuwp/section',
 		'wsuwp/people-list',
+		'wsuwp/button',
 		'bcn/breadcrumb-trail',
-		'core/button',
-		'core/buttons',
 		'core/code',
 		'core/embed',
 		'core/freeform',
