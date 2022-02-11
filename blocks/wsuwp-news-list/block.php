@@ -11,7 +11,7 @@ class Block_WSUWP_News_List extends Block {
 		'postType:'         => 'post',
 		'taxonomy'          => 'category',
 		'terms'             => '',
-		'count'             => '5',
+		'count'             => '3',
 		'offset'            => '0',
 		'host'              => '',
 		'useAndLogic'       => false,
