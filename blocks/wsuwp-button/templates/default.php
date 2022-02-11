@@ -1,10 +1,10 @@
-<div class="wsu-cta <?php echo esc_attr( $attrs['wrapperClassName'] ); ?>">
+<div class="wsu-cta <?php echo esc_attr( $attrs['className'] ); ?>">
 	<a
 		<?php
 		if ( ! empty( $attrs['buttonUrl'] ) ) :
 			?>
 			href="<?php echo esc_url( $attrs['buttonUrl'] ); ?>"<?php endif; ?>	
-		class="wsu-button <?php echo esc_attr( $attrs['className'] ); ?>">
+		class="wsu-button <?php echo esc_attr( $attrs['buttonClassName'] ); ?>">
 		<?php if ( ! empty( $attrs['iconBefore'] ) ) : ?>
 			<i class="wsu-icon wsu-i-<?php echo esc_attr( $attrs['iconBefore'] ); ?>"></i>
 		<?php endif; ?>	

@@ -4,6 +4,9 @@ import { FontIconPickerControl } from "../../../assets/src/js/partials/block-con
 import {
   setBlockClassName,
   getBlockClassNameValue,
+  setClassName,
+  hasBlockClassName,
+  setBlockClassNameBool,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 const {
@@ -12,6 +15,8 @@ const {
   InspectorControls,
   InspectorAdvancedControls,
   BlockControls,
+  useBlockProps,
+  AlignmentToolbar,
   __experimentalLinkControl: LinkControl,
 } = wp.blockEditor;
 
@@ -26,6 +31,7 @@ const {
   PanelBody,
   PanelRow,
   TextControl,
+  ToggleControl,
 } = wp.components;
 
 let buttonStyles = [
@@ -257,6 +263,11 @@ const edit = (props) => {
     return value;
   }
 
+  const blockProps = useBlockProps( {
+      className: 'wsu-cta',
+      style: {},
+  } );
+
   return (
     <>
       <BlockControls>
@@ -331,6 +342,74 @@ const edit = (props) => {
             </BaseControl>
           </PanelRow>
 
+          
+        </PanelBody>
+
+        <PanelStyleOptions
+          {...props}
+          styles={buttonStyles}
+          prefix="wsu-button--style-"
+          setKey = 'buttonClassName'
+        ></PanelStyleOptions>
+
+        <PanelBody title="Display Options" initialOpen={false}>
+          <PanelRow>
+            <BaseControl className="wsu-settings__base-control" help="">
+              <BaseControl.VisualLabel className="wsu-settings__label">
+                Size
+              </BaseControl.VisualLabel>
+              <RadioGroup
+                className="wsu-gutenberg-button__radio-group"
+                onChange={(val) =>
+                  setClassName(
+                    attributes.buttonClassName,
+                    "wsu-button--size-",
+                    val,
+                    setAttributes,
+                    'buttonClassName'
+                  )
+                }
+                checked={
+                  getBlockClassNameValue(
+                    attributes.buttonClassName,
+                    "wsu-button--size-"
+                  )
+                }
+              >
+                <Radio value="small">Small</Radio>
+                <Radio value="">Default</Radio>
+                <Radio value="large">Large</Radio>
+              </RadioGroup>
+            </BaseControl>
+          </PanelRow>
+          <PanelRow>
+            <BaseControl className="wsu-settings__base-control" help="">
+              <BaseControl.VisualLabel className="wsu-settings__label">
+                Width
+              </BaseControl.VisualLabel>
+              <RadioGroup
+                className="wsu-gutenberg-button__radio-group"
+                onChange={(val) =>
+                  setBlockClassName(
+                    attributes,
+                    setAttributes,
+                    "wsu-cta--width-",
+                    val,
+                  )
+                }
+                checked={
+                  getBlockClassNameValue(
+                    attributes,
+                    "wsu-cta--width-"
+                  )
+                }
+              >
+                <Radio value="inline">Inline</Radio>
+                <Radio value="">Default</Radio>
+                <Radio value="full">Full</Radio>
+              </RadioGroup>
+            </BaseControl>
+          </PanelRow>
           <PanelRow>
             <FontIconPickerControl
               label="Before Icon"
@@ -349,81 +428,38 @@ const edit = (props) => {
             ></FontIconPickerControl>
           </PanelRow>
         </PanelBody>
-
-        <PanelStyleOptions
-          {...props}
-          styles={buttonStyles}
-          prefix="wsu-button--style-"
-        ></PanelStyleOptions>
-
-        <PanelBody title="Display Options" initialOpen={false}>
-          <PanelRow>
-            <BaseControl className="wsu-settings__base-control" help="">
-              <BaseControl.VisualLabel className="wsu-settings__label">
-                Size
-              </BaseControl.VisualLabel>
-              <RadioGroup
-                className="wsu-gutenberg-button__radio-group"
-                onChange={(val) =>
-                  setBlockClassName(
-                    attributes,
-                    setAttributes,
-                    "wsu-button--size-",
-                    val
-                  )
-                }
-                checked={
-                  getBlockClassNameValue(
-                    attributes.className || "",
-                    "wsu-button--size-"
-                  ) || "default"
-                }
-              >
-                <Radio value="small">Small</Radio>
-                <Radio value="default">Medium</Radio>
-                <Radio value="large">Large</Radio>
-              </RadioGroup>
-            </BaseControl>
-          </PanelRow>
-          <PanelRow>
-            <BaseControl className="wsu-settings__base-control" help="">
-              <BaseControl.VisualLabel className="wsu-settings__label">
-                Width
-              </BaseControl.VisualLabel>
-              <RadioGroup
-                className="wsu-gutenberg-button__radio-group"
-                onChange={(val) =>
-                  setClassField("wrapperClassName", "wsu-cta--width-", val)
-                }
-                checked={
-                  getClassFieldValue(
-                    attributes.wrapperClassName || "",
-                    "wsu-cta--width-"
-                  ) || "default"
-                }
-              >
-                <Radio value="inline">Inline</Radio>
-                <Radio value="default">Default</Radio>
-                <Radio value="full">Full</Radio>
-              </RadioGroup>
-            </BaseControl>
-          </PanelRow>
-        </PanelBody>
       </InspectorControls>
-
       <InspectorAdvancedControls>
         <PanelRow>
           <TextControl
-            label="Wrapper CSS Class(es)"
+            label="Button CSS Class(es)"
             help="Classes will be applied to the block's wrapper. Separate multiple classes with spaces."
-            value={attributes.wrapperClassName}
-            onChange={(val) => setAttributes({ wrapperClassName: val })}
+            value={attributes.buttonClassName}
+            onChange={( buttonClassName ) => setAttributes( { buttonClassName } ) }
           />
         </PanelRow>
+        <ToggleControl
+            label={'Align Bottom'}
+            checked={ hasBlockClassName( attributes, 'wsu-align-item--flex-bottom' )}
+            onChange={( value ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-align-item--flex-bottom', value ) }
+            help='Parent container must have "Enable Align Bottom" activated (Advanced/Enable Align Bottom)'
+          />
       </InspectorAdvancedControls>
-
-      <div className={`wsu-cta ${className}`}>
-        <a className={`wsu-button`}>
+      <BlockControls>
+          <AlignmentToolbar
+            value={ getBlockClassNameValue(
+              attributes,
+              "wsu-text-align--"
+            )}
+            onChange={(val) => setBlockClassName(
+              attributes,
+              setAttributes,
+              "wsu-text-align--",
+              val,
+            )} />
+      </BlockControls>
+      <div { ...blockProps }>
+        <a className={'wsu-button ' + attributes.buttonClassName }>
           {attributes.iconBefore && (
             <i className={`wsu-icon wsu-i-${attributes.iconBefore}`}></i>
           )}
