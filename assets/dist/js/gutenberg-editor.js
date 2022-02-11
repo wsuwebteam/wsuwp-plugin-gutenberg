@@ -2620,22 +2620,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PanelStyleOptions = props => {
-  var _attributes$className;
+  var _attributes$setKey;
 
   let {
     isOpen = false,
     styles = [],
     prefix,
     attributes,
-    setAttributes
+    setAttributes,
+    setKey = 'className'
   } = props;
-  let blockClassNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
-  let currentValue = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(blockClassNames, prefix);
+  let classString = (_attributes$setKey = attributes[setKey]) !== null && _attributes$setKey !== void 0 ? _attributes$setKey : '';
+  let currentValue = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(classString, prefix);
 
-  const setClassNames = value => {
-    let updatedClasses = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["addBlockClassName"])(blockClassNames, prefix, value);
+  const setStyleClassNames = value => {
+    let updatedClasses = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["addBlockClassName"])(classString, prefix, value);
     setAttributes({
-      className: updatedClasses
+      [setKey]: updatedClasses
     });
   };
 
@@ -2643,7 +2644,7 @@ const PanelStyleOptions = props => {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       variant: "primary",
       isPressed: currentValue == styleObj.value,
-      onClick: () => setClassNames(styleObj.value)
+      onClick: () => setStyleClassNames(styleObj.value)
     }, styleObj.icon, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, styleObj.label));
   };
 
@@ -2664,7 +2665,7 @@ const PanelStyleOptions = props => {
 /*!******************************************************************!*\
   !*** ./assets/src/js/partials/block-utilities/blockClassName.js ***!
   \******************************************************************/
-/*! exports provided: addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setBlockClassName, setBlockClassNameBool */
+/*! exports provided: addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2674,10 +2675,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlockClassName", function() { return getBlockClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlockClassNameValue", function() { return getBlockClassNameValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBlockClassName", function() { return removeBlockClassName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setClassName", function() { return setClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockClassName", function() { return setBlockClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockClassNameBool", function() { return setBlockClassNameBool; });
-const addBlockClassName = (className, prefix, value, remove = true) => {
-  let classNames = className !== null && className !== void 0 ? className : '';
+/**
+ * Add a class prefix/value to a given string of classnames.
+ * 
+ * @param { string } classString String of class names
+ * @param {string } prefix Previx of class to add or remove
+ * @param { string } value Value to append to prefix
+ * @param { boolean } remove Remove class names with matching prefixes
+ * @returns String of classnames
+ */
+const addClassName = (classString, prefix, value, remove = true) => {
+  let classNames = classString !== null && classString !== void 0 ? classString : '';
   let classArray = classNames.split(' ');
   let newClasses = [];
 
@@ -2694,6 +2705,30 @@ const addBlockClassName = (className, prefix, value, remove = true) => {
   }
 
   return newClasses.join(' ');
+};
+/**
+ * Add class names from block attributes
+ * 
+ * @param { object } attributes | Block attributes
+ * @param { string } prefix | Class prefix to attach value to
+ * @param { string } value | Value to append to class prefix 
+ * @param { boolean } remove | Remove matching class prefixes 
+ * @returns { string } String of class values
+ */
+
+
+const addBlockClassName = (attributes, prefix, value, remove = true) => {
+  let classNames;
+
+  if (typeof attributes === 'object') {
+    var _attributes$className;
+
+    classNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
+  } else {
+    classNames = attributes !== null && attributes !== void 0 ? attributes : '';
+  }
+
+  return addClassName(classNames, prefix, value, remove);
 };
 
 const hasBlockClassName = (classNames, value) => {
@@ -2721,15 +2756,10 @@ const getBlockClassName = (className, prefix) => {
   return value;
 };
 
-const getBlockClassNameValue = (className, prefix) => {
-  if (typeof className === 'object') {
-    var _className$className;
-
-    className = (_className$className = className.className) !== null && _className$className !== void 0 ? _className$className : '';
-  }
-
+const getClassNameValue = (classesString, prefix, defaultValue = '') => {
+  let className = classesString !== null && classesString !== void 0 ? classesString : '';
   let classArray = className.split(' ');
-  let value = '';
+  let value = defaultValue;
 
   if (Array.isArray(classArray)) {
     classArray.forEach((itemClass, index) => {
@@ -2740,6 +2770,20 @@ const getBlockClassNameValue = (className, prefix) => {
   }
 
   return value;
+};
+
+const getBlockClassNameValue = (attributes, prefix, defaultValue = '', setKey = 'className') => {
+  let className;
+
+  if (typeof attributes === 'object') {
+    var _attributes$setKey;
+
+    className = (_attributes$setKey = attributes[setKey]) !== null && _attributes$setKey !== void 0 ? _attributes$setKey : '';
+  } else {
+    className = attributes !== null && attributes !== void 0 ? attributes : '';
+  }
+
+  return getClassNameValue(className, prefix, defaultValue);
 };
 
 const removeBlockClassName = (className, prefix) => {
@@ -2757,29 +2801,44 @@ const removeBlockClassName = (className, prefix) => {
 
   return newClasses.join(' ');
 };
+/**
+ * @param { string } classesString | String of class names 
+ * @param { string } prefix | Class Prefix to add 
+ * @param { string } value | Value to append to class prefix 
+ * @param { function } setAttributes | Block setAttributes method
+ * @param { string } setKey | Attribute key to set 
+ */
 
-const setBlockClassName = (attributes, setAttributes, prefix, value) => {
-  var _attributes$className;
 
-  let classNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
-  let classArray = classNames.split(' ');
-  let newClasses = [];
+const setClassName = (classesString, prefix, value, setAttributes, setKey = 'className') => {
+  var _classesString;
 
-  if (Array.isArray(classArray)) {
-    classArray.forEach((itemClass, index) => {
-      if (!itemClass.includes(prefix)) {
-        newClasses.push(itemClass);
-      }
-    });
+  classesString = (_classesString = classesString) !== null && _classesString !== void 0 ? _classesString : '';
+  let classes = addClassName(classesString, prefix, value);
+  setAttributes({
+    [setKey]: classes
+  });
+};
+/**
+ * @param { object } attributes | String of class names
+ * @param { function } setAttributes | Block setAttributes method
+ * @param { string } prefix | Class Prefix to add 
+ * @param { string } value | Value to append to class prefix 
+ */
 
-    if ('' !== value) {
-      newClasses.push(prefix + value);
-    }
+
+const setBlockClassName = (attributes, setAttributes, prefix, value, setKey = 'className') => {
+  let classNames;
+
+  if (typeof attributes === 'object') {
+    var _attributes$setKey2;
+
+    classNames = (_attributes$setKey2 = attributes[setKey]) !== null && _attributes$setKey2 !== void 0 ? _attributes$setKey2 : '';
+  } else {
+    classNames = attributes !== null && attributes !== void 0 ? attributes : '';
   }
 
-  setAttributes({
-    className: newClasses.join(' ')
-  });
+  setClassName(classNames, prefix, value, setAttributes, setKey);
 };
 
 const setBlockClassNameBool = (attributes, setAttributes, blockClass, value) => {
@@ -2814,7 +2873,7 @@ const setBlockClassNameBool = (attributes, setAttributes, blockClass, value) => 
 /*!******************************************************************!*\
   !*** ./assets/src/js/partials/block-utilities/blockUtilities.js ***!
   \******************************************************************/
-/*! exports provided: getBlockClassNameOption, getBlockClassName, getBlockClassNameValue, hasBlockClassName, removeBlockClassName, setBlockClassName, addBlockClassName, setBlockClassNameBool */
+/*! exports provided: getBlockClassNameOption, getBlockClassName, getBlockClassNameValue, hasBlockClassName, removeBlockClassName, setClassName, setBlockClassName, addBlockClassName, setBlockClassNameBool */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2831,11 +2890,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeBlockClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["removeBlockClassName"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["setClassName"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setBlockClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["setBlockClassName"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addBlockClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["addBlockClassName"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setBlockClassNameBool", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["setBlockClassNameBool"]; });
+
 
 
 
@@ -3947,6 +4009,7 @@ registerBlockType("wsuwp/button", {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
     d: "M19 6.5H5c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7c0-1.1-.9-2-2-2zm.5 9c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5v-7c0-.3.2-.5.5-.5h14c.3 0 .5.2.5.5v7zM8 13h8v-1.5H8V13z"
   })),
+  apiVersion: 2,
   category: "text",
   attributes: {
     buttonText: {
@@ -3965,7 +4028,7 @@ registerBlockType("wsuwp/button", {
       type: "string",
       default: ""
     },
-    wrapperClassName: {
+    buttonClassName: {
       type: "string",
       default: ""
     }
@@ -4006,6 +4069,8 @@ const {
   InspectorControls,
   InspectorAdvancedControls,
   BlockControls,
+  useBlockProps,
+  AlignmentToolbar,
   __experimentalLinkControl: LinkControl
 } = wp.blockEditor;
 const {
@@ -4019,7 +4084,8 @@ const {
   BaseControl,
   PanelBody,
   PanelRow,
-  TextControl
+  TextControl,
+  ToggleControl
 } = wp.components;
 let buttonStyles = [{
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
@@ -4282,6 +4348,10 @@ const edit = props => {
     return value;
   }
 
+  const blockProps = useBlockProps({
+    className: 'wsu-cta',
+    style: {}
+  });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToolbarGroup, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToolbarButton, {
     icon: "admin-links",
     onClick: toggleInlineLinkEditPopover
@@ -4328,7 +4398,44 @@ const edit = props => {
       opensInNewTab: attributes.opensInNewTab
     },
     onChange: handleLinkChange
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FontIconPickerControl"], {
+  }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    styles: buttonStyles,
+    prefix: "wsu-button--style-",
+    setKey: "buttonClassName"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    title: "Display Options",
+    initialOpen: false
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl, {
+    className: "wsu-settings__base-control",
+    help: ""
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Size"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RadioGroup, {
+    className: "wsu-gutenberg-button__radio-group",
+    onChange: val => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setClassName"])(attributes.buttonClassName, "wsu-button--size-", val, setAttributes, 'buttonClassName'),
+    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes.buttonClassName, "wsu-button--size-")
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: "small"
+  }, "Small"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: ""
+  }, "Default"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: "large"
+  }, "Large")))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl, {
+    className: "wsu-settings__base-control",
+    help: ""
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RadioGroup, {
+    className: "wsu-gutenberg-button__radio-group",
+    onChange: val => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, "wsu-cta--width-", val),
+    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, "wsu-cta--width-")
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: "inline"
+  }, "Inline"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: ""
+  }, "Default"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
+    value: "full"
+  }, "Full")))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FontIconPickerControl"], {
     label: "Before Icon",
     help: "",
     value: attributes.iconBefore,
@@ -4342,53 +4449,23 @@ const edit = props => {
     onChange: val => setAttributes({
       iconAfter: val
     })
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
-    styles: buttonStyles,
-    prefix: "wsu-button--style-"
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
-    title: "Display Options",
-    initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl, {
-    className: "wsu-settings__base-control",
-    help: ""
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl.VisualLabel, {
-    className: "wsu-settings__label"
-  }, "Size"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RadioGroup, {
-    className: "wsu-gutenberg-button__radio-group",
-    onChange: val => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, "wsu-button--size-", val),
-    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes.className || "", "wsu-button--size-") || "default"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "small"
-  }, "Small"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "default"
-  }, "Medium"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "large"
-  }, "Large")))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl, {
-    className: "wsu-settings__base-control",
-    help: ""
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl.VisualLabel, {
-    className: "wsu-settings__label"
-  }, "Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RadioGroup, {
-    className: "wsu-gutenberg-button__radio-group",
-    onChange: val => setClassField("wrapperClassName", "wsu-cta--width-", val),
-    checked: getClassFieldValue(attributes.wrapperClassName || "", "wsu-cta--width-") || "default"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "inline"
-  }, "Inline"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "default"
-  }, "Default"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
-    value: "full"
-  }, "Full")))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
-    label: "Wrapper CSS Class(es)",
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+    label: "Button CSS Class(es)",
     help: "Classes will be applied to the block's wrapper. Separate multiple classes with spaces.",
-    value: attributes.wrapperClassName,
-    onChange: val => setAttributes({
-      wrapperClassName: val
+    value: attributes.buttonClassName,
+    onChange: buttonClassName => setAttributes({
+      buttonClassName
     })
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: `wsu-cta ${className}`
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-    className: `wsu-button`
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: 'Align Bottom',
+    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["hasBlockClassName"])(attributes, 'wsu-align-item--flex-bottom'),
+    onChange: value => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassNameBool"])(attributes, setAttributes, 'wsu-align-item--flex-bottom', value),
+    help: "Parent container must have \"Enable Align Bottom\" activated (Advanced/Enable Align Bottom)"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+    value: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, "wsu-text-align--"),
+    onChange: val => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, "wsu-text-align--", val)
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+    className: 'wsu-button ' + attributes.buttonClassName
   }, attributes.iconBefore && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
     className: `wsu-icon wsu-i-${attributes.iconBefore}`
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
