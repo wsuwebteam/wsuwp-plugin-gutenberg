@@ -1,16 +1,18 @@
-import { TextControl } from '@wordpress/components';
+import { TermSelectorControl } from "../blockControls";
 
-const FeedTermControl = ( { attributes, setAttributes } ) => {
-
-    return (
-        <TextControl
-            label="Term IDs"
-            value={ attributes.terms }
-            onChange={ ( terms ) => setAttributes( { terms } ) }
-            help='Comma delimited list of term IDs (i.e. 5,6,7,8)'
-        />
-    )
-    
-} 
+const FeedTermControl = (props) => {
+  return (
+    <>
+      <TermSelectorControl
+        label={props.label || "Terms"}
+        help={props.help}
+        host={props.host}
+        taxonomy={props.taxonomy}
+        value={props.value}
+        onChange={(newval) => props.onChange(newval)}
+      />
+    </>
+  );
+};
 
 export default FeedTermControl;
