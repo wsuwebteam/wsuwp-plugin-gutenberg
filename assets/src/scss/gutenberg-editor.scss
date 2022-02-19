@@ -7,6 +7,7 @@
 @import "../js/partials/block-controls/reset-control/style";
 @import "../js/partials/block-controls/heading-tag-control.js/style";
 @import "../js/partials/block-controls/required-alert-control/style";
+@import "../js/partials/block-controls/term-selector-control/style";
 
 /** ===== Panels ===== */
 @import "../js/partials/block-panels/panel-style-options/style";
@@ -55,6 +56,6 @@
   display: block;
 
   span {
-    display: block; 
+    display: block;
   }
 }
