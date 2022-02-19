@@ -40,8 +40,8 @@
                 default: 'category',
             },
             terms: {
-                type: 'string',
-                default: '',
+                type: 'array',
+                default: [],
             },
             count: {
                 type: 'string',
