@@ -22,12 +22,15 @@
 /** ===== Blocks ===== */
 @import "../../../blocks/wsuwp-button/editor/style";
 @import "../../../blocks/wsuwp-column/editor/style";
+@import "../../../blocks/wsuwp-card-group/editor/style";
+@import "../../../blocks/wsuwp-card/editor/style";
 @import "../../../blocks/wsuwp-row/editor/style";
 @import "../../../blocks/wsuwp-hero/editor/style";
 @import "../../../blocks/wsuwp-pagetitle/editor/style";
 @import "../../../blocks/wsuwp-news-cards/editor/style";
 @import "../../../blocks/wsuwp-accordion/editor/style";
 @import "../../../blocks/wsuwp-people-list/editor/style";
+
 
 /** ===== Front-End Styles Fixes ===== */
 .block-editor-block-list__layout .wsu-row {
