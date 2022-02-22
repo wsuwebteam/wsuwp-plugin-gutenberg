@@ -16,6 +16,8 @@ class Blocks {
 		'wsuwp/section'     => 'Block_WSUWP_Section',
 		'wsuwp/people-list' => 'Block_WSUWP_People_List',
 		'wsuwp/button'      => 'Block_WSUWP_Button',
+		'wsuwp/card'        => 'Block_WSUWP_Card',
+		'wsuwp/card-group'  => 'Block_WSUWP_Card_Group',
 	);
 
 	protected static $allowed_blocks = array(
@@ -30,6 +32,8 @@ class Blocks {
 		'wsuwp/section',
 		'wsuwp/people-list',
 		'wsuwp/button',
+		'wsuwp/card',
+		'wsuwp/card-group',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',

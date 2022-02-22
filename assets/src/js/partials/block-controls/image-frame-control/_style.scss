@@ -1,0 +1,17 @@
+.wsu-image-frame-control {
+
+    &__button {
+        position: absolute !important;
+        bottom: 0;
+        right:0;
+        color: #135e96 !important;
+        text-decoration: underline;
+        background-color: #fff !important;
+        border-radius: 0;
+        padding: 0.25rem 1rem !important;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+}
