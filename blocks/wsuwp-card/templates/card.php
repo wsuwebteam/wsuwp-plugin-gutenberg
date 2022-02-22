@@ -1,4 +1,4 @@
-<article class="wsu-card">
+<article class="<?php echo esc_attr( $attrs['className'] ); ?>">
 	<?php if ( ! empty( $attrs['imageSrc'] ) ) : ?>
 		<?php include __DIR__ . '/image-frame.php'; ?>
 	<?php endif; ?>
