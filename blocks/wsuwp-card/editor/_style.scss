@@ -1,0 +1,17 @@
+@import '../../../assets/src/scss/utilities/variables';
+@import '../../../assets/src/scss/utilities/mixins';
+
+.block-editor {
+
+    .wp-block[data-type="wsuwp/card"] {
+
+        @include wsu-gutenberg-block-outline();
+
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+        padding-top: 0.3rem;
+        padding-bottom: 0.4rem; 
+
+    }
+
+}
