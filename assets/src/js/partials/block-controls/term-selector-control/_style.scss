@@ -1,0 +1,40 @@
+.wsu-gutenberg-term-selector {
+  position: relative;
+}
+
+.wsu-gutenberg-term-selector .components-spinner {
+  position: absolute;
+  right: 0.55em;
+  top: 2.55em;
+  margin: 0;
+}
+
+.wsu-gutenberg-term-selector__selected_terms {
+  overflow: hidden;
+}
+
+.wsu-gutenberg-term-selector__selected_term {
+}
+
+.wsu-gutenberg-term-selector__remove-btn {
+  height: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.wsu-gutenberg-term-selector__remove-btn-text {
+  text-align: left;
+  margin-right: 1em;
+  flex-grow: 1;
+}
+
+.wsu-gutenberg-term-selector__remove-btn-icon {
+  background: #ca1237;
+  color: white;
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  line-height: 1;
+  font-size: 16px;
+}

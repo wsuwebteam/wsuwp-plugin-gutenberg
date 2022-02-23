@@ -4,31 +4,33 @@ class Block_WSUWP_News_List extends Block {
 
 	protected static $block_name    = 'wsuwp/news-list';
 	protected static $default_attrs = array(
-		'className'         => 'wsu-news-list',
-		'postIn'            => '',
-		'hideDate'          => false,
-		'hideCaption'       => false,
-		'postType:'         => 'post',
-		'taxonomy'          => 'category',
-		'terms'             => '',
-		'count'             => '3',
-		'offset'            => '0',
-		'host'              => '',
-		'useAndLogic'       => false,
+		'className'   => 'wsu-news-list',
+		'postIn'      => '',
+		'hideDate'    => false,
+		'hideCaption' => false,
+		'postType:'   => 'post',
+		'taxonomy'    => 'category',
+		'terms'       => '',
+		'count'       => '3',
+		'offset'      => '0',
+		'host'        => '',
+		'useAndLogic' => false,
 	);
 
 
-	public static function render( $attrs, $content = '' ) {
-
+	public static function render( $attrs, $content = '' ) {		
+		
 		Plugin::load_class( 'query-posts' );
 
-        $post_query = new Query_Posts( $attrs );
+		$attrs['terms'] = self::process_terms( $attrs['terms'] ); // convert to string of ids for query
 
-        $news_items = ( ! empty( $attrs['host'] ) ) ? $post_query->get_remote_posts() : $post_query->get_posts();
+		$post_query = new Query_Posts( $attrs );
+
+		$news_items = ( ! empty( $attrs['host'] ) ) ? $post_query->get_remote_posts() : $post_query->get_posts();
 
 		ob_start();
 
-        if ( ! empty( $news_items ) ) {
+		if ( ! empty( $news_items ) ) {
 
 			include __DIR__ . '/template.php';
 
@@ -39,11 +41,26 @@ class Block_WSUWP_News_List extends Block {
 	}
 
 
+	protected static function process_terms( $terms ) {
 
+		$type = gettype( $terms );
 
+		if ( 'array' === $type ) {
+			$terms_string = array_reduce(
+			$terms,
+			function( $val, $term ) {
+				if ( $val ) {
+				$val .= ',';
+			}
+			return $val . strval( $term['id'] );
+		}, '');
 
+		return $terms_string;
+		}
 
+		return $terms;
 
+	}
 
 
 	protected static function render_feed_posts( $attrs ) {
@@ -61,7 +78,7 @@ class Block_WSUWP_News_List extends Block {
 				Query::add_shown_post( $post['id'] );
 
 				// Require first image should override hide image on the first post
-				$attrs['hideImage'] = ( 0 === $index && $attrs['requireFirstImage'] ) ?  false : $temp_attrs['hideImage'];
+				$attrs['hideImage'] = ( 0 === $index && $attrs['requireFirstImage'] ) ? false : $temp_attrs['hideImage'];
 
 				include __DIR__ . '/templates/card.php';
 
