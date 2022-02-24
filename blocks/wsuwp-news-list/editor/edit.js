@@ -132,7 +132,7 @@ const Edit = (props) => {
           <FeedPostTypeControl
             label="Post type"
             help="Select post type to display"
-            host={attributes.host || window.location.origin}
+            host={attributes.host || window.wsu.ROOT_URL}
             ignorePostTypes={ignorePostTypes}
             value={attributes.postType}
             onChange={(postType) => setAttributes({ postType })}
@@ -140,7 +140,7 @@ const Edit = (props) => {
           <FeedTaxonomyControl
             label="Taxonomy"
             help="Select taxonomy to filter posts by"
-            host={attributes.host || window.location.origin}
+            host={attributes.host || window.wsu.ROOT_URL}
             postType={attributes.postType}
             value={attributes.taxonomy}
             onChange={(taxonomy) => setAttributes({ taxonomy })}
@@ -149,7 +149,7 @@ const Edit = (props) => {
             <FeedTermControl
               label="Terms"
               help="Filter posts by searching and selecting terms in the selected taxonomy"
-              host={attributes.host || window.location.origin}
+              host={attributes.host || window.wsu.ROOT_URL}
               taxonomy={attributes.taxonomy}
               value={attributes.terms}
               onChange={(terms) => setAttributes({ terms })}
