@@ -16,7 +16,7 @@ const {
 	BaseControl,
     IconButton,
     ToggleControl
-} = wp.components;
+} = wp.components; 
 
 import {
     dispatch,
