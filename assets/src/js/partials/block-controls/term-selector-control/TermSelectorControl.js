@@ -81,9 +81,21 @@ const TermSelectorControl = function (props) {
     updateSelectedTerms(updatedSelectedTerms);
   }
 
-  function updateSelectedTerms(terms) {
-    setSelectedTerms(terms);
-    props.onChange(terms);
+  function updateSelectedTerms(termsArray) {
+
+    let termsString = '';
+
+    if (Array.isArray( termsArray ) && termsArray.length > 0 ) {
+      termsString = termsArray
+        .map(function (term) {
+          return term.id.toString();
+        })
+        .join(",");
+    }
+
+    setSelectedTerms( termsArray );
+
+    props.onChange( { termsList: termsString, termsSelected: termsArray } );
   }
 
   return (

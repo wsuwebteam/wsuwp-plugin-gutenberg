@@ -74,35 +74,7 @@ const ignorePostTypes = [
 
 const Edit = (props) => {
   let { className, attributes, setAttributes } = props;
-  const [renderAttributes, setRenderAttributes] = useState(
-    processAttributesForRender(attributes)
-  );
-
-  function processAttributesForRender(attributes) {
-    const renderAttributes = JSON.parse(JSON.stringify(attributes));
-
-    if (renderAttributes.terms.length > 0) {
-      renderAttributes.terms = renderAttributes.terms
-        .map(function (term) {
-          return term.id.toString();
-        })
-        .join(",");
-    }
-
-    return renderAttributes;
-  }
-
-  useEffect(() => {
-    const renderAttributes = processAttributesForRender(attributes);
-    setRenderAttributes(renderAttributes);
-  }, [attributes.terms]);
-
-  // useEffect(() => {
-  //   // TODO:
-  //   // - do some work to valid url and prevent errors. Probably do in feedHostControl
-  //   // - reset feed option fields
-  //   console.log("host edited");
-  // }, [attributes.host]);
+  
 
   const blockProps = useBlockProps({
     className: "wsu-news-list",
@@ -151,8 +123,8 @@ const Edit = (props) => {
               help="Filter posts by searching and selecting terms in the selected taxonomy"
               host={attributes.host || window.wsu.ROOT_URL}
               taxonomy={attributes.taxonomy}
-              value={attributes.terms}
-              onChange={(terms) => setAttributes({ terms })}
+              value={attributes.termsSelected}
+              onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected } ) }
             />
           )}
           <FeedCountControl {...props} />
@@ -165,7 +137,7 @@ const Edit = (props) => {
       </InspectorControls>
       <div {...blockProps}>
         <ApiRenderBlock
-          attributes={renderAttributes}
+          attributes={attributes}
           blockName="wsuwp/news-list"
         >
           No News Items Found

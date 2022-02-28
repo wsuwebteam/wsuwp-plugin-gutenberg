@@ -39,9 +39,13 @@
                 type: 'string',
                 default: 'category',
             },
-            terms: {
+            termsSelected: {
                 type: 'array',
                 default: [],
+            },
+            terms: {
+                type: 'string',
+                default: '',
             },
             count: {
                 type: 'string',
