@@ -24,16 +24,16 @@ const ColorClassControl = ( props ) => {
         label='Color',
         prefix='wsu-color-background--',
         value='#ffffff',
+        onSetColor=false,
     } = props;
 
     const getSelectedColor = () => {
 
-        
+        let selectedValue = '';
+
         let classNames = attributes.className ?? '';
 
-        let selectedColor = getBlockClassName( classNames, prefix );
-
-        let selectedValue = value;
+        let selectedColor = ( onSetColor ) ? value : getBlockClassName( classNames, prefix );
 
         if ( '' !== selectedColor ) {
 
@@ -58,21 +58,21 @@ const ColorClassControl = ( props ) => {
 
     const getColorName = ( color ) => {
 
-        let selectedColor = '';
+        let colorName = '';
 
         colors.forEach(
             ( colorObj, index ) => { 
 
                 if ( color === colorObj.color ) {
 
-                    selectedColor = colorObj.name;
+                    colorName = colorObj.name;
 
                 }
 
             }
         )
 
-        return selectedColor;
+        return colorName;
 
     }
 
@@ -86,6 +86,11 @@ const ColorClassControl = ( props ) => {
 
     }
 
+    const returnColorName = ( color ) => {
+        let colorName = getColorName( color );
+        onSetColor( colorName )
+    }
+
     let pickerId = 'color-picker-' + Math.floor( Math.random() * 1000000 );
 
     return (
@@ -93,7 +98,7 @@ const ColorClassControl = ( props ) => {
             <ColorPalette
                 colors={ colors }
                 value={ getSelectedColor() }
-                onChange={ ( color ) => addColor( color ) }
+                onChange={ ( color ) => { ( onSetColor ) ? returnColorName( color ) : addColor( color ) } }
                 clearable={false}
                 disableCustomColors={true}
             />
