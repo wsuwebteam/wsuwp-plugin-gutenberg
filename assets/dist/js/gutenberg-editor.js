@@ -186,6 +186,7 @@ const ApiRenderBlock = ({
 }) => {
   const [blockRendered, setBlockRendered] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
   blockName = blockName.replace('/', '--');
+  attributes.apiRender = true;
   let queryString = Object.keys(attributes).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(attributes[key])).join('&');
   Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -199,6 +200,7 @@ const ApiRenderBlock = ({
 
   if (blockRendered) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "wsu-bc-api-render",
       dangerouslySetInnerHTML: {
         __html: blockRendered
       }
@@ -298,15 +300,16 @@ const ColorClassControl = props => {
     colors,
     label = 'Color',
     prefix = 'wsu-color-background--',
-    value = '#ffffff'
+    value = '#ffffff',
+    onSetColor = false
   } = props;
 
   const getSelectedColor = () => {
     var _attributes$className;
 
+    let selectedValue = '';
     let classNames = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
-    let selectedColor = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_1__["getBlockClassName"])(classNames, prefix);
-    let selectedValue = value;
+    let selectedColor = onSetColor ? value : Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_1__["getBlockClassName"])(classNames, prefix);
 
     if ('' !== selectedColor) {
       colors.forEach((colorObj, index) => {
@@ -320,13 +323,13 @@ const ColorClassControl = props => {
   };
 
   const getColorName = color => {
-    let selectedColor = '';
+    let colorName = '';
     colors.forEach((colorObj, index) => {
       if (color === colorObj.color) {
-        selectedColor = colorObj.name;
+        colorName = colorObj.name;
       }
     });
-    return selectedColor;
+    return colorName;
   };
 
   const addColor = color => {
@@ -340,6 +343,11 @@ const ColorClassControl = props => {
     });
   };
 
+  const returnColorName = color => {
+    let colorName = getColorName(color);
+    onSetColor(colorName);
+  };
+
   let pickerId = 'color-picker-' + Math.floor(Math.random() * 1000000);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
     id: pickerId,
@@ -347,7 +355,9 @@ const ColorClassControl = props => {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ColorPalette, {
     colors: colors,
     value: getSelectedColor(),
-    onChange: color => addColor(color),
+    onChange: color => {
+      onSetColor ? returnColorName(color) : addColor(color);
+    },
     clearable: false,
     disableCustomColors: true
   }));
@@ -1555,9 +1565,13 @@ const defaultOptions = [{
 
 const FeedPostTypeControl = props => {
   const [options, setOptions] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultOptions);
+  const defaultIgnorePostTypes = ["attachment", "tribe_organizer", "wp_block", "theme_part", "tribe_venue", "customize_changeset", "curated_news", "news_feed"];
+  let {
+    ignorePostTypes = defaultIgnorePostTypes
+  } = props;
 
   function shouldListPostType(postType) {
-    if (props.ignorePostTypes && props.ignorePostTypes.includes(postType)) return false;
+    if (ignorePostTypes && ignorePostTypes.includes(postType)) return false;
     return true;
   }
 
@@ -3146,7 +3160,7 @@ const PanelStyleOptions = props => {
 /*!******************************************************************!*\
   !*** ./assets/src/js/partials/block-utilities/blockClassName.js ***!
   \******************************************************************/
-/*! exports provided: addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool */
+/*! exports provided: addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool, setChildBlockClassName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3159,6 +3173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setClassName", function() { return setClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockClassName", function() { return setBlockClassName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBlockClassNameBool", function() { return setBlockClassNameBool; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setChildBlockClassName", function() { return setChildBlockClassName; });
 /**
  * Add a class prefix/value to a given string of classnames.
  * 
@@ -3346,6 +3361,17 @@ const setBlockClassNameBool = (attributes, setAttributes, blockClass, value) => 
   });
 };
 
+const setChildBlockClassName = (clientId, prefix, value, setKey = 'className') => {
+  let children = wp.data.select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks;
+  children.forEach(function (child, index) {
+    let attributes = wp.data.select('core/editor').getBlockAttributes(child.clientId);
+    let classNames = addBlockClassName(attributes, prefix, value);
+    wp.data.dispatch('core/editor').updateBlockAttributes(child.clientId, {
+      className: classNames
+    });
+  });
+};
+
 
 
 /***/ }),
@@ -3354,7 +3380,7 @@ const setBlockClassNameBool = (attributes, setAttributes, blockClass, value) => 
 /*!******************************************************************!*\
   !*** ./assets/src/js/partials/block-utilities/blockUtilities.js ***!
   \******************************************************************/
-/*! exports provided: getBlockClassNameOption, getBlockClassName, getBlockClassNameValue, hasBlockClassName, removeBlockClassName, setClassName, setBlockClassName, addBlockClassName, setBlockClassNameBool */
+/*! exports provided: getBlockClassNameOption, getBlockClassName, getBlockClassNameValue, hasBlockClassName, removeBlockClassName, setClassName, setBlockClassName, addBlockClassName, setBlockClassNameBool, setChildBlockClassName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3378,6 +3404,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addBlockClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["addBlockClassName"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setBlockClassNameBool", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["setBlockClassNameBool"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setChildBlockClassName", function() { return _blockClassName__WEBPACK_IMPORTED_MODULE_1__["setChildBlockClassName"]; });
+
 
 
 
@@ -5303,6 +5332,54 @@ registerBlockType("wsuwp/card-group", {
     columns: {
       type: "integer",
       default: 3
+    },
+    headingTag: {
+      type: 'string',
+      default: 'h3'
+    },
+    postType: {
+      type: 'string',
+      default: 'post'
+    },
+    taxonomy: {
+      type: 'string',
+      default: 'category'
+    },
+    termsSelected: {
+      type: 'array',
+      default: []
+    },
+    terms: {
+      type: 'string',
+      default: ''
+    },
+    count: {
+      type: 'string',
+      default: '3'
+    },
+    offset: {
+      type: 'string',
+      default: '0'
+    },
+    host: {
+      type: 'string',
+      default: ''
+    },
+    useAndLogic: {
+      type: 'boolean',
+      default: false
+    },
+    useFeed: {
+      type: 'boolean',
+      default: false
+    },
+    allowCustomCards: {
+      type: 'boolean',
+      default: false
+    },
+    cardClassName: {
+      type: 'string',
+      default: ''
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5320,18 +5397,30 @@ registerBlockType("wsuwp/card-group", {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
-/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
-/* harmony import */ var _assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+/* harmony import */ var _assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/feed-controls/feed-controls */ "./assets/src/js/partials/block-controls/feed-controls/feed-controls.js");
+/* harmony import */ var _assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-components/blockComponents */ "./assets/src/js/partials/block-components/blockComponents.js");
+
 
 const {
   __
 } = wp.i18n;
 const {
+  select
+} = wp.editor;
+const {
+  useEffect
+} = wp.element;
+const {
   InnerBlocks,
   InspectorControls,
+  InspectorAdvancedControls,
   useBlockProps,
   RichText
 } = wp.blockEditor;
@@ -5343,6 +5432,8 @@ const {
 
 
 
+
+
 const {
   MediaPlaceholder,
   MediaUpload
@@ -5351,15 +5442,66 @@ const {
 const Edit = props => {
   let {
     attributes,
-    setAttributes
+    setAttributes,
+    clientId
   } = props;
+  let blockClasses = ['wsu-card-wrapper', 'wsu-card-wrapper--per-row-' + attributes.columns];
+
+  if (attributes.useFeed && !attributes.allowCustomCards) {
+    blockClasses.push('wsu-is-feed');
+  }
+
   const blockProps = useBlockProps({
-    className: 'wsu-card-wrapper wsu-card-wrapper--per-row-' + attributes.columns,
+    className: blockClasses.join(' '),
     style: {}
   });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelDisplayOptions"], {
+  let blockTemplate = attributes.useFeed ? [] : [['wsuwp/card', {}, []], ['wsuwp/card', {}, []], ['wsuwp/card', {}, []]];
+  const backgroundColors = [{
+    name: 'gray-5',
+    color: '#f2f2f2'
+  }, {
+    name: 'white',
+    color: '#ffffff'
+  }, {
+    name: 'gray-85',
+    color: '#262626'
+  }];
+  const borderColors = [{
+    name: 'default',
+    color: '#e6e6e6'
+  }, {
+    name: 'white',
+    color: '#ffffff'
+  }, {
+    name: 'crimson',
+    color: '#A60F2D'
+  }, {
+    name: 'crimson-light',
+    color: '#CA1237'
+  }, {
+    name: 'autumn',
+    color: '#FF6727'
+  }, {
+    name: 'goldfinch',
+    color: '#F3E700'
+  }, {
+    name: 'vineyard',
+    color: '#AADC24'
+  }, {
+    name: 'pacificsky',
+    color: '#5BC3F5'
+  }, {
+    name: 'midnight',
+    color: '#002D61'
+  }];
+
+  const updateChildBlockClasses = (prefix, value) => {
+    ;
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelDisplayOptions"], {
     isOpen: true
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
     label: "Number of Columns",
     help: "Number of columns to display per row.",
     value: attributes.columns,
@@ -5368,11 +5510,70 @@ const Edit = props => {
     }),
     min: 1,
     max: 4
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelColorOptions"], null)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
-    template: [['wsuwp/card', {}, []], ['wsuwp/card', {}, []], ['wsuwp/card', {}, []]],
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Feed Content",
+    checked: attributes.useFeed,
+    onChange: useFeed => setAttributes({
+      useFeed
+    }),
+    help: "Feed in post, pages, or other content automatically into card group."
+  })), attributes.useFeed && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPostTypeControl"], {
+    label: "Post type",
+    help: "Select post type to display",
+    host: attributes.host || window.wsu.ROOT_URL,
+    value: attributes.postType,
+    onChange: postType => setAttributes({
+      postType
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedTaxonomyControl"], {
+    label: "Taxonomy",
+    help: "Select taxonomy to filter posts by",
+    host: attributes.host || window.wsu.ROOT_URL,
+    postType: attributes.postType,
+    value: attributes.taxonomy,
+    onChange: taxonomy => setAttributes({
+      taxonomy
+    })
+  }), attributes.taxonomy && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedTermControl"], {
+    label: "Terms",
+    help: "Filter posts by searching and selecting terms in the selected taxonomy",
+    host: attributes.host || window.wsu.ROOT_URL,
+    taxonomy: attributes.taxonomy,
+    value: attributes.termsSelected,
+    onChange: terms => setAttributes({
+      terms: terms.termsList,
+      termsSelected: terms.termsSelected
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedCountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPanelAdvanced"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedUseAndLogicControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedOffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedHostControl"], props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    colors: backgroundColors,
+    label: "Background Color",
+    value: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, 'wsu-color-background--', '', 'cardClassName'),
+    onSetColor: color => {
+      Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setChildBlockClassName"])(clientId, 'wsu-color-background--', color);
+      Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, 'wsu-color-background--', color, 'cardClassName');
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    colors: borderColors,
+    label: "Border Color",
+    value: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, 'wsu-border-top--color-', '', 'cardClassName'),
+    onSetColor: color => {
+      Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setChildBlockClassName"])(clientId, 'wsu-border-top--color-', color);
+      Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, 'wsu-border-top--color-', color, 'cardClassName');
+    }
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Allow Custom Cards With Feed",
+    checked: attributes.allowCustomCards,
+    onChange: allowCustomCards => setAttributes({
+      allowCustomCards
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+    template: blockTemplate,
     templateLock: false,
     allowedBlocks: ['wsuwp/card']
-  })));
+  }), attributes.useFeed && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
+    attributes: attributes,
+    blockName: "wsuwp/card-group"
+  }, "No News Items Found")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
@@ -5564,7 +5765,8 @@ const {
 const {
   SelectControl,
   TextControl,
-  ToggleControl
+  ToggleControl,
+  PanelBody
 } = wp.components;
 
 
@@ -5583,6 +5785,44 @@ const Edit = props => {
     className: 'wsu-card',
     style: {}
   });
+  const backgroundColors = [{
+    name: 'gray-5',
+    color: '#f2f2f2'
+  }, {
+    name: 'white',
+    color: '#ffffff'
+  }, {
+    name: 'gray-85',
+    color: '#262626'
+  }];
+  const borderColors = [{
+    name: 'default',
+    color: '#e6e6e6'
+  }, {
+    name: 'white',
+    color: '#ffffff'
+  }, {
+    name: 'crimson',
+    color: '#A60F2D'
+  }, {
+    name: 'crimson-light',
+    color: '#CA1237'
+  }, {
+    name: 'autumn',
+    color: '#FF6727'
+  }, {
+    name: 'goldfinch',
+    color: '#F3E700'
+  }, {
+    name: 'vineyard',
+    color: '#AADC24'
+  }, {
+    name: 'pacificsky',
+    color: '#5BC3F5'
+  }, {
+    name: 'midnight',
+    color: '#002D61'
+  }];
   let displayFields = attributes.displayFields;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelDisplayOptions"], {
     isOpen: true
@@ -5621,7 +5861,10 @@ const Edit = props => {
     }
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["HeadingTagControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
     allowedTags: ['h2', 'h3', 'h4', 'h5', 'h6', 'div']
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["DisplayFieldControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    title: "Card Settings",
+    initialOpen: false
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["DisplayFieldControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
     fieldOptions: [{
       label: 'Image',
       value: 'image'
@@ -5632,10 +5875,19 @@ const Edit = props => {
       label: 'Caption',
       value: 'caption'
     }, {
-      label: 'Inner Blocks',
+      label: 'Custom Content',
       value: 'blocks'
     }]
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, displayFields.includes('image') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ImageFrameControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    colors: backgroundColors,
+    label: "Background Color",
+    value: "#f2f2f2"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    colors: borderColors,
+    label: "Border Color",
+    value: "#e6e6e6",
+    prefix: "wsu-border-top--color-"
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, displayFields.includes('image') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ImageFrameControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "wsu-card__content"
   }, displayFields.includes('title') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
     tagName: "h2" // The tag here is the element output and editable in the admin
@@ -6410,6 +6662,10 @@ registerBlockType("wsuwp/news-cards", {
       type: 'string',
       default: 'category'
     },
+    termsSelected: {
+      type: 'array',
+      default: []
+    },
     terms: {
       type: 'string',
       default: ''
@@ -6540,8 +6796,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
-/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
-/* harmony import */ var _assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-components/blockComponents */ "./assets/src/js/partials/block-components/blockComponents.js");
+/* harmony import */ var _assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/feed-controls/feed-controls */ "./assets/src/js/partials/block-controls/feed-controls/feed-controls.js");
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-components/blockComponents */ "./assets/src/js/partials/block-components/blockComponents.js");
 
 const {
   __
@@ -6571,12 +6828,13 @@ const {
 
 
 
+
 const NewsCardGeneralOptions = props => {
   let {
     attributes,
     setAttributes
   } = props;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelGeneralOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_5__["PanelGeneralOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
     label: "Content Source",
     value: attributes.source,
     options: [{
@@ -6597,7 +6855,7 @@ const NewsCardDisplayOptions = props => {
     attributes,
     setAttributes
   } = props;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_5__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
     label: "Cards Per Row",
     value: attributes.perRow,
     options: [{
@@ -6668,7 +6926,34 @@ const Edit = props => {
   queryAttrs['hideLink'] = true;
 
   if ('feed' === attributes.source) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelFeedOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["PostTypeSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["TaxonomyTypeSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["TaxonomyTermSelectControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["CountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelAdvancedFeedOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["OffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["HostControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireFirstImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPostTypeControl"], {
+      label: "Post type",
+      help: "Select post type to display",
+      host: attributes.host || window.wsu.ROOT_URL,
+      value: attributes.postType,
+      onChange: postType => setAttributes({
+        postType
+      })
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTaxonomyControl"], {
+      label: "Taxonomy",
+      help: "Select taxonomy to filter posts by",
+      host: attributes.host || window.wsu.ROOT_URL,
+      postType: attributes.postType,
+      value: attributes.taxonomy,
+      onChange: taxonomy => setAttributes({
+        taxonomy
+      })
+    }), attributes.taxonomy && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTermControl"], {
+      label: "Terms",
+      help: "Filter posts by searching and selecting terms in the selected taxonomy",
+      host: attributes.host || window.wsu.ROOT_URL,
+      taxonomy: attributes.taxonomy,
+      value: attributes.termsSelected,
+      onChange: terms => setAttributes({
+        terms: terms.termsList,
+        termsSelected: terms.termsSelected
+      })
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedCountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanelAdvanced"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedUseAndLogicControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedOffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedHostControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireFirstImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
       label: "Hide Shown Posts",
       checked: attributes.hideShownPosts,
       onChange: hideShownPosts => {
@@ -6676,27 +6961,19 @@ const Edit = props => {
           hideShownPosts
         });
       }
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
-      label: "Use AND logic for terms",
-      checked: attributes.useAndLogic,
-      onChange: useAndLogic => {
-        setAttributes({
-          useAndLogic
-        });
-      }
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__["ApiRenderBlock"], {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
       attributes: queryAttrs,
       blockName: "wsuwp/news-cards"
     }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
   } else if ('select' === attributes.source) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelInsertPost"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_5__["PanelInsertPost"], {
       attributes: attributes,
       onChange: value => setAttributes({
         postIn: value
       }),
       postTypes: ['any'],
       placeholder: "Search posts..."
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_5__["ApiRenderBlock"], {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
       attributes: queryAttrs,
       blockName: "wsuwp/news-cards"
     }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
@@ -6890,7 +7167,6 @@ const {
 
 
 
-const ignorePostTypes = ["attachment", "tribe_organizer", "wp_block", "theme_part", "tribe_venue", "customize_changeset", "curated_news", "news_feed"];
 
 const Edit = props => {
   let {
@@ -6924,7 +7200,6 @@ const Edit = props => {
     label: "Post type",
     help: "Select post type to display",
     host: attributes.host || window.wsu.ROOT_URL,
-    ignorePostTypes: ignorePostTypes,
     value: attributes.postType,
     onChange: postType => setAttributes({
       postType
