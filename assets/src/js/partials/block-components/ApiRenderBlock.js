@@ -12,6 +12,9 @@ const ApiRenderBlock = ( { attributes, blockName, onChange, children } ) => {
     const [ blockRendered, setBlockRendered ] = useState( '' );
 
     blockName   = blockName.replace('/', '--' );
+
+    attributes.apiRender = true;
+
     let queryString = Object.keys( attributes ).map( key => encodeURIComponent( key ) + '=' + encodeURIComponent( attributes[key] ) ).join('&');
 
     useEffect(() => {
@@ -28,7 +31,7 @@ const ApiRenderBlock = ( { attributes, blockName, onChange, children } ) => {
     if ( blockRendered ) {
 
         return (
-            <div dangerouslySetInnerHTML={{ __html: blockRendered } } />
+            <div className="wsu-bc-api-render" dangerouslySetInnerHTML={{ __html: blockRendered } } />
         )
 
     } else {
