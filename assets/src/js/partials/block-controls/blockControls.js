@@ -21,5 +21,6 @@ export { default as RequireImageControl } from "./RequireImageControl";
 export { default as RequireFirstImageControl } from "./RequireFirstImageControl";
 export { default as ColorClassControl } from "./ColorClassControl";
 export { default as RequiredAlertControl } from "./required-alert-control/RequiredAlertControl";
+export { default as TermSelectorControl } from "./term-selector-control/TermSelectorControl";
 export { default as ImageFrameControl } from "./image-frame-control/ImageFrameControl";
 export { default as DisplayFieldControl } from "./display-fields-control/DisplayFieldsControl";

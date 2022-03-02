@@ -30,7 +30,7 @@
             },
             imageAlt: {
                 type: "string",
-                default: "",
+                default: "", 
             },
             imageRatio: {
                 type: "string",

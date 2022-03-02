@@ -41,6 +41,18 @@ import {
     HeadingTagControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
+import {
+    FeedPostTypeControl,
+    FeedTaxonomyControl,
+    FeedCountControl,
+    FeedTermControl,
+    FeedOffsetControl,
+    FeedUseAndLogicControl,
+    FeedHostControl,
+    FeedPanel,
+    FeedPanelAdvanced,
+  } from "../../../assets/src/js/partials/block-controls/feed-controls/feed-controls";
+
 import { ColorClassNameSelector, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
 import { useEffect, useState } from '@wordpress/element';
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelFeedOptions, PanelAdvancedFeedOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
@@ -139,28 +151,46 @@ const Edit = ( props ) => {
                 <InspectorControls>
                     <NewsCardGeneralOptions  { ...props } />
                     <NewsCardDisplayOptions  { ...props } /> 
-                    <PanelFeedOptions>
-                        <PostTypeSelectControl { ...props } />
-                        <TaxonomyTypeSelectControl { ...props } />
-                        <TaxonomyTermSelectControl { ...props } />
-                        <CountControl { ...props } /> 
-                    </PanelFeedOptions>
-                    <PanelAdvancedFeedOptions>
-                        <OffsetControl { ...props } /> 
-                        <HostControl { ...props } />
+                    <FeedPanel>
+                        <FeedPostTypeControl
+                            label="Post type"
+                            help="Select post type to display"
+                            host={attributes.host || window.wsu.ROOT_URL}
+                            value={attributes.postType}
+                            onChange={(postType) => setAttributes({ postType })}
+                        />
+                        <FeedTaxonomyControl
+                            label="Taxonomy"
+                            help="Select taxonomy to filter posts by"
+                            host={attributes.host || window.wsu.ROOT_URL}
+                            postType={attributes.postType}
+                            value={attributes.taxonomy}
+                            onChange={(taxonomy) => setAttributes({ taxonomy })}
+                        />
+                        {attributes.taxonomy && (
+                            <FeedTermControl
+                            label="Terms"
+                            help="Filter posts by searching and selecting terms in the selected taxonomy"
+                            host={attributes.host || window.wsu.ROOT_URL}
+                            taxonomy={attributes.taxonomy}
+                            value={attributes.termsSelected}
+                            onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected } ) }
+                            />
+                        )}
+                        <FeedCountControl {...props} />
+                    </FeedPanel>
+                    <FeedPanelAdvanced>
+                        <FeedUseAndLogicControl {...props} />
+                        <FeedOffsetControl {...props} />
+                        <FeedHostControl {...props} />
                         <RequireImageControl { ...props } />
                         <RequireFirstImageControl { ...props } />
                         <ToggleControl
-                        label="Hide Shown Posts"
-                        checked={ attributes.hideShownPosts }
-                        onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
-                        />
-                        <ToggleControl
-                        label="Use AND logic for terms"
-                        checked={ attributes.useAndLogic }
-                        onChange={ ( useAndLogic ) => { setAttributes( { useAndLogic } ) } }
-                        />
-                    </PanelAdvancedFeedOptions>
+                            label="Hide Shown Posts"
+                            checked={ attributes.hideShownPosts }
+                            onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
+                            />
+                    </FeedPanelAdvanced>
                 </InspectorControls>
                 <div { ...blockProps }  >
                     <ApiRenderBlock 

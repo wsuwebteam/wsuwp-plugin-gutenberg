@@ -105,11 +105,11 @@ class Query_Posts {
 
 				$media = $api_post['_embedded']['wp:featuredmedia'][0];
 
-				$image_id     = get_post_thumbnail_id();
+				$image_id             = get_post_thumbnail_id();
 				$image_src_array      = wp_get_attachment_image_src( $image_id, $this->image_size );
-				$post['imageId']    = $media['id'];
-				$post['imageSrc']    = $image_src_array[0];
-				$post['imageAlt']    = $media['alt_text'];
+				$post['imageId']      = $media['id'];
+				$post['imageSrc']     = $image_src_array[0];
+				$post['imageAlt']     = $media['alt_text'];
 				$post['imageCaption'] = $media['caption']['rendered'];
 
 				if ( ! empty( $media['media_details']['sizes'][ $this->image_size ] ) ) {

@@ -1,20 +1,94 @@
-import { SelectControl } from '@wordpress/components';
+import { useState, useEffect } from "@wordpress/element";
+import { SelectControl } from "@wordpress/components";
 
-const FeedPostTypeControl = ( { attributes, setAttributes } ) => {
+const defaultOptions = [{ label: "Any", value: "any" }];
 
-    return (
-        <SelectControl
-            label="Post Type"
-            value={ attributes.postType }
-            options={ [
-                { label: 'Post', value: 'post' },
-                { label: 'Page', value: 'page' },
-                { label: 'Any', value: 'any' },
-            ] }
-            onChange={ ( postType ) => setAttributes( { postType } ) }
-        />
-    )
-    
-} 
+const FeedPostTypeControl = (props) => {
+  const [options, setOptions] = useState(defaultOptions);
+
+  const defaultIgnorePostTypes = [
+    "attachment",
+    "tribe_organizer",
+    "wp_block",
+    "theme_part",
+    "tribe_venue",
+    "customize_changeset",
+    "curated_news",
+    "news_feed",
+  ];
+
+  let {
+    ignorePostTypes = defaultIgnorePostTypes,
+  } = props;
+
+  
+
+  function shouldListPostType(postType) {
+    if (ignorePostTypes && ignorePostTypes.includes(postType))
+      return false;
+
+    return true;
+  }
+
+  function optionSorter(a, b) {
+    const aLabel = a.label.toUpperCase();
+    const bLabel = b.label.toUpperCase();
+    if (aLabel < bLabel) {
+      return -1;
+    }
+    if (aLabel > bLabel) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  async function fetchOptions() {
+    const response = await fetch(props.host + "/wp-json/wp/v2/types", {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      const postTypes = await response.json();
+
+      if (postTypes) {
+        let fetchedOptions = [];
+
+        for (const key in postTypes) {
+          if (postTypes.hasOwnProperty(key)) {
+            const postType = postTypes[key];
+            if (shouldListPostType(postType["slug"])) {
+              fetchedOptions.push({
+                label: postType["name"],
+                value: postType["slug"],
+              });
+            }
+          }
+        }
+
+        fetchedOptions.sort(optionSorter);
+
+        const newOptions = defaultOptions.concat(fetchedOptions);
+        setOptions(newOptions);
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchOptions();
+  }, [props.host]);
+
+  return (
+    <>
+      <SelectControl
+        label={props.label || "Post Type"}
+        help={props.help}
+        value={props.value}
+        options={options}
+        onChange={(postType) => props.onChange(postType)}
+      />
+    </>
+  );
+};
 
 export default FeedPostTypeControl;

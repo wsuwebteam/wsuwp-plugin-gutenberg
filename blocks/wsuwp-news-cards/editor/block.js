@@ -79,6 +79,10 @@
                 type: 'string',
                 default: 'category',
             },
+            termsSelected: {
+                type: 'array',
+                default: [],
+            },
             terms: {
                 type: 'string',
                 default: '',

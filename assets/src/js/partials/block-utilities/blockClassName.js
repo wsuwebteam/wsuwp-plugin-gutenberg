@@ -250,6 +250,22 @@ const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) =
 
 }
 
+const setChildBlockClassName = ( clientId, prefix, value, setKey = 'className' ) => {
+
+    let children = wp.data.select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks;
+
+    children.forEach(function ( child, index) {
+
+        let attributes = wp.data.select( 'core/editor' ).getBlockAttributes( child.clientId )
+
+        let classNames = addBlockClassName( attributes, prefix, value );
+
+        wp.data.dispatch( 'core/editor' ).updateBlockAttributes( child.clientId, { className: classNames } );
+
+    });
+
+}
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool } 
+
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool, setChildBlockClassName } 

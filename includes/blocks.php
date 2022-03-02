@@ -127,6 +127,25 @@ class Blocks {
 
 	}
 
+	/**
+	 * Loop through default values and set defauts if they do not exist
+	 * 
+	 * @param $args | array | Array of template values
+	 * @param $default | array | Array of default values
+	 */
+	public static function parse_block_template_args( &$args, $default = array() ) {
+
+		foreach ( $default as $key => $value ) {
+
+			if ( ! isset( $args[ $key ] ) ) {
+
+				$args[ $key ] = $value;
+
+			}
+		}
+
+	}
+
 }
 
 Blocks::init();

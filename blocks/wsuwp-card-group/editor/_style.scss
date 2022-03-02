@@ -23,6 +23,19 @@
     
         }
 
+        &:not(.wsu-is-feed) .wsu-bc-api-render {
+            border-top: 1px dashed #ccc;
+            padding-top: 16px;
+        }
+
+        &.wsu-is-feed {
+
+            .block-editor-inner-blocks {
+                display: none;
+            }
+
+        }
+
     }
 
 }

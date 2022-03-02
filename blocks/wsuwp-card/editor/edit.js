@@ -13,6 +13,7 @@ const {
     SelectControl,
 	TextControl,
 	ToggleControl,
+    PanelBody,
 } = wp.components;
 
 import { 
@@ -49,6 +50,24 @@ const Edit = ( props ) => {
         style: {},
     } );
 
+    const backgroundColors = [
+        { name: 'gray-5', color: '#f2f2f2' },
+        { name: 'white', color: '#ffffff' },
+        { name: 'gray-85', color: '#262626' },
+    ];
+
+	const borderColors = [
+		{ name: 'default', color: '#e6e6e6' },
+		{ name: 'white', color: '#ffffff' },
+		{ name: 'crimson', color: '#A60F2D' },
+		{ name: 'crimson-light', color: '#CA1237' },
+		{ name: 'autumn', color: '#FF6727' },
+		{ name: 'goldfinch', color: '#F3E700' },
+		{ name: 'vineyard', color: '#AADC24' },
+		{ name: 'pacificsky', color: '#5BC3F5' },
+		{ name: 'midnight', color: '#002D61' },
+    ];
+
     let displayFields = attributes.displayFields;
 
 
@@ -77,19 +96,32 @@ const Edit = ( props ) => {
                     <HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
                     
             </PanelDisplayOptions>
-			<PanelColorOptions>
-			</PanelColorOptions>
-		</InspectorControls>
-        <InspectorAdvancedControls>
-            <DisplayFieldControl { ...props }
+            <PanelBody title="Card Settings" initialOpen={false} >
+                <DisplayFieldControl { ...props }
                         fieldOptions={ [
                             {label:'Image', value:'image' },
                             {label:'Title', value:'title' },
                             {label:'Caption', value:'caption' },
-                            {label:'Inner Blocks', value:'blocks'}
+                            {label:'Custom Content', value:'blocks'}
                         ] }
                         />
-        </InspectorAdvancedControls>
+            </PanelBody>
+			<PanelColorOptions>
+                <ColorClassControl
+					{ ...props }
+					colors={backgroundColors}
+					label='Background Color'
+					value='#f2f2f2'
+					/>
+				<ColorClassControl
+					{ ...props }
+					colors={borderColors}
+					label='Border Color'
+					value='#e6e6e6'
+					prefix='wsu-border-top--color-'
+					/>
+			</PanelColorOptions>
+		</InspectorControls>
 		<div { ...blockProps }  >
             { displayFields.includes('image') && <ImageFrameControl { ...props } /> }
             <div className="wsu-card__content">
