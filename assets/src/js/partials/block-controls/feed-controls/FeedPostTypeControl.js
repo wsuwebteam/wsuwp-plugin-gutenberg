@@ -6,8 +6,25 @@ const defaultOptions = [{ label: "Any", value: "any" }];
 const FeedPostTypeControl = (props) => {
   const [options, setOptions] = useState(defaultOptions);
 
+  const defaultIgnorePostTypes = [
+    "attachment",
+    "tribe_organizer",
+    "wp_block",
+    "theme_part",
+    "tribe_venue",
+    "customize_changeset",
+    "curated_news",
+    "news_feed",
+  ];
+
+  let {
+    ignorePostTypes = defaultIgnorePostTypes,
+  } = props;
+
+  
+
   function shouldListPostType(postType) {
-    if (props.ignorePostTypes && props.ignorePostTypes.includes(postType))
+    if (ignorePostTypes && ignorePostTypes.includes(postType))
       return false;
 
     return true;

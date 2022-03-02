@@ -61,16 +61,6 @@ import {
   FeedPanelAdvanced,
 } from "../../../assets/src/js/partials/block-controls/feed-controls/feed-controls";
 
-const ignorePostTypes = [
-  "attachment",
-  "tribe_organizer",
-  "wp_block",
-  "theme_part",
-  "tribe_venue",
-  "customize_changeset",
-  "curated_news",
-  "news_feed",
-];
 
 const Edit = (props) => {
   let { className, attributes, setAttributes } = props;
@@ -105,7 +95,6 @@ const Edit = (props) => {
             label="Post type"
             help="Select post type to display"
             host={attributes.host || window.wsu.ROOT_URL}
-            ignorePostTypes={ignorePostTypes}
             value={attributes.postType}
             onChange={(postType) => setAttributes({ postType })}
           />
