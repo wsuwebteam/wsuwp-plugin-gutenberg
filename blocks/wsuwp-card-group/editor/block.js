@@ -48,6 +48,54 @@
                 type: "integer",
                 default: 3,
             },
+            headingTag: {
+                type: 'string',
+                default: 'h3',
+            },
+            postType: {
+                type: 'string',
+                default: 'post',
+            },
+            taxonomy: {
+                type: 'string',
+                default: 'category',
+            },
+            termsSelected: {
+                type: 'array',
+                default: [],
+            },
+            terms: {
+                type: 'string',
+                default: '',
+            },
+            count: {
+                type: 'string',
+                default: '3',
+            },
+            offset: {
+                type: 'string',
+                default: '0',
+            },
+            host: {
+                type: 'string',
+                default: '',
+            },
+            useAndLogic: {
+                type: 'boolean',
+                default: false,
+            },
+            useFeed: {
+                type: 'boolean',
+                default: false,
+            },
+            allowCustomCards: {
+                type: 'boolean',
+                default: false,
+            },
+            cardClassName: {
+                type: 'string',
+                default: '',
+            }
          },
          edit,
          save,
