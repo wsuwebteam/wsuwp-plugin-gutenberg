@@ -1,7 +1,7 @@
 <ul class="<?php echo esc_attr( $attrs['className']); ?>">
 	<?php foreach( $news_items as $news_item ) : ?>
 		<li>
-			<a href="<?php echo wp_kses_post( $news_item['link'] ); ?>"><?php echo wp_kses_post( $news_item['title'] ); ?></a>
+			<a href="<?php echo esc_attr( $news_item['link'] ); ?>"><?php echo wp_kses_post( $news_item['title'] ); ?></a> 
 			<?php if ( empty( $attrs['hideCaption'] ) && ! empty( $news_item['caption'] ) ) : ?>
 				<?php echo wp_kses_post( wp_strip_all_tags( $news_item['caption'] ) ); ?>
 			<?php endif; ?>

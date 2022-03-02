@@ -5,15 +5,15 @@ const { InnerBlocks } = wp.blockEditor;
 const { InspectorControls, useBlockProps } = wp.blockEditor;
 
 const {
-  PanelBody,
-  TextControl,
-  SelectControl,
-  Button,
-  FocalPointPicker,
-  BaseControl,
-  IconButton,
-  ToggleControl,
-} = wp.components;
+	PanelBody,
+	TextControl,
+	SelectControl,
+	Button,
+	FocalPointPicker,
+	BaseControl,
+    IconButton,
+    ToggleControl
+} = wp.components; 
 
 import { dispatch, select } from "@wordpress/data";
 

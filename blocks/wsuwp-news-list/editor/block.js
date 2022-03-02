@@ -12,7 +12,7 @@
  import edit from "./edit";
  
  registerBlockType(
-     "wsuwp/news-list",
+     "wsuwp/news-list", 
      {
          title: "News List",
          apiVersion: 2, 
