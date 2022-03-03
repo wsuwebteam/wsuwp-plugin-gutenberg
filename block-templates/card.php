@@ -8,15 +8,14 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 	$card,
 	array(
 		'imageSrc'         => '',
-		'imageRatio'       => '',
 		'imageSrcSet'      => '',
 		'imageSizes'       => '',
 		'imageAlt'         => '',
 		'imageFocalPointX' => '50%',
 		'imageFocalPointY' => '50%',
 		'title'            => '',
-		'headingTag'       => 'h3',
 		'caption'          => '',
+		'content'          => '',
 	)
 );
 
@@ -28,14 +27,17 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 	$card_attrs,
 	array(
 		'className'   => '',
-		'hideCaption' => false,
-		'hideImage'   => false,
-		'hideTitle'   => false,
+		'showCaption' => true,
+		'showImage'   => true,
+		'showHeading'   => true,
+		'imageRatio' => '',
+		'showContent' => false,
+		'headingTag' => 'h3',
 	)
 );
 ?>
 <article class="<?php echo esc_attr( $card_attrs['className'] ); ?>">
-	<?php if ( ! empty( $card['imageSrc'] ) ) : ?>
+	<?php if ( ! empty( $card['imageSrc'] ) && ! empty( $card_attrs['showImage'] ) ) : ?>
 	<div class="wsu-image-frame <?php if ( ! empty( $card_attrs['imageRatio'] ) ) : ?>wsu-image--ratio-<?php echo esc_attr( $card_attrs['imageRatio'] ); ?><?php endif; ?>">
 		<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>" tabindex="-1" aria-hidden="true"><?php endif; ?>
 			<img src="<?php echo esc_attr( $card['imageSrc'] ); ?>"
@@ -48,18 +50,22 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 	</div>
 	<?php endif; ?>
 	<div class="wsu-card__content">
-		<?php if ( ! empty( $card['title'] ) ) : ?>
-		<<?php echo esc_attr( $card['headingTag'] ); ?> class="wsu-title">
+		<?php if ( ! empty( $card['title'] ) && ! empty( $card_attrs['showHeading'] ) ) : ?>
+		<<?php echo esc_attr( $card_attrs['headingTag'] ); ?> class="wsu-title">
 			<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>
 				<?php echo wp_kses_post( $card['title'] ); ?>
 			<?php if ( ! empty( $card['link'] ) ) : ?></a><?php endif; ?>
-		</<?php echo esc_attr( $card['headingTag'] ); ?>>
+		</<?php echo esc_attr( $card_attrs['headingTag'] ); ?>>
 		<?php endif; ?>
-		<?php if ( ! empty( $card['caption'] ) ) : ?>
+		<?php if ( ! empty( $card['caption'] ) && ! empty( $card_attrs['showCaption'] )  ) : ?>
 		<div class="wsu-caption">
 			<?php echo wp_kses_post( $card['caption'] ); ?>
 		</div>
 		<?php endif; ?>
-		<?php echo wp_kses_post( $content ); ?>
+		<?php if ( ! empty( $card['content'] ) && ! empty( $card_attrs['showContent'] )  ) : ?>
+		<span class="wsu-card__content-custom">
+			<?php echo wp_kses_post( $card['content'] ); ?>
+		</span>
+		<?php endif; ?>
 	</div>
 </article>
