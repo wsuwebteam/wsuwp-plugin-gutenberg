@@ -10,6 +10,7 @@ class Block_WSUWP_Card_Group extends Block {
 		'hideDate'    => false,
 		'hideCaption' => false,
 		'imageRatio'  => '16-9',
+		'headingTag'  => 'h3',
 		'postType:'   => 'post',
 		'taxonomy'    => 'category',
 		'terms'       => '',
@@ -19,6 +20,9 @@ class Block_WSUWP_Card_Group extends Block {
 		'useAndLogic' => false,
 		'cardClassName' => '',
 		'allowCustomCards' => false,
+		'showImage'    => true,
+		'showHeading'  => true,
+		'showCaption'  => true,
 	);
 
 
@@ -52,8 +56,12 @@ class Block_WSUWP_Card_Group extends Block {
 		$post_query = new Query_Posts( $attrs );
 
 		$card_attrs = array(
-			'className'  => 'wsu-card ' . $attrs['cardClassName'],
-			'imageRatio' => $attrs['imageRatio'],
+			'className'   => 'wsu-card ' . $attrs['cardClassName'],
+			'imageRatio'  => $attrs['imageRatio'],
+			'headingTag'  => $attrs['headingTag'],
+			'showImage'   => $attrs['showImage'],
+			'showCaption' => $attrs['showCaption'],
+			'showHeading' => $attrs['showHeading'],
 		);
 
 		$cards = ( ! empty( $attrs['host'] ) ) ? $post_query->get_remote_posts() : $post_query->get_posts();
