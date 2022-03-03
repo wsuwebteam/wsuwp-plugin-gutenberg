@@ -19,6 +19,10 @@ class Block_WSUWP_Card extends Block {
 		'imageFocalPoint'  => '',
 		'imageFocalPointX' => '50%',
 		'imageFocalPointY' => '50%',
+		'showImage'    => true,
+		'showHeading'  => true,
+		'showCaption'  => true,
+		'showContent' => false,
 	);
 
 
@@ -26,11 +30,31 @@ class Block_WSUWP_Card extends Block {
 
 		static::set_image_id_attrs( $attrs );
 
-		//var_dump( $attrs );
+		$card_attrs = array(
+			'className'   => $attrs['className'],
+			'imageRatio'  => $attrs['imageRatio'],
+			'showImage'   => $attrs['showImage'],
+			'showCaption' => $attrs['showCaption'],
+			'showHeading' => $attrs['showHeading'],
+			'showContent' => $attrs['showContent'],
+		);
+
+		$card = array(
+			'imageSrc'         => $attrs['imageSrc'],
+			'imageSrcSet'      => $attrs['imageSrcSet'],
+			'imageSizes'       => $attrs['imageSizes'],
+			'imageAlt'         => $attrs['imageAlt'],
+			'imageFocalPointX' => $attrs['imageFocalPointX'],
+			'imageFocalPointY' => $attrs['imageFocalPointY'],
+			'title'            => $attrs['title'],
+			'headingTag'       => $attrs['headingTag'],
+			'caption'          => $attrs['caption'],
+			'content'          => $content,
+		);
 
 		ob_start();
 
-		include __DIR__ . '/templates/card.php';
+		include Plugin::get( 'dir' ) . '/block-templates/card.php';
 
 		return ob_get_clean();
 

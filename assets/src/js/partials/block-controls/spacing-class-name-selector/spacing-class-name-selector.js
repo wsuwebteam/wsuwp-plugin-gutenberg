@@ -152,7 +152,8 @@ const SpacingClassNameSelector = (props) => {
                         </div>      
                     </div>
                 )
-            })}            
+            })}
+            {props.children}        
         </PanelBody>
     );
 }

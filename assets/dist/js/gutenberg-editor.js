@@ -2715,7 +2715,7 @@ const SpacingClassNameSelector = props => {
         onClick: () => resetToDefault(property)
       }, "Reset to Default"));
     })));
-  }));
+  }), props.children);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SpacingClassNameSelector);
@@ -3227,11 +3227,15 @@ const addBlockClassName = (attributes, prefix, value, remove = true) => {
   return addClassName(classNames, prefix, value, remove);
 };
 
-const hasBlockClassName = (classNames, value) => {
-  if (typeof classNames === 'object') {
-    var _classNames$className;
+const hasBlockClassName = (attributes, value) => {
+  let classNames;
 
-    classNames = (_classNames$className = classNames.className) !== null && _classNames$className !== void 0 ? _classNames$className : '';
+  if (typeof attributes === 'object') {
+    var _attributes$className2;
+
+    classNames = (_attributes$className2 = attributes.className) !== null && _attributes$className2 !== void 0 ? _attributes$className2 : '';
+  } else {
+    classNames = attributes !== null && attributes !== void 0 ? attributes : '';
   }
 
   return classNames.includes(value) ? true : false;
@@ -3338,9 +3342,9 @@ const setBlockClassName = (attributes, setAttributes, prefix, value, setKey = 'c
 };
 
 const setBlockClassNameBool = (attributes, setAttributes, blockClass, value) => {
-  var _attributes$className2;
+  var _attributes$className3;
 
-  let classNames = (_attributes$className2 = attributes.className) !== null && _attributes$className2 !== void 0 ? _attributes$className2 : '';
+  let classNames = (_attributes$className3 = attributes.className) !== null && _attributes$className3 !== void 0 ? _attributes$className3 : '';
   let classArray = classNames.split(' ');
   let newClasses = [];
 
@@ -5319,7 +5323,7 @@ registerBlockType("wsuwp/card-group", {
     },
     imageRatio: {
       type: "string",
-      default: ""
+      default: "16-9"
     },
     title: {
       type: "string",
@@ -5380,6 +5384,18 @@ registerBlockType("wsuwp/card-group", {
     cardClassName: {
       type: 'string',
       default: ''
+    },
+    showHeading: {
+      type: 'boolean',
+      default: true
+    },
+    showCaption: {
+      type: 'boolean',
+      default: true
+    },
+    showImage: {
+      type: 'boolean',
+      default: true
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5427,7 +5443,9 @@ const {
 const {
   TextControl,
   ToggleControl,
-  RangeControl
+  RangeControl,
+  PanelBody,
+  SelectControl
 } = wp.components;
 
 
@@ -5517,7 +5535,54 @@ const Edit = props => {
       useFeed
     }),
     help: "Feed in post, pages, or other content automatically into card group."
-  })), attributes.useFeed && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPostTypeControl"], {
+  }), attributes.useFeed && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Image",
+    checked: attributes.showImage,
+    onChange: showImage => setAttributes({
+      showImage
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Title",
+    checked: attributes.showHeading,
+    onChange: showHeading => setAttributes({
+      showHeading
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Caption",
+    checked: attributes.showCaption,
+    onChange: showCaption => setAttributes({
+      showCaption
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+    label: "Image Ratio (width x height)",
+    value: attributes.imageRatio,
+    options: [{
+      label: '2-5',
+      value: '2-5'
+    }, {
+      label: '16-9',
+      value: '16-9'
+    }, {
+      label: '6-4',
+      value: '6-4'
+    }, {
+      label: '4-3',
+      value: '4-3'
+    }, {
+      label: '1-1',
+      value: '1-1'
+    }, {
+      label: '3-4',
+      value: '3-4'
+    }],
+    onChange: imageRatio => {
+      setAttributes({
+        imageRatio
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["HeadingTagControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    allowedTags: ['h2', 'h3', 'h4', 'h5', 'h6', 'div']
+  })))), attributes.useFeed && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__["FeedPostTypeControl"], {
     label: "Post type",
     help: "Select post type to display",
     host: attributes.host || window.wsu.ROOT_URL,
@@ -5560,7 +5625,25 @@ const Edit = props => {
       Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setChildBlockClassName"])(clientId, 'wsu-border-top--color-', color);
       Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, 'wsu-border-top--color-', color, 'cardClassName');
     }
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    title: "Space Settings",
+    spaceSettings: [{
+      label: 'Outside Spacing (Margin)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-before--',
+        default: 'none'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-after--',
+        default: 'none'
+      }]
+    }]
+  }, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Collapse Card Spacing",
+    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["hasBlockClassName"])(attributes, 'wsu-card-group--spacing-none'),
+    onChange: collapseSpacing => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassNameBool"])(attributes, setAttributes, 'wsu-card-group--spacing-none', collapseSpacing)
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
     label: "Allow Custom Cards With Feed",
     checked: attributes.allowCustomCards,
     onChange: allowCustomCards => setAttributes({
@@ -5639,7 +5722,7 @@ const {
 
 
 registerBlockType("wsuwp/card", {
-  title: "card",
+  title: "Card",
   apiVersion: 2,
   category: "design",
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
@@ -5722,9 +5805,21 @@ registerBlockType("wsuwp/card", {
       type: "string",
       default: ""
     },
-    displayFields: {
-      type: "string",
-      default: 'image,title,caption'
+    showHeading: {
+      type: 'boolean',
+      default: true
+    },
+    showCaption: {
+      type: 'boolean',
+      default: true
+    },
+    showImage: {
+      type: 'boolean',
+      default: true
+    },
+    showContent: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5864,21 +5959,31 @@ const Edit = props => {
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
     title: "Card Settings",
     initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["DisplayFieldControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
-    fieldOptions: [{
-      label: 'Image',
-      value: 'image'
-    }, {
-      label: 'Title',
-      value: 'title'
-    }, {
-      label: 'Caption',
-      value: 'caption'
-    }, {
-      label: 'Custom Content',
-      value: 'blocks'
-    }]
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Image",
+    checked: attributes.showImage,
+    onChange: showImage => setAttributes({
+      showImage
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Title",
+    checked: attributes.showHeading,
+    onChange: showHeading => setAttributes({
+      showHeading
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Show Caption",
+    checked: attributes.showCaption,
+    onChange: showCaption => setAttributes({
+      showCaption
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+    label: "Custom Content",
+    checked: attributes.showContent,
+    onChange: showContent => setAttributes({
+      showContent
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
     colors: backgroundColors,
     label: "Background Color",
     value: "#f2f2f2"
@@ -5887,9 +5992,9 @@ const Edit = props => {
     label: "Border Color",
     value: "#e6e6e6",
     prefix: "wsu-border-top--color-"
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, displayFields.includes('image') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ImageFrameControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, attributes.showImage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ImageFrameControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "wsu-card__content"
-  }, displayFields.includes('title') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+  }, attributes.showHeading && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
     tagName: "h2" // The tag here is the element output and editable in the admin
     ,
     value: attributes.title // Any existing content, either from the database or an attribute default
@@ -5903,7 +6008,7 @@ const Edit = props => {
     ,
     placeholder: 'Add a Card Heading...' // Display this text before any content has been added by the user
 
-  }), displayFields.includes('caption') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+  }), attributes.showCaption && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
     tagName: "div" // The tag here is the element output and editable in the admin
     ,
     value: attributes.caption // Any existing content, either from the database or an attribute default
@@ -5916,7 +6021,7 @@ const Edit = props => {
     ,
     placeholder: 'Add a card caption...' // Display this text before any content has been added by the user
 
-  }), displayFields.includes('blocks') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+  }), attributes.showContent && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
     templateLock: false
   }))));
 };

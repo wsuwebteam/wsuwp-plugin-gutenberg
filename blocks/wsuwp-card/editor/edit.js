@@ -97,14 +97,26 @@ const Edit = ( props ) => {
                     
             </PanelDisplayOptions>
             <PanelBody title="Card Settings" initialOpen={false} >
-                <DisplayFieldControl { ...props }
-                        fieldOptions={ [
-                            {label:'Image', value:'image' },
-                            {label:'Title', value:'title' },
-                            {label:'Caption', value:'caption' },
-                            {label:'Custom Content', value:'blocks'}
-                        ] }
-                        />
+				<ToggleControl
+					label="Show Image"
+					checked={attributes.showImage}
+					onChange={ ( showImage ) => setAttributes( { showImage } ) }
+					/>
+				<ToggleControl
+					label="Show Title"
+					checked={attributes.showHeading}
+					onChange={ ( showHeading ) => setAttributes( { showHeading } ) }
+					/>
+				<ToggleControl
+					label="Show Caption"
+					checked={attributes.showCaption}
+					onChange={ ( showCaption ) => setAttributes( { showCaption } ) }
+					/>
+				<ToggleControl
+					label="Custom Content"
+					checked={attributes.showContent}
+					onChange={ ( showContent ) => setAttributes( { showContent } ) }
+					/>
             </PanelBody>
 			<PanelColorOptions>
                 <ColorClassControl
@@ -123,9 +135,9 @@ const Edit = ( props ) => {
 			</PanelColorOptions>
 		</InspectorControls>
 		<div { ...blockProps }  >
-            { displayFields.includes('image') && <ImageFrameControl { ...props } /> }
+            { attributes.showImage && <ImageFrameControl { ...props } /> }
             <div className="wsu-card__content">
-                { displayFields.includes('title') && <RichText
+                { attributes.showHeading && <RichText
                     tagName="h2" // The tag here is the element output and editable in the admin
                     value={ attributes.title } // Any existing content, either from the database or an attribute default
                     className="wsu-title"
@@ -133,7 +145,7 @@ const Edit = ( props ) => {
                     onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
                     placeholder={ 'Add a Card Heading...' } // Display this text before any content has been added by the user
                 /> }
-                { displayFields.includes('caption') && <RichText
+                { attributes.showCaption && <RichText
                     tagName="div" // The tag here is the element output and editable in the admin
                     value={ attributes.caption } // Any existing content, either from the database or an attribute default
                     className="wsu-caption"
@@ -141,7 +153,7 @@ const Edit = ( props ) => {
                     onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
                     placeholder={ 'Add a card caption...' } // Display this text before any content has been added by the user
                 /> }
-                { displayFields.includes('blocks') && <InnerBlocks
+                { attributes.showContent && <InnerBlocks
 				    templateLock={ false }
 			    /> }
             </div>

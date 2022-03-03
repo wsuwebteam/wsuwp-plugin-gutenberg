@@ -68,12 +68,18 @@ const addBlockClassName = ( attributes, prefix, value, remove = true ) => {
 
 }
 
-const hasBlockClassName = ( classNames, value ) => {
+const hasBlockClassName = ( attributes, value ) => {
 
-    if ( typeof classNames === 'object' ) {
+    let classNames;
 
-        classNames = classNames.className ?? '';
+    if ( typeof attributes === 'object' ) {
 
+        classNames = attributes.className ?? '';
+
+    } else {
+
+        classNames = attributes ?? '';
+        
     }
 
     return ( classNames.includes( value ) ) ? true : false;

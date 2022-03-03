@@ -34,7 +34,7 @@
             },
             imageRatio: {
                 type: "string",
-                default: "",
+                default: "16-9",
             },
             title: {
                 type: "string",
@@ -95,7 +95,19 @@
             cardClassName: {
                 type: 'string',
                 default: '',
-            }
+            },
+            showHeading: {
+                type: 'boolean',
+                default: true,
+            },
+            showCaption: {
+                type: 'boolean',
+                default: true,
+            },
+            showImage: {
+                type: 'boolean',
+                default: true,
+            },
          },
          edit,
          save,

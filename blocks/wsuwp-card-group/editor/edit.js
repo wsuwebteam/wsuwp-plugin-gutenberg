@@ -20,12 +20,15 @@ const {
 	TextControl,
 	ToggleControl,
     RangeControl,
+	PanelBody,
+	SelectControl,
 } = wp.components;
 
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
     ImageFrameControl,
+	HeadingTagControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -39,6 +42,7 @@ import {
     setBlockClassName,
 	getBlockClassNameValue,
 	setChildBlockClassName,
+	setBlockClassNameBool,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 import {
@@ -129,6 +133,40 @@ const Edit = ( props ) => {
 					onChange={ ( useFeed ) => setAttributes( { useFeed } ) }
 					help="Feed in post, pages, or other content automatically into card group."
 				/>
+				{ attributes.useFeed && (
+					<>
+						<ToggleControl
+							label="Show Image"
+							checked={attributes.showImage}
+							onChange={ ( showImage ) => setAttributes( { showImage } ) }
+							/>
+						<ToggleControl
+							label="Show Title"
+							checked={attributes.showHeading}
+							onChange={ ( showHeading ) => setAttributes( { showHeading } ) }
+							/>
+						<ToggleControl
+							label="Show Caption"
+							checked={attributes.showCaption}
+							onChange={ ( showCaption ) => setAttributes( { showCaption } ) }
+							/>
+						<SelectControl
+							label="Image Ratio (width x height)"
+							value={ attributes.imageRatio }
+							options={ [
+								{ label: '2-5', value: '2-5' },
+								{ label: '16-9', value: '16-9' },
+								{ label: '6-4', value: '6-4' },
+								{ label: '4-3', value: '4-3' },
+								{ label: '1-1', value: '1-1' },
+								{ label: '3-4', value: '3-4' },
+							] }
+							onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
+						/>
+						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
+					</>
+					
+				)}
             </PanelDisplayOptions>
 			{ attributes.useFeed && (
 				<>
@@ -189,6 +227,32 @@ const Edit = ( props ) => {
 					}}
 					/>
 			</PanelColorOptions>
+			<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',									
+									default: 'none',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',									
+									default: 'none',
+								}
+							]
+						}
+					]}
+					{...props}>
+					<ToggleControl
+					label="Collapse Card Spacing"
+					checked={ hasBlockClassName( attributes, 'wsu-card-group--spacing-none' ) }
+					onChange={ ( collapseSpacing ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-card-group--spacing-none', collapseSpacing ) }
+					/>				
+				</SpacingClassNameSelector>
 		</InspectorControls>
 		<InspectorAdvancedControls>
             <ToggleControl
