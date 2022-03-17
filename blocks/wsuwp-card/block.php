@@ -37,6 +37,7 @@ class Block_WSUWP_Card extends Block {
 			'showCaption' => $attrs['showCaption'],
 			'showHeading' => $attrs['showHeading'],
 			'showContent' => $attrs['showContent'],
+			'headingTag'  => $attrs['headingTag'],
 		);
 
 		$card = array(
@@ -47,9 +48,9 @@ class Block_WSUWP_Card extends Block {
 			'imageFocalPointX' => $attrs['imageFocalPointX'],
 			'imageFocalPointY' => $attrs['imageFocalPointY'],
 			'title'            => $attrs['title'],
-			'headingTag'       => $attrs['headingTag'],
 			'caption'          => $attrs['caption'],
 			'content'          => $content,
+			'link'             => $attrs['link'],
 		);
 
 		ob_start();
