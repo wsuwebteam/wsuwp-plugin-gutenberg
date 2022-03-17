@@ -16,6 +16,7 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		'title'            => '',
 		'caption'          => '',
 		'content'          => '',
+		'link'             => '',
 	)
 );
 
