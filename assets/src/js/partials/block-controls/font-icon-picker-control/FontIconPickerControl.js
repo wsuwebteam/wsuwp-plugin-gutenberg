@@ -101,7 +101,6 @@ const FontIconPickerControl = (props) => {
   };
 
   function selectIcon(icon) {
-    console.log(icon);
     toggleVisible();
     props.onChange(icon);
   }

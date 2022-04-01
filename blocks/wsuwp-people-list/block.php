@@ -37,7 +37,7 @@ class Block_WSUWP_People_List extends Block {
 
 	public static function render( $attrs, $content = '' ) {
 		// enqueue scripts and styles
-		wp_enqueue_script( 'wsu_design_system_script_people_list');
+		wp_enqueue_script( 'wsu_design_system_script_people_list' );
 
 		// extend default data attributes and filter out non-data attributes
 		$data_attrs = array_filter(
