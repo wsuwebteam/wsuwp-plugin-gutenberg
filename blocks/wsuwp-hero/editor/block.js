@@ -24,11 +24,15 @@
                 type: 'string',
                 default: '',
             },
-             title: {
+            title: {
                  type: 'string',
                  default: '',
-             },
-             caption: {
+            },
+            headingTag: {
+                type: 'string',
+                default: 'div',
+            },
+            caption: {
                 type: 'string',
                 default: '',
             },
