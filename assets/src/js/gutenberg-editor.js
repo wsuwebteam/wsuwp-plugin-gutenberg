@@ -1,6 +1,7 @@
 import "../js/partials/editor-config/constants";
 import "../../../blocks/wsuwp-accordion/editor/block";
 import "../../../blocks/wsuwp-callout/editor/block";
+import "../../../blocks/wsuwp-note/editor/block";
 import "../../../blocks/wsuwp-card/editor/block";
 import "../../../blocks/wsuwp-card-group/editor/block";
 import "../../../blocks/wsuwp-column/editor/block";

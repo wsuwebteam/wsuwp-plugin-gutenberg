@@ -12,6 +12,7 @@ class Block_WSUWP_Hero extends Block {
 		'imageSrcSet'      => '',
 		'imageSizes'       => '',
 		'title'            => '',
+		'headingTag'       => 'div',
 		'caption'          => '',
 		'link'             => '',
 		'imageFocalPoint'  => '',

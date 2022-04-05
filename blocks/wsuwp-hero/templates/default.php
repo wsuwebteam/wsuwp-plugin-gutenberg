@@ -32,7 +32,7 @@
             </div>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['title'] ) ) : ?>
-			<div id="<?php echo esc_attr( $attrs['titleId'] ); ?>" class="wsu-title"><?php echo wp_kses_post( $attrs['title'] ); ?></div>
+			<<?php echo esc_attr( $attrs['headingTag'] ); ?> id="<?php echo esc_attr( $attrs['titleId'] ); ?>" class="wsu-title"><?php echo wp_kses_post( $attrs['title'] ); ?></<?php echo esc_attr( $attrs['headingTag'] ); ?>>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['caption'] ) ) : ?>
 			<div class="wsu-caption">

@@ -4,11 +4,12 @@ class Blocks {
 
 
 	protected static $register_blocks = array(
-		'wsuwp/news-list'  => 'Block_WSUWP_News_List',
+		'wsuwp/news-list'   => 'Block_WSUWP_News_List',
 		'wsuwp/row'         => 'Block_WSUWP_Row',
 		'wsuwp/column'      => 'Block_WSUWP_Column',
 		'wsuwp/news'        => 'Block_WSUWP_News',
 		'wsuwp/callout'     => 'Block_WSUWP_Callout',
+		'wsuwp/note'        => 'Block_WSUWP_Note',
 		'wsuwp/hero'        => 'Block_WSUWP_Hero',
 		'wsuwp/pagetitle'   => 'Block_WSUWP_Page_Title',
 		'wsuwp/news-cards'  => 'Block_WSUWP_News_Cards',
@@ -24,6 +25,7 @@ class Blocks {
 		'wsuwp/row',
 		'wsuwp/news',
 		'wsuwp/callout',
+		'wsuwp/note',
 		'wsuwp/hero',
 		'wsuwp/pagetitle',
 		'wsuwp/news-cards',
@@ -129,7 +131,7 @@ class Blocks {
 
 	/**
 	 * Loop through default values and set defauts if they do not exist
-	 * 
+	 *
 	 * @param $args | array | Array of template values
 	 * @param $default | array | Array of default values
 	 */
