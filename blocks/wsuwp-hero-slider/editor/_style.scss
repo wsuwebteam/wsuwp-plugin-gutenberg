@@ -1,0 +1,50 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+.block-editor {
+  .wp-block[data-type="wsuwp/hero-slider"] {
+
+    .wsu-hero {
+      margin-bottom: 0;
+    }
+    
+    .wsu-gutenberg-hero-slider__slides{}
+
+    .wp-block-wsuwp-hero {
+      display: none;
+    }
+
+    @for $i from 0 through 5 {
+      
+      &[data-selected-slide-index="#{$i}"]{
+        .wp-block-wsuwp-hero:nth-child(#{$i + 1}) {
+          display: block;
+        }
+      }
+    }    
+
+    .wsu-gutenberg-hero-slider__controls{      
+      display: flex;      
+    } 
+
+    .wsu-gutenberg-hero-slider__control-container{
+      
+      &.is-selected .wsu-gutenberg-hero-slider__select-control{
+        background-color: red;
+        color: white
+      }
+      
+    } 
+
+    .wsu-gutenberg-hero-slider__select-control{
+      
+    }
+
+    .wsu-gutenberg-hero-slider__sub-controls{
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }   
+
+  }
+}
