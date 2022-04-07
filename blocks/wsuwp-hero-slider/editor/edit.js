@@ -92,7 +92,7 @@ const Edit = (props) => {
                   selectedSlideIndex === i ? " is-selected" : ""
                 }`}
               >
-                {/* Disable/hide specific buttons when actions now allowed */}
+                {/* TODO: Disable/hide specific buttons when actions not allowed */}
                 <Button
                   className="wsu-gutenberg-hero-slider__select-control"
                   onClick={() => selectSlide(b.clientId)}
