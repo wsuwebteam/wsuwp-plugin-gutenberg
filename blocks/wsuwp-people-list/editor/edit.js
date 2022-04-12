@@ -7,6 +7,8 @@ const {
   BaseControl,
   CheckboxControl,
   RangeControl,
+  __experimentalRadio: Radio,
+  __experimentalRadioGroup: RadioGroup,
 } = wp.components;
 
 import React, { useState, useEffect } from "react";
@@ -292,27 +294,44 @@ export default function Edit(props) {
             </BaseControl>
           </PanelRow>
 
-          {/* <PanelRow>
-            <TextControl
-              label="Exclude Term Values"
-              help="A comma-separated list of term values to exclude when filtering."
-              value={attributes.exclude_term_values}
-              onChange={(newval) =>
-                setAttributes({ exclude_term_values: newval })
-              }
-            />
-          </PanelRow> */}
           <PanelRow>
-            <TermSelector
-              label="Exclude Term Values"
-              help="Search and select term values to exclude when filtering"
-              taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
-              value={attributes.exclude_term_values}
-              onChange={(newval) =>
-                setAttributes({ exclude_term_values: newval })
+            <CheckboxControl
+              className="wsu-people-list-block__checkbox-control"
+              label="Only show selected terms in filters"
+              checked={attributes.only_show_selected_term_values}
+              onChange={(val) =>
+                setAttributes({ only_show_selected_term_values: val })
               }
             />
           </PanelRow>
+
+          {attributes.only_show_selected_term_values === false && (
+            <PanelRow>
+              <TermSelector
+                label="Exclude Terms from Filters"
+                help="Search and select terms to exclude from filters"
+                taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
+                value={attributes.exclude_term_values}
+                onChange={(newval) =>
+                  setAttributes({ exclude_term_values: newval })
+                }
+              />
+            </PanelRow>
+          )}
+
+          {attributes.only_show_selected_term_values === true && (
+            <PanelRow>
+              <TermSelector
+                label="Select Terms to Display"
+                help="Search and select term values to include in filters"
+                taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
+                value={attributes.include_term_values}
+                onChange={(newval) =>
+                  setAttributes({ include_term_values: newval })
+                }
+              />
+            </PanelRow>
+          )}
 
           <PanelRow>
             <TextControl
