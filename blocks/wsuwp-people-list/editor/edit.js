@@ -410,7 +410,8 @@ export default function Edit(props) {
                   key={"filter-" + index}
                   className="wsu-gutenberg-people-list__filter"
                 >
-                  {attributes[filter + "_filter_label"]}
+                  {attributes[filter + "_filter_label"] ||
+                    "Filter by " + filter}
                   <span class="wsu-gutenberg-people-list__filter-icon dashicons dashicons-arrow-down-alt2"></span>
                 </div>
               ))}
