@@ -9,13 +9,13 @@ class Block_WSUWP_Note extends Block {
 		'showTitle'   => true,
 		'title'       => '',
 		'titleTag'    => 'div',
-		'useAsideTag' => true,
+		'useAsideTag' => false,
 	);
 
 
 	public static function render( $attrs, $content = '' ) {
 
-		$note_tag = ( $attrs['useAsideTag'] ) ? 'aside' : 'div';
+		$note_tag = ( $attrs['useAsideTag'] ) ? 'aside' : $attrs['titleTag'];
 
 		ob_start();
 

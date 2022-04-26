@@ -4,34 +4,36 @@ class Block_WSUWP_People_List extends Block {
 
 	protected static $block_name    = 'wsuwp/people-list';
 	protected static $default_attrs = array(
-		'count'                       => '10',
-		'page'                        => '1',
-		'nid'                         => '',
-		'classification'              => array(),
-		'university_category'         => array(),
-		'university_location'         => array(),
-		'university_organization'     => array(),
-		'profile_order'               => '',
-		'display_fields'              => array(
+		'count'                          => '10',
+		'page'                           => '1',
+		'nid'                            => '',
+		'classification'                 => array(),
+		'university_category'            => array(),
+		'university_location'            => array(),
+		'university_organization'        => array(),
+		'profile_order'                  => '',
+		'display_fields'                 => array(
 			'photo',
 			'name',
 			'title',
 			'office',
 			'email',
 		),
-		'website_link_text'           => 'Website',
-		'headingTag'                  => 'h2',
-		'columns'                     => '3',
-		'photo_size'                  => 'medium',
-		'photo_srcset'                => '',
-		'filters'                     => array(),
-		'exclude_term_values'         => array(),
-		'category_filter_label'       => 'Filter by category',
-		'classification_filter_label' => 'Filter by classification',
-		'location_filter_label'       => 'Filter by location',
-		'organization_filter_label'   => 'Filter by organization',
-		'search_filter_label'         => 'Type to search',
-		'tag_filter_label'            => 'Filter by tag',
+		'website_link_text'              => 'Website',
+		'headingTag'                     => 'h2',
+		'columns'                        => '3',
+		'photo_size'                     => 'medium',
+		'photo_srcset'                   => '',
+		'filters'                        => array(),
+		'only_show_selected_term_values' => false,
+		'include_term_values'            => array(),
+		'exclude_term_values'            => array(),
+		'category_filter_label'          => 'Filter by Category',
+		'classification_filter_label'    => 'Filter by Classification',
+		'location_filter_label'          => 'Filter by Location',
+		'organization_filter_label'      => 'Filter by Organization',
+		'search_filter_label'            => 'Type to search',
+		'tag_filter_label'               => 'Filter by Tag',
 	);
 
 
@@ -52,6 +54,7 @@ class Block_WSUWP_People_List extends Block {
 		$data_attrs['university_category']     = implode( ',', array_column( $data_attrs['university_category'], 'slug' ) );
 		$data_attrs['university_location']     = implode( ',', array_column( $data_attrs['university_location'], 'slug' ) );
 		$data_attrs['university_organization'] = implode( ',', array_column( $data_attrs['university_organization'], 'slug' ) );
+		$data_attrs['include_term_values']     = implode( ',', array_column( $data_attrs['include_term_values'], 'slug' ) );
 		$data_attrs['exclude_term_values']     = implode( ',', array_column( $data_attrs['exclude_term_values'], 'slug' ) );
 
 		// render block

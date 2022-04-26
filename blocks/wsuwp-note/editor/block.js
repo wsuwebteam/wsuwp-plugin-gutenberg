@@ -33,7 +33,7 @@ registerBlockType("wsuwp/note", {
     },
     useAsideTag: {
       type: "boolean",
-      default: true,
+      default: false,
     },
   },
   edit,

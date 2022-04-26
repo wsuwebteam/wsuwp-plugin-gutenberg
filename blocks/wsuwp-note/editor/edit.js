@@ -100,6 +100,7 @@ const Edit = (props) => {
             </BaseControl.VisualLabel>
             <RadioGroup
               className="wsu-gutenberg-button__radio-group"
+              defaultChecked="default"
               onChange={(val) =>
                 setBlockClassName(
                   attributes,
@@ -108,10 +109,7 @@ const Edit = (props) => {
                   val
                 )
               }
-              checked={
-                getBlockClassNameValue(attributes, "wsu-note--size-") ||
-                "default"
-              }
+              checked={getBlockClassNameValue(attributes, "wsu-note--size-")}
             >
               <Radio value="default">Default</Radio>
               <Radio value="small">Small</Radio>

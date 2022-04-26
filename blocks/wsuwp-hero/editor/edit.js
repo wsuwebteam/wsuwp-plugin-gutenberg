@@ -56,6 +56,15 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 		<>
 			<InspectorControls>
 				<PanelGeneralOptions>
+					<ToggleControl
+							label="Set as Page Title"
+							checked={ ( attributes.headingTag === 'h1') ? true : false }
+							onChange= { ( isPageTitle ) => {
+								let tag = ( isPageTitle ) ? 'h1' : 'div';
+								setAttributes( { headingTag:tag } ) }
+							}
+							help="Set Hero Banner Title to H1 and remove auto generated page title"
+					/>
 					<TextControl
 						label="Hero Banner Link"
 						value={ attributes.link ? attributes.link : '' }
