@@ -36,6 +36,7 @@ class Blocks {
 		'wsuwp/button',
 		'wsuwp/card',
 		'wsuwp/card-group',
+		'wsuwp/az-index',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',

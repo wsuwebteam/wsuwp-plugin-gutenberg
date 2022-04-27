@@ -7957,8 +7957,9 @@ const Edit = props => {
     className: "wsu-settings__label"
   }, "Font Size"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RadioGroup, {
     className: "wsu-gutenberg-button__radio-group",
+    defaultChecked: "default",
     onChange: val => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, "wsu-note--size-", val),
-    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, "wsu-note--size-") || "default"
+    checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["getBlockClassNameValue"])(attributes, "wsu-note--size-")
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
     value: "default"
   }, "Default"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Radio, {
@@ -8202,33 +8203,41 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: []
     },
+    only_show_selected_term_values: {
+      type: "boolean",
+      default: false
+    },
+    include_term_values: {
+      type: "array",
+      default: []
+    },
     exclude_term_values: {
       type: "array",
       default: []
     },
     category_filter_label: {
       type: "string",
-      default: "Filter by Category"
+      default: ""
     },
     classification_filter_label: {
       type: "string",
-      default: "Filter by Classification"
+      default: ""
     },
     location_filter_label: {
       type: "string",
-      default: "Filter by Location"
+      default: ""
     },
     organization_filter_label: {
       type: "string",
-      default: "Filter by Organization"
+      default: ""
     },
     tag_filter_label: {
       type: "string",
-      default: "Filter by Tag"
+      default: ""
     },
     search_filter_label: {
       type: "string",
-      default: "Type to search"
+      default: ""
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -8269,7 +8278,9 @@ const {
   PanelRow,
   BaseControl,
   CheckboxControl,
-  RangeControl
+  RangeControl,
+  __experimentalRadio: Radio,
+  __experimentalRadioGroup: RadioGroup
 } = wp.components;
 
 
@@ -8442,13 +8453,28 @@ function Edit(props) {
     label: o,
     checked: attributes.filters.indexOf(o) > -1,
     onChange: val => handleCheckboxListChange("filters", o, val)
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    label: "Exclude Term Values",
-    help: "Search and select term values to exclude when filtering",
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(CheckboxControl, {
+    className: "wsu-people-list-block__checkbox-control",
+    label: "Only show selected terms in filters",
+    checked: attributes.only_show_selected_term_values,
+    onChange: val => setAttributes({
+      only_show_selected_term_values: val
+    })
+  })), attributes.only_show_selected_term_values === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Exclude Terms from Filters",
+    help: "Search and select terms to exclude from filters",
     taxonomy: "classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category",
     value: attributes.exclude_term_values,
     onChange: newval => setAttributes({
       exclude_term_values: newval
+    })
+  })), attributes.only_show_selected_term_values === true && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Terms to Display",
+    help: "Search and select term values to include in filters",
+    taxonomy: "classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category",
+    value: attributes.include_term_values,
+    onChange: newval => setAttributes({
+      include_term_values: newval
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Category Filter Label",
@@ -8505,7 +8531,7 @@ function Edit(props) {
   }, attributes.filters.filter(f => f !== "search").map((filter, index) => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     key: "filter-" + index,
     className: "wsu-gutenberg-people-list__filter"
-  }, attributes[filter + "_filter_label"], Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+  }, attributes[filter + "_filter_label"] || "Filter by " + filter, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     class: "wsu-gutenberg-people-list__filter-icon dashicons dashicons-arrow-down-alt2"
   }))), attributes.filters.includes("search") && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     key: "filter-search",

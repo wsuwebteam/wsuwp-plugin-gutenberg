@@ -63,33 +63,41 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
+    only_show_selected_term_values: {
+      type: "boolean",
+      default: false,
+    },
+    include_term_values: {
+      type: "array",
+      default: [],
+    },
     exclude_term_values: {
       type: "array",
       default: [],
     },
     category_filter_label: {
       type: "string",
-      default: "Filter by Category",
+      default: "",
     },
     classification_filter_label: {
       type: "string",
-      default: "Filter by Classification",
+      default: "",
     },
     location_filter_label: {
       type: "string",
-      default: "Filter by Location",
+      default: "",
     },
     organization_filter_label: {
       type: "string",
-      default: "Filter by Organization",
+      default: "",
     },
     tag_filter_label: {
       type: "string",
-      default: "Filter by Tag",
+      default: "",
     },
     search_filter_label: {
       type: "string",
-      default: "Type to search",
+      default: "",
     },
   },
   edit: Edit,

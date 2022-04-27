@@ -122,6 +122,16 @@
   /*=====  End of People List Preview  ======*/
 
   /*=============================================
+  =            Single Checkbox Control            =
+  =============================================*/
+  .wsu-people-list-block__checkbox-control {
+    .components-base-control__field{
+      display: flex;
+    }
+  }
+  /*=====  End of Single Checkbox Control  ======*/
+
+  /*=============================================
   =            Checkbox List Control            =
   =============================================*/
   .wsu-people-list-block__checkboxlist {
