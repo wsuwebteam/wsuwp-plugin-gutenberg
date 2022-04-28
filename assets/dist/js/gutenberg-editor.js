@@ -8219,21 +8219,41 @@ registerBlockType("wsuwp/people-list", {
       type: "string",
       default: ""
     },
+    category_filter_terms: {
+      type: "array",
+      default: []
+    },
     classification_filter_label: {
       type: "string",
       default: ""
+    },
+    classification_filter_terms: {
+      type: "array",
+      default: []
     },
     location_filter_label: {
       type: "string",
       default: ""
     },
+    location_filter_terms: {
+      type: "array",
+      default: []
+    },
     organization_filter_label: {
       type: "string",
       default: ""
     },
+    organization_filter_terms: {
+      type: "array",
+      default: []
+    },
     tag_filter_label: {
       type: "string",
       default: ""
+    },
+    tag_filter_terms: {
+      type: "array",
+      default: []
     },
     search_filter_label: {
       type: "string",
@@ -8453,30 +8473,7 @@ function Edit(props) {
     label: o,
     checked: attributes.filters.indexOf(o) > -1,
     onChange: val => handleCheckboxListChange("filters", o, val)
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(CheckboxControl, {
-    className: "wsu-people-list-block__checkbox-control",
-    label: "Only show selected terms in filters",
-    checked: attributes.only_show_selected_term_values,
-    onChange: val => setAttributes({
-      only_show_selected_term_values: val
-    })
-  })), attributes.only_show_selected_term_values === false && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    label: "Exclude Terms from Filters",
-    help: "Search and select terms to exclude from filters",
-    taxonomy: "classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category",
-    value: attributes.exclude_term_values,
-    onChange: newval => setAttributes({
-      exclude_term_values: newval
-    })
-  })), attributes.only_show_selected_term_values === true && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    label: "Select Terms to Display",
-    help: "Search and select term values to include in filters",
-    taxonomy: "classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category",
-    value: attributes.include_term_values,
-    onChange: newval => setAttributes({
-      include_term_values: newval
-    })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })))), attributes.filters.includes('category') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Category Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Category'",
     placeholder: "Filter by Category",
@@ -8484,7 +8481,15 @@ function Edit(props) {
     onChange: newval => setAttributes({
       category_filter_label: newval
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Category Filter Terms",
+    help: "Search and select terms to include in filters",
+    taxonomy: "wsuwp_university_category,category",
+    value: attributes.category_filter_terms,
+    onChange: newval => setAttributes({
+      category_filter_terms: newval
+    })
+  }))), attributes.filters.includes('classification') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Classification Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Classification'",
     placeholder: "Filter by Classification",
@@ -8492,7 +8497,15 @@ function Edit(props) {
     onChange: newval => setAttributes({
       classification_filter_label: newval
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Classification Filter Terms",
+    help: "Search and select term values to include in filters",
+    taxonomy: "classification",
+    value: attributes.classification_filter_terms,
+    onChange: newval => setAttributes({
+      classification_filter_terms: newval
+    })
+  }))), attributes.filters.includes('location') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Location Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Location'",
     placeholder: "Filter by Location",
@@ -8500,7 +8513,15 @@ function Edit(props) {
     onChange: newval => setAttributes({
       location_filter_label: newval
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Location Terms to Display",
+    help: "Search and select term values to include in filters",
+    taxonomy: "wsuwp_university_location",
+    value: attributes.location_filter_terms,
+    onChange: newval => setAttributes({
+      location_filter_terms: newval
+    })
+  }))), attributes.filters.includes('organization') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Organization Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Organization'",
     placeholder: "Filter by Organization",
@@ -8508,7 +8529,15 @@ function Edit(props) {
     onChange: newval => setAttributes({
       organization_filter_label: newval
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Organization Terms to Display",
+    help: "Search and select term values to include in filters",
+    taxonomy: "wsuwp_university_org",
+    value: attributes.organization_filter_terms,
+    onChange: newval => setAttributes({
+      organization_filter_terms: newval
+    })
+  }))), attributes.filters.includes('tag') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Tag Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Tag'",
     placeholder: "Filter by Tag",
@@ -8516,13 +8545,29 @@ function Edit(props) {
     onChange: newval => setAttributes({
       tag_filter_label: newval
     })
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "Select Tag Terms to Display",
+    help: "Search and select term values to include in filters",
+    taxonomy: "post_tag",
+    value: attributes.tag_filter_terms,
+    onChange: newval => setAttributes({
+      tag_filter_terms: newval
+    })
+  }))), attributes.filters.includes('search') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Search Filter Label",
     help: "Label to display for filter. Defaults to 'Type to search'",
     placeholder: "Type to search",
     value: attributes.search_filter_label,
     onChange: newval => setAttributes({
       search_filter_label: newval
+    })
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "(Legacy) Exclude Terms from Filters",
+    help: "Search and select terms to exclude from filters",
+    taxonomy: "classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category",
+    value: attributes.exclude_term_values,
+    onChange: newval => setAttributes({
+      exclude_term_values: newval
     })
   })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "wsu-gutenberg-people-list"
