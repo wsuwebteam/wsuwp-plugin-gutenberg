@@ -19,6 +19,7 @@ const apiEndpoint = window.location.hostname.includes(".local")
   ? "http://wsuwp.local/wp-json/peopleapi/v1/people?"
   : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
+
 const queryAttributes = [
   "count",
   "page",
@@ -293,22 +294,145 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
-
+          { attributes.filters.includes('category') && <><PanelRow>
+              <TextControl
+                label="Category Filter Label"
+                help="Label to display for filter. Defaults to 'Filter by Category'"
+                placeholder="Filter by Category"
+                value={attributes.category_filter_label}
+                onChange={(newval) =>
+                  setAttributes({ category_filter_label: newval })
+                }
+              />
+            </PanelRow>
+            <PanelRow>
+            <TermSelector
+                  label="Select Category Filter Terms"
+                  help="Search and select terms to include in filters"
+                  taxonomy="wsuwp_university_category,category"
+                  value={attributes.category_filter_terms}
+                  onChange={(newval) =>
+                    setAttributes({ category_filter_terms: newval })
+                  }
+                />
+                </PanelRow>
+              </>
+          }
+          { attributes.filters.includes('classification') && <>
           <PanelRow>
-            <CheckboxControl
-              className="wsu-people-list-block__checkbox-control"
-              label="Only show selected terms in filters"
-              checked={attributes.only_show_selected_term_values}
-              onChange={(val) =>
-                setAttributes({ only_show_selected_term_values: val })
-              }
-            />
-          </PanelRow>
-
-          {attributes.only_show_selected_term_values === false && (
+              <TextControl
+                label="Classification Filter Label"
+                help="Label to display for filter. Defaults to 'Filter by Classification'"
+                placeholder="Filter by Classification"
+                value={attributes.classification_filter_label}
+                onChange={(newval) =>
+                  setAttributes({ classification_filter_label: newval })
+                }
+              />
+            </PanelRow>
             <PanelRow>
               <TermSelector
-                label="Exclude Terms from Filters"
+                label="Select Classification Filter Terms"
+                help="Search and select term values to include in filters"
+                taxonomy="classification"
+                value={attributes.classification_filter_terms}
+                onChange={(newval) =>
+                  setAttributes({ classification_filter_terms: newval })
+                }
+              />
+            </PanelRow>
+            </>
+          }
+          { attributes.filters.includes('location') && <>
+            <PanelRow>
+              <TextControl
+                label="Location Filter Label"
+                help="Label to display for filter. Defaults to 'Filter by Location'"
+                placeholder="Filter by Location"
+                value={attributes.location_filter_label}
+                onChange={(newval) =>
+                  setAttributes({ location_filter_label: newval })
+                }
+              />
+            </PanelRow>
+            <PanelRow>
+              <TermSelector
+                label="Select Location Terms to Display"
+                help="Search and select term values to include in filters"
+                taxonomy="wsuwp_university_location"
+                value={attributes.location_filter_terms}
+                onChange={(newval) =>
+                  setAttributes({ location_filter_terms: newval })
+                }
+              />
+            </PanelRow>
+          </>
+          }
+          { attributes.filters.includes('organization') && <>
+            <PanelRow>
+              <TextControl
+                label="Organization Filter Label"
+                help="Label to display for filter. Defaults to 'Filter by Organization'"
+                placeholder="Filter by Organization"
+                value={attributes.organization_filter_label}
+                onChange={(newval) =>
+                  setAttributes({ organization_filter_label: newval })
+                }
+              />
+            </PanelRow>
+            <PanelRow>
+              <TermSelector
+                label="Select Organization Terms to Display"
+                help="Search and select term values to include in filters"
+                taxonomy="wsuwp_university_org"
+                value={attributes.organization_filter_terms}
+                onChange={(newval) =>
+                  setAttributes({ organization_filter_terms: newval })
+                }
+              />
+            </PanelRow>
+          </>
+          }
+          { attributes.filters.includes('tag') && <>
+            <PanelRow>
+              <TextControl
+                label="Tag Filter Label"
+                help="Label to display for filter. Defaults to 'Filter by Tag'"
+                placeholder="Filter by Tag"
+                value={attributes.tag_filter_label}
+                onChange={(newval) => setAttributes({ tag_filter_label: newval })}
+              />
+            </PanelRow>
+            <PanelRow>
+              <TermSelector
+                label="Select Tag Terms to Display"
+                help="Search and select term values to include in filters"
+                taxonomy="post_tag"
+                value={attributes.tag_filter_terms}
+                onChange={(newval) =>
+                  setAttributes({ tag_filter_terms: newval })
+                }
+              />
+            </PanelRow>
+          </>
+          }
+          { attributes.filters.includes('search') && <>
+            <PanelRow>
+              <TextControl
+                label="Search Filter Label"
+                help="Label to display for filter. Defaults to 'Type to search'"
+                placeholder="Type to search"
+                value={attributes.search_filter_label}
+                onChange={(newval) =>
+                  setAttributes({ search_filter_label: newval })
+                }
+              />
+            </PanelRow>
+          </>
+          }
+          <PanelRow>
+              <TermSelector
+                label="(Legacy) Exclude Terms from Filters"
                 help="Search and select terms to exclude from filters"
                 taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
                 value={attributes.exclude_term_values}
@@ -317,86 +441,6 @@ export default function Edit(props) {
                 }
               />
             </PanelRow>
-          )}
-
-          {attributes.only_show_selected_term_values === true && (
-            <PanelRow>
-              <TermSelector
-                label="Select Terms to Display"
-                help="Search and select term values to include in filters"
-                taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
-                value={attributes.include_term_values}
-                onChange={(newval) =>
-                  setAttributes({ include_term_values: newval })
-                }
-              />
-            </PanelRow>
-          )}
-
-          <PanelRow>
-            <TextControl
-              label="Category Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Category'"
-              placeholder="Filter by Category"
-              value={attributes.category_filter_label}
-              onChange={(newval) =>
-                setAttributes({ category_filter_label: newval })
-              }
-            />
-          </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Classification Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Classification'"
-              placeholder="Filter by Classification"
-              value={attributes.classification_filter_label}
-              onChange={(newval) =>
-                setAttributes({ classification_filter_label: newval })
-              }
-            />
-          </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Location Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Location'"
-              placeholder="Filter by Location"
-              value={attributes.location_filter_label}
-              onChange={(newval) =>
-                setAttributes({ location_filter_label: newval })
-              }
-            />
-          </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Organization Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Organization'"
-              placeholder="Filter by Organization"
-              value={attributes.organization_filter_label}
-              onChange={(newval) =>
-                setAttributes({ organization_filter_label: newval })
-              }
-            />
-          </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Tag Filter Label"
-              help="Label to display for filter. Defaults to 'Filter by Tag'"
-              placeholder="Filter by Tag"
-              value={attributes.tag_filter_label}
-              onChange={(newval) => setAttributes({ tag_filter_label: newval })}
-            />
-          </PanelRow>
-          <PanelRow>
-            <TextControl
-              label="Search Filter Label"
-              help="Label to display for filter. Defaults to 'Type to search'"
-              placeholder="Type to search"
-              value={attributes.search_filter_label}
-              onChange={(newval) =>
-                setAttributes({ search_filter_label: newval })
-              }
-            />
-          </PanelRow>
         </PanelBody>
       </InspectorControls>
 

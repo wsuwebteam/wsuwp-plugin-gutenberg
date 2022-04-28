@@ -26,14 +26,19 @@ class Block_WSUWP_People_List extends Block {
 		'photo_srcset'                   => '',
 		'filters'                        => array(),
 		'only_show_selected_term_values' => false,
-		'include_term_values'            => array(),
 		'exclude_term_values'            => array(),
+		'include_term_values'            => array(),
 		'category_filter_label'          => 'Filter by Category',
+		'category_filter_terms'          => array(),
 		'classification_filter_label'    => 'Filter by Classification',
+		'classification_filter_terms'    => array(),
 		'location_filter_label'          => 'Filter by Location',
+		'location_filter_terms'          => array(),
 		'organization_filter_label'      => 'Filter by Organization',
+		'organization_filter_terms'      => array(),
 		'search_filter_label'            => 'Type to search',
 		'tag_filter_label'               => 'Filter by Tag',
+		'tag_filter_terms'               => array(),
 	);
 
 
@@ -50,12 +55,28 @@ class Block_WSUWP_People_List extends Block {
 			ARRAY_FILTER_USE_KEY
 		);
 
-		$data_attrs['classification']          = implode( ',', array_column( $data_attrs['classification'], 'slug' ) );
-		$data_attrs['university_category']     = implode( ',', array_column( $data_attrs['university_category'], 'slug' ) );
-		$data_attrs['university_location']     = implode( ',', array_column( $data_attrs['university_location'], 'slug' ) );
-		$data_attrs['university_organization'] = implode( ',', array_column( $data_attrs['university_organization'], 'slug' ) );
-		$data_attrs['include_term_values']     = implode( ',', array_column( $data_attrs['include_term_values'], 'slug' ) );
-		$data_attrs['exclude_term_values']     = implode( ',', array_column( $data_attrs['exclude_term_values'], 'slug' ) );
+		$implode_keys = array(
+			'classification',
+			'university_category',
+			'university_location',
+			'university_organization',
+			'include_term_values',
+			'exclude_term_values',
+			'tag_filter_terms',
+			'organization_filter_terms',
+			'location_filter_terms',
+			'classification_filter_terms',
+			'category_filter_terms',
+		);
+
+		foreach ( $implode_keys as $implode_key ) {
+
+			if ( ! empty( $data_attrs[ $implode_key ] ) && is_array( $data_attrs[ $implode_key ] ) ) {
+
+				$data_attrs[ $implode_key ] = implode( ',', array_column( $data_attrs[ $implode_key ], 'slug' ) );
+
+			}
+		}
 
 		// render block
 		ob_start();
