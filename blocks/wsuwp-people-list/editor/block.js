@@ -79,21 +79,41 @@ registerBlockType("wsuwp/people-list", {
       type: "string",
       default: "",
     },
+    category_filter_terms: {
+      type: "array",
+      default: [],
+    },
     classification_filter_label: {
       type: "string",
       default: "",
+    },
+    classification_filter_terms: {
+      type: "array",
+      default: [],
     },
     location_filter_label: {
       type: "string",
       default: "",
     },
+    location_filter_terms: {
+      type: "array",
+      default: [],
+    },
     organization_filter_label: {
       type: "string",
       default: "",
     },
+    organization_filter_terms: {
+      type: "array",
+      default: [],
+    },
     tag_filter_label: {
       type: "string",
       default: "",
+    },
+    tag_filter_terms: {
+      type: "array",
+      default: [],
     },
     search_filter_label: {
       type: "string",
