@@ -4,6 +4,8 @@
 .block-editor {
   .wp-block[data-type="wsuwp/hero-slider"] {
 
+    margin-bottom: 3rem;
+
     .wsu-hero {
       margin-bottom: 0;
     }
@@ -25,26 +27,98 @@
 
     .wsu-gutenberg-hero-slider__controls{      
       display: flex;      
+      transform: translateY(-100%);
+      position: absolute;
+      width: 100%;
+      padding: 1em 1em 1em 1em;
+      padding-left: 3.125rem + 4.125rem;
+      gap: 1em;
     } 
 
-    .wsu-gutenberg-hero-slider__control-container{
+    .wsu-gutenberg-hero-slider__control-container{      
+      width: 150px;      
       
-      &.is-selected .wsu-gutenberg-hero-slider__select-control{
-        background-color: red;
-        color: white
+      &.is-selected .wsu-gutenberg-hero-slider__select-control{        
+        border-top-color: white;
+      }
+
+      &:hover .wsu-gutenberg-hero-slider__sub-controls, &.is-selected .wsu-gutenberg-hero-slider__sub-controls{        
+        visibility: visible;
+        opacity: 1;
       }
       
     } 
-
+    
     .wsu-gutenberg-hero-slider__select-control{
-      
+      color: white;
+      display: block;
+      border-top: 2px solid hsla(0,0%,100%,.4);
+      width: 100%;      
+      text-align: left;
+      height: auto;
+      padding: 1em .75em;
     }
 
-    .wsu-gutenberg-hero-slider__sub-controls{
+    .wsu-gutenberg-hero-slider__sub-controls-group{
       display: flex;
       flex-flow: row wrap;
       justify-content: space-between;
-    }   
+    }
 
+    .wsu-gutenberg-hero-slider__sub-controls{
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+      margin: 0;
+      margin-bottom: .5rem;
+
+      .components-button{
+        background-color: #fff;
+        flex-grow: 1;
+        box-shadow: none;        
+
+        &:first-child{
+          border-radius: 6px 0 0 6px;
+        }
+
+        &:last-child{
+          border-radius: 0 6px 6px 0;
+        }
+
+        &:disabled {
+          color: rgba(#1e1e1e, .3);
+          pointer-events: none;
+          opacity: 1;
+        }
+
+        .dashicon {
+          width: 18px;
+          height: 18px;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .wsu-gutenberg-hero-slider__insert-control {
+      background-color: #fff;
+      align-self: center;
+      margin-left: 2rem;
+      border-radius: 6px;    
+      min-width: 24px;  
+
+      .dashicon {
+        line-height: 1.2;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+      }
+    } 
+
+    // Layout Fixes
+    .swiper-slide {
+      opacity: 1;
+      visibility: visible;
+      
+    }
   }
 }

@@ -4,7 +4,9 @@ class Block_WSUWP_Hero_Slider extends Block {
 
 	protected static $block_name    = 'wsuwp/hero-slider';
 	protected static $default_attrs = array(
-		'className' => 'wsu-hero-slider',
+		'className'     => '',
+		'autoplay'      => false,
+		'autoplayDelay' => 5000,
 	);
 
 

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "@wordpress/element";
+import { useState } from "@wordpress/element";
+import { PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 const { InnerBlocks, InspectorControls, useBlockProps } = wp.blockEditor;
+const { ButtonGroup, Button, ToggleControl, TextControl } = wp.components;
 
-const { Button } = wp.components;
 
 const Edit = (props) => {
   const { select, dispatch } = wp.data;
@@ -25,7 +26,9 @@ const Edit = (props) => {
   function insertBlock() {
     dispatch("core/block-editor")
       .insertBlock(
-        wp.blocks.createBlock("wsuwp/hero"),
+        wp.blocks.createBlock("wsuwp/hero", {
+          requiredClassName: "swiper-slide",
+        }),
         slideBlocks.length,
         clientId,
         true
@@ -33,6 +36,7 @@ const Edit = (props) => {
       .then((response) => {
         const block = response.blocks[0];
         selectSlide(block.clientId, response.index);
+        console.log(response);
       });
   }
 
@@ -73,13 +77,36 @@ const Edit = (props) => {
 
   return (
     <>
+      <InspectorControls>
+				<PanelGeneralOptions>
+          <ToggleControl
+                label="Autoplay Slider"
+                checked={ attributes.autoplay }
+                onChange= { ( val ) => setAttributes( { autoplay: val } ) }							
+                help="Slider will automatically advance to the next slide on a time interval."
+          />
+
+          {attributes.autoplay === true && <TextControl
+						label="Delay between slides"
+            help="Delay between slides in milliseconds. 1000 = 1 second."
+            placeholder="5000"
+						value={ attributes.autoplayDelay }
+						onChange= { ( delay ) => setAttributes( { autoplayDelay: delay } ) }
+					/>}
+        </PanelGeneralOptions>
+      </InspectorControls>
+
       <div {...blockProps} data-selected-slide-index={selectedSlideIndex}>
         <div className="wsu-gutenberg-hero-slider__slides">
-          {/* TODO: Figure out how to hide default controls (insert, delete, etc). Lock 'all' prevents even code changes. */}
           <InnerBlocks
-            template={[["wsuwp/hero"]]}
+            template={[["wsuwp/hero", {
+              requiredClassName: "swiper-slide",
+            }]]}
             templateLock={false}
             allowedBlocks={["wsuwp/hero"]}
+            orientation="horizontal"
+            renderAppender={false}
+            __experimentalCaptureToolbars={true}
           />
         </div>
 
@@ -93,42 +120,53 @@ const Edit = (props) => {
                 }`}
               >
                 {/* TODO: Disable/hide specific buttons when actions not allowed */}
+                {slideBlocks.length > 1 && (
+                  <div className="wsu-gutenberg-hero-slider__sub-controls">
+                    <ButtonGroup className="wsu-gutenberg-hero-slider__sub-controls-group">
+                      <Button
+                        showTooltip={true}
+                        label="Move Left"
+                        icon="arrow-left-alt2"
+                        isSmall={true}
+                        iconSize={16}
+                        disabled={i === 0}
+                        onClick={() => moveBlock(b.clientId, i, i - 1)}
+                      ></Button>
+                      <Button
+                        showTooltip={true}
+                        label="Delete Slide"
+                        icon="no-alt"
+                        isSmall={true}
+                        iconSize={16}
+                        onClick={() => removeSlide(b.clientId)}
+                      ></Button>
+                      <Button
+                        showTooltip={true}
+                        label="Move Right"
+                        icon="arrow-right-alt2"
+                        isSmall={true}
+                        disabled={i === slideBlocks.length - 1}
+                        onClick={() => moveBlock(b.clientId, i, i + 1)}
+                      ></Button>
+                    </ButtonGroup>
+                  </div>
+                )}
                 <Button
                   className="wsu-gutenberg-hero-slider__select-control"
                   onClick={() => selectSlide(b.clientId)}
                 >
                   {b.attributes.title || "Slide " + (i + 1)}
                 </Button>
-                {slideBlocks.length > 1 && (
-                  <div className="wsu-gutenberg-hero-slider__sub-controls">
-                    <Button
-                      showTooltip={true}
-                      label="Move Left"
-                      icon="arrow-left-alt2"
-                      onClick={() => moveBlock(b.clientId, i, i - 1)}
-                    ></Button>
-                    <Button
-                      showTooltip={true}
-                      label="Delete Slide"
-                      icon="no-alt"
-                      onClick={() => removeSlide(b.clientId)}
-                    ></Button>
-                    <Button
-                      showTooltip={true}
-                      label="Move Right"
-                      icon="arrow-right-alt2"
-                      onClick={() => moveBlock(b.clientId, i, i + 1)}
-                    ></Button>
-                  </div>
-                )}
               </div>
             ))}
 
             {slideBlocks.length < 5 && (
               <Button
+                className="wsu-gutenberg-hero-slider__insert-control"
                 showTooltip={true}
                 label="Insert Slide"
                 icon="plus"
+                isSmall={true}
                 onClick={insertBlock}
               />
             )}

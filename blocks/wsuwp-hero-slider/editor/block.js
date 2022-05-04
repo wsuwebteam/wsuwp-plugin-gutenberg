@@ -3,7 +3,7 @@
  * WordPress Dependencies
  *
  */
-import { __ } from "@wordpress/i18n";
+import "./hooks";
 const { registerBlockType } = wp.blocks;
 
 import edit from "./edit";
@@ -14,7 +14,16 @@ registerBlockType("wsuwp/hero-slider", {
   title: "Hero Slider",
   category: "design",
   icon: "slides",
-  attributes: {},
+  attributes: {
+    autoplay: {
+      type: "boolean",
+      default: false,
+    },
+    autoplayDelay: {
+      type: "integer",
+      default: 5000,
+    },
+  },
   innerBlocks: [
     {
       name: "wsuwp/hero",
