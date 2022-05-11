@@ -28,6 +28,8 @@ class Block_WSUWP_Hero extends Block {
 
 
 	public static function render( $attrs, $content = '' ) {
+
+		add_filter( 'wp_calculate_image_srcset', array( __CLASS__, 'set_srcset_image_sizes' ), 10, 3 );
 		
 		$attrs['titleId'] = uniqid('title-id-');
 
@@ -57,7 +59,21 @@ class Block_WSUWP_Hero extends Block {
 
 		include __DIR__ . '/templates/default.php';
 
+		remove_filter( 'wp_calculate_image_srcset', array( __CLASS__, 'set_srcset_image_sizes' ), 10, 3 );
+
 		return ob_get_clean();
+
+	}
+
+	public static function set_srcset_image_sizes( $sources, $size_array, $image_src ) {
+
+		foreach ( $sources as $size => $source ) {
+
+			$sources[ $size ]['url'] = $image_src;
+
+		}
+
+		return $sources;
 
 	}
 
