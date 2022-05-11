@@ -6,6 +6,7 @@ import "../../../blocks/wsuwp-card/editor/block";
 import "../../../blocks/wsuwp-card-group/editor/block";
 import "../../../blocks/wsuwp-column/editor/block";
 import "../../../blocks/wsuwp-hero/editor/block";
+import "../../../blocks/wsuwp-hero-slider/editor/block";
 import "../../../blocks/wsuwp-news/editor/block";
 import "../../../blocks/wsuwp-row/editor/block";
 import "../../../blocks/wsuwp-section/editor/block";

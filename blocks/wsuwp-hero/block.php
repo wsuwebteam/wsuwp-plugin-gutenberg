@@ -4,36 +4,39 @@ class Block_WSUWP_Hero extends Block {
 
 	protected static $block_name    = 'wsuwp/hero';
 	protected static $default_attrs = array(
-		'className'        => 'wsu-hero wsu-width--full wsu-pattern--wsu-light-radial-left',
-		'imageSize'        => 'full',
-		'imageId'          => '0',
-		'imageSrc'         => '',
-		'imageAlt'         => '',
-		'imageSrcSet'      => '',
-		'imageSizes'       => '',
-		'title'            => '',
-		'headingTag'       => 'div',
-		'caption'          => '',
-		'link'             => '',
-		'imageFocalPoint'  => '',
-		'imageFocalPointX' => '50%',
-		'imageFocalPointY' => '50%',
-		'eyebrowHeading'   => '',
-		'buttonText'       => '',
-		'photoCredit'      => '',
-		'lightOverlay'     => false,
-		'pattern'          => 'wsu-light-radial-left',
-		'overlay'          => 'dark-left',
- 	);
+		'className'         => 'wsu-hero wsu-width--full wsu-pattern--wsu-light-radial-left',
+		'requiredClassName' => '',
+		'imageSize'         => 'full',
+		'imageId'           => '0',
+		'imageSrc'          => '',
+		'imageAlt'          => '',
+		'imageSrcSet'       => '',
+		'imageSizes'        => '',
+		'title'             => '',
+		'headingTag'        => 'div',
+		'caption'           => '',
+		'link'              => '',
+		'imageFocalPoint'   => '',
+		'imageFocalPointX'  => '50%',
+		'imageFocalPointY'  => '50%',
+		'eyebrowHeading'    => '',
+		'buttonText'        => '',
+		'photoCredit'       => '',
+		'lightOverlay'      => false,
+		'pattern'           => 'wsu-light-radial-left',
+		'overlay'           => 'dark-left',
+	);
 
 
 	public static function render( $attrs, $content = '' ) {
 
 		add_filter( 'wp_calculate_image_srcset', array( __CLASS__, 'set_srcset_image_sizes' ), 10, 3 );
-		
-		$attrs['titleId'] = uniqid('title-id-');
+
+		$attrs['titleId'] = uniqid( 'title-id-' );
 
 		$attrs['imageId'] = (int) $attrs['imageId'];
+
+		$attrs['className'] = $attrs['className'] . ' ' . $attrs['requiredClassName'];
 
 		if ( is_array( $attrs['imageFocalPoint'] ) ) {
 			$attrs['imageFocalPointX'] = ( isset( $attrs['imageFocalPoint']['x'] ) ) ? ( $attrs['imageFocalPoint']['x'] * 100 ) . '%' : '50%';
