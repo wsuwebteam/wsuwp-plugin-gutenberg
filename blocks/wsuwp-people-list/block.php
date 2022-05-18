@@ -20,6 +20,7 @@ class Block_WSUWP_People_List extends Block {
 			'email',
 		),
 		'website_link_text'              => 'Website',
+		'profile_link'                   => '',
 		'headingTag'                     => 'h2',
 		'columns'                        => '3',
 		'photo_size'                     => 'medium',
