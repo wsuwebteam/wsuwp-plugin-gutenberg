@@ -13,6 +13,7 @@ import "../../../blocks/wsuwp-section/editor/block";
 import "../../../blocks/wsuwp-pagetitle/editor/block";
 import "../../../blocks/wsuwp-news-cards/editor/block";
 import "../../../blocks/wsuwp-people-list/editor/block";
+import "../../../blocks/wsuwp-people-list/editor/edit-advanced";
 import "../../../blocks/wsuwp-button/editor/block";
 import "../../../blocks/wsuwp-news-cards/editor/blockEditFilter";
 import "../../../blocks/core-heading/editor/blockEditFilter";

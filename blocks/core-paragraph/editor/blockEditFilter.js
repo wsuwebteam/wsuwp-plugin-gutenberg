@@ -40,18 +40,19 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 									{...props}
 									sizes={
 										[
-											{ label: 'Not Set', value: '' },
 											{ label: 'xSmall', value: 'xsmall' },
 											{ label: 'Small', value: 'small' },
-											{ label: 'Medium (Default)', value: 'medium' },
-											{ label: 'xMedium', value: 'xmedium' },
+											{ label: 'Medium', value: 'medium' },
+											{ label: 'xMedium (Default)', value: '' },
+											{ label: 'xxMedium', value: 'xxmedium' },
 											{ label: 'Large', value: 'large' },
 											{ label: 'xLarge', value: 'xlarge' },
 										]
 									}
 									/>
 									{ FontSizeValue && <RequiredAlertControl>
-											Paragraph text should not be used as a substitue for a heading. Should this be a heading instead?
+											Should this be a heading instead?<br />
+											Paragraph text should not be used as a substitue for a heading. 
 										</RequiredAlertControl>
 									}
 							</PanelDisplayOptions>
