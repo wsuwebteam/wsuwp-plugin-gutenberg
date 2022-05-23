@@ -6,17 +6,16 @@ import {  PanelDisplayOptions } from "../../../assets/src/js/partials/block-pane
 const {
 	InspectorControls,
 } = wp.blockEditor;
+
 const {
+	RangeControl,
 } = wp.components;
 
-import { 
-	RequiredAlertControl,
-	FontSizeControl,
-} from "../../../assets/src/js/partials/block-controls/blockControls";
-
 import {
-    getBlockClassNameValue,
+    setBlockClassName,
+	getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
+
 
 
 const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit) => {
@@ -27,34 +26,21 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 		const { InspectorAdvancedControls } = wp.blockEditor;
 		const { attributes, setAttributes, isSelected } = props;
 
-		let FontSizeValue = ( isSelected && (props.name == 'core/paragraph') ) ? getBlockClassNameValue( attributes, 'wsu-font-size--' ) : '';
-
 		return (
 			<Fragment>
 				<BlockEdit {...props} />
-				{isSelected && (props.name == 'core/paragraph') && 
+				{isSelected && (props.name == 'core/list') && 
 					<>
 						<InspectorControls>
 							<PanelDisplayOptions>
-								<FontSizeControl 
-									{...props}
-									sizes={
-										[
-											{ label: 'xSmall', value: 'xsmall' },
-											{ label: 'Small', value: 'small' },
-											{ label: 'Medium', value: 'medium' },
-											{ label: 'xMedium (Default)', value: '' },
-											{ label: 'xxMedium', value: 'xxmedium' },
-											{ label: 'Large', value: 'large' },
-											{ label: 'xLarge', value: 'xlarge' },
-										]
-									}
-									/>
-									{ FontSizeValue && <RequiredAlertControl>
-											Should this be a heading instead?<br />
-											Paragraph text should not be used as a substitue for a heading. 
-										</RequiredAlertControl>
-									}
+							<RangeControl
+								label="Number of Columns"
+								help="Number of columns to display."
+								value={ parseInt( getBlockClassNameValue( attributes,'wsu-list--columns-', 1, ) )  }
+								onChange={ ( columns ) => setBlockClassName( attributes, setAttributes, 'wsu-list--columns-', columns ) }
+								min={1}
+								max={4}
+								/>
 							</PanelDisplayOptions>
 						</InspectorControls>
 					</>

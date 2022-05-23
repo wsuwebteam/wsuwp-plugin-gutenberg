@@ -47,6 +47,10 @@ registerBlockType("wsuwp/people-list", {
       type: "string",
       default: "Website",
     },
+    profile_link: {
+      type: "string",
+      default: "",
+    },
     columns: {
       type: "integer",
       default: 3,
