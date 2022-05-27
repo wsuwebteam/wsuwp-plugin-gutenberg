@@ -39,6 +39,7 @@ class Blocks {
 		'wsuwp/card',
 		'wsuwp/card-group',
 		'wsuwp/az-index',
+		'wsuwp/programs-list',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',
