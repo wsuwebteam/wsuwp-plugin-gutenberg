@@ -15,6 +15,7 @@ import "../../../blocks/wsuwp-news-cards/editor/block";
 import "../../../blocks/wsuwp-people-list/editor/block";
 import "../../../blocks/wsuwp-people-list/editor/edit-advanced";
 import "../../../blocks/wsuwp-button/editor/block";
+import "../../../blocks/wsuwp-menu/editor/block";
 import "../../../blocks/wsuwp-news-cards/editor/blockEditFilter";
 import "../../../blocks/core-heading/editor/blockEditFilter";
 import "../../../blocks/core-list/editor/blockEditFilter";
