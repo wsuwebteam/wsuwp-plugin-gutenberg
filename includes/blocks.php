@@ -20,6 +20,7 @@ class Blocks {
 		'wsuwp/button'      => 'Block_WSUWP_Button',
 		'wsuwp/card'        => 'Block_WSUWP_Card',
 		'wsuwp/card-group'  => 'Block_WSUWP_Card_Group',
+		'wsuwp/stat'        => 'Block_WSUWP_Stat',
 	);
 
 	protected static $allowed_blocks = array(
@@ -40,6 +41,7 @@ class Blocks {
 		'wsuwp/card-group',
 		'wsuwp/az-index',
 		'wsuwp/programs-list',
+		'wsuwp/stat',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',
