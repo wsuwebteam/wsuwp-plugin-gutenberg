@@ -24,8 +24,8 @@ class Scripts {
 	public static function register_assets() {
 
 		wp_register_script( 'wsu_design_system_script_people_list', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/people-list/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
-		wp_register_script( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.beta/dist/bundles/standalone/hero-slider/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
-		wp_register_style( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.beta/dist/bundles/standalone/hero-slider/styles-wds.css', array(), WSUWPPLUGINGUTENBERGVERSION );
+		wp_register_script( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
+		wp_register_style( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/styles-wds.css', array(), WSUWPPLUGINGUTENBERGVERSION );
 
 	}
 
