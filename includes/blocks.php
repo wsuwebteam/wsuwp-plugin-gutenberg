@@ -21,6 +21,7 @@ class Blocks {
 		'wsuwp/button'      => 'Block_WSUWP_Button',
 		'wsuwp/card'        => 'Block_WSUWP_Card',
 		'wsuwp/card-group'  => 'Block_WSUWP_Card_Group',
+		'wsuwp/menu'        => 'Block_WSUWP_Menu',
 		'wsuwp/stat'        => 'Block_WSUWP_Stat',
 	);
 
@@ -44,6 +45,7 @@ class Blocks {
 		'wsuwp/az-index',
 		'wsuwp/programs-list',
 		'wsuwp/stat',
+		'wsuwp/menu',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',

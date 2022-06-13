@@ -1,0 +1,18 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+.block-editor {
+  .wp-block[data-type="wsuwp/menu"] {
+    background-color: #efefef;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+
+    .wsu-gutenberg-menu-block__icon {
+      margin-right: 0.25em;
+      font-size: 31px;
+      width: 31px;
+      height: 31px;
+    }
+  }
+}

@@ -63,6 +63,16 @@ class Rest_API {
 			)
 		);
 
+		register_rest_route(
+			'wsu-gutenberg/v1',
+			'get-wp-menus',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'get_wp_menus' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
 	}
 
 
@@ -139,10 +149,10 @@ class Rest_API {
 		$results = get_posts(
 			array(
 				'posts_per_page' => 20,
-				'post__in'    => explode( ',', $params['ids'] ),
-				'post_status' => array( 'publish', 'draft', 'private', 'future' ),
-				'post_type'   => 'any',
-				'orderby'     => 'post__in',
+				'post__in'       => explode( ',', $params['ids'] ),
+				'post_status'    => array( 'publish', 'draft', 'private', 'future' ),
+				'post_type'      => 'any',
+				'orderby'        => 'post__in',
 			)
 		);
 
@@ -190,6 +200,13 @@ class Rest_API {
 		}
 
 		return wp_json_encode( $posts, JSON_UNESCAPED_SLASHES );
+	}
+
+
+	public static function get_wp_menus( $request ) {
+
+		return wp_json_encode( wp_get_nav_menus(), JSON_UNESCAPED_SLASHES );
+
 	}
 
 }
