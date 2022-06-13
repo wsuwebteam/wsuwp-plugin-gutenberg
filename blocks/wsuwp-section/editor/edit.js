@@ -92,18 +92,28 @@ const Edit = ( props ) => {
 							properties: [
 								{
 									label: 'Top',
-									prefix: 'wsu-spacing-before--',									
-									default: 'default',
+									prefix: 'wsu-spacing-before--',                                        
+									default: 'none',
 								},
 								{
 									label: 'Bottom',
-									prefix: 'wsu-spacing-after--',									
+									prefix: 'wsu-spacing-after--',
+									default: 'xmedium',                                        
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
 									default: 'default',
 								}
 							]
 						},
 						{
-							label: 'Inside Spacing (Padding)',
+							label: 'Padding (Inside Spacing)',
 							properties: [
 								{
 									label: 'Top',
@@ -114,6 +124,16 @@ const Edit = ( props ) => {
 									label: 'Bottom',
 									prefix: 'wsu-spacing-bottom--',
 									default: 'default',									
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-padding-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-padding-right--',									
+									default: 'default',
 								}
 							]
 						}

@@ -12,6 +12,7 @@ const {
 import { 
 	RequiredAlertControl,
 	FontSizeControl,
+	SpacingClassNameSelector,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import {
@@ -56,6 +57,61 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 										</RequiredAlertControl>
 									}
 							</PanelDisplayOptions>
+							<SpacingClassNameSelector                        
+								spaceSettings={[
+									{
+										label: 'Outside Spacing (Margin)',
+										properties: [
+											{
+												label: 'Top',
+												prefix: 'wsu-spacing-before--',                                        
+												default: 'none',
+											},
+											{
+												label: 'Bottom',
+												prefix: 'wsu-spacing-after--',
+												default: 'xmedium',                                        
+											},
+											{
+												label: 'Left',
+												prefix: 'wsu-spacing-margin-left--',									
+												default: 'default',
+											},
+											{
+												label: 'Right',
+												prefix: 'wsu-spacing-margin-right--',									
+												default: 'default',
+											}
+										]
+									},
+									{
+										label: 'Padding (Inside Spacing)',
+										properties: [
+											{
+												label: 'Top',
+												prefix: 'wsu-spacing-top--',
+												default: 'default',
+											},
+											{
+												label: 'Bottom',
+												prefix: 'wsu-spacing-bottom--',
+												default: 'default',									
+											},
+											{
+												label: 'Left',
+												prefix: 'wsu-spacing-padding-left--',									
+												default: 'default',
+											},
+											{
+												label: 'Right',
+												prefix: 'wsu-spacing-padding-right--',									
+												default: 'default',
+											}
+										]
+									}
+								]}
+								{...props}>					
+							</SpacingClassNameSelector>
 						</InspectorControls>
 					</>
 				}

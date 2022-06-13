@@ -4,7 +4,7 @@ import { SpacingClassNameSelector } from '../block-controls/blockControls';
 function insertSpacingControl( OriginalComponent ) {
     return function( props ) {       
 
-        const unsupportedBlockTypes = ['wsuwp/row', 'wsuwp/column', 'core/button', 'wsuwp/section', 'wsuwp/card-group'];
+        const unsupportedBlockTypes = ['wsuwp/card','wsuwp/image','wsuwp/row', 'wsuwp/column', 'core/button', 'core/paragraph', 'wsuwp/section', 'wsuwp/card-group'];
 
         if( !unsupportedBlockTypes.includes(props.name) ){
             return (
