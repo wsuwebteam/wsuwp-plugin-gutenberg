@@ -177,7 +177,7 @@ const Edit = ( props ) => {
 					title="Space Settings"
 					spaceSettings={[
 						{
-							label: 'Outside Spacing (Margin)',
+							label: 'Margin (Outside Spacing)',
 							properties: [
 								{
 									label: 'Top',
@@ -188,11 +188,21 @@ const Edit = ( props ) => {
 									label: 'Bottom',
 									prefix: 'wsu-spacing-after--',									
 									default: spacingDefaults['spaceAfter'],
+								},
+                                {
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
+									default: 'default',
 								}
 							]
 						},
 						{
-							label: 'Inside Spacing (Padding)',
+							label: 'Padding (Inside Spacing)',
 							properties: [
 								{
 									label: 'Top',
@@ -203,6 +213,16 @@ const Edit = ( props ) => {
 									label: 'Bottom',
 									prefix: 'wsu-spacing-bottom--',
 									default: spacingDefaults['spaceBottom'],									
+								},
+                                {
+									label: 'Left',
+									prefix: 'wsu-spacing-padding-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-padding-right--',									
+									default: 'default',
 								}
 							]
 						}

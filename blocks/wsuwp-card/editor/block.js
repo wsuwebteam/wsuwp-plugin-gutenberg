@@ -68,6 +68,10 @@
                 type: 'boolean',
                 default: false,
             },
+            version: {
+                type: "string",
+                default: "1",
+            },
          },
          edit,
          save,

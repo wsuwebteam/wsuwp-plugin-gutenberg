@@ -3,6 +3,7 @@ const { __ } = wp.i18n;
 const {
 	InnerBlocks,
 	InspectorControls,
+    InspectorAdvancedControls,
 	useBlockProps
 } = wp.blockEditor;
 
@@ -14,6 +15,7 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+    ImageFrameControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -36,7 +38,7 @@ const Edit = ( props ) => {
 	} = props;
 
 	const blockProps = useBlockProps( {
-        className: 'wsu-callout',
+        className: 'wsu-image',
         style: {},
     } );
 
@@ -63,19 +65,9 @@ const Edit = ( props ) => {
 		<>
 		<InspectorControls>
             <PanelDisplayOptions isOpen={true} >
-                <ToggleControl
-                    label="Full Width Background"
-                    checked={ hasBlockClassName( attributes, 'wsu-width--full') }
-                    onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-width--full', fullWidth ) } }
-                    />
+                
             </PanelDisplayOptions>
 			<PanelColorOptions>
-				<ColorClassControl
-					{ ...props }
-					colors={backgroundColors}
-					label='Background Color'
-					value='#f2f2f2'
-					/>
 				<ColorClassControl
 					{ ...props }
 					colors={borderColors}
@@ -88,19 +80,19 @@ const Edit = ( props ) => {
 					title="Space Settings"
 					spaceSettings={[
 						{
-							label: 'Outside Spacing (Margin)',
+							label: 'Margin (Outside Spacing)',
 							properties: [
 								{
 									label: 'Top',
-									prefix: 'wsu-spacing-before--',                                        
-									default: 'none',
+									prefix: 'wsu-spacing-before--',									
+									default: 'default',
 								},
 								{
 									label: 'Bottom',
-									prefix: 'wsu-spacing-after--',
-									default: 'xmedium',                                        
+									prefix: 'wsu-spacing-after--',									
+									default: 'default',
 								},
-								{
+                                {
 									label: 'Left',
 									prefix: 'wsu-spacing-margin-left--',									
 									default: 'default',
@@ -125,7 +117,7 @@ const Edit = ( props ) => {
 									prefix: 'wsu-spacing-bottom--',
 									default: 'default',									
 								},
-								{
+                                {
 									label: 'Left',
 									prefix: 'wsu-spacing-padding-left--',									
 									default: 'default',
@@ -140,11 +132,9 @@ const Edit = ( props ) => {
 					]}
 					{...props}>					
 				</SpacingClassNameSelector>
-		</InspectorControls>
+		</InspectorControls> 
 		<div { ...blockProps }  >
-			<InnerBlocks
-				templateLock={ false }
-			/>
+            <ImageFrameControl { ...props } />
 		</div>
 		</>
     )
