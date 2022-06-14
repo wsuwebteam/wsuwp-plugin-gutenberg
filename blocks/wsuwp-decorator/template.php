@@ -1,0 +1,1 @@
+<div class="<?php echo esc_attr( $attrs['className'] ); ?>" style="<?php echo esc_attr( $styles ); ?>"></div>
