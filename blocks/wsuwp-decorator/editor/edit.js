@@ -66,11 +66,15 @@ const Edit = ( props ) => {
 	const decoratorStyles = [
 		{ label: 'Triangle: Crimson Right', value: 'triangle-crimson-right' },
 		{ label: 'Triangle: Crimson Left', value: 'triangle-crimson-left' },
+		{ label: 'Triangle: Crimson WSU Steep Right', value: 'triangle-crimson-wsu-steep-right' },
+		{ label: 'Triangle: Crimson WSU Steep Left', value: 'triangle-crimson-wsu-steep-left' },
 		{ label: 'Triangle: Gray Right', value: 'triangle-gray-right' },
 		{ label: 'Triangle: Gray Left', value: 'triangle-gray-left' },
 		{ label: 'Block: Gray', value: 'block-gray' },
+		{ label: 'Block: Gray WSU', value: 'block-gray-wsu' },
 		{ label: 'Block: Gray Dark', value: 'block-gray-dark' },
 		{ label: 'Block: Crimson', value: 'block-crimson' },
+		{ label: 'Block: Crimson WSU', value: 'block-crimson-wsu' },
 		{ label: 'Block: Crimson Light', value: 'block-crimson-light' },
 		{ label: 'None', value: '' },
 	];
