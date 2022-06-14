@@ -8,6 +8,7 @@ class Block_WSUWP_Outline_Header extends Block {
 		'before'      => '',
 		'outline'   => '',
 		'after'     => '',
+		'tag'     => 'h2',
 	);
 
 	protected static $chars = array(
