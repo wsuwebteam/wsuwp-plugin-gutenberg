@@ -24,6 +24,7 @@ class Blocks {
 		'wsuwp/card-group'  => 'Block_WSUWP_Card_Group',
 		'wsuwp/menu'        => 'Block_WSUWP_Menu',
 		'wsuwp/stat'        => 'Block_WSUWP_Stat',
+		'wsuwp/sticky-nav'  => 'Block_WSUWP_Sticky_Nav',
 		'wsuwp/outline-header' => 'Block_WSUWP_Outline_Header',
 	);
 
@@ -41,6 +42,7 @@ class Blocks {
 		'wsuwp/news-list',
 		'wsuwp/accordion',
 		'wsuwp/section',
+		'wsuwp/sticky-nav',
 		'wsuwp/people-list',
 		'wsuwp/button',
 		'wsuwp/card',
