@@ -263,10 +263,10 @@ const edit = (props) => {
     return value;
   }
 
-  const blockProps = useBlockProps( {
-      className: 'wsu-cta',
-      style: {},
-  } );
+  const blockProps = useBlockProps({
+    className: "wsu-cta",
+    style: {},
+  });
 
   return (
     <>
@@ -341,15 +341,13 @@ const edit = (props) => {
               )}
             </BaseControl>
           </PanelRow>
-
-          
         </PanelBody>
 
         <PanelStyleOptions
           {...props}
           styles={buttonStyles}
           prefix="wsu-button--style-"
-          setKey = 'buttonClassName'
+          setKey="buttonClassName"
         ></PanelStyleOptions>
 
         <PanelBody title="Display Options" initialOpen={false}>
@@ -366,15 +364,14 @@ const edit = (props) => {
                     "wsu-button--size-",
                     val,
                     setAttributes,
-                    'buttonClassName'
+                    "buttonClassName"
                   )
                 }
-                checked={
-                  getBlockClassNameValue(
-                    attributes.buttonClassName,
-                    "wsu-button--size-"
-                  )
-                }
+                checked={getBlockClassNameValue(
+                  attributes.buttonClassName,
+                  "wsu-button--size-"
+                )}
+                defaultChecked=""
               >
                 <Radio value="small">Small</Radio>
                 <Radio value="">Default</Radio>
@@ -394,15 +391,11 @@ const edit = (props) => {
                     attributes,
                     setAttributes,
                     "wsu-cta--width-",
-                    val,
+                    val
                   )
                 }
-                checked={
-                  getBlockClassNameValue(
-                    attributes,
-                    "wsu-cta--width-"
-                  )
-                }
+                checked={getBlockClassNameValue(attributes, "wsu-cta--width-")}
+                defaultChecked=""
               >
                 <Radio value="inline">Inline</Radio>
                 <Radio value="">Default</Radio>
@@ -435,31 +428,38 @@ const edit = (props) => {
             label="Button CSS Class(es)"
             help="Classes will be applied to the block's wrapper. Separate multiple classes with spaces."
             value={attributes.buttonClassName}
-            onChange={( buttonClassName ) => setAttributes( { buttonClassName } ) }
+            onChange={(buttonClassName) => setAttributes({ buttonClassName })}
           />
         </PanelRow>
         <ToggleControl
-            label={'Align Bottom'}
-            checked={ hasBlockClassName( attributes, 'wsu-align-item--flex-bottom' )}
-            onChange={( value ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-align-item--flex-bottom', value ) }
-            help='Parent container must have "Enable Align Bottom" activated (Advanced/Enable Align Bottom)'
-          />
+          label={"Align Bottom"}
+          checked={hasBlockClassName(attributes, "wsu-align-item--flex-bottom")}
+          onChange={(value) =>
+            setBlockClassNameBool(
+              attributes,
+              setAttributes,
+              "wsu-align-item--flex-bottom",
+              value
+            )
+          }
+          help='Parent container must have "Enable Align Bottom" activated (Advanced/Enable Align Bottom)'
+        />
       </InspectorAdvancedControls>
       <BlockControls>
-          <AlignmentToolbar
-            value={ getBlockClassNameValue(
-              attributes,
-              "wsu-text-align--"
-            )}
-            onChange={(val) => setBlockClassName(
+        <AlignmentToolbar
+          value={getBlockClassNameValue(attributes, "wsu-text-align--")}
+          onChange={(val) =>
+            setBlockClassName(
               attributes,
               setAttributes,
               "wsu-text-align--",
-              val,
-            )} />
+              val
+            )
+          }
+        />
       </BlockControls>
-      <div { ...blockProps }>
-        <a className={'wsu-button ' + attributes.buttonClassName }>
+      <div {...blockProps}>
+        <a className={"wsu-button " + attributes.buttonClassName}>
           {attributes.iconBefore && (
             <i className={`wsu-icon wsu-i-${attributes.iconBefore}`}></i>
           )}

@@ -38,11 +38,14 @@ import {
 const { MediaPlaceholder, MediaUpload } = wp.editor;
 
 
+
+
 const Edit = ( props ) => {
 
 	let {
 		attributes, 
-		setAttributes 
+		setAttributes,
+		clientId
 	} = props;
 
 	const blockProps = useBlockProps( {
@@ -70,96 +73,260 @@ const Edit = ( props ) => {
 
     let displayFields = attributes.displayFields;
 
+	if ( '2' === attributes.version ) {
 
-    return (
-		<>
-		<InspectorControls>
-            <PanelDisplayOptions isOpen={true} >
-                <TextControl
-						label="Link URL"
-						value={ attributes.link }
-						onChange= { ( link ) => setAttributes( { link } ) }
+		return (
+			<>
+				<InspectorControls>
+					<PanelColorOptions>
+						<ColorClassControl
+							{ ...props }
+							colors={backgroundColors}
+							label='Background Color'
+							value='#f2f2f2'
+							/>
+						<ColorClassControl
+							{ ...props }
+							colors={borderColors}
+							label='Border Color'
+							value='#e6e6e6'
+							prefix='wsu-border-top--color-'
+							/>
+					</PanelColorOptions>
+					<SpacingClassNameSelector                        
+						spaceSettings={[
+							{
+								label: 'Margin (Outside Spacing)',
+								properties: [
+									{
+										label: 'Top',
+										prefix: 'wsu-spacing-before--',                                        
+										default: 'none',
+									},
+									{
+										label: 'Bottom',
+										prefix: 'wsu-spacing-after--',
+										default: 'xmedium',                                        
+									},
+									{
+										label: 'Left',
+										prefix: 'wsu-spacing-margin-left--',									
+										default: 'default',
+									},
+									{
+										label: 'Right',
+										prefix: 'wsu-spacing-margin-right--',									
+										default: 'default',
+									}
+								]
+							},
+							{
+								label: 'Padding (Inside Spacing)',
+								properties: [
+									{
+										label: 'Top',
+										prefix: 'wsu-spacing-top--',
+										default: 'default',
+									},
+									{
+										label: 'Bottom',
+										prefix: 'wsu-spacing-bottom--',
+										default: 'default',									
+									},
+									{
+										label: 'Left',
+										prefix: 'wsu-spacing-padding-left--',									
+										default: 'default',
+									},
+									{
+										label: 'Right',
+										prefix: 'wsu-spacing-padding-right--',									
+										default: 'default',
+									}
+								]
+							}
+						]}
+						{...props}>					
+					</SpacingClassNameSelector>
+				</InspectorControls>
+				<InspectorAdvancedControls>
+					<ToggleControl
+						label={ 'Use Version 2' }
+						checked={ ( '2' === attributes.version ) }
+						onChange={ ( checked) => { 
+							let cardVersion = ( checked ) ? '2' : '1';
+							setAttributes( {  version: cardVersion } ) } 
+						}
+						help={ 'Use Version 2 of the Card.'}
 					/>
-                <SelectControl
-						label="Image Ratio (width x height)"
-						value={ attributes.imageRatio }
-						options={ [
-							{ label: '2-5', value: '2-5' },
-							{ label: '16-9', value: '16-9' },
-							{ label: '6-4', value: '6-4' },
-							{ label: '4-3', value: '4-3' },
-							{ label: '1-1', value: '1-1' },
-							{ label: '3-4', value: '3-4' },
-						] }
-						onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
+				</InspectorAdvancedControls>
+				<div { ...blockProps }  >
+					<InnerBlocks
+					template={[ [ 'wsuwp/image',{} ],[ 'core/heading',{className:'wsu-title'} ],[ 'core/paragraph',{} ] ] }
+							templateLock={ false }
+						/>
+				</div>
+			</>
+		)
+
+	} else {
+
+		return (
+			<>
+			<InspectorControls>
+				<PanelDisplayOptions isOpen={true} >
+					<TextControl
+							label="Link URL"
+							value={ attributes.link }
+							onChange= { ( link ) => setAttributes( { link } ) }
+						/>
+					<SelectControl
+							label="Image Ratio (width x height)"
+							value={ attributes.imageRatio }
+							options={ [
+								{ label: '2-5', value: '2-5' },
+								{ label: '16-9', value: '16-9' },
+								{ label: '6-4', value: '6-4' },
+								{ label: '4-3', value: '4-3' },
+								{ label: '1-1', value: '1-1' },
+								{ label: '3-4', value: '3-4' },
+							] } 
+							onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
+						/>
+						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
+						
+				</PanelDisplayOptions>
+				<PanelBody title="Card Settings" initialOpen={false} >
+					<ToggleControl
+						label="Show Image"
+						checked={attributes.showImage}
+						onChange={ ( showImage ) => setAttributes( { showImage } ) }
+						/>
+					<ToggleControl
+						label="Show Title"
+						checked={attributes.showHeading}
+						onChange={ ( showHeading ) => setAttributes( { showHeading } ) }
+						/>
+					<ToggleControl
+						label="Show Caption"
+						checked={attributes.showCaption}
+						onChange={ ( showCaption ) => setAttributes( { showCaption } ) }
+						/>
+					<ToggleControl
+						label="Custom Content"
+						checked={attributes.showContent}
+						onChange={ ( showContent ) => setAttributes( { showContent } ) }
+						/>
+				</PanelBody>
+				<PanelColorOptions>
+					<ColorClassControl
+						{ ...props }
+						colors={backgroundColors}
+						label='Background Color'
+						value='#f2f2f2'
+						/>
+					<ColorClassControl
+						{ ...props }
+						colors={borderColors}
+						label='Border Color'
+						value='#e6e6e6'
+						prefix='wsu-border-top--color-'
+						/>
+				</PanelColorOptions>
+				<SpacingClassNameSelector                        
+					spaceSettings={[
+						{
+							label: 'Margin (Outside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',                                        
+									default: 'none',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',
+									default: 'xmedium',                                        
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
+									default: 'default',
+								}
+							]
+						},
+						{
+							label: 'Padding (Inside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: 'default',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: 'default',									
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-padding-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-padding-right--',									
+									default: 'default',
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
+			</InspectorControls>
+			<InspectorAdvancedControls>
+					<ToggleControl
+						label={ 'Use Version 2' }
+						checked={ ( '2' === attributes.version ) }
+						onChange={ ( checked) => { 
+							let cardVersion = ( checked ) ? '2' : '1';
+							setAttributes( {  version: cardVersion } ) } 
+						}
+						help={ 'Use Version 2 of the Card.'}
 					/>
-                    <HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
-                    
-            </PanelDisplayOptions>
-            <PanelBody title="Card Settings" initialOpen={false} >
-				<ToggleControl
-					label="Show Image"
-					checked={attributes.showImage}
-					onChange={ ( showImage ) => setAttributes( { showImage } ) }
-					/>
-				<ToggleControl
-					label="Show Title"
-					checked={attributes.showHeading}
-					onChange={ ( showHeading ) => setAttributes( { showHeading } ) }
-					/>
-				<ToggleControl
-					label="Show Caption"
-					checked={attributes.showCaption}
-					onChange={ ( showCaption ) => setAttributes( { showCaption } ) }
-					/>
-				<ToggleControl
-					label="Custom Content"
-					checked={attributes.showContent}
-					onChange={ ( showContent ) => setAttributes( { showContent } ) }
-					/>
-            </PanelBody>
-			<PanelColorOptions>
-                <ColorClassControl
-					{ ...props }
-					colors={backgroundColors}
-					label='Background Color'
-					value='#f2f2f2'
-					/>
-				<ColorClassControl
-					{ ...props }
-					colors={borderColors}
-					label='Border Color'
-					value='#e6e6e6'
-					prefix='wsu-border-top--color-'
-					/>
-			</PanelColorOptions>
-		</InspectorControls>
-		<div { ...blockProps }  >
-            { attributes.showImage && <ImageFrameControl { ...props } /> }
-            <div className="wsu-card__content">
-                { attributes.showHeading && <RichText
-                    tagName="h2" // The tag here is the element output and editable in the admin
-                    value={ attributes.title } // Any existing content, either from the database or an attribute default
-                    className="wsu-title"
-                    allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
-                    onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
-                    placeholder={ 'Add a Card Heading...' } // Display this text before any content has been added by the user
-                /> }
-                { attributes.showCaption && <RichText
-                    tagName="div" // The tag here is the element output and editable in the admin
-                    value={ attributes.caption } // Any existing content, either from the database or an attribute default
-                    className="wsu-caption"
-                    //allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
-                    onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
-                    placeholder={ 'Add a card caption...' } // Display this text before any content has been added by the user
-                /> }
-                { attributes.showContent && <InnerBlocks
-				    templateLock={ false }
-			    /> }
-            </div>
-		</div>
-		</>
-    )
+				</InspectorAdvancedControls>
+			<div { ...blockProps }  >
+				{ attributes.showImage && <ImageFrameControl { ...props } /> }
+				<div className="wsu-card__content">
+					{ attributes.showHeading && <RichText
+						tagName="h2" // The tag here is the element output and editable in the admin
+						value={ attributes.title } // Any existing content, either from the database or an attribute default
+						className="wsu-title"
+						allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
+						onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
+						placeholder={ 'Add a Card Heading...' } // Display this text before any content has been added by the user
+					/> }
+					{ attributes.showCaption && <RichText
+						tagName="div" // The tag here is the element output and editable in the admin
+						value={ attributes.caption } // Any existing content, either from the database or an attribute default
+						className="wsu-caption"
+						//allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
+						onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
+						placeholder={ 'Add a card caption...' } // Display this text before any content has been added by the user
+					/> }
+					{ attributes.showContent && <InnerBlocks
+						templateLock={ false }
+					/> }
+				</div>
+			</div>
+			</> 
+		)
+	}
 
 }
 

@@ -1,54 +1,56 @@
-@import '../../../../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/variables';
+@import "../../../../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/variables";
 
 .wsu-block-style {
+  padding-top: $wsu-spacing--xxsmall;
 
-    padding-top: $wsu-spacing--xxsmall;
+  label {
+    display: block;
+  }
 
-    label {
-        display: block;
-    }
+  .components-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    .components-button-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+    button {
+      width: calc(50% - 4px);
+      box-sizing: border-box;
+      margin: 0 0 8px;
+      padding: 0;
+      display: flex;
+      flex-flow: column;
+      align-items: normal;
+      height: auto;
+      box-shadow: none;
+      border: 1px solid $wsu-color--gray-20;
 
-        button {
-            width: calc( 50% - 4px );
-            box-sizing: border-box;
-            margin: 0 0 8px;
-            padding: 0;
-            display: block;
-            height: auto;
-            box-shadow: none;
-            border: 1px solid $wsu-color--gray-20;
+      &.is-pressed {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 1px #fff, 0 0 0 2px #007cba;
 
-            &.is-pressed {
-                background-color: transparent;
-                box-shadow: inset 0 0 0 1px #fff, 0 0 0 2px #007cba;
-
-                &:hover {
-                    background-color: transparent;
-                }
-            }
-
-            svg {
-                display: block;
-            }
-            
-            span {
-                display: block;
-                background-color: $wsu-color--gray-5;
-                color: $wsu-color--gray-75;
-                font-size: $wsu-font-size--xxsmall;
-                font-weight: 500;
-                padding: 0.3rem;
-            }
+        &:hover {
+          background-color: transparent;
         }
+      }
+
+      svg {
+        display: block;
+        flex-grow: 1;
+      }
+
+      span {
+        display: block;
+        background-color: $wsu-color--gray-5;
+        color: $wsu-color--gray-75;
+        font-size: $wsu-font-size--xxsmall;
+        font-weight: 500;
+        padding: 0.3rem;
+      }
     }
+  }
 }
 
 .components-button.is-pressed {
-    color: #fff;
-    background: #1e1e1e;
+  color: #fff;
+  background: #1e1e1e;
 }

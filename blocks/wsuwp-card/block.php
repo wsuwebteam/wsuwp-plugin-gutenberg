@@ -23,6 +23,7 @@ class Block_WSUWP_Card extends Block {
 		'showHeading'  => true,
 		'showCaption'  => true,
 		'showContent' => false,
+		'version'     => '1',
 	);
 
 
@@ -36,7 +37,7 @@ class Block_WSUWP_Card extends Block {
 			'showImage'   => $attrs['showImage'],
 			'showCaption' => $attrs['showCaption'],
 			'showHeading' => $attrs['showHeading'],
-			'showContent' => $attrs['showContent'],
+			'showContent' => ( '2' === $attrs['version'] ) ? true : $attrs['showContent'],
 			'headingTag'  => $attrs['headingTag'],
 		);
 
@@ -55,7 +56,15 @@ class Block_WSUWP_Card extends Block {
 
 		ob_start();
 
-		include Plugin::get( 'dir' ) . '/block-templates/card.php';
+		if ( '2' === $attrs['version'] ) {
+
+			include __DIR__ . '/templates/card-v2.php';
+
+		} else {
+
+			include Plugin::get( 'dir' ) . '/block-templates/card.php';
+
+		}
 
 		return ob_get_clean();
 
