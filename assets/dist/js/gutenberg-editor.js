@@ -3700,7 +3700,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function insertSpacingControl(OriginalComponent) {
   return function (props) {
-    const unsupportedBlockTypes = ['wsuwp/card', 'wsuwp/image', 'wsuwp/row', 'wsuwp/column', 'core/button', 'core/paragraph', 'wsuwp/section', 'wsuwp/card-group'];
+    const unsupportedBlockTypes = ['wsuwp/card', 'wsuwp/image', 'wsuwp/row', 'wsuwp/column', 'core/button', 'core/paragraph', 'wsuwp/section', 'wsuwp/card-group', 'wsuwp/callout'];
 
     if (!unsupportedBlockTypes.includes(props.name)) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -5311,7 +5311,48 @@ const Edit = props => {
     label: "Border Color",
     value: "#e6e6e6",
     prefix: "wsu-callout--color-"
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, attributes.title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    title: "Space Settings",
+    spaceSettings: [{
+      label: 'Outside Spacing (Margin)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-before--',
+        default: 'none'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-after--',
+        default: 'xmedium'
+      }, {
+        label: 'Left',
+        prefix: 'wsu-spacing-margin-left--',
+        default: 'default'
+      }, {
+        label: 'Right',
+        prefix: 'wsu-spacing-margin-right--',
+        default: 'default'
+      }]
+    }, {
+      label: 'Padding (Inside Spacing)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-top--',
+        default: 'default'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-bottom--',
+        default: 'default'
+      }, {
+        label: 'Left',
+        prefix: 'wsu-spacing-padding-left--',
+        default: 'default'
+      }, {
+        label: 'Right',
+        prefix: 'wsu-spacing-padding-right--',
+        default: 'default'
+      }]
+    }]
+  }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, attributes.title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
     class: "wsu-callout__title"
   }, attributes.title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
     templateLock: false
@@ -6664,6 +6705,12 @@ const Edit = props => {
     label: 'Triangle: Crimson Left',
     value: 'triangle-crimson-left'
   }, {
+    label: 'Triangle: Crimson WSU Steep Right',
+    value: 'triangle-crimson-wsu-steep-right'
+  }, {
+    label: 'Triangle: Crimson WSU Steep Left',
+    value: 'triangle-crimson-wsu-steep-left'
+  }, {
     label: 'Triangle: Gray Right',
     value: 'triangle-gray-right'
   }, {
@@ -6673,11 +6720,17 @@ const Edit = props => {
     label: 'Block: Gray',
     value: 'block-gray'
   }, {
+    label: 'Block: Gray WSU',
+    value: 'block-gray-wsu'
+  }, {
     label: 'Block: Gray Dark',
     value: 'block-gray-dark'
   }, {
     label: 'Block: Crimson',
     value: 'block-crimson'
+  }, {
+    label: 'Block: Crimson WSU',
+    value: 'block-crimson-wsu'
   }, {
     label: 'Block: Crimson Light',
     value: 'block-crimson-light'

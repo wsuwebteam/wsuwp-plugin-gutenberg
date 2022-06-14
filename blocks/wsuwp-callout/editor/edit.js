@@ -14,6 +14,7 @@ const {
 import { 
     HeadingTagControl,
 	ColorClassControl,
+	SpacingClassNameSelector,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -83,6 +84,62 @@ const Edit = ( props ) => {
 					prefix='wsu-callout--color-'
 					/>
 			</PanelColorOptions>
+			<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Outside Spacing (Margin)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',                                        
+									default: 'none',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',
+									default: 'xmedium',                                        
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
+									default: 'default',
+								}
+							]
+						},
+						{
+							label: 'Padding (Inside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: 'default',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: 'default',									
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-padding-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-padding-right--',									
+									default: 'default',
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
 		</InspectorControls>
 		<div { ...blockProps }  >
 			{ attributes.title && <h2 class="wsu-callout__title">{attributes.title}</h2> }
