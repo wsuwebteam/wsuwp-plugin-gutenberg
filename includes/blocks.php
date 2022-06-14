@@ -7,6 +7,7 @@ class Blocks {
 		'wsuwp/news-list'   => 'Block_WSUWP_News_List',
 		'wsuwp/row'         => 'Block_WSUWP_Row',
 		'wsuwp/column'      => 'Block_WSUWP_Column',
+		'wsuwp/decorator'   => 'Block_WSUWP_Decorator',
 		'wsuwp/news'        => 'Block_WSUWP_News',
 		'wsuwp/callout'     => 'Block_WSUWP_Callout',
 		'wsuwp/note'        => 'Block_WSUWP_Note',
@@ -23,12 +24,14 @@ class Blocks {
 		'wsuwp/card-group'  => 'Block_WSUWP_Card_Group',
 		'wsuwp/menu'        => 'Block_WSUWP_Menu',
 		'wsuwp/stat'        => 'Block_WSUWP_Stat',
+		'wsuwp/outline-header' => 'Block_WSUWP_Outline_Header',
 	);
 
 	protected static $allowed_blocks = array(
 		'wsuwp/row',
 		'wsuwp/news',
 		'wsuwp/callout',
+		'wsuwp/decorator',
 		'wsuwp/note',
 		'wsuwp/hero',
 		'wsuwp/hero-slider',
@@ -44,6 +47,7 @@ class Blocks {
 		'wsuwp/card-group',
 		'wsuwp/az-index',
 		'wsuwp/programs-list',
+		'wsuwp/outline-header',
 		'wsuwp/stat',
 		'wsuwp/menu',
 		'bcn/breadcrumb-trail',
