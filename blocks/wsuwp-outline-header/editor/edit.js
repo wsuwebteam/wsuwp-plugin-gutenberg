@@ -114,6 +114,11 @@ const Edit = ( props ) => {
 					value={ attributes.after }
 					onChange= { ( after ) => setAttributes( { after } ) }
 				/>
+				<TextControl
+					label="Tag"
+					value={ attributes.tag }
+					onChange= { ( tag ) => setAttributes( { tag } ) }
+				/>
             </PanelDisplayOptions>
 		</InspectorControls>
 		<h2 { ...blockProps }  >{ attributes.before } { attributes.outline } { attributes.after }</h2>

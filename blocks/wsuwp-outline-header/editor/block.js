@@ -31,6 +31,10 @@
                 type: "string",
                 default: "",
             },
+            tag: {
+                type: "h2",
+                default: "",
+            },
          },
          edit
      }

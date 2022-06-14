@@ -9305,6 +9305,10 @@ registerBlockType("wsuwp/outline-header", {
     after: {
       type: "string",
       default: ""
+    },
+    tag: {
+      type: "h2",
+      default: ""
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -9450,6 +9454,12 @@ const Edit = props => {
     value: attributes.after,
     onChange: after => setAttributes({
       after
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Tag",
+    value: attributes.tag,
+    onChange: tag => setAttributes({
+      tag
     })
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", blockProps, attributes.before, " ", attributes.outline, " ", attributes.after));
 };
