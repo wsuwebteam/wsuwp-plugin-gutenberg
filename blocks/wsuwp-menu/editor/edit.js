@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import { InnerBlocks, InspectorControls, useBlockProps, InspectorAdvancedControls, } from "@wordpress/block-editor";
 import {
   TextControl,
   SelectControl,
   BaseControl,
+  ToggleControl,
   PanelBody,
 } from "@wordpress/components";
 
@@ -25,6 +26,8 @@ const edit = (props) => {
           return { label: menu.name, value: menu.slug };
         });
 
+        options.push( { label: 'None', value: '' } )
+
         setMenus(options);
       }
     });
@@ -35,17 +38,46 @@ const edit = (props) => {
       <InspectorControls>
         <PanelBody title="General" initialOpen={true}>
           <SelectControl
+            label="Menu Wrapper Tag"
+            value={attributes.tag}
+            options={
+              [
+                { label: 'nav', value: 'nav' },
+                { label: 'div', value: 'div' },
+                { label: 'None', value: '' },
+              ]
+            }
+            onChange={(tag) => setAttributes({ tag })}
+          />
+          <SelectControl
             label="Menu to Display"
             value={attributes.slug}
             options={menus}
             onChange={(slug) => setAttributes({ slug: slug })}
           />
+          <ToggleControl
+						label={ 'Enable Custom Blocks' }
+						checked={ ( attributes.custom ) }
+						onChange={ ( custom ) => setAttributes( {  custom } )  }
+						help={ 'Add custom blocks to menu'}
+					/>
         </PanelBody>
       </InspectorControls>
-
+      <InspectorAdvancedControls>
+        <TextControl
+							label="Menu CSS class(es)"
+							value={ attributes.menuClassname }
+							onChange= { ( menuClassname ) => setAttributes( { menuClassname } ) }
+						/>
+			</InspectorAdvancedControls>
       <div {...blockProps}>
         <span className="dashicon dashicons dashicons-menu wsu-gutenberg-menu-block__icon"></span>{" "}
         Menu: {attributes.slug}
+        <div>
+        { attributes.custom && <InnerBlocks
+						templateLock={ false }
+					/> }
+        </div>
       </div>
     </>
   );

@@ -11,8 +11,11 @@ class Block_WSUWP_Menu extends Block {
 
 	protected static $block_name    = 'wsuwp/menu';
 	protected static $default_attrs = array(
-		'className' => '',
-		'slug'      => '',
+		'className'     => 'wsu-navigation',
+		'slug'          => '',
+		'menuClassname' => '',
+		'tag'           => 'nav',
+		'custom'        => false,
 	);
 
 	/**

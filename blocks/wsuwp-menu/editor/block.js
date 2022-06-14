@@ -1,6 +1,7 @@
 const { registerBlockType } = wp.blocks;
 
 import Edit from "./edit";
+import save from "./save";
 
 registerBlockType("wsuwp/menu", {
   title: "Menu",
@@ -12,9 +13,19 @@ registerBlockType("wsuwp/menu", {
       type: "string",
       default: "",
     },
+    tag: {
+      type: "tag",
+      default: "nav",
+    },
+    menuClassname: {
+      type: "string",
+      default: "",
+    },
+    custom: {
+      type: 'boolean',
+      default: false,
+  },
   },
   edit: Edit,
-  save: function () {
-    return null;
-  },
+  save,
 });
