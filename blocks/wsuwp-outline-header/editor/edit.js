@@ -100,7 +100,7 @@ const Edit = ( props ) => {
             <PanelDisplayOptions isOpen={true} >
 			
 				<TextControl
-					label="Fefore Outline"
+					label="Before Outline"
 					value={ attributes.before }
 					onChange= { ( before ) => setAttributes( { before } ) }
 				/>
