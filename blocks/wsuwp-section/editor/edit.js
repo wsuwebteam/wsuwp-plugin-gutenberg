@@ -93,7 +93,7 @@ const Edit = ( props ) => {
 								{
 									label: 'Top',
 									prefix: 'wsu-spacing-before--',                                        
-									default: 'none',
+									default: 'default',
 								},
 								{
 									label: 'Bottom',
