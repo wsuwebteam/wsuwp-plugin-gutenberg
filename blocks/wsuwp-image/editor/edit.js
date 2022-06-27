@@ -21,6 +21,7 @@ import {
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
+	PanelStyleOptions,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
@@ -28,6 +29,8 @@ import {
     addBlockClassName,
     setBlockClassNameBool,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
+
+
 
 
 const Edit = ( props ) => {
@@ -60,6 +63,24 @@ const Edit = ( props ) => {
 		{ name: 'midnight', color: '#002D61' },
     ];
 
+	const imageStyles = [
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 109.71 52.59"><rect width="109.71" height="52.59" style={{ fill: '#6d6e71'}} /></svg>,
+			label: 'Default',
+			value: '',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" style={{ fill: '#6d6e71' }} /><rect x="9.37" y="7.94" width="105.27" height="44.12" style={{ fill:'#6d6e71',stroke:'#fff',strokeMiterlimit:10,strokeWidth:'2px' }} /></svg>,
+			label: 'Framed',
+			value: 'framed',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><circle cx="62" cy="30" r="26.71" fill="#6d6e71"/></svg>,
+			label: 'Round',
+			value: 'round',
+		},
+	]
+
 
     return (
 		<>
@@ -67,6 +88,11 @@ const Edit = ( props ) => {
             <PanelDisplayOptions isOpen={true} >
                 
             </PanelDisplayOptions>
+			<PanelStyleOptions 
+				{...props} 
+				styles={imageStyles}
+				prefix="wsu-image--style-"  
+				></PanelStyleOptions>
 			<PanelColorOptions>
 				<ColorClassControl
 					{ ...props }

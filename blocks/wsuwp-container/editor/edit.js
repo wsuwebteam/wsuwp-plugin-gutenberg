@@ -3,12 +3,14 @@ const { __ } = wp.i18n;
 const {
 	InnerBlocks,
 	InspectorControls,
-	useBlockProps
+	useBlockProps,
+    InspectorAdvancedControls,
 } = wp.blockEditor;
 
 const {
 	TextControl,
 	ToggleControl,
+    SelectControl,
 } = wp.components;
 
 import { 
@@ -23,7 +25,6 @@ import {
 
 import {
     hasBlockClassName,
-    addBlockClassName,
     setBlockClassNameBool,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
@@ -36,7 +37,7 @@ const Edit = ( props ) => {
 	} = props;
 
 	const blockProps = useBlockProps( {
-        className: 'wsu-callout',
+        className: 'wsu-container',
         style: {},
     } );
 
@@ -47,7 +48,7 @@ const Edit = ( props ) => {
     ];
 
 	const borderColors = [
-		{ name: 'default', color: '#e6e6e6' },
+		{ name: 'default', color: '#ffffff' },
 		{ name: 'white', color: '#ffffff' },
 		{ name: 'crimson', color: '#A60F2D' },
 		{ name: 'crimson-light', color: '#CA1237' },
@@ -58,29 +59,39 @@ const Edit = ( props ) => {
 		{ name: 'midnight', color: '#002D61' },
     ];
 
+    const containerTags = [
+		{ label: 'div', value: 'div' },
+		{ label: 'section', value: 'section' },
+		{ label: 'nav', value: 'nav' },
+		{ label: 'span', value: 'span' },
+        { label: 'header', value: 'header' },
+        { label: 'footer', value: 'footer' },
+	];
+
 
     return (
 		<>
 		<InspectorControls>
             <PanelDisplayOptions isOpen={true} >
-                <ToggleControl
-                    label="Full Width Background"
-                    checked={ hasBlockClassName( attributes, 'wsu-width--full') }
-                    onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-width--full', fullWidth ) } }
-                    />
+                <SelectControl
+					label="HTML Tag"
+					value={ attributes.tag }
+					options={ containerTags } 
+					onChange={ ( tag ) => setAttributes( { tag } ) }
+				/>
             </PanelDisplayOptions>
 			<PanelColorOptions>
 				<ColorClassControl
 					{ ...props }
 					colors={backgroundColors}
 					label='Background Color'
-					value='#f2f2f2'
+					value='#ffffff'
 					/>
 				<ColorClassControl
 					{ ...props }
 					colors={borderColors}
 					label='Border Color'
-					value='#e6e6e6'
+					value='#ffffff'
 					prefix='wsu-callout--color-'
 					/>
 			</PanelColorOptions>
@@ -88,12 +99,12 @@ const Edit = ( props ) => {
 					title="Space Settings"
 					spaceSettings={[
 						{
-							label: 'Outside Spacing (Margin)',
+							label: 'Margin (Outside Spacing)',
 							properties: [
 								{
 									label: 'Top',
 									prefix: 'wsu-spacing-before--',                                        
-									default: 'default',
+									default: 'none',
 								},
 								{
 									label: 'Bottom',
@@ -141,6 +152,13 @@ const Edit = ( props ) => {
 					{...props}>					
 				</SpacingClassNameSelector>
 		</InspectorControls>
+        <InspectorAdvancedControls>
+            <ToggleControl
+                label="Full Width"
+                checked={ hasBlockClassName( attributes, 'wsu-width--full') }
+                onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-width--full', fullWidth ) } }
+                />
+        </InspectorAdvancedControls>
 		<div { ...blockProps }  >
 			<InnerBlocks
 				templateLock={ false }
