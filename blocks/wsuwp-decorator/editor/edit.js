@@ -20,6 +20,7 @@ import {
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
+	PanelStyleOptions,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
@@ -63,11 +64,13 @@ const Edit = ( props ) => {
 		{ name: 'midnight', color: '#002D61' },
     ];
 
-	const decoratorStyles = [
+	/*const decoratorStyles = [
 		{ label: 'Triangle: Crimson Right', value: 'triangle-crimson-right' },
 		{ label: 'Triangle: Crimson Left', value: 'triangle-crimson-left' },
 		{ label: 'Triangle: Crimson WSU Steep Right', value: 'triangle-crimson-wsu-steep-right' },
 		{ label: 'Triangle: Crimson WSU Steep Left', value: 'triangle-crimson-wsu-steep-left' },
+		{ label: 'Triangle: Crimson WSU Steep Top Right', value: 'triangle-crimson-wsu-steep-top-right' },
+		{ label: 'Triangle: Crimson WSU Steep Top Left', value: 'triangle-crimson-wsu-steep-top-left' },
 		{ label: 'Triangle: Gray Right', value: 'triangle-gray-right' },
 		{ label: 'Triangle: Gray Left', value: 'triangle-gray-left' },
 		{ label: 'Block: Gray', value: 'block-gray' },
@@ -77,8 +80,91 @@ const Edit = ( props ) => {
 		{ label: 'Block: Crimson WSU', value: 'block-crimson-wsu' },
 		{ label: 'Block: Crimson Light', value: 'block-crimson-light' },
 		{ label: 'None', value: '' },
-	];
+	];*/
 
+
+	const decoratorStyles = [
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="32 60 92 60 92 0 32 60" fill="#a61d2f"/></svg>,
+			label: 'Triangle',
+			value: 'triangle-crimson-right',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="32 0 32 60 92 60 32 0" fill="#a61d2f"/></svg>,
+			label: 'Triangle',
+			value: 'triangle-crimson-left',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="78.69 0 78.69 60 45.31 60 78.69 0" fill="#a61d2f"/></svg>,
+			label: 'Triangle (WSU)',
+			value: 'triangle-crimson-wsu-steep-right',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="45.31 0 45.31 60 78.69 60 45.31 0" fill="#a61d2f"/></svg>,
+			label: 'Triangle (WSU)',
+			value: 'triangle-crimson-wsu-steep-left',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="45.31 60 45.31 0 78.69 0 45.31 60" fill="#a61d2f"/></svg>,
+			label: 'Triangle (WSU)',
+			value: 'triangle-crimson-wsu-steep-top-left',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="78.69 60 78.69 0 45.31 0 78.69 60" fill="#a61d2f"/></svg>,
+			label: 'Triangle (WSU)',
+			value: 'triangle-crimson-wsu-steep-top-right',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="32 60 92 60 92 0 32 60" fill="#dad9d9"/></svg>,
+			label: 'Triangle',
+			value: 'triangle-gray-right',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><polygon points="32 0 32 60 92 60 32 0" fill="#dad9d9"/></svg>,
+			label: 'Triangle',
+			value: 'triangle-gray-left',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="#dad9d9"/></svg>,
+			label: 'Block',
+			value: 'block-gray',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="#dad9d9"/></svg>,
+			label: 'Block (WSU)',
+			value: 'block-gray-wsu',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="gray"/></svg>,
+			label: 'Block',
+			value: 'block-gray-dark',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="#a61d2f"/></svg>,
+			label: 'Block',
+			value: 'block-crimson',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="#a61d2f"/></svg>,
+			label: 'Block (WSU)',
+			value: 'block-crimson-wsu',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><rect x="25.92" width="72.17" height="60" fill="#ca2039"/></svg>,
+			label: 'Block',
+			value: 'block-crimson-light',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><line x1="14.39" y1="51.39" x2="57.16" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/><line x1="25.91" y1="51.39" x2="68.68" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/><line x1="36.81" y1="51.39" x2="79.58" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/><line x1="46.91" y1="51.39" x2="89.68" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/><line x1="58.43" y1="51.39" x2="101.2" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/><line x1="69.33" y1="51.39" x2="112.1" y2="8.61" fill="none" stroke="#a61d2f" stroke-miterlimit="10" stroke-width="3"/></svg>,
+			label: 'Lines Crimson',
+			value: 'lines-crimson',
+		},
+		{
+			icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="none"/><line x1="14.39" y1="51.39" x2="57.16" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/><line x1="25.91" y1="51.39" x2="68.68" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/><line x1="36.81" y1="51.39" x2="79.58" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/><line x1="46.91" y1="51.39" x2="89.68" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/><line x1="58.43" y1="51.39" x2="101.2" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/><line x1="69.33" y1="51.39" x2="112.1" y2="8.61" fill="none" stroke="#bfbfbf" stroke-miterlimit="10" stroke-width="3"/></svg>,
+			label: 'Lines Gray',
+			value: 'lines-gray',
+		},
+	]
 
 	const getDecoratorName = () => {
 
@@ -101,13 +187,12 @@ const Edit = ( props ) => {
     return (
 		<>
 		<InspectorControls>
+			<PanelStyleOptions 
+				{...props} 
+				styles={decoratorStyles}
+				prefix="wsu-decorator--style-"  
+				></PanelStyleOptions>
             <PanelDisplayOptions isOpen={true} >
-				<SelectControl
-					label="Decorator Style"
-					value={ getBlockClassNameValue( attributes,'wsu-decorator--style-', '' ) }
-					options={ decoratorStyles } 
-					onChange={ ( style ) => { setBlockClassName( attributes, setAttributes, 'wsu-decorator--style-', style ) } }
-				/>
 				<TextControl
 					label="Top"
 					value={ attributes.top }
