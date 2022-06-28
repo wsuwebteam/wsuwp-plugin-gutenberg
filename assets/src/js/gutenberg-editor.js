@@ -39,3 +39,4 @@ import "../js/partials/editor-config/block-flex-layout";
 import "../js/partials/editor-config/block-flex-align-bottom";
 import "../js/partials/editor-config/position-control";
 import "../js/partials/editor-config/zindex-control";
+import "../js/partials/editor-config/overflow-control";
