@@ -24,8 +24,8 @@ class Scripts {
 	public static function register_assets() {
 
 		wp_register_script( 'wsu_design_system_script_people_list', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/people-list/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
-		wp_register_script( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
-		wp_register_style( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/styles-wds.css', array(), WSUWPPLUGINGUTENBERGVERSION );
+		// wp_register_script( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/scripts.js', array(), WSUWPPLUGINGUTENBERGVERSION, true );
+		// wp_register_style( 'wsu_design_system_script_hero_slider', 'https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/standalone/hero-slider/styles-wds.css', array(), WSUWPPLUGINGUTENBERGVERSION );
 
 	}
 
@@ -52,14 +52,14 @@ class Scripts {
 
 	public static function enqueue_frontend_assets() {
 
-		if ( is_singular() ) {
-			$id = get_the_ID();
+		// if ( is_singular() ) {
+		// 	$id = get_the_ID();
 
-			if ( has_block( 'wsuwp/hero-slider', $id ) ) {
-				wp_enqueue_style( 'wsu_design_system_script_hero_slider' );
-				wp_enqueue_script( 'wsu_design_system_script_hero_slider' );
-			}
-		}
+		// 	if ( has_block( 'wsuwp/hero-slider', $id ) ) {
+		// 		wp_enqueue_style( 'wsu_design_system_script_hero_slider' );
+		// 		wp_enqueue_script( 'wsu_design_system_script_hero_slider' );
+		// 	}
+		// }
 
 	}
 
