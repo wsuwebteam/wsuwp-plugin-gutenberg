@@ -38,6 +38,4 @@ import "../js/partials/editor-config/block-categories";
 import "../js/partials/editor-config/block-class-name";
 import "../js/partials/editor-config/block-flex-layout";
 import "../js/partials/editor-config/block-flex-align-bottom";
-import "../js/partials/editor-config/position-control";
-import "../js/partials/editor-config/zindex-control";
-import "../js/partials/editor-config/overflow-control";
+import "../js/partials/editor-config/additional-advanced-controls/block-additional-advanced-control";

@@ -11,6 +11,7 @@ const {
 	TextControl,
 	ToggleControl,
     SelectControl,
+	RangeControl,
 } = wp.components;
 
 import { 
@@ -26,6 +27,8 @@ import {
 import {
     hasBlockClassName,
     setBlockClassNameBool,
+	getBlockClassNameValue,
+	setBlockClassName,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 
@@ -158,6 +161,47 @@ const Edit = ( props ) => {
                 checked={ hasBlockClassName( attributes, 'wsu-width--full') }
                 onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-width--full', fullWidth ) } }
                 />
+			<ToggleControl
+                label="Use Flexbox"
+                checked={ hasBlockClassName( attributes, 'wsu-flex--wrap') }
+                onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-flex--wrap', fullWidth ) } }
+                />
+			{ hasBlockClassName( attributes, 'wsu-flex--wrap' ) && <RangeControl
+                label="Flex items per row"
+                value={ parseInt( getBlockClassNameValue( attributes, 'wsu-flex--columns-' ) ) }
+                onChange={ ( columns ) => setBlockClassName( attributes, setAttributes, 'wsu-flex--columns-', columns ) }
+                min={1}
+                max={4}
+                />
+			}
+			{ hasBlockClassName( attributes, 'wsu-flex--wrap' ) && <SelectControl
+					label="Flex Breakpoint"
+					value={ getBlockClassNameValue( attributes, 'wsu-flex--breakpoint-' ) }
+					options={ [
+						{ label: 'None', value: '' },
+						{ label: 'Desktop', value: 'desktop' },
+						{ label: 'Tablet Large', value: 'tablet-large' },
+						{ label: 'Tablet Medium', value: 'tablet-medium' },
+						{ label: 'Table', value: 'tablet' },
+						{ label: 'Phone', value: 'phone' },
+						{ label: 'Phone Small', value: 'phone-small' },
+					] } 
+					onChange={ ( breakpoint ) => setBlockClassName( attributes, setAttributes, 'wsu-flex--breakpoint-', breakpoint ) }
+				/>
+			}
+				{ hasBlockClassName( attributes, 'wsu-flex--wrap' ) && <SelectControl
+					label="Flex Spacing"
+					value={ getBlockClassNameValue( attributes, 'wsu-flex--spacing-' ) }
+					options={ [
+						{ label: 'None', value: '' },
+						{ label: 'Medium', value: 'medium' },
+						{ label: 'xMedium', value: 'xmedium' },
+						{ label: 'Large', value: 'large' },
+						{ label: 'xLarge', value: 'xlarge' },
+					] } 
+					onChange={ ( spacing ) => setBlockClassName( attributes, setAttributes, 'wsu-flex--spacing-', spacing ) }
+				/>
+			}
         </InspectorAdvancedControls>
 		<div { ...blockProps }  >
 			<InnerBlocks
