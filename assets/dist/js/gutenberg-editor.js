@@ -1143,7 +1143,7 @@ const TitleTagControl = ({
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector, FontIconPickerControl, TaxonomyTypeSelectControl, PostTypeSelectControl, TaxonomyTermSelectControl, CountControl, OffsetControl, HostControl, ButtonControl, HeadingControl, HeadingTagControl, TitleTagControl, FontSizeControl, ResetControl, RequireImageControl, RequireFirstImageControl, ColorClassControl, RequiredAlertControl, TermSelectorControl, ImageFrameControl, DisplayFieldControl */
+/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector, FontIconPickerControl, TaxonomyTypeSelectControl, PostTypeSelectControl, TaxonomyTermSelectControl, CountControl, OffsetControl, HostControl, ButtonControl, HeadingControl, HeadingTagControl, TitleTagControl, FontSizeControl, ResetControl, RequireImageControl, RequireFirstImageControl, ColorClassControl, RequiredAlertControl, TermSelectorControl, ImageFrameControl, DisplayFieldControl, MultipleImagePicker */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1225,6 +1225,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _display_fields_control_DisplayFieldsControl__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./display-fields-control/DisplayFieldsControl */ "./assets/src/js/partials/block-controls/display-fields-control/DisplayFieldsControl.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DisplayFieldControl", function() { return _display_fields_control_DisplayFieldsControl__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+
+/* harmony import */ var _multiple_image_picker_MultipleImagePicker__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./multiple-image-picker/MultipleImagePicker */ "./assets/src/js/partials/block-controls/multiple-image-picker/MultipleImagePicker.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleImagePicker", function() { return _multiple_image_picker_MultipleImagePicker__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+
 
 
 
@@ -2165,6 +2169,138 @@ const ImageFrameControl = props => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ImageFrameControl);
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/multiple-image-picker/MultipleImagePicker.js":
+/*!********************************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/multiple-image-picker/MultipleImagePicker.js ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+
+const MultipleImagePicker = props => {
+  const {
+    label = "Select Media",
+    help = "",
+    onChange,
+    value = []
+  } = props;
+  const [editingImage, setEditingImage] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+  const [editingElement, setEditingElement] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+  const [skipNextPopover, setSkipNextPopover] = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+
+  function updateSelectedMedia(media) {
+    const images = mapToImageObjects(media);
+    setEditingImage(null);
+    onChange(images);
+  }
+
+  function mapToImageObjects(media) {
+    return media.map(item => {
+      const currentImage = value.find(image => image.id === item.id);
+      return {
+        id: item.id,
+        url: item.url,
+        thumbnail: item.sizes.thumbnail.url,
+        focalPoint: (currentImage === null || currentImage === void 0 ? void 0 : currentImage.focalPoint) || {
+          x: 0.5,
+          y: 0.25
+        }
+      };
+    });
+  }
+
+  function updateFocalPoint(image, focalPoint) {
+    const images = value.map(item => {
+      if (item.id === image.id) {
+        return { ...item,
+          focalPoint
+        };
+      }
+
+      return item;
+    });
+    setEditingImage(images.find(item => item.id === image.id));
+    onChange(images);
+  }
+
+  function openEditPopover(e, item) {
+    if (!skipNextPopover) {
+      setEditingElement(e.currentTarget);
+      setEditingImage(item);
+    }
+
+    setSkipNextPopover(false);
+  }
+
+  function closeEditPopover(e) {
+    if (e) {
+      setSkipNextPopover(e.relatedTarget === editingElement);
+    }
+
+    setEditingElement(null);
+    setEditingImage(null);
+  }
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["BaseControl"], {
+    label: label,
+    help: help,
+    className: "wsu-gutenberg-mip"
+  }, editingImage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Popover"], {
+    headerTitle: "Edit Focal Point",
+    focusOnMount: "container",
+    position: "middle left",
+    onFocusOutside: closeEditPopover,
+    onClose: closeEditPopover,
+    getAnchorRect: () => (editingElement === null || editingElement === void 0 ? void 0 : editingElement.getBoundingClientRect()) || null
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-gutenberg-mip__focal-point-picker-container"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["FocalPointPicker"], {
+    url: editingImage.url,
+    value: editingImage.focalPoint,
+    onChange: focalPoint => updateFocalPoint(editingImage, focalPoint)
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "wsu-gutenberg-mip__images"
+  }, value.map(item => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    key: item.id,
+    className: "wsu-gutenberg-mip__thumbnail-container"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    className: `wsu-gutenberg-mip__select-button${(editingImage === null || editingImage === void 0 ? void 0 : editingImage.id) === item.id ? " is-selected" : ""}`,
+    onClick: e => openEditPopover(e, item)
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    className: "wsu-gutenberg-mip__thumbnail",
+    src: item.thumbnail
+  }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUploadCheck"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUpload"], {
+    onSelect: media => updateSelectedMedia(media),
+    allowedTypes: ["image"],
+    multiple: true,
+    gallery: true,
+    value: value.map(item => item.id),
+    render: ({
+      open
+    }) => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["BaseControl"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      isPrimary: true,
+      onClick: open,
+      className: "wsu-gutenberg-mip__open-button"
+    }, "Select Images"))
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MultipleImagePicker);
 
 /***/ }),
 
@@ -8291,86 +8427,102 @@ registerBlockType("wsuwp/hero", {
   })),
   attributes: {
     requiredClassName: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     eyebrowHeading: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     title: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     headingTag: {
-      type: 'string',
-      default: 'div'
+      type: "string",
+      default: "div"
     },
     caption: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     buttonText: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     photoCredit: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     overlay: {
-      type: 'string',
-      default: 'dark-left'
+      type: "string",
+      default: "dark-left"
     },
     imageId: {
-      type: 'integer',
+      type: "integer",
       default: 0
     },
     imageSrc: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     link: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     imageFocalPoint: {
-      type: 'object',
+      type: "object",
       default: {
         x: 0.2,
         y: 0.5
       }
     },
     imageDimensions: {
-      type: 'object',
+      type: "object",
       default: {
         width: 1070,
         height: 500
       }
     },
     lightOverlay: {
-      type: 'boolean',
+      type: "boolean",
       default: false
     },
     pattern: {
-      type: 'string',
-      default: 'wsu-light-radial-left'
+      type: "string",
+      default: "wsu-light-radial-left"
+    },
+    sliderImages: {
+      type: "array",
+      default: []
+    },
+    sliderEffect: {
+      type: "string",
+      default: "slide"
+    },
+    sliderDelay: {
+      type: "integer",
+      default: 3000
+    },
+    backgroundType: {
+      type: "string",
+      default: ""
     },
     backgroundVideo: {
-      type: 'boolean',
+      type: "boolean",
       default: false
     },
     videoId: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     videoTitle: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     },
     videoDescription: {
-      type: 'string',
-      default: ''
+      type: "string",
+      default: ""
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -8410,7 +8562,12 @@ const {
   Button,
   FocalPointPicker,
   BaseControl,
-  TextareaControl
+  TextareaControl,
+  RangeControl
+} = wp.components;
+const {
+  __experimentalRadio: Radio,
+  __experimentalRadioGroup: RadioGroup
 } = wp.components;
 
 
@@ -8422,7 +8579,7 @@ const Edit = ({
   attributes,
   setAttributes
 }) => {
-  var _attributes$className;
+  var _attributes$className, _attributes$sliderIma, _attributes$sliderIma2;
 
   let blockClasses = (_attributes$className = attributes.className) !== null && _attributes$className !== void 0 ? _attributes$className : '';
 
@@ -8528,10 +8685,29 @@ const Edit = ({
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
     title: "Background",
     initialOpen: false
-  }, attributes.imageSrc && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
-    label: "Focal Point Picker",
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
+    className: "wsu-settings__base-control",
+    help: ""
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Background Type"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RadioGroup, {
+    className: "wsu-gutenberg-button__radio-group",
+    onChange: val => setAttributes({
+      backgroundType: val
+    }),
+    checked: attributes.backgroundVideo && !attributes.backgroundType ? 'video' : attributes.backgroundType,
+    defaultChecked: "image"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "image"
+  }, "Image"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "video"
+  }, "Video"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "slider"
+  }, "Slider"))), (attributes.backgroundType === 'image' || !attributes.backgroundType && !attributes.backgroundVideo) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, attributes.imageSrc && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
     help: "Select where you would like the background to resize around."
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FocalPointPicker, {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Focal Point Picker"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FocalPointPicker, {
     url: attributes.imageSrc,
     dimensions: attributes.imageDimensions,
     value: attributes.imageFocalPoint,
@@ -8542,46 +8718,74 @@ const Edit = ({
     onSelect: media => setAttributes({
       imageId: media.id,
       imageSrc: media.url
-    }) // allowedTypes={ALLOWED_MEDIA_TYPES}
-    // value={mediaId}
-    ,
+    }),
+    allowedTypes: ['image'],
     render: ({
       open
     }) => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
-      label: "Replace Background Image"
+      label: `${attributes.imageSrc ? 'Replace' : 'Choose'} Background Image`
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
       isLink: true,
       onClick: open
     }, "Open Media Library"))
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
-    label: "Background Video",
-    checked: attributes.backgroundVideo,
-    onChange: backgroundVideo => setAttributes({
-      backgroundVideo
-    })
-  }), attributes.backgroundVideo && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  }))), attributes.backgroundType === 'slider' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["MultipleImagePicker"], {
+    label: "Slider Images",
+    help: "Choose images to rotate through and select focal points by clicking the desired image.",
+    onChange: images => setAttributes({
+      sliderImages: images
+    }),
+    value: attributes.sliderImages
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
+    className: "wsu-settings__base-control",
+    help: "Effect used when transitioning to the next slide."
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Effect"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RadioGroup, {
+    className: "wsu-gutenberg-button__radio-group",
+    onChange: val => setAttributes({
+      sliderEffect: val
+    }),
+    checked: attributes.sliderEffect,
+    defaultChecked: "slide"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "slide"
+  }, "Slide"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "fade"
+  }, "Fade"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+    label: "Slider Delay",
+    help: "Delay in milliseconds between slides.",
+    value: attributes.sliderDelay,
+    onChange: val => setAttributes({
+      sliderDelay: val
+    }),
+    min: 100,
+    max: 10000,
+    step: 50
+  })), (attributes.backgroundType === 'video' || attributes.backgroundVideo && !attributes.backgroundType) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Background Video ID (Vimeo)",
     value: attributes.videoId ? attributes.videoId : '',
     onChange: videoId => setAttributes({
       videoId
     }),
     help: "Video ID only. Example: 76979871 from https://player.vimeo.com/video/76979871"
-  }), attributes.backgroundVideo && attributes.videoId && (!attributes.videoTitle || !attributes.videoDescription) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequiredAlertControl"], null, "Video title and text description are required for the video to render."), attributes.backgroundVideo && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+  }), attributes.videoId && (!attributes.videoTitle || !attributes.videoDescription) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequiredAlertControl"], null, "Video title and text description are required for the video to render."), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Background Video Title",
     value: attributes.videoTitle ? attributes.videoTitle : '',
     onChange: videoTitle => setAttributes({
       videoTitle
     })
-  }), attributes.backgroundVideo && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextareaControl, {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextareaControl, {
     label: "Background Video Text Description",
     value: attributes.videoDescription ? attributes.videoDescription : '',
     onChange: videoDescription => setAttributes({
       videoDescription
     })
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "wsu-image-frame wsu-image-frame--fill"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+  }, attributes.backgroundType === 'image' && attributes.imageSrc && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: attributes.imageSrc
+  }) || attributes.backgroundType === 'slider' && ((_attributes$sliderIma = attributes.sliderImages[0]) === null || _attributes$sliderIma === void 0 ? void 0 : _attributes$sliderIma.url) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: (_attributes$sliderIma2 = attributes.sliderImages[0]) === null || _attributes$sliderIma2 === void 0 ? void 0 : _attributes$sliderIma2.url
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: getOverlayClasses()
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {

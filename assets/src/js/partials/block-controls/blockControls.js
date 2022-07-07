@@ -24,3 +24,4 @@ export { default as RequiredAlertControl } from "./required-alert-control/Requir
 export { default as TermSelectorControl } from "./term-selector-control/TermSelectorControl";
 export { default as ImageFrameControl } from "./image-frame-control/ImageFrameControl";
 export { default as DisplayFieldControl } from "./display-fields-control/DisplayFieldsControl";
+export { default as MultipleImagePicker } from "./multiple-image-picker/MultipleImagePicker";

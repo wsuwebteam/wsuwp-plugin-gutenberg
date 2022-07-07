@@ -17,7 +17,11 @@ const {
 	FocalPointPicker,
 	BaseControl,
 	TextareaControl,
+	RangeControl
 } = wp.components;
+
+const { __experimentalRadio: Radio, __experimentalRadioGroup: RadioGroup } =
+  wp.components;
 
 import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
@@ -29,6 +33,7 @@ import {
 
 import {
 	RequiredAlertControl,
+	MultipleImagePicker
 } from '../../../assets/src/js/partials/block-controls/blockControls';
 
 const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
@@ -117,70 +122,130 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 				</PanelDisplayOptions>
 				<Panel>
 					<PanelBody title="Background" initialOpen={false}>
-						{ attributes.imageSrc &&
-							<BaseControl
-								label="Focal Point Picker"
-								help="Select where you would like the background to resize around."
-							>
-								<FocalPointPicker
-									url={attributes.imageSrc}
-									dimensions={attributes.imageDimensions}
-									value={attributes.imageFocalPoint}
-									onChange={(focalPoint) => setAttributes({ imageFocalPoint: focalPoint })}
-								/>
-							</BaseControl>
-						}
 
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={(media) => setAttributes({ imageId: media.id, imageSrc: media.url }) }
-								// allowedTypes={ALLOWED_MEDIA_TYPES}
-								// value={mediaId}
-								render={({ open }) => (
-									<BaseControl label="Replace Background Image">
-										<Button isLink onClick={open}>Open Media Library</Button>
+						<BaseControl className="wsu-settings__base-control" help="">
+							<BaseControl.VisualLabel className="wsu-settings__label">
+								Background Type
+							</BaseControl.VisualLabel>
+							<RadioGroup
+								className="wsu-gutenberg-button__radio-group"
+								onChange={(val) => setAttributes({ backgroundType: val })
+								}
+								checked={attributes.backgroundVideo && !attributes.backgroundType ? 'video' : attributes.backgroundType }
+								defaultChecked="image"
+							>
+								<Radio value="image">Image</Radio>
+								<Radio value="video">Video</Radio>
+								<Radio value="slider">Slider</Radio>
+							</RadioGroup>
+						</BaseControl>
+
+						{ (attributes.backgroundType === 'image' || (!attributes.backgroundType && !attributes.backgroundVideo)) && (
+							<>
+								{ attributes.imageSrc &&
+									<BaseControl
+										help="Select where you would like the background to resize around."
+									>
+										<BaseControl.VisualLabel className="wsu-settings__label">
+											Focal Point Picker
+										</BaseControl.VisualLabel>
+										<FocalPointPicker
+											url={attributes.imageSrc}
+											dimensions={attributes.imageDimensions}
+											value={attributes.imageFocalPoint}
+											onChange={(focalPoint) => setAttributes({ imageFocalPoint: focalPoint })}
+										/>
 									</BaseControl>
-								)}
-							/>
-						</MediaUploadCheck>
-						<ToggleControl
-							label="Background Video"
-							checked={ attributes.backgroundVideo }
-							onChange= { ( backgroundVideo ) => setAttributes( { backgroundVideo } ) }
-						/>
-						{ attributes.backgroundVideo && 
-							<TextControl
-								label="Background Video ID (Vimeo)"
-								value={ attributes.videoId ? attributes.videoId : '' }
-								onChange= { ( videoId ) => setAttributes( { videoId } ) }
-								help='Video ID only. Example: 76979871 from https://player.vimeo.com/video/76979871'
-							/>
-						}
-						{ attributes.backgroundVideo && attributes.videoId && ( ! attributes.videoTitle || ! attributes.videoDescription )  &&  
-							<RequiredAlertControl>
-								Video title and text description are required for the video to render.
-							</RequiredAlertControl>
-						}
-						{ attributes.backgroundVideo && 
-							<TextControl
-								label="Background Video Title"
-								value={ attributes.videoTitle ? attributes.videoTitle : '' }
-								onChange= { ( videoTitle ) => setAttributes( { videoTitle } ) }
-							/>
-						}
-						{ attributes.backgroundVideo && 
-							<TextareaControl
-								label="Background Video Text Description"
-								value={ attributes.videoDescription ? attributes.videoDescription : '' }
-								onChange= { ( videoDescription ) => setAttributes( { videoDescription } ) }
-							/>
-						}
+								}
+
+								<MediaUploadCheck>
+									<MediaUpload
+										onSelect={(media) => setAttributes({ imageId: media.id, imageSrc: media.url }) }
+										allowedTypes={['image']}
+										render={({ open }) => (
+											<BaseControl label={`${attributes.imageSrc ? 'Replace' : 'Choose'} Background Image`}>
+												<Button isLink onClick={open}>Open Media Library</Button>
+											</BaseControl>
+										)}
+									/>
+								</MediaUploadCheck>
+							</>
+						)}
+
+
+						{attributes.backgroundType === 'slider' && (
+							<>
+								<MultipleImagePicker 
+									label="Slider Images"
+									help="Choose images to rotate through and select focal points by clicking the desired image."							
+									onChange={(images) => setAttributes({ sliderImages: images }) }
+									value={attributes.sliderImages}
+								/>
+
+								<BaseControl className="wsu-settings__base-control" help="Effect used when transitioning to the next slide.">
+									<BaseControl.VisualLabel className="wsu-settings__label">
+										Effect
+									</BaseControl.VisualLabel>
+									<RadioGroup
+										className="wsu-gutenberg-button__radio-group"
+										onChange={(val) => setAttributes({ sliderEffect: val })
+										}
+										checked={attributes.sliderEffect }
+										defaultChecked="slide"
+									>
+										<Radio value="slide">Slide</Radio>
+										<Radio value="fade">Fade</Radio>
+									</RadioGroup>
+								</BaseControl>
+								
+								<RangeControl 
+									label="Slider Delay"
+									help="Delay in milliseconds between slides."
+									value={attributes.sliderDelay}
+									onChange={(val) => setAttributes({ sliderDelay: val })}
+									min={100}
+									max={10000}
+									step={50}
+								/>
+							</>
+						)}
+
+
+						{ (attributes.backgroundType === 'video' || (attributes.backgroundVideo && !attributes.backgroundType) ) && (
+							<>
+								<TextControl
+									label="Background Video ID (Vimeo)"
+									value={ attributes.videoId ? attributes.videoId : '' }
+									onChange= { ( videoId ) => setAttributes( { videoId } ) }
+									help='Video ID only. Example: 76979871 from https://player.vimeo.com/video/76979871'
+								/>
+								{ attributes.videoId && ( ! attributes.videoTitle || ! attributes.videoDescription )  &&  
+									<RequiredAlertControl>
+										Video title and text description are required for the video to render.
+									</RequiredAlertControl>
+								}
+								<TextControl
+									label="Background Video Title"
+									value={ attributes.videoTitle ? attributes.videoTitle : '' }
+									onChange= { ( videoTitle ) => setAttributes( { videoTitle } ) }
+								/>
+								<TextareaControl
+									label="Background Video Text Description"
+									value={ attributes.videoDescription ? attributes.videoDescription : '' }
+									onChange= { ( videoDescription ) => setAttributes( { videoDescription } ) }
+								/>						
+							</>
+						)}
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
 			<div { ...blockProps } >
 				<div className="wsu-image-frame wsu-image-frame--fill">
-					<img src={ attributes.imageSrc } />
+					{ (attributes.backgroundType === 'image' && attributes.imageSrc && (
+						<img src={ attributes.imageSrc } />
+					)) || (attributes.backgroundType === 'slider' && attributes.sliderImages[0]?.url && (
+						<img src={ attributes.sliderImages[0]?.url} />
+					))}					
 				</div>
 				<div className={getOverlayClasses()}></div>
 				<div className="wsu-hero__content">

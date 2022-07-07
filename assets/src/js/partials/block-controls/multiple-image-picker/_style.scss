@@ -1,0 +1,51 @@
+.wsu-gutenberg-mip {
+  .components-base-control__label {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  &__images {
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 8px;
+  }
+
+  &__thumbnail-container {
+    flex-basis: 50%;
+  }
+
+  &__thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__select-button {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    display: block;
+
+    &.is-selected {
+      border: 4px solid var(--wp-admin-theme-color);
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+
+  &__open-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__focal-point-picker-container {
+    .components-base-control__field {
+      margin-bottom: 0;
+    }
+
+    .focal-point-picker__controls {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+}
