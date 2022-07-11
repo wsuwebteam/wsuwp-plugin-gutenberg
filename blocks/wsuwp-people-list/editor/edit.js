@@ -7,6 +7,7 @@ const {
   BaseControl,
   CheckboxControl,
   RangeControl,
+  ToggleControl,
   __experimentalRadio: Radio,
   __experimentalRadioGroup: RadioGroup,
 } = wp.components;
@@ -28,6 +29,7 @@ const queryAttributes = [
   "university_category",
   "university_location",
   "university_organization",
+  "tag",
   "photo_size",
   "profile_order",
 ];
@@ -172,6 +174,7 @@ export default function Edit(props) {
                 setAttributes({ university_category: newval })
               }
             />
+            
           </PanelRow>
 
           <PanelRow>
@@ -197,6 +200,17 @@ export default function Edit(props) {
               }
             />
           </PanelRow>
+          <PanelRow>
+            <TermSelector
+              label="University Tag"
+              help="Display people by searching and selecting a university tag"
+              taxonomy="post_tag"
+              value={attributes.university_tag}
+              onChange={(newval) =>
+                setAttributes({ university_tag: newval })
+              }
+            />
+          </PanelRow>
 
           <PanelRow>
             <TextControl
@@ -205,6 +219,17 @@ export default function Edit(props) {
               placeholder="butch.cougar"
               value={attributes.profile_order}
               onChange={(newval) => setAttributes({ profile_order: newval })}
+            />
+          </PanelRow>
+          <PanelRow>
+            <ToggleControl
+                label="Require all terms"
+                checked={ ( attributes.query_logic === 'AND') ? true : false }
+                onChange= { ( query_logic  ) => {
+                  let logic = ( query_logic  ) ? 'AND' : 'IN';
+                  setAttributes( { query_logic:logic } ) }
+                }
+                help="Only profiles matching all selected terms will display"
             />
           </PanelRow>
         </PanelBody>

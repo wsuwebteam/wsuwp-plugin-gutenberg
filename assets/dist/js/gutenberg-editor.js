@@ -11029,6 +11029,14 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: []
     },
+    university_tag: {
+      type: "array",
+      default: []
+    },
+    query_logic: {
+      type: "string",
+      default: 'IN'
+    },
     profile_order: {
       type: "string",
       default: ""
@@ -11201,6 +11209,7 @@ const {
   BaseControl,
   CheckboxControl,
   RangeControl,
+  ToggleControl,
   __experimentalRadio: Radio,
   __experimentalRadioGroup: RadioGroup
 } = wp.components;
@@ -11209,7 +11218,7 @@ const {
 
 const apiEndpoint = window.location.hostname.includes(".local") ? "http://wsuwp.local/wp-json/peopleapi/v1/people?" : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
-const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "photo_size", "profile_order"];
+const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order"];
 const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
 const displayOptions = ["photo", "name", "title", "office", "email", "degree", "address", "phone", "website"];
 function Edit(props) {
@@ -11324,6 +11333,14 @@ function Edit(props) {
     onChange: newval => setAttributes({
       university_organization: newval
     })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_term_selector__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: "University Tag",
+    help: "Display people by searching and selecting a university tag",
+    taxonomy: "post_tag",
+    value: attributes.university_tag,
+    onChange: newval => setAttributes({
+      university_tag: newval
+    })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Profile Order",
     help: "Comma delimited list of people network ids to sort them at the top of the list",
@@ -11332,6 +11349,16 @@ function Edit(props) {
     onChange: newval => setAttributes({
       profile_order: newval
     })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Require all terms",
+    checked: attributes.query_logic === 'AND' ? true : false,
+    onChange: query_logic => {
+      let logic = query_logic ? 'AND' : 'IN';
+      setAttributes({
+        query_logic: logic
+      });
+    },
+    help: "Only profiles matching all selected terms will display"
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
     title: "People Display Settings",
     initialOpen: false

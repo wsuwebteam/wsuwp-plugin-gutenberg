@@ -35,6 +35,14 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
+    university_tag: {
+      type: "array",
+      default: [],
+    },
+    query_logic: {
+      type: "string",
+      default: 'IN',
+    },
     profile_order: {
       type: "string",
       default: "",
