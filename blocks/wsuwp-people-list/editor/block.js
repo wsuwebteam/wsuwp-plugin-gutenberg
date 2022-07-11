@@ -39,6 +39,10 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
+    query_logic: {
+      type: "string",
+      default: 'IN',
+    },
     profile_order: {
       type: "string",
       default: "",
