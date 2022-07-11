@@ -28,6 +28,7 @@ const queryAttributes = [
   "university_category",
   "university_location",
   "university_organization",
+  "tag",
   "photo_size",
   "profile_order",
 ];
@@ -172,6 +173,7 @@ export default function Edit(props) {
                 setAttributes({ university_category: newval })
               }
             />
+            
           </PanelRow>
 
           <PanelRow>
@@ -194,6 +196,17 @@ export default function Edit(props) {
               value={attributes.university_organization}
               onChange={(newval) =>
                 setAttributes({ university_organization: newval })
+              }
+            />
+          </PanelRow>
+          <PanelRow>
+            <TermSelector
+              label="University Tag"
+              help="Display people by searching and selecting a university tag"
+              taxonomy="post_tag"
+              value={attributes.university_tag}
+              onChange={(newval) =>
+                setAttributes({ university_tag: newval })
               }
             />
           </PanelRow>
