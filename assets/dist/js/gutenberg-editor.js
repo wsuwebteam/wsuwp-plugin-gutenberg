@@ -11033,6 +11033,10 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: []
     },
+    query_logic: {
+      type: "string",
+      default: 'IN'
+    },
     profile_order: {
       type: "string",
       default: ""
@@ -11205,6 +11209,7 @@ const {
   BaseControl,
   CheckboxControl,
   RangeControl,
+  ToggleControl,
   __experimentalRadio: Radio,
   __experimentalRadioGroup: RadioGroup
 } = wp.components;
@@ -11344,6 +11349,16 @@ function Edit(props) {
     onChange: newval => setAttributes({
       profile_order: newval
     })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Require all terms",
+    checked: attributes.query_logic === 'AND' ? true : false,
+    onChange: query_logic => {
+      let logic = query_logic ? 'AND' : 'IN';
+      setAttributes({
+        query_logic: logic
+      });
+    },
+    help: "Only profiles matching all selected terms will display"
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
     title: "People Display Settings",
     initialOpen: false
