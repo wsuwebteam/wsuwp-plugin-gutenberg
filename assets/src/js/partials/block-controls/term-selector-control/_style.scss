@@ -18,15 +18,27 @@
 
 .wsu-gutenberg-term-selector__remove-btn {
   height: auto;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em; 
   width: 100%;
+  border: 1px solid #007cba;
+  border-radius: 6px;
 }
 
 .wsu-gutenberg-term-selector__remove-btn-text {
   text-align: left;
   margin-right: 1em;
   flex-grow: 1;
+  color: #007cba;
+  font-weight: bold;
+}
+
+.wsu-gutenberg-term-selector__remove-btn-taxonomy-text {
+  display: block;
+  font-size: 0.8em;
+  color: #555;
 }
 
 .wsu-gutenberg-term-selector__remove-btn-icon {

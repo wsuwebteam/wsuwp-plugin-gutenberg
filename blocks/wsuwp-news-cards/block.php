@@ -29,6 +29,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'postType:'         => 'post',
 		'taxonomy'          => 'category',
 		'terms'             => '',
+		'queryTerms'        => array(),
 		'count'             => '1',
 		'offset'            => '0',
 		'host'              => '',

@@ -2970,17 +2970,25 @@ const TermSelectorControl = function (props) {
 
   function updateSelectedTerms(termsArray) {
     let termsString = '';
+    let queryTerms = [];
 
     if (Array.isArray(termsArray) && termsArray.length > 0) {
       termsString = termsArray.map(function (term) {
         return term.id.toString();
       }).join(",");
+      queryTerms = termsArray.map(term => {
+        return {
+          termID: term.id,
+          taxonomy: term.type
+        };
+      });
     }
 
     setSelectedTerms(termsArray);
     props.onChange({
       termsList: termsString,
-      termsSelected: termsArray
+      termsSelected: termsArray,
+      queryTerms: queryTerms
     });
   }
 
@@ -3006,7 +3014,9 @@ const TermSelectorControl = function (props) {
       onClick: () => removeTerm(term)
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       class: "wsu-gutenberg-term-selector__remove-btn-text"
-    }, term.title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    }, term.title, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+      class: "wsu-gutenberg-term-selector__remove-btn-taxonomy-text"
+    }, term.type.replace('post_', ''))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       class: "dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"
     })));
   })));
@@ -9423,6 +9433,10 @@ registerBlockType("wsuwp/news-cards", {
       type: 'array',
       default: []
     },
+    queryTerms: {
+      type: 'array',
+      default: []
+    },
     terms: {
       type: 'string',
       default: ''
@@ -9575,7 +9589,12 @@ const {
   FocalPointPicker,
   BaseControl,
   IconButton,
-  ToggleControl
+  ToggleControl,
+  PanelRow
+} = wp.components;
+const {
+  __experimentalRadio: Radio,
+  __experimentalRadioGroup: RadioGroup
 } = wp.components;
 
 
@@ -9681,60 +9700,63 @@ const Edit = props => {
   });
   let queryAttrs = attributes;
   queryAttrs['hideLink'] = true;
-
-  if ('feed' === attributes.source) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPostTypeControl"], {
-      label: "Post type",
-      help: "Select post type to display",
-      host: attributes.host || window.wsu.ROOT_URL,
-      value: attributes.postType,
-      onChange: postType => setAttributes({
-        postType
-      })
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTaxonomyControl"], {
-      label: "Taxonomy",
-      help: "Select taxonomy to filter posts by",
-      host: attributes.host || window.wsu.ROOT_URL,
-      postType: attributes.postType,
-      value: attributes.taxonomy,
-      onChange: taxonomy => setAttributes({
-        taxonomy
-      })
-    }), attributes.taxonomy && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTermControl"], {
-      label: "Terms",
-      help: "Filter posts by searching and selecting terms in the selected taxonomy",
-      host: attributes.host || window.wsu.ROOT_URL,
-      taxonomy: attributes.taxonomy,
-      value: attributes.termsSelected,
-      onChange: terms => setAttributes({
-        terms: terms.termsList,
-        termsSelected: terms.termsSelected
-      })
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedCountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanelAdvanced"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedUseAndLogicControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedOffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedHostControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireFirstImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
-      label: "Hide Shown Posts",
-      checked: attributes.hideShownPosts,
-      onChange: hideShownPosts => {
-        setAttributes({
-          hideShownPosts
-        });
-      }
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
-      attributes: queryAttrs,
-      blockName: "wsuwp/news-cards"
-    }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
-  } else if ('select' === attributes.source) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardGeneralOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_5__["PanelInsertPost"], {
-      attributes: attributes,
-      onChange: value => setAttributes({
-        postIn: value
-      }),
-      postTypes: ['any'],
-      placeholder: "Search posts..."
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
-      attributes: queryAttrs,
-      blockName: "wsuwp/news-cards"
-    }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
-  }
+  console.log(attributes.queryTerms);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(NewsCardDisplayOptions, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl, {
+    className: "wsu-settings__base-control",
+    help: ""
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Feed Type"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RadioGroup, {
+    className: "wsu-gutenberg-button__radio-group",
+    onChange: source => setAttributes({
+      source
+    }),
+    checked: attributes.source,
+    defaultChecked: "feed"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "feed"
+  }, "Basic"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Radio, {
+    value: "select"
+  }, "Select")))), attributes.source == 'feed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPostTypeControl"], {
+    label: "Content Type",
+    help: "Select content type to display",
+    host: attributes.host || window.wsu.ROOT_URL,
+    value: attributes.postType,
+    onChange: postType => setAttributes({
+      postType
+    })
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTaxonomyControl"], {
+    label: "Taxonomy (Category, Tag, etc...)",
+    help: "Select taxonomy to filter posts by",
+    host: attributes.host || window.wsu.ROOT_URL,
+    postType: attributes.postType,
+    value: attributes.taxonomy,
+    onChange: taxonomy => setAttributes({
+      taxonomy
+    })
+  }), attributes.taxonomy && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedTermControl"], {
+    label: "Terms",
+    help: "Filter posts by searching and selecting terms in the selected taxonomy",
+    host: attributes.host || window.wsu.ROOT_URL,
+    taxonomy: attributes.taxonomy,
+    value: attributes.termsSelected,
+    onChange: terms => setAttributes({
+      terms: terms.termsList,
+      termsSelected: terms.termsSelected,
+      queryTerms: terms.queryTerms
+    })
+  })), attributes.source == 'select' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["PostPicker"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedCountControl"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedPanelAdvanced"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedUseAndLogicControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedOffsetControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_4__["FeedHostControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequireFirstImageControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: "Hide Shown Posts",
+    checked: attributes.hideShownPosts,
+    onChange: hideShownPosts => {
+      setAttributes({
+        hideShownPosts
+      });
+    }
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
+    attributes: queryAttrs,
+    blockName: "wsuwp/news-cards"
+  }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
@@ -11218,7 +11240,7 @@ const {
 
 const apiEndpoint = window.location.hostname.includes(".local") ? "http://wsuwp.local/wp-json/peopleapi/v1/people?" : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
-const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order"];
+const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "university_tag", "photo_size", "profile_order", "query_logic"];
 const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
 const displayOptions = ["photo", "name", "title", "office", "email", "degree", "address", "phone", "website"];
 function Edit(props) {
