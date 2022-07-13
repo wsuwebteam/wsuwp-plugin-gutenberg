@@ -29,9 +29,10 @@ const queryAttributes = [
   "university_category",
   "university_location",
   "university_organization",
-  "tag",
+  "university_tag",
   "photo_size",
   "profile_order",
+  "query_logic",
 ];
 
 const filterOptions = [

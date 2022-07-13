@@ -11218,7 +11218,7 @@ const {
 
 const apiEndpoint = window.location.hostname.includes(".local") ? "http://wsuwp.local/wp-json/peopleapi/v1/people?" : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
-const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order"];
+const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "university_tag", "photo_size", "profile_order", "query_logic"];
 const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
 const displayOptions = ["photo", "name", "title", "office", "email", "degree", "address", "phone", "website"];
 function Edit(props) {
