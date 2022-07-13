@@ -85,17 +85,23 @@ const TermSelectorControl = function (props) {
 
     let termsString = '';
 
+    let queryTerms = [];
+
     if (Array.isArray( termsArray ) && termsArray.length > 0 ) {
       termsString = termsArray
         .map(function (term) {
           return term.id.toString();
         })
         .join(",");
+
+      queryTerms = termsArray.map( (term) => {
+        return { termID: term.id, taxonomy: term.type } ;
+      });
     }
 
     setSelectedTerms( termsArray );
 
-    props.onChange( { termsList: termsString, termsSelected: termsArray } );
+    props.onChange( { termsList: termsString, termsSelected: termsArray, queryTerms: queryTerms } );
   }
 
   return (
@@ -125,9 +131,7 @@ const TermSelectorControl = function (props) {
                   class="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
                   onClick={() => removeTerm(term)}
                 >
-                  <span class="wsu-gutenberg-term-selector__remove-btn-text">
-                    {term.title}
-                  </span>
+                    <span class="wsu-gutenberg-term-selector__remove-btn-text">{term.title}<span class="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">{term.type.replace( 'post_', '' )}</span></span>
                   <span class="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
                 </button>
               </li>

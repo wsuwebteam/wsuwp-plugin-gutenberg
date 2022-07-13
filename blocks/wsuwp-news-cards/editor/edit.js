@@ -15,7 +15,13 @@ const {
 	FocalPointPicker,
 	BaseControl,
     IconButton,
-    ToggleControl
+    ToggleControl,
+    PanelRow,
+} = wp.components;
+
+const { 
+    __experimentalRadio: Radio, 
+    __experimentalRadioGroup: RadioGroup 
 } = wp.components;
 
 import {
@@ -39,6 +45,7 @@ import {
     RequireImageControl,
     RequireFirstImageControl,
     HeadingTagControl,
+    PostPicker,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import {
@@ -144,89 +151,87 @@ const Edit = ( props ) => {
 
 	queryAttrs['hideLink'] = true;
 
-    if ( 'feed' === attributes.source ) {
+    console.log( attributes.queryTerms );
 
-        return (
-            <>
-                <InspectorControls>
-                    <NewsCardGeneralOptions  { ...props } />
-                    <NewsCardDisplayOptions  { ...props } /> 
-                    <FeedPanel>
-                        <FeedPostTypeControl
-                            label="Post type"
-                            help="Select post type to display"
-                            host={attributes.host || window.wsu.ROOT_URL}
-                            value={attributes.postType}
-                            onChange={(postType) => setAttributes({ postType })}
-                        />
-                        <FeedTaxonomyControl
-                            label="Taxonomy"
-                            help="Select taxonomy to filter posts by"
-                            host={attributes.host || window.wsu.ROOT_URL}
-                            postType={attributes.postType}
-                            value={attributes.taxonomy}
-                            onChange={(taxonomy) => setAttributes({ taxonomy })}
-                        />
-                        {attributes.taxonomy && (
-                            <FeedTermControl
-                            label="Terms"
-                            help="Filter posts by searching and selecting terms in the selected taxonomy"
-                            host={attributes.host || window.wsu.ROOT_URL}
-                            taxonomy={attributes.taxonomy}
-                            value={attributes.termsSelected}
-                            onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected } ) }
+    return (
+        <>
+            <InspectorControls>
+                <NewsCardDisplayOptions  { ...props } /> 
+                <FeedPanel>
+                    <PanelRow>
+                        <BaseControl className="wsu-settings__base-control" help="">
+                            <BaseControl.VisualLabel className="wsu-settings__label">
+                                Feed Type
+                            </BaseControl.VisualLabel>
+                            <RadioGroup
+                                className="wsu-gutenberg-button__radio-group"
+                                onChange={(source) => setAttributes({ source }) }
+                                checked={attributes.source}
+                                defaultChecked='feed'
+                            >
+                                <Radio value="feed">Basic</Radio>
+                                <Radio value="select">Select</Radio>
+                            </RadioGroup>
+                        </BaseControl>
+                    </PanelRow>
+                    {attributes.source == 'feed' && (
+                        <>
+                            <FeedPostTypeControl
+                                label="Content Type"
+                                help="Select content type to display"
+                                host={attributes.host || window.wsu.ROOT_URL}
+                                value={attributes.postType}
+                                onChange={(postType) => setAttributes({ postType })}
                             />
-                        )}
-                        <FeedCountControl {...props} />
-                    </FeedPanel>
-                    <FeedPanelAdvanced>
-                        <FeedUseAndLogicControl {...props} />
-                        <FeedOffsetControl {...props} />
-                        <FeedHostControl {...props} />
-                        <RequireImageControl { ...props } />
-                        <RequireFirstImageControl { ...props } />
-                        <ToggleControl
-                            label="Hide Shown Posts"
-                            checked={ attributes.hideShownPosts }
-                            onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
+                            <FeedTaxonomyControl
+                                label="Taxonomy (Category, Tag, etc...)"
+                                help="Select taxonomy to filter posts by"
+                                host={attributes.host || window.wsu.ROOT_URL}
+                                postType={attributes.postType}
+                                value={attributes.taxonomy}
+                                onChange={(taxonomy) => setAttributes({ taxonomy })}
                             />
-                    </FeedPanelAdvanced>
-                </InspectorControls>
-                <div { ...blockProps }  >
-                    <ApiRenderBlock 
-                        attributes={queryAttrs}
-                        blockName='wsuwp/news-cards'
-                        >
-                            { 'feed' === attributes.source && <FeedPlaceHolder /> }
-                    </ApiRenderBlock>
-                </div>
-            </>
-        )
-    } else if ( 'select' === attributes.source ) {
-
-        return (
-            <>
-                <InspectorControls>
-                    <NewsCardGeneralOptions  { ...props } />
-                    <NewsCardDisplayOptions  { ...props } /> 
-                    <PanelInsertPost 
-                        attributes={attributes}
-                        onChange={ ( value ) => setAttributes( { postIn: value } ) }
-                        postTypes={ [ 'any' ] }
-                        placeholder="Search posts..."
+                            {attributes.taxonomy && (
+                                <FeedTermControl
+                                label="Terms"
+                                help="Filter posts by searching and selecting terms in the selected taxonomy"
+                                host={attributes.host || window.wsu.ROOT_URL}
+                                taxonomy={attributes.taxonomy}
+                                value={attributes.termsSelected}
+                                onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected, queryTerms: terms.queryTerms } ) }
+                                />
+                            )}
+                        </>
+                    )}
+                    {attributes.source == 'select' && (
+                        <PostPicker { ...props } />
+                    )}
+                    
+                    <FeedCountControl {...props} />
+                </FeedPanel>
+                <FeedPanelAdvanced>
+                    <FeedUseAndLogicControl {...props} />
+                    <FeedOffsetControl {...props} />
+                    <FeedHostControl {...props} />
+                    <RequireImageControl { ...props } />
+                    <RequireFirstImageControl { ...props } />
+                    <ToggleControl
+                        label="Hide Shown Posts"
+                        checked={ attributes.hideShownPosts }
+                        onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
                         />
-                </InspectorControls>
-                <div { ...blockProps }  >
-                    <ApiRenderBlock 
-                        attributes={queryAttrs}
-                        blockName='wsuwp/news-cards'
-                        >
-                            { 'feed' === attributes.source && <FeedPlaceHolder /> }
-                    </ApiRenderBlock>
-                </div>
-            </>
-        )
-    }
+                </FeedPanelAdvanced>
+            </InspectorControls>
+            <div { ...blockProps }  >
+                <ApiRenderBlock 
+                    attributes={queryAttrs}
+                    blockName='wsuwp/news-cards'
+                    >
+                        { 'feed' === attributes.source && <FeedPlaceHolder /> }
+                </ApiRenderBlock>
+            </div>
+        </>
+    )
 
 }
 

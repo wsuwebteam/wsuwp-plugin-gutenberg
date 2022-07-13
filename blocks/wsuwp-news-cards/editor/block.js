@@ -83,6 +83,10 @@
                 type: 'array',
                 default: [],
             },
+            queryTerms: {
+                type: 'array',
+                default: [],
+            },
             terms: {
                 type: 'string',
                 default: '',

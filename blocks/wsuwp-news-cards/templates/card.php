@@ -3,7 +3,7 @@
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
 		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>"><?php endif; ?>
 			<img src="<?php echo esc_attr( $post['imageSrc'] );?>"
-				srcset="<?php echo esc_attr( $post['imageSrcset'] ); ?>"
+				srcset="<?php echo esc_attr( $post['imageSrcSet'] ); ?>"
 				sizes="<?php echo esc_attr( $post['imageSizes'] );?>"
 				alt="<?php echo esc_attr( $post['imageAlt'] );?>" />
 		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?></a><?php endif; ?>

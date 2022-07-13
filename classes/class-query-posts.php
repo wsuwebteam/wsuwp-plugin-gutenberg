@@ -10,6 +10,7 @@ class Query_Posts {
 	public $order;
 	public $taxonomy;
 	public $terms;
+	public $tax_query;
 	public $host;
 	public $exclude_posts;
 	public $image_size;
@@ -46,7 +47,7 @@ class Query_Posts {
 		$this->hide_shown_posts     = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
 		$this->use_and_logic        = ( ! empty( $attrs['useAndLogic'] ) ) ? $attrs['useAndLogic'] : false;
 		$this->exclude_shown_posts  = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
-
+		$this->tax_query            = ( ! empty( $attrs['queryTerms'] ) ) ? $attrs['queryTerms'] : false;
 
 	}
 
@@ -142,7 +143,7 @@ class Query_Posts {
 			'ignore_sticky_posts' => $this->show_sticky,
 		);
 
-		if ( ! empty( $this->terms ) ) {
+		if ( ! empty( $this->terms ) && empty( $this->tax_query ) ) {
 
 			$query_args['tax_query'] = array(
 				array(
@@ -152,6 +153,26 @@ class Query_Posts {
 					'operator' => ( ! empty( $this->use_and_logic ) ) ? 'AND' : 'IN',
 				),
 			);
+		} else if ( ! empty( $this->tax_query ) ) {
+
+			$tax_queries = $this->get_tax_query_sorted();
+			$query_args['tax_query'] = array();
+
+			foreach ( $tax_queries as $taxonomy => $terms  ) {
+
+				$query_args['tax_query'][] = array(
+					'taxonomy' => $taxonomy,
+					'field'    => 'term_id',
+					'terms'    => $terms,
+					'operator' => ( ! empty( $this->use_and_logic ) ) ? 'AND' : 'IN',
+				);
+
+			}
+
+			if ( 1 < count( $tax_queries ) ) {
+				$query_args['tax_query']['relation'] = 'AND';
+			}
+
 		}
 
 		if ( ! empty( $this->post__in ) ) {
@@ -222,7 +243,7 @@ class Query_Posts {
 				if ( has_post_thumbnail() ) {
 
 					$image_id     = get_post_thumbnail_id();
-					$image_src_array      = wp_get_attachment_image_src( $image_id, $this->image_size );
+					$image_src_array      = wp_get_attachment_image_src( $image_id, 'large' );
 					$post['imageSrc']    = $image_src_array[0];
 					$post['imageSizes']  = wp_get_attachment_image_sizes( $image_id, $this->image_size );
 					$post['imageSrcSet'] = wp_get_attachment_image_srcset( $image_id, $this->image_size );
@@ -347,6 +368,32 @@ class Query_Posts {
 		}
 
 		return $posts;
+
+	}
+
+
+	protected function get_tax_query_sorted() {
+
+		$sorted_query = array();
+
+		foreach ( $this->tax_query as $tax_query ) {
+
+			$taxonomy = $tax_query['taxonomy'];
+			$term     = $tax_query['termID'];
+
+			if ( array_key_exists( $taxonomy, $sorted_query ) ) {
+
+				$sorted_query[ $taxonomy ][] = $term;
+
+			} else {
+
+				$sorted_query[ $taxonomy ] = array( $term );
+
+			}
+
+		}
+
+		return $sorted_query;
 
 	}
 
