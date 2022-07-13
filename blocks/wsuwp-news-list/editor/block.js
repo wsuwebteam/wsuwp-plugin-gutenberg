@@ -47,6 +47,10 @@
                 type: 'string',
                 default: '',
             },
+            queryTerms: {
+                type: 'array',
+                default: [],
+            },
             count: {
                 type: 'string',
                 default: '3',

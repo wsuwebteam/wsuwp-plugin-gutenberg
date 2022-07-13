@@ -11,6 +11,7 @@ class Block_WSUWP_People_List extends Block {
 		'university_category'            => array(),
 		'university_location'            => array(),
 		'university_organization'        => array(),
+		'university_tag'                 => array(),
 		'profile_order'                  => '',
 		'display_fields'                 => array(
 			'photo',
@@ -61,6 +62,7 @@ class Block_WSUWP_People_List extends Block {
 			'university_category',
 			'university_location',
 			'university_organization',
+			'university_tag',
 			'include_term_values',
 			'exclude_term_values',
 			'tag_filter_terms',

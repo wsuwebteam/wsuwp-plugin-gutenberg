@@ -113,7 +113,7 @@ const Edit = (props) => {
               host={attributes.host || window.wsu.ROOT_URL}
               taxonomy={attributes.taxonomy}
               value={attributes.termsSelected}
-              onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected } ) }
+              onChange={ (terms) => setAttributes({ terms: terms.termsList, termsSelected: terms.termsSelected, queryTerms: terms.queryTerms } ) }
             />
           )}
           <FeedCountControl {...props} />
