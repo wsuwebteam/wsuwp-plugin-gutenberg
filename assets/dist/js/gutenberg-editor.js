@@ -11056,7 +11056,7 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: []
     },
-    university_tag: {
+    tag: {
       type: "array",
       default: []
     },
@@ -11245,7 +11245,7 @@ const {
 
 const apiEndpoint = window.location.hostname.includes(".local") ? "http://wsuwp.local/wp-json/peopleapi/v1/people?" : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
 
-const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "university_tag", "photo_size", "profile_order", "query_logic"];
+const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order", "query_logic"];
 const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
 const displayOptions = ["photo", "name", "title", "office", "email", "degree", "address", "phone", "website"];
 function Edit(props) {
@@ -11364,9 +11364,9 @@ function Edit(props) {
     label: "University Tag",
     help: "Display people by searching and selecting a university tag",
     taxonomy: "post_tag",
-    value: attributes.university_tag,
+    value: attributes.tag,
     onChange: newval => setAttributes({
-      university_tag: newval
+      tag: newval
     })
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: "Profile Order",
