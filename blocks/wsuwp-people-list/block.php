@@ -20,6 +20,7 @@ class Block_WSUWP_People_List extends Block {
 			'office',
 			'email',
 		),
+		'focus_area_label'               => 'Focus Area',
 		'website_link_text'              => 'Website',
 		'profile_link'                   => '',
 		'headingTag'                     => 'h2',

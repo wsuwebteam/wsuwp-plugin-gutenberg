@@ -51,6 +51,10 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: ["photo", "name", "title", "office", "email"],
     },
+    focus_area_label: {
+      type: "string",
+      default: 'Focus Area',
+    },
     website_link_text: {
       type: "string",
       default: "Website",
