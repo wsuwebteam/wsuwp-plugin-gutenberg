@@ -32,18 +32,18 @@ let statStyles = [
   },
   {
     icon: <CircleUnit />,
-    label: "Unit",
-    value: "unit",
+    label: "Circle Left",
+    value: "circle-left",
   },
   {
     icon: <CircleBottom />,
-    label: "Bottom",
-    value: "bottom",
+    label: "Circle Right",
+    value: "circle-right",
   },
   {
     icon: <CircleTop />,
-    label: "Top",
-    value: "top",
+    label: "Circle Center",
+    value: "circle-center",
   },
 ];
 
@@ -75,7 +75,7 @@ const edit = (props) => {
             onChange={(val) => setAttributes({ caption: val })}
           />
 
-          {hasBlockClassName(attributes, "wsu-stat--style-circles-unit") && (
+          {hasBlockClassName(attributes, "wsu-stat--style-circle-left") && (
             <TextControl
               label="Unit"
               help=""
@@ -85,7 +85,7 @@ const edit = (props) => {
             />
           )}
 
-          {hasBlockClassName(attributes, "wsu-stat--style-circles-") && (
+          {hasBlockClassName(attributes, "wsu-stat--style-circle-") && (
             <FontIconPickerControl
               label="Icon"
               help=""
@@ -98,7 +98,7 @@ const edit = (props) => {
         <PanelStyleOptions
           {...props}
           styles={statStyles}
-          prefix="wsu-stat--style-circles-"
+          prefix="wsu-stat--style-"
         >
           <BaseControl className="wsu-settings__base-control" help="">
             <BaseControl.VisualLabel className="wsu-settings__label">
@@ -156,7 +156,7 @@ const edit = (props) => {
           value={attributes.stat}
         />
 
-        {hasBlockClassName(attributes, "wsu-stat--style-circles-unit") &&
+        {hasBlockClassName(attributes, "wsu-stat--style-circle-left") &&
           attributes.unit && (
             <RichText
               className="wsu-stat__unit"
@@ -183,7 +183,7 @@ const edit = (props) => {
           value={attributes.caption}
         />
 
-        {hasBlockClassName(attributes, "wsu-stat--style-circles-") &&
+        {hasBlockClassName(attributes, "wsu-stat--style-circle-") &&
           attributes.icon && (
             <i className={`wsu-stat__icon wsu-i-${attributes.icon}`}></i>
           )}

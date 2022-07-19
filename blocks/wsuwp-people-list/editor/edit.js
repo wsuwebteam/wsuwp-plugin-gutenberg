@@ -29,7 +29,7 @@ const queryAttributes = [
   "university_category",
   "university_location",
   "university_organization",
-  "university_tag",
+  "tag",
   "photo_size",
   "profile_order",
   "query_logic",
@@ -51,6 +51,7 @@ const displayOptions = [
   "office",
   "email",
   "degree",
+  "focus-area",
   "address",
   "phone",
   "website",
@@ -206,9 +207,9 @@ export default function Edit(props) {
               label="University Tag"
               help="Display people by searching and selecting a university tag"
               taxonomy="post_tag"
-              value={attributes.university_tag}
+              value={attributes.tag}
               onChange={(newval) =>
-                setAttributes({ university_tag: newval })
+                setAttributes({ tag: newval })
               }
             />
           </PanelRow>
@@ -246,7 +247,7 @@ export default function Edit(props) {
                 <CheckboxControl
                   key={o}
                   className="wsu-people-list-block__checkboxlist-item"
-                  label={o}
+                  label={o.replace('-', ' ')}
                   checked={attributes.display_fields.indexOf(o) > -1}
                   onChange={(val) =>
                     handleCheckboxListChange("display_fields", o, val)
@@ -255,7 +256,13 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
-
+          { attributes.display_fields.includes( 'focus-area' ) && <TextControl
+              label="Focus Area Label"
+              placeholder="Focus Area"
+              value={attributes.focus_area_label }
+              onChange={(focus_area_label) => setAttributes({ focus_area_label })}
+            />
+          }
           <PanelRow>
             <RangeControl
               label="Number of Columns"

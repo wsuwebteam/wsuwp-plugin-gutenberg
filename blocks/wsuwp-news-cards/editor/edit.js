@@ -161,7 +161,7 @@ const Edit = ( props ) => {
                     <PanelRow>
                         <BaseControl className="wsu-settings__base-control" help="">
                             <BaseControl.VisualLabel className="wsu-settings__label">
-                                Feed Type
+                                Content Source
                             </BaseControl.VisualLabel>
                             <RadioGroup
                                 className="wsu-gutenberg-button__radio-group"
@@ -169,7 +169,7 @@ const Edit = ( props ) => {
                                 checked={attributes.source}
                                 defaultChecked='feed'
                             >
-                                <Radio value="feed">Basic</Radio>
+                                <Radio value="feed">Feed</Radio>
                                 <Radio value="select">Select</Radio>
                             </RadioGroup>
                         </BaseControl>

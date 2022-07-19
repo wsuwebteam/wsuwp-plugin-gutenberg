@@ -3,7 +3,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
 
 const blockResponse = {
-    queryString: '',
+    requestData: '',
     rendered: 'hello world',
 };
 
@@ -15,18 +15,22 @@ const ApiRenderBlock = ( { attributes, blockName, onChange, children } ) => {
 
     attributes.apiRender = true;
 
-    let queryString = Object.keys( attributes ).map( key => encodeURIComponent( key ) + '=' + encodeURIComponent( attributes[key] ) ).join('&');
+    let requestData = JSON.stringify( attributes );
 
     useEffect(() => {
         apiFetch( {
-            path: '/wsu-gutenberg/v1/render-block/' + blockName + '?' + queryString,
-            method: 'GET',
+            path: '/wsu-gutenberg/v1/render-block/' + blockName,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: requestData,
         } ).then( ( res ) => {
     
             let block = JSON.parse( res );
             setBlockRendered( block.rendered );
         } );
-    }, [queryString] );
+    }, [requestData] );
 
     if ( blockRendered ) {
 

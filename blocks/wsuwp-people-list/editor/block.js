@@ -35,7 +35,7 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
-    university_tag: {
+    tag: {
       type: "array",
       default: [],
     },
@@ -50,6 +50,10 @@ registerBlockType("wsuwp/people-list", {
     display_fields: {
       type: "array",
       default: ["photo", "name", "title", "office", "email"],
+    },
+    focus_area_label: {
+      type: "string",
+      default: 'Focus Area',
     },
     website_link_text: {
       type: "string",

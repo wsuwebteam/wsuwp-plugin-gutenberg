@@ -237,7 +237,7 @@ class Query_Posts {
 				$post['title']   = get_the_title();
 				$post['caption'] = get_the_excerpt();
 				$post['content'] = get_the_content();
-				$post['link']    = get_post_permalink();
+				$post['link']    = get_permalink();
 				$post['date']    = get_the_date();
 
 				if ( has_post_thumbnail() ) {
