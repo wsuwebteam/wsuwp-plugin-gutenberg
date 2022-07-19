@@ -23,7 +23,7 @@ const {
 const { __experimentalRadio: Radio, __experimentalRadioGroup: RadioGroup } =
   wp.components;
 
-import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
 	getBlockClassName,
@@ -36,7 +36,32 @@ import {
 	MultipleImagePicker
 } from '../../../assets/src/js/partials/block-controls/blockControls';
 
-const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
+
+let heroStyles = [
+	{
+	  icon: (
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="#4a4b4c"/><rect x="11.94" y="18.84" width="50.06" height="6.96" rx="3.19" fill="#fff"/><rect x="11.94" y="30.1" width="60.28" height="3.19" rx="1.08" fill="#fff"/><rect x="11.94" y="35.29" width="60.28" height="3.19" rx="1.08" fill="#fff"/><rect x="11.94" y="40.49" width="37.68" height="3.19" rx="1.08" fill="#fff"/></svg>
+	  ),
+	  label: "Default",
+	  value: "",
+	},
+	{
+	  icon: (
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="#4a4b4c"/><rect x="6.74" y="35.51" width="73.82" height="17.01" fill="#231f20"/><rect x="11.94" y="31.69" width="50.06" height="6.96" rx="3.19" fill="#fff"/><rect x="11.94" y="42.95" width="60.28" height="3.19" rx="1.08" fill="#fff"/></svg>
+	  ),
+	  label: "Bold Caption",
+	  value: "caption",
+	}
+  ];
+
+const Edit = ( props ) => {
+
+	let {
+		className, 
+		isSelected, 
+		attributes, 
+		setAttributes 
+	} = props;
 
 	let blockClasses = attributes.className ?? '';
 
@@ -193,8 +218,9 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 										checked={attributes.sliderEffect }
 										defaultChecked="slide"
 									>
-										<Radio value="slide">Slide</Radio>
 										<Radio value="fade">Fade</Radio>
+										<Radio value="slide">Slide</Radio>
+										<Radio value="stacked">Stacked</Radio>
 									</RadioGroup>
 								</BaseControl>
 								
@@ -238,6 +264,11 @@ const Edit = ( {className, isSelected, attributes, setAttributes } ) => {
 						)}
 					</PanelBody>
 				</Panel>
+				<PanelStyleOptions
+					{...props}
+					styles={heroStyles}
+					prefix="wsu-hero--style-"
+					></PanelStyleOptions>
 			</InspectorControls>
 			<div { ...blockProps } >
 				<div className="wsu-image-frame wsu-image-frame--fill">

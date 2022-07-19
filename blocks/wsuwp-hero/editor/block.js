@@ -99,11 +99,11 @@ registerBlockType("wsuwp/hero", {
     },
     sliderEffect: {
       type: "string",
-      default: "slide",
+      default: "fade",
     },
     sliderDelay: {
       type: "integer",
-      default: 3000,
+      default: 5000,
     },
     backgroundType: {
       type: "string",

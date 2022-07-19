@@ -28,8 +28,8 @@ class Block_WSUWP_Hero extends Block {
 		'backgroundVideo'   => false,
 		'backgroundType'    => '',
 		'sliderImages'      => array(),
-		'sliderEffect'      => 'slide',
-		'sliderDelay'       => 3000,
+		'sliderEffect'      => 'fade',
+		'sliderDelay'       => 5000,
 	);
 
 
