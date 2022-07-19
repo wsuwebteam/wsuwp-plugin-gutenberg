@@ -17,7 +17,7 @@ const PostPicker = ( props ) => {
         onChange,
         label = '',
         postTypes = [ 'post', 'page' ],
-        placeholder = 'Search posts...'
+        placeholder = 'Search Content...'
     } = props;
 
     const searchInputRef = useRef(null);    
@@ -165,7 +165,7 @@ const PostPicker = ( props ) => {
             ) : latestPosts.length && (                    
                     <SuggestionList
                         attributes={ attributes }         
-                        title="Recent Posts"
+                        title="Recent Content"
                         postTypeData={ postTypeData }
                         suggestions={ latestPosts }
                         searchTerm={ searchString }
