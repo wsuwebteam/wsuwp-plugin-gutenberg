@@ -27,7 +27,7 @@ class Rest_API {
 			'wsu-gutenberg/v1',
 			'render-block/(?P<block_name>[a-zA-Z0-9-]+)',
 			array(
-				'methods'             => 'GET',
+				'methods'             => array('GET','POST'),
 				'callback'            => array( __CLASS__, 'render_endpoint' ),
 				'permission_callback' => '__return_true', // https://wordpress.org/support/topic/missing-the-required-permission_callback-argument/
 			)
