@@ -119,6 +119,10 @@
                 type: 'boolean',
                 default: false,
             },
+            cardClassName: {
+                type: 'string',
+                default: '',
+            },
          },
          edit,
      }
