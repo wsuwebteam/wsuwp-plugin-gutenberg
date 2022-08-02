@@ -9,6 +9,10 @@ import {
   setBlockClassNameBool,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
+import { 
+	SpacingClassNameSelector,
+} from "../../../assets/src/js/partials/block-controls/blockControls";
+
 const {
   URLPopover,
   RichText,
@@ -421,6 +425,37 @@ const edit = (props) => {
             ></FontIconPickerControl>
           </PanelRow>
         </PanelBody>
+        <SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Margin (Outside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',                                        
+									default: 'none',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',
+									default: 'xmedium',                                        
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
+									default: 'default',
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
       </InspectorControls>
       <InspectorAdvancedControls>
         <PanelRow>

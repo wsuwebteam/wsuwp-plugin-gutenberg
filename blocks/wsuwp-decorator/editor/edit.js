@@ -21,6 +21,7 @@ import {
     PanelDisplayOptions,
 	PanelColorOptions,
 	PanelStyleOptions,
+	PanelAnimate,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
@@ -238,6 +239,7 @@ const Edit = ( props ) => {
 					onChange={ ( style ) => { setBlockClassName( attributes, setAttributes, 'wsu-z-index--', style ) } }
 				/>
             </PanelDisplayOptions>
+			<PanelAnimate { ...props } ></PanelAnimate>
 		</InspectorControls>
 		<div { ...blockProps }  >Decorator: { getDecoratorName() }</div>
 		</>

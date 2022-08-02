@@ -4,7 +4,8 @@ const { InnerBlocks } = wp.blockEditor;
 
 const {
 	InspectorControls,
-	useBlockProps
+	useBlockProps,
+    InspectorAdvancedControls,
 } = wp.blockEditor;
 
 const {
@@ -151,7 +152,7 @@ const Edit = ( props ) => {
 
 	queryAttrs['hideLink'] = true;
 
-    console.log( attributes.queryTerms );
+    console.log( attributes.queryTerms ); 
 
     return (
         <>
@@ -222,6 +223,14 @@ const Edit = ( props ) => {
                         />
                 </FeedPanelAdvanced>
             </InspectorControls>
+            {attributes.source == 'feed' && ( <InspectorAdvancedControls>
+                <TextControl
+						label="Card Classes"
+						value={ attributes.cardClassName }
+						onChange= { ( cardClassName ) => setAttributes( { cardClassName } ) }
+					/>
+            </InspectorAdvancedControls>
+            ) }
             <div { ...blockProps }  >
                 <ApiRenderBlock 
                     attributes={queryAttrs}

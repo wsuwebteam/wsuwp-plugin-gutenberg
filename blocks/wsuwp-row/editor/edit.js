@@ -7,6 +7,10 @@ const {
 	useBlockProps
 } = wp.blockEditor;
 
+import { 
+	PanelAnimate
+} from "../../../assets/src/js/partials/block-panels/blockPanels";
+
 const {
 	PanelBody,
 	TextControl,
@@ -172,7 +176,7 @@ const Edit = ( props ) => {
 					]}
 					{...props}>
 				</ColorClassNameSelector>
-
+				<PanelAnimate { ...props } ></PanelAnimate>
 				<SpacingClassNameSelector
 					title="Space Settings"
 					spaceSettings={[

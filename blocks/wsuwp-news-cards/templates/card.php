@@ -1,4 +1,4 @@
-<article class="wsu-card wsu-card--news">
+<article class="wsu-card wsu-card--news <?php echo esc_attr( $attrs['cardClassName'] );?>">
 	<?php if ( empty( $attrs['hideImage'] ) && ! empty( $post['imageSrc'] ) ) : ?>
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
 		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>"><?php endif; ?>

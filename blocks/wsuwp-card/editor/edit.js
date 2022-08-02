@@ -27,6 +27,7 @@ import {
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
+	PanelAnimate,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
@@ -93,6 +94,7 @@ const Edit = ( props ) => {
 							prefix='wsu-border-top--color-'
 							/>
 					</PanelColorOptions>
+					<PanelAnimate { ...props } ></PanelAnimate>
 					<SpacingClassNameSelector                        
 						spaceSettings={[
 							{

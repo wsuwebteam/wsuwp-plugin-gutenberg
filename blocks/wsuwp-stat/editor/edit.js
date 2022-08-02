@@ -13,7 +13,7 @@ import {
   __experimentalRadio as Radio,
   __experimentalRadioGroup as RadioGroup,
 } from "@wordpress/components";
-import { PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { PanelStyleOptions, PanelAnimate } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { FontIconPickerControl } from "../../../assets/src/js/partials/block-controls/blockControls";
 import {
   setBlockClassName,
@@ -141,6 +141,7 @@ const edit = (props) => {
             help=""
           />
         </PanelStyleOptions>
+        <PanelAnimate { ...props } ></PanelAnimate>
       </InspectorControls>
 
       <div {...blockProps}>

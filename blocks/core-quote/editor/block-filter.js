@@ -2,7 +2,7 @@ const { addFilter } = wp.hooks;
 const { Fragment }	= wp.element;
 const { InspectorAdvancedControls }	= wp.editor;
 const { createHigherOrderComponent } = wp.compose;
-import {  PanelDisplayOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import {  PanelDisplayOptions, PanelAnimate, } from "../../../assets/src/js/partials/block-panels/blockPanels";
 const {
 	InspectorControls,
 } = wp.blockEditor;
@@ -48,6 +48,7 @@ const coreQuoteControls = wp.compose.createHigherOrderComponent( (BlockEdit) => 
 									}
 									/>
 							</PanelDisplayOptions>
+							<PanelAnimate { ...props } ></PanelAnimate>
 						</InspectorControls>
 					</>
 				}
