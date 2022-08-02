@@ -19,6 +19,10 @@ import {
     getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
+import { 
+	PanelAnimate
+} from "../../../assets/src/js/partials/block-panels/blockPanels";
+
 
 const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit) => {
 
@@ -57,6 +61,7 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 										</RequiredAlertControl>
 									}
 							</PanelDisplayOptions>
+							<PanelAnimate { ...props } ></PanelAnimate>
 							<SpacingClassNameSelector                        
 								spaceSettings={[
 									{

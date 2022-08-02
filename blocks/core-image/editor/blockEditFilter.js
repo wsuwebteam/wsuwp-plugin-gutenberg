@@ -9,6 +9,7 @@ import {
 	PanelFeedPosts, 
 	PanelGeneralOptions, 
 	PanelStyleOptions,
+	PanelAnimate,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 const {
@@ -67,6 +68,7 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 							styles={imageStyles}
 							prefix="wsu-image--style-"  
 							></PanelStyleOptions>
+							<PanelAnimate { ...props } ></PanelAnimate>
 							<SpacingClassNameSelector
 								title="Space Settings"
 								spaceSettings={[

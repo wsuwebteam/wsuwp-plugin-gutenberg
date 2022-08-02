@@ -2758,6 +2758,9 @@ const ALLOPTIONS = [{
   key: 'none',
   name: 'none'
 }, {
+  key: 'sxxsmall',
+  name: 'sxxsmall'
+}, {
   key: 'xxsmall',
   name: 'xxsmall'
 }, {
@@ -2787,6 +2790,12 @@ const ALLOPTIONS = [{
 }, {
   key: 'hero',
   name: 'hero'
+}, {
+  key: 'xhero',
+  name: 'xhero'
+}, {
+  key: 'xxhero',
+  name: 'xxhero'
 }];
 
 const SpacingClassNameSelector = props => {
@@ -3057,6 +3066,91 @@ const PanelAdvancedFeedOptions = props => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-panels/PanelAnimate.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/partials/block-panels/PanelAnimate.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+
+
+
+
+const animateStyles = [{
+  label: 'None',
+  value: ''
+}, {
+  label: 'Fade',
+  value: 'fade'
+}, {
+  label: 'In From Left',
+  value: 'fade-left'
+}, {
+  label: 'In From Right',
+  value: 'fade-right'
+}, {
+  label: 'In From Bottom',
+  value: 'fade-bottom'
+}, {
+  label: 'In From Botom left',
+  value: 'fade-bottom-right'
+}, {
+  label: 'In From Botom Right',
+  value: 'fade-bottom-right'
+}];
+const animateTiming = [{
+  label: 'Default',
+  value: ''
+}, {
+  label: 'Early',
+  value: 'early'
+}, {
+  label: 'Late',
+  value: 'late'
+}];
+
+const PanelAnimate = props => {
+  let {
+    isOpen = false,
+    attributes,
+    setAttributes
+  } = props;
+  let isAnimatable = Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["hasBlockClassName"])(attributes, 'wsu-animate');
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, isAnimatable && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
+    title: "Animate Options",
+    initialOpen: isOpen
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Animation Action",
+    value: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--action-'),
+    options: animateStyles,
+    onChange: animationStyle => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--action-', animationStyle)
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
+    label: "Animation Start",
+    value: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--timing-'),
+    options: animateTiming,
+    onChange: animateAt => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--timing-', animateAt)
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["RangeControl"], {
+    label: "Delay",
+    value: parseInt(Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--delay-', 0)),
+    onChange: delay => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--delay-', delay),
+    help: "Increments of 200ms",
+    min: 0,
+    max: 6
+  }), props.children));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PanelAnimate);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-panels/PanelColorOptions.js":
 /*!******************************************************************!*\
   !*** ./assets/src/js/partials/block-panels/PanelColorOptions.js ***!
@@ -3233,7 +3327,7 @@ const PanelInsertPost = props => {
 /*!************************************************************!*\
   !*** ./assets/src/js/partials/block-panels/blockPanels.js ***!
   \************************************************************/
-/*! exports provided: PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelFeedOptions, PanelAdvancedFeedOptions, PanelColorOptions, PanelStyleOptions */
+/*! exports provided: PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelFeedOptions, PanelAdvancedFeedOptions, PanelColorOptions, PanelStyleOptions, PanelAnimate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3261,6 +3355,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _panel_style_options_PanelStyleOptions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./panel-style-options/PanelStyleOptions */ "./assets/src/js/partials/block-panels/panel-style-options/PanelStyleOptions.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PanelStyleOptions", function() { return _panel_style_options_PanelStyleOptions__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _PanelAnimate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./PanelAnimate */ "./assets/src/js/partials/block-panels/PanelAnimate.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PanelAnimate", function() { return _PanelAnimate__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
 
 
 
@@ -3650,9 +3748,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const {
-  ToggleControl
-} = wp.components;
-const {
+  ToggleControl,
+  SelectControl,
   RangeControl
 } = wp.components;
 
@@ -3661,6 +3758,8 @@ function additionalAdvancedControls(OriginalComponent) {
     const unsupportedPosition = [];
     const unsupportedZindex = [];
     const unsupportedOverflow = [];
+    const unsupportedHide = [];
+    const supportsAnimation = ['wsuwp/card', 'core/image', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section', 'core/paragraph'];
     let {
       attributes,
       setAttributes
@@ -3688,6 +3787,47 @@ function additionalAdvancedControls(OriginalComponent) {
       checked: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["hasBlockClassName"])(attributes, 'wsu-overflow--hidden'),
       onChange: overflow => {
         Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["setBlockClassNameBool"])(attributes, setAttributes, 'wsu-overflow--hidden', overflow);
+      }
+    }), !unsupportedOverflow.includes(props.name) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: "Hide at Breakpoint",
+      value: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["getBlockClassNameValue"])(attributes, 'wsu-hide--'),
+      options: [{
+        label: 'none',
+        value: ''
+      }, {
+        label: 'xxultrawide',
+        value: 'xxultrawide'
+      }, {
+        label: 'xultrawide',
+        value: 'xultrawide'
+      }, {
+        label: 'ultrawide',
+        value: 'ultrawide'
+      }, {
+        label: 'desktop',
+        value: 'desktop'
+      }, {
+        label: 'tablet-large',
+        value: 'tablet-large'
+      }, {
+        label: 'tablet-medium',
+        value: 'tablet-medium'
+      }, {
+        label: 'tablet',
+        value: 'tablet'
+      }, {
+        label: 'phone',
+        value: 'phone'
+      }, {
+        label: 'phone-small',
+        value: 'phone-small'
+      }],
+      onChange: animationStyle => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["setBlockClassName"])(attributes, setAttributes, 'wsu-hide--', animationStyle)
+    }), supportsAnimation.includes(props.name) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: "Animate",
+      checked: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["hasBlockClassName"])(attributes, 'wsu-animate'),
+      onChange: overflow => {
+        Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__["setBlockClassNameBool"])(attributes, setAttributes, 'wsu-animate', overflow);
       }
     }))));
   };
@@ -3928,7 +4068,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function insertSpacingControl(OriginalComponent) {
   return function (props) {
-    const unsupportedBlockTypes = ['core/image', 'wsuwp/card', 'wsuwp/image', 'wsuwp/row', 'wsuwp/column', 'core/button', 'core/paragraph', 'wsuwp/section', 'wsuwp/card-group', 'wsuwp/callout', 'wsuwp/container'];
+    const unsupportedBlockTypes = ['core/image', 'wsuwp/card', 'wsuwp/image', 'wsuwp/row', 'wsuwp/column', 'core/button', 'core/paragraph', 'wsuwp/section', 'wsuwp/card-group', 'wsuwp/callout', 'wsuwp/container', 'wsuwp/button'];
 
     if (!unsupportedBlockTypes.includes(props.name)) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -4513,7 +4653,7 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent(BlockEdit =>
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockEdit, props), isSelected && props.name == 'core/image' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
       styles: imageStyles,
       prefix: "wsu-image--style-"
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       title: "Space Settings",
       spaceSettings: [{
         label: 'Margin (Outside Spacing)',
@@ -4643,6 +4783,7 @@ const {
 const {} = wp.components;
 
 
+
 const coreParagraphControls = wp.compose.createHigherOrderComponent(BlockEdit => {
   return props => {
     const {
@@ -4683,7 +4824,7 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent(BlockEdit =>
         label: 'xLarge',
         value: 'xlarge'
       }]
-    })), FontSizeValue && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequiredAlertControl"], null, "Should this be a heading instead?", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("br", null), "Paragraph text should not be used as a substitue for a heading.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    })), FontSizeValue && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["RequiredAlertControl"], null, "Should this be a heading instead?", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("br", null), "Paragraph text should not be used as a substitue for a heading.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       spaceSettings: [{
         label: 'Outside Spacing (Margin)',
         properties: [{
@@ -4803,7 +4944,7 @@ const coreQuoteControls = wp.compose.createHigherOrderComponent(BlockEdit => {
         label: 'xLarge',
         value: 'xlarge'
       }]
-    }))))));
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props))));
   };
 }, 'coreQuoteControls');
 wp.hooks.addFilter('editor.BlockEdit', 'wsu/core-quote-controls', coreQuoteControls);
@@ -5364,6 +5505,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const {
   URLPopover,
   RichText,
@@ -5752,7 +5894,29 @@ const edit = props => {
     onChange: val => setAttributes({
       iconAfter: val
     })
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    title: "Space Settings",
+    spaceSettings: [{
+      label: 'Margin (Outside Spacing)',
+      properties: [{
+        label: 'Top',
+        prefix: 'wsu-spacing-before--',
+        default: 'none'
+      }, {
+        label: 'Bottom',
+        prefix: 'wsu-spacing-after--',
+        default: 'xmedium'
+      }, {
+        label: 'Left',
+        prefix: 'wsu-spacing-margin-left--',
+        default: 'default'
+      }, {
+        label: 'Right',
+        prefix: 'wsu-spacing-margin-right--',
+        default: 'default'
+      }]
+    }]
+  }, props))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
     label: "Button CSS Class(es)",
     help: "Classes will be applied to the block's wrapper. Separate multiple classes with spaces.",
     value: attributes.buttonClassName,
@@ -5959,7 +6123,7 @@ const Edit = props => {
     label: "Border Color",
     value: "#e6e6e6",
     prefix: "wsu-callout--color-"
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     title: "Space Settings",
     spaceSettings: [{
       label: 'Outside Spacing (Margin)',
@@ -6747,7 +6911,7 @@ const Edit = props => {
       label: "Border Color",
       value: "#e6e6e6",
       prefix: "wsu-border-top--color-"
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       spaceSettings: [{
         label: 'Margin (Outside Spacing)',
         properties: [{
@@ -7064,6 +7228,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+
 
 
 
@@ -7125,7 +7291,7 @@ const Edit = props => {
         className: 'gray-95'
       }]
     }]
-  }, props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }, props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     title: "Space Settings",
     spaceSettings: [{
       label: 'Margin (Outside Spacing)',
@@ -7382,7 +7548,7 @@ const Edit = props => {
     label: "Border Color",
     value: "#ffffff",
     prefix: "wsu-callout--color-"
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     title: "Space Settings",
     spaceSettings: [{
       label: 'Margin (Outside Spacing)',
@@ -8116,7 +8282,7 @@ const Edit = props => {
     onChange: style => {
       Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__["setBlockClassName"])(attributes, setAttributes, 'wsu-z-index--', style);
     }
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, "Decorator: ", getDecoratorName()));
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelAnimate"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, "Decorator: ", getDecoratorName()));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
@@ -9552,6 +9718,10 @@ registerBlockType("wsuwp/news-cards", {
     useAndLogic: {
       type: 'boolean',
       default: false
+    },
+    cardClassName: {
+      type: 'string',
+      default: ''
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -9663,7 +9833,8 @@ const {
 } = wp.blockEditor;
 const {
   InspectorControls,
-  useBlockProps
+  useBlockProps,
+  InspectorAdvancedControls
 } = wp.blockEditor;
 const {
   PanelBody,
@@ -9837,7 +10008,13 @@ const Edit = props => {
         hideShownPosts
       });
     }
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
+  }))), attributes.source == 'feed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: "Card Classes",
+    value: attributes.cardClassName,
+    onChange: cardClassName => setAttributes({
+      cardClassName
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__["ApiRenderBlock"], {
     attributes: queryAttrs,
     blockName: "wsuwp/news-cards"
   }, 'feed' === attributes.source && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FeedPlaceHolder, null))));
@@ -11881,7 +12058,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-panels/blockPanels */ "./assets/src/js/partials/block-panels/blockPanels.js");
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
 
 
 const {
@@ -11894,6 +12072,7 @@ const {
   InspectorControls,
   useBlockProps
 } = wp.blockEditor;
+
 const {
   PanelBody,
   TextControl,
@@ -12056,7 +12235,7 @@ const Edit = props => {
   }, [props.attributes.className]);
 
   if (!attributes.layout) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["FormatSelector"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FormatSelector"], {
       options: layoutOptions,
       onSelect: layout => {
         setAttributes({
@@ -12066,7 +12245,7 @@ const Edit = props => {
       title: "Select Layout"
     }));
   } else {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["ColorClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       title: "Color Settings",
       colorSettings: [{
         label: 'Background Color',
@@ -12097,7 +12276,7 @@ const Edit = props => {
           className: 'gray-95'
         }]
       }]
-    }, props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    }, props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       title: "Space Settings",
       spaceSettings: [{
         label: 'Margin (Outside Spacing)',
@@ -12376,7 +12555,7 @@ const Edit = props => {
     label: "Border Color",
     value: "#e6e6e6",
     prefix: "wsu-callout--color-"
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     title: "Space Settings",
     spaceSettings: [{
       label: 'Outside Spacing (Margin)',
@@ -12615,7 +12794,7 @@ const edit = props => {
     checked: Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__["hasBlockClassName"])(attributes, "wsu-display--inline-block"),
     onChange: value => Object(_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__["setBlockClassNameBool"])(attributes, setAttributes, "wsu-display--inline-block", value),
     help: ""
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__["PanelAnimate"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
     className: "wsu-stat__value",
     allowedFormats: [],
     withoutInteractiveFormatting: true,

@@ -11,13 +11,9 @@ import {
 
 const {
 	ToggleControl,
+    SelectControl,
+    RangeControl,
 } = wp.components;
-
-
-const {
-	RangeControl,
-} = wp.components;
-
 
 
 function additionalAdvancedControls( OriginalComponent ) {
@@ -26,6 +22,9 @@ function additionalAdvancedControls( OriginalComponent ) {
         const unsupportedPosition = [];
         const unsupportedZindex = [];
         const unsupportedOverflow = [];
+        const unsupportedHide = [];
+
+        const supportsAnimation = ['wsuwp/card','core/image', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section','core/paragraph'];
 
         let {
             attributes,
@@ -58,6 +57,31 @@ function additionalAdvancedControls( OriginalComponent ) {
                             label="Overflow Hidden"
                             checked={ hasBlockClassName( attributes, 'wsu-overflow--hidden') }
                             onChange={ ( overflow ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-overflow--hidden', overflow ) } }
+                            />
+                        }
+                        { ! unsupportedOverflow.includes( props.name ) && <SelectControl
+                            label='Hide at Breakpoint'
+                            value={ getBlockClassNameValue( attributes, 'wsu-hide--' ) }
+                            options={ [
+                                { label:'none', value:''},
+                                { label:'xxultrawide', value:'xxultrawide'},
+                                { label:'xultrawide', value:'xultrawide'},
+                                { label:'ultrawide', value:'ultrawide'},
+                                { label:'desktop', value:'desktop'},
+                                { label:'tablet-large', value:'tablet-large'},
+                                { label:'tablet-medium', value:'tablet-medium'},
+                                { label:'tablet', value:'tablet'},
+                                { label:'phone', value:'phone'},
+                                { label:'phone-small', value:'phone-small'},
+                                ]
+                            }
+                            onChange={ ( animationStyle ) => setBlockClassName( attributes, setAttributes, 'wsu-hide--', animationStyle ) }
+                            />
+                        }
+                        { supportsAnimation.includes( props.name ) && <ToggleControl
+                            label="Animate"
+                            checked={ hasBlockClassName( attributes, 'wsu-animate') }
+                            onChange={ ( overflow ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-animate', overflow ) } }
                             />
                         }
                     </PanelBody>

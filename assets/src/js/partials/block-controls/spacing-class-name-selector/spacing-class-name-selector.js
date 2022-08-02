@@ -50,6 +50,7 @@ const CSSNAMESPACE = 'wsu-gutenberg-spacing';
 const ALLOPTIONS = [
     { key: 'default', name: 'default' },    
     { key: 'none', name: 'none' },
+    { key: 'sxxsmall', name: 'sxxsmall' },
     { key: 'xxsmall', name: 'xxsmall' },
     { key: 'xsmall', name: 'xsmall' },
     { key: 'small', name: 'small' },
@@ -60,6 +61,8 @@ const ALLOPTIONS = [
     { key: 'xlarge', name: 'xlarge' },
     { key: 'xxlarge', name: 'xxlarge' },
     { key: 'hero', name: 'hero' },
+    { key: 'xhero', name: 'xhero' },
+    { key: 'xxhero', name: 'xxhero' },
 ];
 
 const SpacingClassNameSelector = (props) => {

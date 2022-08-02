@@ -2,6 +2,10 @@ import { InnerBlocks, InspectorControls, useBlockProps} from '@wordpress/block-e
 import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls';
 import { useEffect, useState } from '@wordpress/element';
 
+import { 
+	PanelAnimate
+} from "../../../assets/src/js/partials/block-panels/blockPanels";
+
 const DEFAULT_SPACING = {
 	spaceBefore: 'none',
 	spaceAfter: 'none',
@@ -53,7 +57,7 @@ const Edit = ( props ) => {
 					]}
 					{...props}>
 				</ColorClassNameSelector>
-
+				<PanelAnimate { ...props } ></PanelAnimate>
 				<SpacingClassNameSelector
 					title="Space Settings"
 					spaceSettings={[
