@@ -2,7 +2,7 @@ const { addFilter } = wp.hooks;
 const { Fragment }	= wp.element;
 const { InspectorAdvancedControls }	= wp.editor;
 const { createHigherOrderComponent } = wp.compose;
-import {  PanelDisplayOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import {  PanelDisplayOptions, PanelAnimate } from "../../../assets/src/js/partials/block-panels/blockPanels";
 const {
 	InspectorControls,
 } = wp.blockEditor;
@@ -18,10 +18,6 @@ import {
 import {
     getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
-
-import { 
-	PanelAnimate
-} from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
 const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit) => {
