@@ -5,6 +5,7 @@ class Block_WSUWP_Banner extends Block {
 	protected static $block_name    = 'wsuwp/banner';
 	protected static $default_attrs = array(
 		'className'         => 'wsu-page-banner',
+		'id'                => '',
 		'imageSize'         => 'full',
 		'imageId'           => '0',
 		'imageSrc'          => '',

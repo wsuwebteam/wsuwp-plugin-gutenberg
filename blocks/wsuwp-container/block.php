@@ -5,6 +5,7 @@ class Block_WSUWP_Container extends Block {
 	protected static $block_name    = 'wsuwp/container';
 	protected static $default_attrs = array(
 		'className' => 'wsu-container',
+		'id'        => '',
         'tag'       => 'div',
 	);
 

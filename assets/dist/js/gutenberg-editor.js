@@ -262,6 +262,43 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/AnchorControl.js":
+/*!****************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/AnchorControl.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const AnchorControl = props => {
+  var _attributes$id;
+
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["TextControl"], {
+    label: "HTML anchor",
+    value: (_attributes$id = attributes.id) !== null && _attributes$id !== void 0 ? _attributes$id : '',
+    onChange: id => setAttributes({
+      id
+    }),
+    help: "Enter a word or two \u2014 without spaces \u2014 to make a unique web address just for this block, called an \u201Canchor.\u201D Then, you\u2019ll be able to link directly to this section of your page."
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (AnchorControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/ButtonControl.js":
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/ButtonControl.js ***!
@@ -1147,7 +1184,7 @@ const TitleTagControl = ({
 /*!****************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/blockControls.js ***!
   \****************************************************************/
-/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector, FontIconPickerControl, TaxonomyTypeSelectControl, PostTypeSelectControl, TaxonomyTermSelectControl, CountControl, OffsetControl, HostControl, ButtonControl, HeadingControl, HeadingTagControl, TitleTagControl, FontSizeControl, ResetControl, RequireImageControl, RequireFirstImageControl, ColorClassControl, RequiredAlertControl, TermSelectorControl, ImageFrameControl, DisplayFieldControl, MultipleImagePicker */
+/*! exports provided: FormatSelector, PostPicker, FeedPostsControl, PerRow, ColorClassNameSelector, SpacingClassNameSelector, FontIconPickerControl, TaxonomyTypeSelectControl, PostTypeSelectControl, TaxonomyTermSelectControl, CountControl, OffsetControl, HostControl, ButtonControl, HeadingControl, HeadingTagControl, TitleTagControl, FontSizeControl, ResetControl, RequireImageControl, RequireFirstImageControl, ColorClassControl, RequiredAlertControl, TermSelectorControl, ImageFrameControl, DisplayFieldControl, MultipleImagePicker, AnchorControl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1232,6 +1269,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _multiple_image_picker_MultipleImagePicker__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./multiple-image-picker/MultipleImagePicker */ "./assets/src/js/partials/block-controls/multiple-image-picker/MultipleImagePicker.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleImagePicker", function() { return _multiple_image_picker_MultipleImagePicker__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+
+/* harmony import */ var _AnchorControl__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./AnchorControl */ "./assets/src/js/partials/block-controls/AnchorControl.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnchorControl", function() { return _AnchorControl__WEBPACK_IMPORTED_MODULE_27__["default"]; });
+
 
 
 
@@ -3107,13 +3148,13 @@ const animateStyles = [{
   value: 'fade-bottom-right'
 }];
 const animateTiming = [{
-  label: 'Default',
-  value: ''
-}, {
-  label: 'Early',
+  label: '5% in view',
   value: 'early'
 }, {
-  label: 'Late',
+  label: '15% in view',
+  value: ''
+}, {
+  label: '25% in view',
   value: 'late'
 }];
 
@@ -3128,17 +3169,17 @@ const PanelAnimate = props => {
     title: "Animate Options",
     initialOpen: isOpen
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
-    label: "Animation Action",
+    label: "Animation Type",
     value: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--action-'),
     options: animateStyles,
     onChange: animationStyle => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--action-', animationStyle)
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["SelectControl"], {
-    label: "Animation Start",
+    label: "Trigger Animation at:",
     value: Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--timing-'),
     options: animateTiming,
     onChange: animateAt => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--timing-', animateAt)
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["RangeControl"], {
-    label: "Delay",
+    label: "Animation Delay",
     value: parseInt(Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["getBlockClassNameValue"])(attributes, 'wsu-animate--delay-', 0)),
     onChange: delay => Object(_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__["setBlockClassName"])(attributes, setAttributes, 'wsu-animate--delay-', delay),
     help: "Increments of 200ms",
@@ -3743,6 +3784,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../block-utilities/blockUtilities */ "./assets/src/js/partials/block-utilities/blockUtilities.js");
+/* harmony import */ var _block_controls_blockControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
 
 
 
@@ -3759,12 +3802,13 @@ function additionalAdvancedControls(OriginalComponent) {
     const unsupportedZindex = [];
     const unsupportedOverflow = [];
     const unsupportedHide = [];
-    const supportsAnimation = ['wsuwp/card', 'core/image', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section', 'core/paragraph'];
+    const supportsAnimation = ['wsuwp/card', 'core/image', 'core/heading', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section', 'core/paragraph', 'wsuwp/stat'];
+    const supportsAnchor = ['wsuwp/card', 'wsuwp/card-group', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/row', 'wsuwp/section', 'wsuwp/stat'];
     let {
       attributes,
       setAttributes
     } = props;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorAdvancedControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(OriginalComponent, props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorAdvancedControls"], null, supportsAnchor.includes(props.name) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_4__["AnchorControl"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
       title: "Additional Advanced Settings",
       initialOpen: false,
       className: "wsu-block-control-additional-advanced"
@@ -4513,7 +4557,7 @@ const coreHeadingControls = wp.compose.createHigherOrderComponent(BlockEdit => {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockEdit, props), isSelected && props.name == 'core/heading' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
       styles: headingStyles,
       prefix: "wsu-heading--style-"
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FontSizeControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelDisplayOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["FontSizeControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
       sizes: [{
         label: 'Not Set',
         value: ''
@@ -4781,7 +4825,6 @@ const {
   InspectorControls
 } = wp.blockEditor;
 const {} = wp.components;
-
 
 
 const coreParagraphControls = wp.compose.createHigherOrderComponent(BlockEdit => {
@@ -5200,6 +5243,10 @@ registerBlockType("wsuwp/banner", {
     imageSrc: {
       type: 'string',
       default: ''
+    },
+    id: {
+      type: 'string',
+      default: ''
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -5454,6 +5501,10 @@ registerBlockType("wsuwp/button", {
   apiVersion: 2,
   category: "text",
   attributes: {
+    id: {
+      type: 'string',
+      default: ''
+    },
     buttonText: {
       type: "string",
       default: ""
@@ -5894,7 +5945,7 @@ const edit = props => {
     onChange: val => setAttributes({
       iconAfter: val
     })
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__["PanelAnimate"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__["SpacingClassNameSelector"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     title: "Space Settings",
     spaceSettings: [{
       label: 'Margin (Outside Spacing)',
@@ -6001,6 +6052,10 @@ registerBlockType("wsuwp/callout", {
   })),
   attributes: {
     title: {
+      type: 'string',
+      default: ''
+    },
+    id: {
       type: 'string',
       default: ''
     },
@@ -6288,6 +6343,10 @@ registerBlockType("wsuwp/card-group", {
     imageId: {
       type: "string",
       default: ""
+    },
+    id: {
+      type: 'string',
+      default: ''
     },
     imageSrc: {
       type: "string",
@@ -7204,6 +7263,10 @@ registerBlockType("wsuwp/column", {
   attributes: {
     className: {
       type: 'string'
+    },
+    id: {
+      type: 'string',
+      default: ''
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -7419,6 +7482,10 @@ registerBlockType("wsuwp/container", {
     tag: {
       type: "string",
       default: "div"
+    },
+    id: {
+      type: 'string',
+      default: ''
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -12034,6 +12101,10 @@ registerBlockType("wsuwp/row", {
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
   attributes: {
+    id: {
+      type: 'string',
+      default: ''
+    },
     layout: {
       type: 'string',
       default: ''
@@ -12450,7 +12521,12 @@ registerBlockType("wsuwp/section", {
     fillRule: "evenodd",
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
-  attributes: {},
+  attributes: {
+    id: {
+      type: 'string',
+      default: ''
+    }
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
   save: _save__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
@@ -12652,6 +12728,10 @@ registerBlockType("wsuwp/stat", {
   apiVersion: 2,
   category: "text",
   attributes: {
+    id: {
+      type: 'string',
+      default: ''
+    },
     stat: {
       type: "string",
       default: ""

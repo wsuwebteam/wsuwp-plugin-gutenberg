@@ -25,9 +25,9 @@ const animateStyles = [
 ];
 
 const animateTiming = [
-    { label: 'Default', value: ''},
-    { label: 'Early', value: 'early'},
-    { label: 'Late', value: 'late'},
+    { label: '5% in view', value: 'early'},
+    { label: '15% in view', value: ''},
+    { label: '25% in view', value: 'late'},
 ];
 
 const PanelAnimate = ( props ) => {
@@ -44,19 +44,19 @@ const PanelAnimate = ( props ) => {
         <>
         { isAnimatable && <PanelBody title="Animate Options" initialOpen={isOpen} >
                 <SelectControl
-                    label='Animation Action'
+                    label='Animation Type'
                     value={ getBlockClassNameValue( attributes, 'wsu-animate--action-' ) }
                     options={ animateStyles }
                     onChange={ ( animationStyle ) => setBlockClassName( attributes, setAttributes, 'wsu-animate--action-', animationStyle ) }
                     />
                 <SelectControl
-                    label='Animation Start'
+                    label='Trigger Animation at:'
                     value={ getBlockClassNameValue( attributes, 'wsu-animate--timing-' ) }
                     options={ animateTiming }
                     onChange={ ( animateAt ) => setBlockClassName( attributes, setAttributes, 'wsu-animate--timing-', animateAt ) }
                     />
                 <RangeControl
-                    label="Delay"
+                    label="Animation Delay"
                     value={ parseInt( getBlockClassNameValue( attributes, 'wsu-animate--delay-', 0 ) ) }
                     onChange={ ( delay ) => setBlockClassName( attributes, setAttributes, 'wsu-animate--delay-', delay ) }
                     help="Increments of 200ms"

@@ -10,6 +10,7 @@ class Block_WSUWP_Button extends Block {
 		'buttonUrl'        => '',
 		'iconBefore'       => '',
 		'iconAfter'        => '',
+		'id'               => '',
 	);
 
 	protected static function render( $attrs, $content ) {

@@ -2,7 +2,7 @@ const { addFilter } = wp.hooks;
 const { Fragment }	= wp.element;
 const { InspectorAdvancedControls }	= wp.editor;
 const { createHigherOrderComponent } = wp.compose;
-import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { PanelInsertPost, PanelDisplayOptions, PanelFeedPosts, PanelGeneralOptions, PanelStyleOptions, PanelAnimate } from "../../../assets/src/js/partials/block-panels/blockPanels";
 const {
 	InspectorControls,
 } = wp.blockEditor;
@@ -49,6 +49,7 @@ const coreHeadingControls = wp.compose.createHigherOrderComponent( (BlockEdit) =
 								prefix="wsu-heading--style-" 
 								>
 							</PanelStyleOptions>
+							<PanelAnimate { ...props } ></PanelAnimate>
 							<PanelDisplayOptions>
 								<FontSizeControl 
 									{...props}

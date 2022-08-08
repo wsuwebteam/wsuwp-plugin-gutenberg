@@ -5,6 +5,7 @@ class Block_WSUWP_Card_Group extends Block {
 	protected static $block_name    = 'wsuwp/card-group';
 	protected static $default_attrs = array(
 		'className'   => 'wsu-card-wrapper',
+		'id'          => '',
 		'columns'     => 3,
 		'useFeed'     => false,
 		'hideDate'    => false,

@@ -6,6 +6,7 @@ class Block_WSUWP_Row extends Block {
 	protected static $default_attrs = array(
 		'layout'    => 'single',
 		'className' => '',
+		'id'        => '',
 	);
 
 

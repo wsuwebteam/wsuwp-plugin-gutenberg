@@ -1,4 +1,4 @@
-<div class="wsu-cta <?php echo esc_attr( $attrs['className'] ); ?>">
+<div class="wsu-cta <?php echo esc_attr( $attrs['className'] ); ?>" <?php if ( ! empty( $attrs['id'] ) ) :?>id="<?php echo esc_attr( $attrs['id'] ); ?>"<?php endif; ?>>
 	<a
 		<?php
 		if ( ! empty( $attrs['buttonUrl'] ) ) :

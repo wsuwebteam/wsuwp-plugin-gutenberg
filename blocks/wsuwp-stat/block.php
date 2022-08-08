@@ -12,6 +12,7 @@ class Block_WSUWP_Stat extends Block {
 	protected static $block_name    = 'wsuwp/stat';
 	protected static $default_attrs = array(
 		'className' => '',
+		'id'        => '',
 		'stat'      => '',
 		'caption'   => '',
 		'icon'      => '',
