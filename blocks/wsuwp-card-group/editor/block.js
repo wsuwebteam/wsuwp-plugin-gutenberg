@@ -24,6 +24,10 @@
                 type: "string",
                 default: "",
             },
+            id: {
+                type: 'string',
+                default: '',
+            },
             imageSrc: {
                 type: "string",
                 default: "",

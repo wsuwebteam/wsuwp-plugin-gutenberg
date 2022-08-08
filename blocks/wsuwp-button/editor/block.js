@@ -20,6 +20,10 @@ registerBlockType("wsuwp/button", {
   apiVersion: 2, 
   category: "text",
   attributes: {
+    id: {
+      type: 'string',
+      default: '',
+    },
     buttonText: {
       type: "string",
       default: "",

@@ -23,6 +23,10 @@
             className: {
                 type: 'string'
             },
+            id: {
+                type: 'string',
+                default: '',
+            },
          },
          edit,
          save

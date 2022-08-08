@@ -24,6 +24,10 @@
                 type: "string",
                 default: "div",
             },
+            id: {
+                type: 'string',
+                default: '',
+            },
          },
          edit,
          save

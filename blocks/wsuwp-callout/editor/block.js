@@ -24,6 +24,10 @@
                 type: 'string',
                 default: '',
             },
+            id: {
+                type: 'string',
+                default: '',
+            },
             headingTag: {
                type: 'string',
                default: 'h3',

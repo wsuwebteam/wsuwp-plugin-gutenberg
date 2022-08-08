@@ -8,6 +8,10 @@ registerBlockType("wsuwp/stat", {
   apiVersion: 2,
   category: "text",
   attributes: {
+    id: {
+        type: 'string',
+        default: '',
+    },
     stat: {
       type: "string",
       default: "",

@@ -1,4 +1,4 @@
-<div class="wsu-stat <?php echo esc_attr( $attrs['className'] ); ?>" role="statistic">
+<div class="wsu-stat <?php echo esc_attr( $attrs['className'] ); ?>" <?php if ( ! empty( $attrs['id'] ) ) :?>id="<?php echo esc_attr( $attrs['id'] ); ?>"<?php endif; ?>>
 	<span class="wsu-stat__value"><?php echo esc_html( $attrs['stat'] ); ?></span>
 
 	<?php if ( ! empty( $attrs['unit'] ) ) : ?>

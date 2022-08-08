@@ -27,6 +27,10 @@
                 type: 'string',
                 default: '',
             },
+            id: {
+                type: 'string',
+                default: '',
+            },
          },
          edit,
  

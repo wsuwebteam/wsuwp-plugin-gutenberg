@@ -5,6 +5,7 @@ class Block_WSUWP_Callout extends Block {
 	protected static $block_name    = 'wsuwp/callout';
 	protected static $default_attrs = array(
 		'className'   => 'wsu-callout',
+		'id'          => '',
 		'layout'      => 'title',
 		'headingTag'  => 'h3',
 		'useAsideTag' => false,

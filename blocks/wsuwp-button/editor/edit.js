@@ -1,5 +1,5 @@
 import React, { useState } from "@wordpress/element";
-import { PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { PanelStyleOptions, PanelAnimate } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { FontIconPickerControl } from "../../../assets/src/js/partials/block-controls/blockControls";
 import {
   setBlockClassName,
@@ -425,6 +425,7 @@ const edit = (props) => {
             ></FontIconPickerControl>
           </PanelRow>
         </PanelBody>
+        <PanelAnimate { ...props } ></PanelAnimate>
         <SpacingClassNameSelector
 					title="Space Settings"
 					spaceSettings={[

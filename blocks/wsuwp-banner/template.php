@@ -1,4 +1,4 @@
-<div class="<?php echo esc_attr( $attrs['className'] ); ?>">
+<div class="<?php echo esc_attr( $attrs['className'] ); ?>" <?php if ( ! empty( $attrs['id'] ) ) :?>id="<?php echo esc_attr( $attrs['id'] ); ?>"<?php endif; ?>>
 	<?php if ( $attrs['imageId'] ) : ?>
 	<div class="wsu-image-frame wsu-image-frame--style-background">
 		<img src="<?php echo esc_attr( $attrs['imageSrc'] ); ?>"
