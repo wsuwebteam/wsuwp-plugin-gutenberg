@@ -9,6 +9,10 @@ import {
     setBlockClassName,
 } from "../../block-utilities/blockUtilities";
 
+import {
+    AnchorControl,
+} from '../../block-controls/blockControls';
+
 const {
 	ToggleControl,
     SelectControl,
@@ -24,7 +28,35 @@ function additionalAdvancedControls( OriginalComponent ) {
         const unsupportedOverflow = [];
         const unsupportedHide = [];
 
-        const supportsAnimation = ['wsuwp/card','core/image', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section','core/paragraph'];
+        const supportsAnimation = [
+            'wsuwp/card',
+            'core/image',
+            'core/heading',
+            'wsuwp/banner', 
+            'wsuwp/button', 
+            'wsuwp/callout', 
+            'wsuwp/column', 
+            'wsuwp/container', 
+            'wsuwp/decorator', 
+            'wsuwp/row', 
+            'wsuwp/section',
+            'core/paragraph',
+            'wsuwp/stat',
+        ];
+
+
+        const supportsAnchor = [
+            'wsuwp/card',
+            'wsuwp/card-group',
+            'wsuwp/banner', 
+            'wsuwp/button', 
+            'wsuwp/callout', 
+            'wsuwp/column', 
+            'wsuwp/container', 
+            'wsuwp/row', 
+            'wsuwp/section',
+            'wsuwp/stat',
+        ];
 
         let {
             attributes,
@@ -36,6 +68,7 @@ function additionalAdvancedControls( OriginalComponent ) {
 
                 <OriginalComponent { ...props } />
                 <InspectorAdvancedControls>
+                    { supportsAnchor.includes( props.name ) && <AnchorControl  { ...props } ></AnchorControl> }
                     <PanelBody title="Additional Advanced Settings" initialOpen={ false } className="wsu-block-control-additional-advanced">
                         { ! unsupportedPosition.includes( props.name ) && <ToggleControl
                             label="Position Element"
