@@ -61,6 +61,7 @@ class Blocks {
 		'core/embed',
 		'core/freeform',
 		'core/heading',
+		'core/gallery',
 		'core/html',
 		'core/image',
 		'core/list',
