@@ -8559,7 +8559,7 @@ const Edit = props => {
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
     className: "wsu-gutenberg-hero-slider__select-control",
     onClick: () => selectSlide(b.clientId)
-  }, b.attributes.title || "Slide " + (i + 1)))), slideBlocks.length < 5 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+  }, b.attributes.title || "Slide " + (i + 1)))), slideBlocks.length < 6 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
     className: "wsu-gutenberg-hero-slider__insert-control",
     showTooltip: true,
     label: "Insert Slide",

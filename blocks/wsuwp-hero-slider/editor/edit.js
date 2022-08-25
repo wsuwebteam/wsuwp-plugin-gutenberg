@@ -160,7 +160,7 @@ const Edit = (props) => {
               </div>
             ))}
 
-            {slideBlocks.length < 5 && (
+            {slideBlocks.length < 6 && (
               <Button
                 className="wsu-gutenberg-hero-slider__insert-control"
                 showTooltip={true}
