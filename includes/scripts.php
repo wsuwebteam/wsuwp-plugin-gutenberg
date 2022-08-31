@@ -34,6 +34,35 @@ class Scripts {
 
 	public static function enqueue_block_editor_assets() {
 
+		$wds_version  = get_theme_mod( 'wsu_wds_version', '2.x' );
+
+		if ( '2.beta' === $wds_version ) {
+
+			wp_enqueue_style(
+				'wsuwp-wds-editor-styles',
+				'https://cdn.web.wsu.edu/designsystem/' . $wds_version . '/dist/bundles/wsu-design-system.wordpress.editor.css',
+				array(),
+				Plugin::get( 'version' )
+			);
+
+			wp_enqueue_style(
+				'wsuwp-plugin-gutenberg-editor-styles',
+				Plugin::get( 'url' ) . 'assets/dist/css/editor.css',
+				array(),
+				filemtime( Plugin::get( 'dir' ) . 'assets/dist/css/editor.css' )
+			);
+
+		} else {
+
+			wp_enqueue_style(
+				'wsuwp-plugin-gutenberg-editor-styles',
+				Plugin::get( 'url' ) . 'assets/dist/css/gutenberg-editor.css',
+				array(),
+				filemtime( Plugin::get( 'dir' ) . 'assets/dist/css/gutenberg-editor.css' )
+			);
+
+		}
+
 		// Block Editor
 		wp_enqueue_script(
 			'wsuwp-plugin-gutenberg-editor-scripts',
@@ -42,12 +71,6 @@ class Scripts {
 			filemtime( Plugin::get( 'dir' ) . 'assets/dist/js/gutenberg-editor.js' )
 		);
 
-		wp_enqueue_style(
-			'wsuwp-plugin-gutenberg-editor-styles',
-			Plugin::get( 'url' ) . 'assets/dist/css/gutenberg-editor.css',
-			array(),
-			filemtime( Plugin::get( 'dir' ) . 'assets/dist/css/gutenberg-editor.css' )
-		);
 
 	}
 

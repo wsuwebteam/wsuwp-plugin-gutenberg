@@ -7,13 +7,13 @@
 
     .block-editor-inner-blocks {
 
-      .block-editor-block-list__layout {
+      .block-editor-block-list__layout { 
 
         > p,
           ul,
           ol {
             font-size: $wsu-font-size--small;
-            margin-bottom: $wsu-spacing--sxxsmall;
+            margin-bottom: $wsu-spacing--sxxsmall; 
           }
       }
     }
