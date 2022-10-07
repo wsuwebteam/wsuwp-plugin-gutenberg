@@ -1,0 +1,29 @@
+.wsu-gutenberg-svg-button-group-control {
+
+    label {
+        display: block;
+    }
+
+    button {
+
+        padding: 0 4px !important;
+
+        svg {
+            width: 30px;
+            height: 30px;
+
+            path {
+                fill: #000;
+            }
+        }
+
+        &[aria-pressed="true"] {
+            background-color: #007cba;
+            color: #fff;
+            
+            svg path {
+                fill: #fff;
+            }
+        }
+    }
+}

@@ -26,3 +26,8 @@ export { default as ImageFrameControl } from "./image-frame-control/ImageFrameCo
 export { default as DisplayFieldControl } from "./display-fields-control/DisplayFieldsControl";
 export { default as MultipleImagePicker } from "./multiple-image-picker/MultipleImagePicker";
 export { default as AnchorControl } from './AnchorControl';
+export { default as BreakPointControl } from './BreakPointControl';
+export { default as SvgButtonGroupControl } from './svg-button-group-control/SvgButtonGroupControl';
+export { default as AlignItemControl } from './AlignItemControl';
+export { default as MaxWidthControl } from './MaxWidthControl';
+export { default as BorderControl } from './BorderControl';
