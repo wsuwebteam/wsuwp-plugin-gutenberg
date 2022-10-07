@@ -15,12 +15,17 @@ import {
     HeadingTagControl,
 	ColorClassControl,
 	SpacingClassNameSelector,
+	AlignItemControl,
+	MaxWidthControl,
+	BorderControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
 	PanelAnimate,
+	PanelStyleOptions,
+	PanelGeneralOptions,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
@@ -54,22 +59,49 @@ const Edit = ( props ) => {
 		{ name: 'midnight', color: '#002D61' },
     ];
 
+	let calloutStyles = [
+		{
+		  icon: (
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="9.45" y="5.8" width="105.1" height="48.4" rx="1.88" fill="#d1d3d4" stroke="#939598" stroke-miterlimit="10"/></svg>
+		  ),
+		  label: "Default",
+		  value: "",
+		},
+		{
+		  icon: (
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="#d1d3d4"/><rect x="9.45" y="5.8" width="105.1" height="48.4" fill="#fff"/></svg>
+		  ),
+		  label: "Basic",
+		  value: "basic",
+		},
+	];
+
     return (
 		<>
 		<InspectorControls>
-			<PanelDisplayOptions isOpen={true} >
+			<PanelGeneralOptions isOpen={true} >
 				<TextControl
-						label="Callout Heading"
-						value={ attributes.title ? attributes.title : '' }
-						onChange= { ( title ) => setAttributes( { title } ) }
+					label="Callout Heading"
+					value={ attributes.title ? attributes.title : '' }
+					onChange= { ( title ) => setAttributes( { title } ) }
+				/>
+				{ attributes.title && <HeadingTagControl { ...props } /> }
+				<ToggleControl
+					label="Use HTML <aside> tag"
+					checked={ attributes.useAsideTag }
+					onChange={ ( useAsideTag ) => { setAttributes( { useAsideTag } ) } }
 					/>
-					{ attributes.title && <HeadingTagControl { ...props } /> }
-					<ToggleControl
-						label="Use HTML <aside> tag"
-						checked={ attributes.useAsideTag }
-						onChange={ ( useAsideTag ) => { setAttributes( { useAsideTag } ) } }
-						/>
+			</PanelGeneralOptions>
+			<PanelDisplayOptions isOpen={false} >
+					<BorderControl {...props} />
+					<AlignItemControl {...props} />
+					<MaxWidthControl {...props} />
 			</PanelDisplayOptions>
+			<PanelStyleOptions
+			{...props}
+				styles={calloutStyles}
+				prefix="wsu-callout--style-"
+				></PanelStyleOptions>
 			<PanelColorOptions>
 				<ColorClassControl
 					{ ...props }
@@ -81,8 +113,8 @@ const Edit = ( props ) => {
 					{ ...props }
 					colors={borderColors}
 					label='Border Color'
-					value='#e6e6e6'
-					prefix='wsu-callout--color-'
+					value=''
+					prefix='wsu-border--color-'
 					/>
 			</PanelColorOptions>
 			<PanelAnimate { ...props } ></PanelAnimate>

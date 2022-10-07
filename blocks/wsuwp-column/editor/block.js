@@ -23,12 +23,20 @@
             className: {
                 type: 'string'
             },
+            customWidth: {
+                type: 'boolean',
+                default: false,
+            },
             id: {
                 type: 'string',
                 default: '',
             },
+            width: {
+                type: 'string',
+                default: '',
+            },
          },
-         edit,
+         edit, 
          save
      }
  );

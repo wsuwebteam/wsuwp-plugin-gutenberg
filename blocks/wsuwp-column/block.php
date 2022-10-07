@@ -7,6 +7,7 @@ class Block_WSUWP_Column extends Block {
 		'className' => '',
 		'id'        => '',
 		'layout'    => 'single',
+		'width'     => '',
 	);
 
 
@@ -15,6 +16,13 @@ class Block_WSUWP_Column extends Block {
 		$column_classes = 'wsu-column';
 
 		static::add_class( $column_classes, '', 'className', $attrs );
+
+		$column_style = static::get_inline_style(
+			array(
+				'width' => 'width',
+			),
+			$attrs
+		);
 
 		ob_start();
 
