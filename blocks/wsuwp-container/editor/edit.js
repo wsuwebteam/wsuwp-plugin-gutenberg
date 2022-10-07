@@ -17,6 +17,8 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	AlignItemControl,
+	MaxWidthControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -83,6 +85,8 @@ const Edit = ( props ) => {
 					options={ containerTags } 
 					onChange={ ( tag ) => setAttributes( { tag } ) }
 				/>
+				<AlignItemControl {...props} />
+				<MaxWidthControl {...props} />
             </PanelDisplayOptions>
 			<PanelColorOptions>
 				<ColorClassControl
