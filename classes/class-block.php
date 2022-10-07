@@ -128,4 +128,21 @@ class Block {
 		}
 
 	}
+
+	public static function get_inline_style( $property_array, $attrs ) {
+
+		$style = array();
+
+		foreach ( $property_array as $property => $attr_key ) {
+
+			if ( ! empty( $attrs[ $attr_key ] ) ) {
+
+				$style[] = $property . ':' . $attrs[ $attr_key ];
+
+			}
+		}
+
+		return ( ! empty( $style ) ) ? implode( ';', $style ) : '';
+
+	}
 }
