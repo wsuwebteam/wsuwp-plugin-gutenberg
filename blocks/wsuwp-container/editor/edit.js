@@ -17,6 +17,9 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	AlignItemControl,
+	MaxWidthControl,
+	BorderControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -83,6 +86,9 @@ const Edit = ( props ) => {
 					options={ containerTags } 
 					onChange={ ( tag ) => setAttributes( { tag } ) }
 				/>
+				<BorderControl {...props} />
+				<AlignItemControl {...props} />
+				<MaxWidthControl {...props} />
             </PanelDisplayOptions>
 			<PanelColorOptions>
 				<ColorClassControl
@@ -95,8 +101,8 @@ const Edit = ( props ) => {
 					{ ...props }
 					colors={borderColors}
 					label='Border Color'
-					value='#ffffff'
-					prefix='wsu-callout--color-'
+					value=''
+					prefix='wsu-border--color-'
 					/>
 			</PanelColorOptions>
 			<PanelAnimate { ...props } ></PanelAnimate>
