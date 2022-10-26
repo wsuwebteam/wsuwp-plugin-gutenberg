@@ -7487,6 +7487,167 @@ const {
   MediaPlaceholder,
   MediaUpload
 } = wp.editor;
+const cardStyles = [{
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 124 60"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "32.2",
+    y: "2.34",
+    width: "59.6",
+    height: "31.32",
+    fill: "#373737"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "32.2",
+    y: "37.66",
+    width: "59.6",
+    height: "6.58",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "32.2",
+    y: "47.01",
+    width: "59.6",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "32.2",
+    y: "53.7",
+    width: "59.6",
+    height: "3.91",
+    rx: "1.96"
+  })),
+  label: 'Default',
+  value: ''
+}, {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 124 60"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "4.34",
+    y: "2.52",
+    width: "56.06",
+    height: "53.06",
+    fill: "#373737"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "66.07",
+    y: "11.16",
+    width: "53.59",
+    height: "6.58",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "66.07",
+    y: "23.68",
+    width: "48.5",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "66.07",
+    y: "29.93",
+    width: "48.5",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "66.07",
+    y: "36.19",
+    width: "48.5",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "66.07",
+    y: "42.26",
+    width: "48.5",
+    height: "3.91",
+    rx: "1.96"
+  })),
+  label: 'Horizontal 50%',
+  value: 'horizontal-50'
+}, {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 124 60"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "4.34",
+    y: "3.86",
+    width: "41.73",
+    height: "53.06",
+    fill: "#373737"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "52.68",
+    y: "11.16",
+    width: "66.98",
+    height: "6.58",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "52.68",
+    y: "23.68",
+    width: "61.9",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "52.68",
+    y: "29.93",
+    width: "61.9",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "52.68",
+    y: "36.19",
+    width: "61.9",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "52.68",
+    y: "42.26",
+    width: "61.9",
+    height: "3.91",
+    rx: "1.96"
+  })),
+  label: 'Horizontal 33%',
+  value: 'horizontal-33'
+}, {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 124 60"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "4.34",
+    y: "12.66",
+    width: "38.65",
+    height: "31.32",
+    fill: "#373737"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "50.26",
+    y: "14.71",
+    width: "69.4",
+    height: "6.58",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "50.26",
+    y: "26.48",
+    width: "64.32",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "50.26",
+    y: "32.74",
+    width: "64.32",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "50.26",
+    y: "39",
+    width: "64.32",
+    height: "3.91",
+    rx: "1.96"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+    x: "50.26",
+    y: "45.06",
+    width: "64.32",
+    height: "3.91",
+    rx: "1.96"
+  })),
+  label: 'Horizontal 25%',
+  value: 'horizontal-25'
+}];
 
 const Edit = props => {
   let {
@@ -7539,7 +7700,10 @@ const Edit = props => {
   let displayFields = attributes.displayFields;
 
   if ('2' === attributes.version) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+      styles: cardStyles,
+      prefix: "wsu-card--style-"
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelColorOptions"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["ColorClassControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
       colors: backgroundColors,
       label: "Background Color",
       value: "#f2f2f2"
@@ -7642,7 +7806,10 @@ const Edit = props => {
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__["HeadingTagControl"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
       allowedTags: ['h2', 'h3', 'h4', 'h5', 'h6', 'div']
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__["PanelStyleOptions"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
+      styles: cardStyles,
+      prefix: "wsu-card--style-"
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: "Card Settings",
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {

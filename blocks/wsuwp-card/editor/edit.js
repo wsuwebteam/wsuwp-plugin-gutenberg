@@ -28,6 +28,7 @@ import {
     PanelDisplayOptions,
 	PanelColorOptions,
 	PanelAnimate,
+	PanelStyleOptions,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
@@ -37,6 +38,29 @@ import {
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 const { MediaPlaceholder, MediaUpload } = wp.editor;
+
+const cardStyles = [
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="32.2" y="2.34" width="59.6" height="31.32" fill="#373737"/><rect x="32.2" y="37.66" width="59.6" height="6.58" rx="1.96"/><rect x="32.2" y="47.01" width="59.6" height="3.91" rx="1.96"/><rect x="32.2" y="53.7" width="59.6" height="3.91" rx="1.96"/></svg>,
+		label: 'Default',
+		value: '',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="2.52" width="56.06" height="53.06" fill="#373737"/><rect x="66.07" y="11.16" width="53.59" height="6.58" rx="1.96"/><rect x="66.07" y="23.68" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="29.93" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="36.19" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="42.26" width="48.5" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 50%',
+		value: 'horizontal-50',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="3.86" width="41.73" height="53.06" fill="#373737"/><rect x="52.68" y="11.16" width="66.98" height="6.58" rx="1.96"/><rect x="52.68" y="23.68" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="29.93" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="36.19" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="42.26" width="61.9" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 33%',
+		value: 'horizontal-33',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="12.66" width="38.65" height="31.32" fill="#373737"/><rect x="50.26" y="14.71" width="69.4" height="6.58" rx="1.96"/><rect x="50.26" y="26.48" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="32.74" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="39" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="45.06" width="64.32" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 25%',
+		value: 'horizontal-25',
+	},
+]
 
 
 
@@ -79,6 +103,11 @@ const Edit = ( props ) => {
 		return (
 			<>
 				<InspectorControls>
+					<PanelStyleOptions 
+						{...props} 
+						styles={cardStyles}
+						prefix="wsu-card--style-"  
+						></PanelStyleOptions> 
 					<PanelColorOptions>
 						<ColorClassControl
 							{ ...props }
@@ -198,6 +227,11 @@ const Edit = ( props ) => {
 						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
 						
 				</PanelDisplayOptions>
+				<PanelStyleOptions 
+					{...props} 
+					styles={cardStyles}
+					prefix="wsu-card--style-"  
+						></PanelStyleOptions> 
 				<PanelBody title="Card Settings" initialOpen={false} >
 					<ToggleControl
 						label="Show Image"
