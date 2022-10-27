@@ -57,7 +57,7 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 									/>
 									{ FontSizeValue && <RequiredAlertControl>
 											Should this be a heading instead?<br />
-											Paragraph text should not be used as a substitue for a heading. 
+											Paragraph text should not be used as a substitute for a heading. 
 										</RequiredAlertControl>
 									}
 									<AlignItemControl {...props} />
