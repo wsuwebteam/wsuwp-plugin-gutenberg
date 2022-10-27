@@ -5,6 +5,7 @@ class Block_WSUWP_Button extends Block {
 	protected static $block_name    = 'wsuwp/button';
 	protected static $default_attrs = array(
 		'buttonClassName'  => '',
+		'buttonAriaLabel'  => '',
 		'className'        => '',
 		'buttonText'       => '',
 		'buttonUrl'        => '',

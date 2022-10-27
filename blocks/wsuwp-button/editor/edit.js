@@ -467,6 +467,12 @@ const edit = (props) => {
             onChange={(buttonClassName) => setAttributes({ buttonClassName })}
           />
         </PanelRow>
+        <TextControl
+          label="Button aria-label"
+          help="By default, an element will use its text content as the accessibility label. If an element has aria-label, the accessible name becomes the text that's used."
+          value={attributes.buttonAriaLabel}
+          onChange={(buttonAriaLabel) => setAttributes({ buttonAriaLabel })}
+        />
         <ToggleControl
           label={"Align Bottom"}
           checked={hasBlockClassName(attributes, "wsu-align-item--flex-bottom")}
