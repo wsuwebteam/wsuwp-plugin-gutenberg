@@ -21,6 +21,7 @@ import {
 	SpacingClassNameSelector,
     ImageFrameControl,
     HeadingTagControl,
+	FontSizeControl,
     DisplayFieldControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
@@ -35,6 +36,7 @@ import {
     hasBlockClassName,
     addBlockClassName,
     setBlockClassNameBool,
+	getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 const { MediaPlaceholder, MediaUpload } = wp.editor;
@@ -225,13 +227,33 @@ const Edit = ( props ) => {
 							onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
 						/>
 						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
-						
+						<FontSizeControl 
+							{...props}
+							sizes={
+								[
+									{ label: 'Default', value: '' },
+									{ label: 'Medium', value: 'medium' },
+									{ label: 'xMedium', value: 'xmedium' },
+									{ label: 'xxMedium', value: 'xxmedium' },
+									{ label: 'Large', value: 'large' },
+									{ label: 'xLarge', value: 'xlarge' },
+									{ label: 'xxLarge', value: 'xxlarge' },
+								]
+							}
+							elementClass="headingClass"
+							/>
 				</PanelDisplayOptions>
 				<PanelStyleOptions 
 					{...props} 
 					styles={cardStyles}
 					prefix="wsu-card--style-"  
-						></PanelStyleOptions> 
+						>
+						{ getBlockClassNameValue( attributes, 'wsu-card--style-horizontal-', false ) && <ToggleControl
+						label="Reverse Layout"
+						checked={ getBlockClassNameValue( attributes, 'wsu-card--layout-', false ) ? true : false }
+						onChange={ ( isReversed ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-card--layout-reversed', isReversed ) }
+						/> }
+						</PanelStyleOptions> 
 				<PanelBody title="Card Settings" initialOpen={false} >
 					<ToggleControl
 						label="Show Image"
@@ -342,7 +364,7 @@ const Edit = ( props ) => {
 					{ attributes.showHeading && <RichText
 						tagName="h2" // The tag here is the element output and editable in the admin
 						value={ attributes.title } // Any existing content, either from the database or an attribute default
-						className="wsu-title"
+						className={`wsu-title ${attributes.headingClass}`}
 						allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
 						onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
 						placeholder={ 'Add a Card Heading...' } // Display this text before any content has been added by the user

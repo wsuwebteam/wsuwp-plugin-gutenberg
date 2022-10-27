@@ -72,6 +72,10 @@
                 type: "string",
                 default: "1",
             },
+            headingClass: {
+                type: "string",
+                default: "",
+            },
          },
          edit,
          save,
