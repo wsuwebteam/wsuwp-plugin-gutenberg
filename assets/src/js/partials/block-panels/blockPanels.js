@@ -8,3 +8,4 @@ export {default as PanelColorOptions} from './PanelColorOptions';
 export {default as PanelStyleOptions } from './panel-style-options/PanelStyleOptions';
 export {default as PanelAnimate } from './PanelAnimate';
 export {default as NestedAdvancedPanel} from './nested-advanced-panel/NestedAdvancedPanel';
+export {default as PanelDeveloperTools} from './PanelDeveloperTools';
