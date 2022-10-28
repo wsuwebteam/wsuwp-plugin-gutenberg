@@ -23,6 +23,7 @@ import {
     HeadingTagControl,
 	FontSizeControl,
     DisplayFieldControl,
+	DeveloperToolsControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -30,6 +31,7 @@ import {
 	PanelColorOptions,
 	PanelAnimate,
 	PanelStyleOptions,
+	PanelDeveloperTools,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
@@ -346,9 +348,13 @@ const Edit = ( props ) => {
 					]}
 					{...props}>					
 				</SpacingClassNameSelector>
-			</InspectorControls>
-			<InspectorAdvancedControls>
-					<ToggleControl
+				{attributes.developerTools && <PanelDeveloperTools 
+					{ ...props}
+					maxWidth={ true }
+					alignItem={ true }
+					positionElement={ true }
+					>
+						<ToggleControl
 						label={ 'Use Version 2' }
 						checked={ ( '2' === attributes.version ) }
 						onChange={ ( checked) => { 
@@ -356,7 +362,10 @@ const Edit = ( props ) => {
 							setAttributes( {  version: cardVersion } ) } 
 						}
 						help={ 'Use Version 2 of the Card.'}
-					/>
+					/></PanelDeveloperTools>}
+			</InspectorControls>
+			<InspectorAdvancedControls>
+					<DeveloperToolsControl { ...props } />
 				</InspectorAdvancedControls>
 			<div { ...blockProps }  >
 				{ attributes.showImage && <ImageFrameControl { ...props } /> }

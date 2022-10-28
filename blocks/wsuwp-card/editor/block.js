@@ -76,6 +76,10 @@
                 type: "string",
                 default: "",
             },
+            developerTools: {
+                type: 'boolean',
+                default: false,
+            },
          },
          edit,
          save,
