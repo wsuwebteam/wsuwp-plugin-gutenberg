@@ -58,6 +58,10 @@ function additionalAdvancedControls( OriginalComponent ) {
             'wsuwp/stat',
         ];
 
+        const excludeAdvanced = [
+            'wsuwp/card',
+        ]
+
         let {
             attributes,
             setAttributes
@@ -65,8 +69,8 @@ function additionalAdvancedControls( OriginalComponent ) {
 
         return (
             <>
-
                 <OriginalComponent { ...props } />
+                { ! excludeAdvanced.includes( props.name ) && <>
                 <InspectorAdvancedControls>
                     { supportsAnchor.includes( props.name ) && <AnchorControl  { ...props } ></AnchorControl> }
                     <PanelBody title="Additional Advanced Settings" initialOpen={ false } className="wsu-block-control-additional-advanced">
@@ -119,6 +123,7 @@ function additionalAdvancedControls( OriginalComponent ) {
                         }
                     </PanelBody>
                 </InspectorAdvancedControls>
+                </>}
             </>
         );
     }
