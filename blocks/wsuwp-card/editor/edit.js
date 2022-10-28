@@ -352,7 +352,7 @@ const Edit = ( props ) => {
 					{ ...props}
 					maxWidth={ true }
 					alignItem={ true }
-					positionElement={ true }
+					positionElement={ true } 
 					>
 						<ToggleControl
 						label={ 'Use Version 2' }
