@@ -34,6 +34,7 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		'imageRatio' => '',
 		'showContent' => false,
 		'headingTag' => 'h3',
+		'headingClass' => ''
 	)
 );
 ?>
@@ -52,7 +53,7 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 	<?php endif; ?>
 	<div class="wsu-card__content">
 		<?php if ( ! empty( $card['title'] ) && ! empty( $card_attrs['showHeading'] ) ) : ?>
-		<<?php echo esc_attr( $card_attrs['headingTag'] ); ?> class="wsu-title">
+		<<?php echo esc_attr( $card_attrs['headingTag'] ); ?> class="wsu-title <?php if ( ! empty( $card_attrs['headingClass'] ) ) : ?><?php echo esc_attr( $card_attrs['headingClass'] ); ?><?php endif; ?>">
 			<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>
 				<?php echo wp_kses_post( $card['title'] ); ?>
 			<?php if ( ! empty( $card['link'] ) ) : ?></a><?php endif; ?>

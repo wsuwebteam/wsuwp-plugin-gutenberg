@@ -72,6 +72,14 @@
                 type: "string",
                 default: "1",
             },
+            headingClass: {
+                type: "string",
+                default: "",
+            },
+            developerTools: {
+                type: 'boolean',
+                default: false,
+            },
          },
          edit,
          save,

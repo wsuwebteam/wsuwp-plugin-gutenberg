@@ -19,17 +19,17 @@ const AlignItemControl = ( props ) => {
         { 
             label:'Align Left',
             value: 'left',
-            svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect x="8.22" y="11.43" width="15.95" height="7.14" fill="#231f20"/><polygon points="2.98 15 7.01 18.57 7.01 11.43 2.98 15" fill="#231f20"/></svg>,
+            svg: <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19.8h8.9v-1.5H4v1.5zm8.9-15.6H4v1.5h8.9V4.2zm-8.9 7v1.5h16v-1.5H4z"></path></svg>,
         },
         { 
             label:'Align Center',
             value: 'center',
-            svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect x="7.82" y="11.43" width="14.53" height="7.14" fill="#231f20"/><polygon points="23.13 15 27.16 18.57 27.16 11.43 23.13 15" fill="#231f20"/><polygon points="6.93 15 2.89 11.43 2.89 18.57 6.93 15" fill="#231f20"/></svg>,
+            svg: <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.4 4.2H7.6v1.5h8.9V4.2zM4 11.2v1.5h16v-1.5H4zm3.6 8.6h8.9v-1.5H7.6v1.5z"></path></svg>,
         },
         { 
             label:'Align Right',
             value: 'right',
-            svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect x="5.34" y="11.43" width="16.37" height="7.14" fill="#231f20"/><polygon points="27.18 15 23.15 11.43 23.15 18.57 27.18 15" fill="#231f20"/></svg>,
+            svg: <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11.1 19.8H20v-1.5h-8.9v1.5zm0-15.6v1.5H20V4.2h-8.9zM4 12.8h16v-1.5H4v1.5z"></path></svg>,
         },
     ]
 

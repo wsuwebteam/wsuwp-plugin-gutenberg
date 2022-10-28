@@ -31,3 +31,4 @@ export { default as SvgButtonGroupControl } from './svg-button-group-control/Svg
 export { default as AlignItemControl } from './AlignItemControl';
 export { default as MaxWidthControl } from './MaxWidthControl';
 export { default as BorderControl } from './BorderControl';
+export { default as DeveloperToolsControl } from './DeveloperToolsControl';

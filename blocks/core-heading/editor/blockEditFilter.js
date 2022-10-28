@@ -74,7 +74,7 @@ const coreHeadingControls = wp.compose.createHigherOrderComponent( (BlockEdit) =
 									{...props}
 									sizes={
 										[
-											{ label: 'Not Set', value: '' },
+											{ label: 'Default', value: '' },
 											{ label: 'Medium', value: 'medium' },
 											{ label: 'xMedium', value: 'xmedium' },
 											{ label: 'xxMedium', value: 'xxmedium' },
