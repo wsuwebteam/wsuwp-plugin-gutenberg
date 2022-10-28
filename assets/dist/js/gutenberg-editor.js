@@ -686,6 +686,40 @@ const CountControl = _ref => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-controls/DeveloperToolsControl.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/DeveloperToolsControl.js ***!
+  \************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const DeveloperToolsControl = props => {
+  var _attributes$developer;
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  console.log(attributes);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToggleControl, {
+    label: "Developer Tools",
+    checked: (_attributes$developer = attributes.developerTools) !== null && _attributes$developer !== void 0 ? _attributes$developer : '',
+    onChange: developerTools => setAttributes({
+      developerTools
+    }),
+    help: "Show developer tools panel."
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (DeveloperToolsControl);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-controls/FeedPostsControl.js":
 /*!*******************************************************************!*\
   !*** ./assets/src/js/partials/block-controls/FeedPostsControl.js ***!
@@ -1330,6 +1364,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ColorClassControl": function() { return /* reexport safe */ _ColorClassControl__WEBPACK_IMPORTED_MODULE_21__["default"]; },
 /* harmony export */   "ColorClassNameSelector": function() { return /* reexport safe */ _ColorClassNameSelector__WEBPACK_IMPORTED_MODULE_4__["default"]; },
 /* harmony export */   "CountControl": function() { return /* reexport safe */ _CountControl__WEBPACK_IMPORTED_MODULE_10__["default"]; },
+/* harmony export */   "DeveloperToolsControl": function() { return /* reexport safe */ _DeveloperToolsControl__WEBPACK_IMPORTED_MODULE_33__["default"]; },
 /* harmony export */   "DisplayFieldControl": function() { return /* reexport safe */ _display_fields_control_DisplayFieldsControl__WEBPACK_IMPORTED_MODULE_25__["default"]; },
 /* harmony export */   "FeedPostsControl": function() { return /* reexport safe */ _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__["default"]; },
 /* harmony export */   "FontIconPickerControl": function() { return /* reexport safe */ _font_icon_picker_control_FontIconPickerControl__WEBPACK_IMPORTED_MODULE_6__["default"]; },
@@ -1389,6 +1424,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AlignItemControl__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./AlignItemControl */ "./assets/src/js/partials/block-controls/AlignItemControl.js");
 /* harmony import */ var _MaxWidthControl__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./MaxWidthControl */ "./assets/src/js/partials/block-controls/MaxWidthControl.js");
 /* harmony import */ var _BorderControl__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./BorderControl */ "./assets/src/js/partials/block-controls/BorderControl.js");
+/* harmony import */ var _DeveloperToolsControl__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./DeveloperToolsControl */ "./assets/src/js/partials/block-controls/DeveloperToolsControl.js");
+
 
 
 
@@ -3233,6 +3270,112 @@ const PanelColorOptions = props => {
 
 /***/ }),
 
+/***/ "./assets/src/js/partials/block-panels/PanelDeveloperTools.js":
+/*!********************************************************************!*\
+  !*** ./assets/src/js/partials/block-panels/PanelDeveloperTools.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../block-utilities/blockClassName */ "./assets/src/js/partials/block-utilities/blockClassName.js");
+/* harmony import */ var _block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+
+const {
+  ToggleControl,
+  SelectControl,
+  RangeControl
+} = wp.components;
+
+
+const PanelDeveloperTools = props => {
+  let {
+    isOpen = false,
+    positionElement = false,
+    alignItem = false,
+    maxWidth = false,
+    zindex = true,
+    overflow = true,
+    hide = true,
+    animate = false,
+    attributes,
+    setAttributes
+  } = props;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: "Developer Tools",
+    initialOpen: isOpen
+  }, maxWidth && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.MaxWidthControl, props), positionElement && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Position Element",
+    checked: (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.hasBlockClassName)(attributes, 'wsu-position--relative'),
+    onChange: position => {
+      (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-position--relative', position);
+    },
+    help: "Sets element position to relative."
+  }), alignItem && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.AlignItemControl, props), zindex && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RangeControl, {
+    label: "Element z-index",
+    value: parseInt((0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.getBlockClassNameValue)(attributes, 'wsu-zindex--level-')),
+    onChange: zindex => setBlockClassName(attributes, setAttributes, 'wsu-zindex--level-', zindex),
+    help: "Position element must be on if the element isn't already positioned in CSS.",
+    min: 0,
+    max: 7
+  }), overflow && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Overflow Hidden",
+    checked: (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.hasBlockClassName)(attributes, 'wsu-overflow--hidden'),
+    onChange: overflow => {
+      (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-overflow--hidden', overflow);
+    }
+  }), hide && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(SelectControl, {
+    label: "Hide at Breakpoint",
+    value: (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.getBlockClassNameValue)(attributes, 'wsu-hide--'),
+    options: [{
+      label: 'none',
+      value: ''
+    }, {
+      label: 'xxultrawide',
+      value: 'xxultrawide'
+    }, {
+      label: 'xultrawide',
+      value: 'xultrawide'
+    }, {
+      label: 'ultrawide',
+      value: 'ultrawide'
+    }, {
+      label: 'desktop',
+      value: 'desktop'
+    }, {
+      label: 'tablet-large',
+      value: 'tablet-large'
+    }, {
+      label: 'tablet-medium',
+      value: 'tablet-medium'
+    }, {
+      label: 'tablet',
+      value: 'tablet'
+    }, {
+      label: 'phone',
+      value: 'phone'
+    }, {
+      label: 'phone-small',
+      value: 'phone-small'
+    }],
+    onChange: animationStyle => setBlockClassName(attributes, setAttributes, 'wsu-hide--', animationStyle)
+  }), animate && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Animate",
+    checked: (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.hasBlockClassName)(attributes, 'wsu-animate'),
+    onChange: overflow => {
+      (0,_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_2__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-animate', overflow);
+    }
+  }), props.children);
+};
+/* harmony default export */ __webpack_exports__["default"] = (PanelDeveloperTools);
+
+/***/ }),
+
 /***/ "./assets/src/js/partials/block-panels/PanelDisplayOptions.js":
 /*!********************************************************************!*\
   !*** ./assets/src/js/partials/block-panels/PanelDisplayOptions.js ***!
@@ -3373,6 +3516,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PanelAdvancedFeedOptions": function() { return /* reexport safe */ _PanelAdvancedFeedOptions__WEBPACK_IMPORTED_MODULE_5__["default"]; },
 /* harmony export */   "PanelAnimate": function() { return /* reexport safe */ _PanelAnimate__WEBPACK_IMPORTED_MODULE_8__["default"]; },
 /* harmony export */   "PanelColorOptions": function() { return /* reexport safe */ _PanelColorOptions__WEBPACK_IMPORTED_MODULE_6__["default"]; },
+/* harmony export */   "PanelDeveloperTools": function() { return /* reexport safe */ _PanelDeveloperTools__WEBPACK_IMPORTED_MODULE_10__["default"]; },
 /* harmony export */   "PanelDisplayOptions": function() { return /* reexport safe */ _PanelDisplayOptions__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   "PanelFeedOptions": function() { return /* reexport safe */ _PanelFeedOptions__WEBPACK_IMPORTED_MODULE_4__["default"]; },
 /* harmony export */   "PanelFeedPosts": function() { return /* reexport safe */ _PanelFeedPosts__WEBPACK_IMPORTED_MODULE_2__["default"]; },
@@ -3390,6 +3534,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _panel_style_options_PanelStyleOptions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./panel-style-options/PanelStyleOptions */ "./assets/src/js/partials/block-panels/panel-style-options/PanelStyleOptions.js");
 /* harmony import */ var _PanelAnimate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./PanelAnimate */ "./assets/src/js/partials/block-panels/PanelAnimate.js");
 /* harmony import */ var _nested_advanced_panel_NestedAdvancedPanel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./nested-advanced-panel/NestedAdvancedPanel */ "./assets/src/js/partials/block-panels/nested-advanced-panel/NestedAdvancedPanel.js");
+/* harmony import */ var _PanelDeveloperTools__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./PanelDeveloperTools */ "./assets/src/js/partials/block-panels/PanelDeveloperTools.js");
+
 
 
 
@@ -3772,11 +3918,12 @@ function additionalAdvancedControls(OriginalComponent) {
     const unsupportedHide = [];
     const supportsAnimation = ['wsuwp/card', 'core/image', 'core/heading', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/decorator', 'wsuwp/row', 'wsuwp/section', 'core/paragraph', 'wsuwp/stat'];
     const supportsAnchor = ['wsuwp/card', 'wsuwp/card-group', 'wsuwp/banner', 'wsuwp/button', 'wsuwp/callout', 'wsuwp/column', 'wsuwp/container', 'wsuwp/row', 'wsuwp/section', 'wsuwp/stat'];
+    const excludeAdvanced = ['wsuwp/card'];
     let {
       attributes,
       setAttributes
     } = props;
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(OriginalComponent, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorAdvancedControls, null, supportsAnchor.includes(props.name) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_4__.AnchorControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(OriginalComponent, props), !excludeAdvanced.includes(props.name) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorAdvancedControls, null, supportsAnchor.includes(props.name) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_4__.AnchorControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
       title: "Additional Advanced Settings",
       initialOpen: false,
       className: "wsu-block-control-additional-advanced"
@@ -3841,7 +3988,7 @@ function additionalAdvancedControls(OriginalComponent) {
       onChange: overflow => {
         (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_3__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-animate', overflow);
       }
-    }))));
+    })))));
   };
 }
 wp.hooks.addFilter('editor.BlockEdit', 'wsuwp-plugin-gutenberg/additional-advanced-controls', additionalAdvancedControls);
@@ -6819,6 +6966,10 @@ registerBlockType("wsuwp/card", {
     headingClass: {
       type: "string",
       default: ""
+    },
+    developerTools: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -7291,7 +7442,11 @@ const Edit = props => {
           default: 'default'
         }]
       }]
-    }, props))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorAdvancedControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+    }, props)), attributes.developerTools && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelDeveloperTools, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      maxWidth: true,
+      alignItem: true,
+      positionElement: true
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
       label: 'Use Version 2',
       checked: '2' === attributes.version,
       onChange: checked => {
@@ -7301,7 +7456,7 @@ const Edit = props => {
         });
       },
       help: 'Use Version 2 of the Card.'
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, attributes.showImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.ImageFrameControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+    }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorAdvancedControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.DeveloperToolsControl, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, attributes.showImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.ImageFrameControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "wsu-card__content"
     }, attributes.showHeading && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(RichText, {
       tagName: "h2" // The tag here is the element output and editable in the admin
