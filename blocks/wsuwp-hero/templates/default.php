@@ -16,10 +16,10 @@
 			</div>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['title'] ) ) : ?>
-			<<?php echo esc_attr( $attrs['headingTag'] ); ?> id="<?php echo esc_attr( $attrs['titleId'] ); ?>" class="wsu-title"><?php echo wp_kses_post( $attrs['title'] ); ?></<?php echo esc_attr( $attrs['headingTag'] ); ?>>
+			<<?php echo esc_attr( $attrs['headingTag'] ); ?> id="<?php echo esc_attr( $attrs['titleId'] ); ?>" class="wsu-title wsu-hero__title"><span><?php echo wp_kses_post( $attrs['title'] ); ?></span></<?php echo esc_attr( $attrs['headingTag'] ); ?>>
 			<?php endif; ?>
 			<?php if ( ! empty( $attrs['caption'] ) ) : ?>
-			<div class="wsu-caption">
+			<div class="wsu-caption wsu-hero__copy">
 				<?php echo wp_kses_post( $attrs['caption'] ); ?>
 			</div>
 			<?php endif; ?>
