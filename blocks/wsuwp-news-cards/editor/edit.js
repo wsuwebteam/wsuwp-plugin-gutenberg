@@ -205,7 +205,7 @@ const Edit = ( props ) => {
                         </>
                     )}
                     {attributes.source == 'select' && (
-                        <PostPicker { ...props } />
+                        <PostPicker { ...props } onChange={ ( postIn ) => { setAttributes({ postIn } ); console.log( value ) } } />
                     )}
                     
                     <FeedCountControl {...props} />
