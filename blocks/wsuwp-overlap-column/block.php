@@ -4,11 +4,7 @@ class Block_WSUWP_Overlap_Column extends Block {
 
 	protected static $block_name    = 'wsuwp/overlap-column';
 	protected static $default_attrs = array(
-		'className'   => 'wsu-overlap-column',
-		'before'      => '',
-		'outline'   => '',
-		'after'     => '',
-		'tag'     => 'h2',
+		'className'   => 'wsu-overlap__column',
 	);
 
 	

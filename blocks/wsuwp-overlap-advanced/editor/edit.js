@@ -41,7 +41,7 @@ const Edit = ( props ) => {
 	} = props;
 
 	const blockProps = useBlockProps( {
-        className: 'wsu-advanced-overlap',
+        className: 'wsu-overlap',
         style: {},
     } );
 
@@ -74,7 +74,7 @@ const Edit = ( props ) => {
             </PanelDisplayOptions>
 		</InspectorControls>
 		<div { ...blockProps } >
-            <div className="wsu-advanced-overlap__container">
+            <div className="wsu-overlap__container">
                 <InnerBlocks
                     template={ [
                         ['wsuwp/overlap-column', {}, [[ 'core/paragraph', {},[] ]]],
