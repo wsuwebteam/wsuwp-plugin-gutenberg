@@ -4,11 +4,7 @@ class Block_WSUWP_Overlap_Advanced extends Block {
 
 	protected static $block_name    = 'wsuwp/overlap-advanced';
 	protected static $default_attrs = array(
-		'className'   => 'wsu-overlap-advanced',
-		'before'      => '',
-		'outline'   => '',
-		'after'     => '',
-		'tag'     => 'h2',
+		'className'   => 'wsu-overlap',
 	);
 
 	

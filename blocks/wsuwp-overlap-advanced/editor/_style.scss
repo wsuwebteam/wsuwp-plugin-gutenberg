@@ -1,0 +1,15 @@
+
+
+.block-editor {
+
+    .wp-block[data-type="wsuwp/overlap-advanced"] {
+
+        @include wsu-gutenberg-block-outline();
+
+        .block-editor-block-list__layout {
+            display: flex;
+        } 
+  
+    }
+
+}
