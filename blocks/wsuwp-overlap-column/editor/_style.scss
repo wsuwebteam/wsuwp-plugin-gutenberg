@@ -7,10 +7,14 @@
         margin-left: 12px;
         margin-right: 12px;
 
+        .wsu-overlap--surface-column {
+            z-index: 1;
+        }
+
         .has-child-selected,
         .is-selected {
             position: relative;
-            z-index: 99999;
+            z-index: 2;
         }
   
     }
