@@ -32,3 +32,4 @@ export { default as AlignItemControl } from './AlignItemControl';
 export { default as MaxWidthControl } from './MaxWidthControl';
 export { default as BorderControl } from './BorderControl';
 export { default as DeveloperToolsControl } from './DeveloperToolsControl';
+export { default as SlideSelector } from './slide-selector/slideSelector';
