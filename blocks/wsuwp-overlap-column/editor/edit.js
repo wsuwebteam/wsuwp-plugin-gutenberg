@@ -15,6 +15,7 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	SlideSelector
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -64,13 +65,36 @@ const Edit = ( props ) => {
 		{ name: 'midnight', color: '#002D61' },
     ];
 
+	const overlapSizes = [
+		'none',
+		'medium',
+		'xmedium',
+		'xxmedium',
+		'large',
+		'xlarge',
+		'xxlarge',
+		'hero',
+		'xhero',
+		'xxhero',
+	]
+
 
 
     return (
 		<>
 		<InspectorControls>
             <PanelDisplayOptions isOpen={true} >
-	
+				<SlideSelector {...props}
+					defaultSize='xlarge'
+					label='Overlap Amount'
+					classPrefix='wsu-overlap--overlap-'
+					sizes={ overlapSizes }
+					/>
+				<ToggleControl
+					label="Move to Front"
+					checked={ hasBlockClassName( attributes, 'wsu-overlap--surface-column' ) }
+					onChange={ ( value ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-overlap--surface-column', value ) } }
+					/>
             </PanelDisplayOptions>
 		</InspectorControls>
 		<div { ...blockProps } >

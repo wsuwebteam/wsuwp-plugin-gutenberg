@@ -3,6 +3,7 @@ const { __ } = wp.i18n;
 const {
 	InnerBlocks,
 	InspectorControls,
+	InspectorAdvancedControls,
 	useBlockProps
 } = wp.blockEditor;
 
@@ -15,11 +16,13 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	DeveloperToolsControl
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
+	PanelDeveloperTools
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 
@@ -72,7 +75,17 @@ const Edit = ( props ) => {
             <PanelDisplayOptions isOpen={true} >
 	
             </PanelDisplayOptions>
+			{attributes.developerTools && <PanelDeveloperTools 
+				{ ...props}
+				maxWidth={ true }
+				alignItem={ true }
+				positionElement={ true } 
+				>
+				</PanelDeveloperTools>}
 		</InspectorControls>
+		<InspectorAdvancedControls>
+			<DeveloperToolsControl { ...props } />
+		</InspectorAdvancedControls>
 		<div { ...blockProps } >
             <div className="wsu-overlap__container">
                 <InnerBlocks

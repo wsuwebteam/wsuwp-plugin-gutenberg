@@ -1,0 +1,18 @@
+.block-editor {
+
+    .wp-block[data-type="wsuwp/overlap-column"] {
+
+        @include wsu-gutenberg-block-outline();
+        padding: 12px;
+        margin-left: 12px;
+        margin-right: 12px;
+
+        .has-child-selected,
+        .is-selected {
+            position: relative;
+            z-index: 99999;
+        }
+  
+    }
+
+}

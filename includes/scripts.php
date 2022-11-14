@@ -47,7 +47,7 @@ class Scripts {
 			'wsuwp-plugin-gutenberg-editor-styles',
 			Plugin::get( 'url' ) . 'assets/dist/css/editor.css',
 			array(),
-			filemtime( Plugin::get( 'dir' ) . 'assets/dist/css/editor.css' )
+			Plugin::get( 'version' )
 		);
 
 		// Block Editor
@@ -55,7 +55,7 @@ class Scripts {
 			'wsuwp-plugin-gutenberg-editor-scripts',
 			Plugin::get( 'url' ) . 'assets/dist/js/gutenberg-editor.js',
 			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-			filemtime( Plugin::get( 'dir' ) . 'assets/dist/js/gutenberg-editor.js' )
+			Plugin::get( 'version' )
 		);
 
 	}
