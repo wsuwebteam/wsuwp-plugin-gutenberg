@@ -12,7 +12,7 @@
  import edit from "./edit";
  import save from "./save";
  
- registerBlockType(
+ registerBlockType( 
      "wsuwp/card",
      {
          title: "Card",
