@@ -34,7 +34,8 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		'imageRatio' => '',
 		'showContent' => false,
 		'headingTag' => 'h3',
-		'headingClass' => ''
+		'headingClass' => '',
+		'linkCard'     => false,   
 	)
 );
 ?>
@@ -70,4 +71,5 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		</span>
 		<?php endif; ?>
 	</div>
+	<?php if ( ! empty( $card['link'] ) && ! empty( $card_attrs['linkCard'] ) ) : ?><a class='wsu-card__link' href="<?php echo esc_url( $card['link'] ); ?>" aria-hidden="true" tabindex="0" ></a><?php endif; ?>
 </article>

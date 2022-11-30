@@ -11,6 +11,7 @@ class Block_WSUWP_Card extends Block {
 		'headingClass' => '',
 		'caption'    => '',
 		'link'       => '',
+		'linkCard'       => '',
 		'imageSize'        => 'full',
 		'imageId'          => '',
 		'imageSrc'         => '',
@@ -41,6 +42,7 @@ class Block_WSUWP_Card extends Block {
 			'showContent' => ( '2' === $attrs['version'] ) ? true : $attrs['showContent'],
 			'headingTag'  => $attrs['headingTag'],
 			'headingClass' => $attrs['headingClass'],
+			'linkCard'    => $attrs['linkCard'],
 		);
 
 		$card = array(
