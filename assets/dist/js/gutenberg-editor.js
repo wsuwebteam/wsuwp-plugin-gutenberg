@@ -14205,6 +14205,10 @@ registerBlockType("wsuwp/stat", {
       type: "string",
       default: ""
     },
+    citation: {
+      type: "string",
+      default: ""
+    },
     icon: {
       type: "string",
       default: ""
@@ -14256,16 +14260,8 @@ let statStyles = [{
   value: ""
 }, {
   icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_style_options__WEBPACK_IMPORTED_MODULE_7__.CircleUnit, null),
-  label: "Circle Left",
-  value: "circle-left"
-}, {
-  icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_style_options__WEBPACK_IMPORTED_MODULE_7__.CircleBottom, null),
-  label: "Circle Right",
-  value: "circle-right"
-}, {
-  icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_style_options__WEBPACK_IMPORTED_MODULE_7__.CircleTop, null),
-  label: "Circle Center",
-  value: "circle-center"
+  label: "Circle",
+  value: "round"
 }];
 const edit = props => {
   const {
@@ -14278,6 +14274,7 @@ const edit = props => {
     role: "statistic",
     style: {}
   });
+  let statStyle = (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.getBlockClassNameValue)(attributes, 'wsu-stat--style-');
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: "General",
     initialOpen: true
@@ -14290,6 +14287,14 @@ const edit = props => {
       stat: val
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Unit",
+    help: "",
+    placeholder: "Million",
+    value: attributes.unit,
+    onChange: unit => setAttributes({
+      unit
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
     label: "Caption",
     help: "",
     placeholder: "Study Abroad Programs",
@@ -14297,13 +14302,13 @@ const edit = props => {
     onChange: val => setAttributes({
       caption: val
     })
-  }), (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.hasBlockClassName)(attributes, "wsu-stat--style-circle-left") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
-    label: "Unit",
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Citation",
     help: "",
-    placeholder: "Million",
-    value: attributes.unit,
-    onChange: val => setAttributes({
-      unit: val
+    placeholder: "(Somewhere)",
+    value: attributes.citation,
+    onChange: citation => setAttributes({
+      citation
     })
   }), (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.hasBlockClassName)(attributes, "wsu-stat--style-circle-") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_5__.FontIconPickerControl, {
     label: "Icon",
@@ -14315,7 +14320,7 @@ const edit = props => {
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__.PanelStyleOptions, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
     styles: statStyles,
     prefix: "wsu-stat--style-"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
+  }), statStyle != 'round' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
     className: "wsu-settings__base-control",
     help: ""
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl.VisualLabel, {
@@ -14331,12 +14336,91 @@ const edit = props => {
     value: "small"
   }, "Small"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalRadio, {
     value: ""
-  }, "Default"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+  }, "Default"))), statStyle != 'round' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
     label: "Display inline",
     checked: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.hasBlockClassName)(attributes, "wsu-display--inline-block"),
     onChange: value => (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassNameBool)(attributes, setAttributes, "wsu-display--inline-block", value),
     help: ""
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__.PanelAnimate, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: "Stat Layout",
+    value: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.getBlockClassNameValue)(attributes, 'wsu-stat--layout-'),
+    options: [{
+      label: 'Default',
+      value: ''
+    }, {
+      label: 'Caption right',
+      value: 'caption-offset-right'
+    }, {
+      label: 'Caption right above value',
+      value: 'caption-offset-right-reversed'
+    }, {
+      label: 'Value right',
+      value: 'value-offset-right'
+    }, {
+      label: 'Value right below caption',
+      value: 'value-offset-right-reversed'
+    }],
+    onChange: size => {
+      (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassName)(attributes, setAttributes, 'wsu-stat--layout-', size);
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: "Secondary Circle Position",
+    value: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.getBlockClassNameValue)(attributes, 'wsu-stat--decorator-layout-circle-'),
+    options: [{
+      label: 'Top Right',
+      value: ''
+    }, {
+      label: 'Bottom Right',
+      value: 'bottom-right'
+    }, {
+      label: 'Bottom Left',
+      value: 'bottom-left'
+    }, {
+      label: 'Top Left',
+      value: 'top-left'
+    }],
+    onChange: size => {
+      (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassName)(attributes, setAttributes, 'wsu-stat--decorator-layout-circle-', size);
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: "Gray Bar Decorator Position",
+    value: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.getBlockClassNameValue)(attributes, 'wsu-stat--decorator-layout-bar-'),
+    options: [{
+      label: 'Left of Caption',
+      value: ''
+    }, {
+      label: 'Before Value: Bottom',
+      value: 'value-left'
+    }, {
+      label: 'Before Value: Top',
+      value: 'value-above-left'
+    }, {
+      label: 'Above Value: Left',
+      value: 'value-before-left'
+    }, {
+      label: 'Above Value: right',
+      value: 'value-before-right'
+    }, {
+      label: 'Above Value: Center',
+      value: 'value-before-center'
+    }, {
+      label: 'After Value: Left',
+      value: 'value-after-left'
+    }, {
+      label: 'After Value: right',
+      value: 'value-after-right'
+    }, {
+      label: 'After Value: Center',
+      value: 'value-after-center'
+    }],
+    onChange: size => {
+      (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassName)(attributes, setAttributes, 'wsu-stat--decorator-layout-bar-', size);
+    }
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_4__.PanelAnimate, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
+    className: "wsu-stat__decorator"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
+    className: "wsu-stat__value-wrapper"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     className: "wsu-stat__value",
     allowedFormats: [],
     withoutInteractiveFormatting: true,
@@ -14348,7 +14432,7 @@ const edit = props => {
       stat: val
     }),
     value: attributes.stat
-  }), (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.hasBlockClassName)(attributes, "wsu-stat--style-circle-left") && attributes.unit && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     className: "wsu-stat__unit",
     allowedFormats: [],
     withoutInteractiveFormatting: true,
@@ -14360,7 +14444,7 @@ const edit = props => {
       unit: val
     }),
     value: attributes.unit
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     className: "wsu-stat__caption",
     allowedFormats: [],
     withoutInteractiveFormatting: true,
@@ -14372,6 +14456,18 @@ const edit = props => {
       caption: val
     }),
     value: attributes.caption
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    className: "wsu-stat__citation",
+    allowedFormats: [],
+    withoutInteractiveFormatting: true,
+    disableLineBreaks: true,
+    multiline: false,
+    placeholder: "(Citation)",
+    tagName: "span",
+    onChange: citation => setAttributes({
+      citation
+    }),
+    value: attributes.citation
   }), (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.hasBlockClassName)(attributes, "wsu-stat--style-circle-") && attributes.icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("i", {
     className: `wsu-stat__icon wsu-i-${attributes.icon}`
   })));
