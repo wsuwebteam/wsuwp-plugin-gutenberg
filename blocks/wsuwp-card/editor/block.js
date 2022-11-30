@@ -52,6 +52,10 @@
                 type: "string",
                 default: "",
             },
+            linkCard: {
+                type: 'boolean',
+                default: false,
+            },
             showHeading: {
                 type: 'boolean',
                 default: true,

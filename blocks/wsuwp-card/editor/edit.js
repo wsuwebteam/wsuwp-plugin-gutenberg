@@ -215,6 +215,11 @@ const Edit = ( props ) => {
 							value={ attributes.link }
 							onChange= { ( link ) => setAttributes( { link } ) }
 						/>
+					<ToggleControl
+						label="Link Full Card"
+						checked={attributes.linkCard}
+						onChange={ ( linkCard ) => setAttributes( { linkCard } ) }
+						/>
 					<SelectControl
 							label="Image Ratio (width x height)"
 							value={ attributes.imageRatio }

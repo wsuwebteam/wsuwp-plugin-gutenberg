@@ -165,6 +165,7 @@ const edit = (props) => {
               {label:'Bottom Right', value:'bottom-right'},
               {label:'Bottom Left', value:'bottom-left'},
               {label:'Top Left', value:'top-left'},
+              {label:'None', value:'none'},
 						] }
 						onChange={ ( size ) => { setBlockClassName( attributes, setAttributes, 'wsu-stat--decorator-layout-circle-', size ); } }
 					/>
@@ -182,6 +183,7 @@ const edit = (props) => {
                 {label:'After Value: Left', value:'value-after-left'},
                 {label:'After Value: right', value:'value-after-right'},
                 {label:'After Value: Center', value:'value-after-center'},
+                {label:'None', value:'none'},
 						] }
 						onChange={ ( size ) => { setBlockClassName( attributes, setAttributes, 'wsu-stat--decorator-layout-bar-', size ); } }
 					/>
