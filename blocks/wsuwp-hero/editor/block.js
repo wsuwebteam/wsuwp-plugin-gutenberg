@@ -13,19 +13,11 @@ registerBlockType("wsuwp/hero", {
   title: "Hero Banner",
   apiVersion: 2,
   category: "design",
-  icon: (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
-      />
-    </svg>
-  ),
+  icon: (<svg width="49" height="20" viewBox="0 0 49 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M33 19H48L43.9615 13.5L48 8H33V19Z" fill="white" stroke="black" stroke-linejoin="round"/>
+  <path d="M14 8L1 8L4.5 13.5L1 19L14 19L14 8Z" fill="white" stroke="black" stroke-linejoin="round"/>
+  <rect x="10.5" y="0.5" width="28" height="16" rx="0.5" fill="white" stroke="black" stroke-linejoin="round"/>
+  </svg>),
   attributes: {
     requiredClassName: {
       type: "string",

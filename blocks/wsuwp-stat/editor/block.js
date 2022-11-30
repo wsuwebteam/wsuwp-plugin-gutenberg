@@ -20,6 +20,10 @@ registerBlockType("wsuwp/stat", {
       type: "string",
       default: "",
     },
+    citation: {
+      type: "string",
+      default: "",
+    },
     icon: {
       type: "string",
       default: "",

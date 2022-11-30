@@ -23,6 +23,7 @@ import "../../../blocks/wsuwp-menu/editor/block";
 import "../../../blocks/wsuwp-outline-header/editor/block";
 import '../../../blocks/wsuwp-overlap-advanced/editor/block';
 import '../../../blocks/wsuwp-overlap-column/editor/block';
+import '../../../blocks/wsuwp-overlap-spotlight/editor/block';
 import "../../../blocks/wsuwp-stat/editor/block";
 import "../../../blocks/wsuwp-sticky-nav/editor/block";
 import "../../../blocks/wsuwp-news-cards/editor/blockEditFilter";

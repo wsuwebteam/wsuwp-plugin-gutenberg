@@ -1,0 +1,19 @@
+@import '../../../assets/src/scss/utilities/variables';
+@import '../../../assets/src/scss/utilities/mixins';
+
+.block-editor {
+
+    .wp-block[data-type="wsuwp/overlap-spotlight"] {
+
+        @include wsu-gutenberg-block-outline();
+
+        margin: 0 calc( #{$wsu-gutenberg-spacing--block-inner} /2 ) 0;
+
+        padding-left: $wsu-gutenberg-spacing--block-inner;
+        padding-right: $wsu-gutenberg-spacing--block-inner;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+
+    }
+
+}

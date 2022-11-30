@@ -18,7 +18,14 @@
          title: "Accordion",
          apiVersion: 2, 
          category: "design",
-         icon: <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z" /></svg>,
+         icon: <svg width="46" height="34" viewBox="0 0 46 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <line x1="39.64" y1="10.4" x2="39.64" y2="3.68002" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         <line x1="36.44" y1="6.88" x2="43.16" y2="6.88001" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         <rect x="1.84" y="1.84003" width="43.16" height="30.56" rx="2" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         <line x1="44" y1="12.24" x2="2" y2="12.24" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         <line x1="44" y1="22.32" x2="2" y2="22.32" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         <line x1="34.92" y1="2" x2="34.92" y2="31.4" stroke="#1E1E1E" stroke-width="2" fill="none"/>
+         </svg>,
          attributes: {
              title: {
                  type: 'string',
