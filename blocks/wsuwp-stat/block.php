@@ -15,6 +15,7 @@ class Block_WSUWP_Stat extends Block {
 		'id'        => '',
 		'stat'      => '',
 		'caption'   => '',
+		'citation'  => '',
 		'icon'      => '',
 		'unit'      => '',
 	);
