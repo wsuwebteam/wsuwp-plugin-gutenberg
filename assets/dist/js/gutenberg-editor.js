@@ -7083,6 +7083,10 @@ registerBlockType("wsuwp/card", {
       type: "string",
       default: ""
     },
+    linkCard: {
+      type: 'boolean',
+      default: false
+    },
     showHeading: {
       type: 'boolean',
       default: true
@@ -7445,6 +7449,12 @@ const Edit = props => {
       value: attributes.link,
       onChange: link => setAttributes({
         link
+      })
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+      label: "Link Full Card",
+      checked: attributes.linkCard,
+      onChange: linkCard => setAttributes({
+        linkCard
       })
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(SelectControl, {
       label: "Image Ratio (width x height)",
@@ -14378,6 +14388,9 @@ const edit = props => {
     }, {
       label: 'Top Left',
       value: 'top-left'
+    }, {
+      label: 'None',
+      value: 'none'
     }],
     onChange: size => {
       (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassName)(attributes, setAttributes, 'wsu-stat--decorator-layout-circle-', size);
@@ -14412,6 +14425,9 @@ const edit = props => {
     }, {
       label: 'After Value: Center',
       value: 'value-after-center'
+    }, {
+      label: 'None',
+      value: 'none'
     }],
     onChange: size => {
       (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_6__.setBlockClassName)(attributes, setAttributes, 'wsu-stat--decorator-layout-bar-', size);
