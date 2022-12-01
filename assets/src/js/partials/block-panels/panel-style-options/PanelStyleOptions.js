@@ -43,7 +43,6 @@ const PanelStyleOptions= ( props ) => {
 
         return (
             <Button 
-                variant="primary"
                 isPressed={ ( currentValue == styleObj.value ) }
                 onClick={ () => setStyleClassNames( styleObj.value ) }
                 >
