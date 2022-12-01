@@ -15,6 +15,14 @@ registerBlockType("wsuwp/people-list", {
       type: "string",
       default: "1",
     },
+    data_source: {
+      type: "string",
+      default: "global",
+    },
+    custom_data_source: {
+      type: "string",
+      default: "",
+    },
     nid: {
       type: "string",
       default: "",
@@ -41,7 +49,7 @@ registerBlockType("wsuwp/people-list", {
     },
     query_logic: {
       type: "string",
-      default: 'IN',
+      default: "IN",
     },
     profile_order: {
       type: "string",
@@ -53,7 +61,7 @@ registerBlockType("wsuwp/people-list", {
     },
     focus_area_label: {
       type: "string",
-      default: 'Focus Area',
+      default: "Focus Area",
     },
     website_link_text: {
       type: "string",

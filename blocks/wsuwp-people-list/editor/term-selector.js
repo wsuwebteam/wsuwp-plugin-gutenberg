@@ -1,13 +1,10 @@
 import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "@wordpress/compose";
-import apiFetch from "@wordpress/api-fetch";
 import { differenceBy } from "lodash";
 
-const { ComboboxControl, Spinner } = wp.components;
+import { isValidUrl } from "./helpers";
 
-const apiEndpoint = window.location.hostname.includes(".local")
-  ? "http://wsuwp.local/wp-json/peopleapi/v1/terms?"
-  : "https://people.wsu.edu/wp-json/peopleapi/v1/terms?"; // FIXME: Find a way to set via environment config
+const { ComboboxControl, Spinner } = wp.components;
 
 let abortController = null;
 
@@ -16,8 +13,18 @@ const TermSelector = function (props) {
   const [availableTerms, setAvailableTerms] = useState(props.value); // keep track of all terms for mapping later
   const [termSuggestions, setTermSuggestions] = useState([]);
   const [selectedTerms, setSelectedTerms] = useState(props.value);
-
   const handleInputChange = useDebounce(updateSuggestions, 250);
+
+  const apiEndpoint = getApiEndpoint();
+
+  function getApiEndpoint() {
+    const path = "/wp-json/peopleapi/v1/terms?";
+    if (isValidUrl(props.apiBaseUrl, path)) {
+      return new URL(path, props.apiBaseUrl).href;
+    } else {
+      return "";
+    }
+  }
 
   async function updateSuggestions(input) {
     if (input.length < 2) {
@@ -35,14 +42,14 @@ const TermSelector = function (props) {
 
     // make request to terms api
     const params = `taxonomy=${props.taxonomy}&s=${input}`;
-    const response = await apiFetch({
-      url: apiEndpoint + params,
+
+    const response = await fetch(apiEndpoint + params, {
       method: "GET",
       signal: abortController?.signal,
     });
 
     // process results
-    const results = JSON.parse(response);
+    const results = await response.json();
     const suggestions = differenceBy(results, selectedTerms, "term_id");
 
     if (suggestions.length > 0) {
