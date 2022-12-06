@@ -263,6 +263,15 @@ export default function Edit(props) {
           </PanelRow>
           <PanelRow>
             <SelectControl
+              disabled={
+                attributes.nid !== "" ||
+                attributes.classification.length > 0 ||
+                attributes.university_category.length > 0 ||
+                attributes.university_location.length > 0 ||
+                attributes.university_organization.length > 0 ||
+                attributes.tag.length > 0 ||
+                attributes.profile_order !== ""
+              }
               label="Data Source"
               help="Select where people data should be pulled form"
               value={attributes.data_source}
@@ -274,6 +283,22 @@ export default function Edit(props) {
               onChange={(newval) => setAttributes({ data_source: newval })}
             />
           </PanelRow>
+          {attributes.nid !== "" ||
+          attributes.classification.length > 0 ||
+          attributes.university_category.length > 0 ||
+          attributes.university_location.length > 0 ||
+          attributes.university_organization.length > 0 ||
+          attributes.tag.length > 0 ||
+          attributes.profile_order !== "" ? (
+            <div class="wsu-people-list-block__data-source-notice notice notice-warning">
+              <p>
+                Note: Data source cannot be changed. Resolve by removing
+                existing query settings or create a new people-list block.
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
           {attributes.data_source === "custom" && (
             <PanelRow>
               <TextControl
@@ -289,7 +314,7 @@ export default function Edit(props) {
           )}
           {attributes.data_source === "custom" &&
             !isValidUrl(attributes.custom_data_source) && (
-              <div class="wsu-people-list-block__data-source-error notice notice-error notice-alt">
+              <div class="wsu-people-list-block__data-source-notice notice notice-error notice-alt">
                 <p>Error: A valid data source is required.</p>
               </div>
             )}

@@ -22,6 +22,12 @@ add_action( 'after_setup_theme', 'wsuwp_plugin_gutenberg_init' );
 
 function wsuwp_plugin_gutenberg_init() {
 
+	if ( ! defined( 'PEOPLE_API_DOMAIN' ) ) {
+
+		define( 'PEOPLE_API_DOMAIN', 'https://people.wsu.edu' );
+
+	}
+
 	if ( defined( 'ISWDS' ) ) {
 
 		// Initiate plugin

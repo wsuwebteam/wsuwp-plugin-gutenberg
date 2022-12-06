@@ -51,8 +51,7 @@ class Block_WSUWP_People_List extends Block {
 	private static function resolve_base_url( $data_source, $custom_data_source ) {
 
 		$sources = array(
-			// 'global' => str_contains( site_url(), '.local' ) ? 'https://peopleapi.local' : 'https://people.wsu.edu',
-			'global' => 'https://people.wsu.edu',
+			'global' => PEOPLE_API_DOMAIN,
 			'local'  => site_url(),
 			'custom' => $custom_data_source,
 		);
