@@ -54,6 +54,7 @@ const displayOptions = [
   "address",
   "phone",
   "website",
+  "profile-link",
 ];
 
 export default function Edit(props) {
