@@ -54,6 +54,7 @@ const displayOptions = [
   "address",
   "phone",
   "website",
+  "profile-link",
 ];
 
 export default function Edit(props) {
@@ -71,7 +72,7 @@ export default function Edit(props) {
       global: window.location.hostname.includes(".local")
         ? "https://peopleapi.local"
         : "https://people.wsu.edu",
-      local: window.location.origin,
+      local: EDIT_PROFILE_PAGE_DATA.siteUrl,
       custom: attributes.custom_data_source,
     };
 
