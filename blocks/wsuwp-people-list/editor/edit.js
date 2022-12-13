@@ -72,7 +72,7 @@ export default function Edit(props) {
       global: window.location.hostname.includes(".local")
         ? "https://peopleapi.local"
         : "https://people.wsu.edu",
-      local: EDIT_PROFILE_PAGE_DATA.siteUrl,
+      local: WSUWP_DATA.siteUrl,
       custom: attributes.custom_data_source,
     };
 
