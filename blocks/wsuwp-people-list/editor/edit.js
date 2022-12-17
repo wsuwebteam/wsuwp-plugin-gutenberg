@@ -6,6 +6,7 @@ const {
   PanelRow,
   BaseControl,
   CheckboxControl,
+  SelectControl,
   RangeControl,
   ToggleControl,
   __experimentalRadio: Radio,
@@ -14,12 +15,10 @@ const {
 
 import React, { useState, useEffect } from "react";
 import { HeadingTagControl } from "../../../assets/src/js/partials/block-controls/blockControls";
+import { addBlockClassName } from "../../../assets/src/js/partials/block-utilities/blockClassName";
 import TermSelector from "./term-selector";
 
-const apiEndpoint = window.location.hostname.includes(".local")
-  ? "http://wsuwp.local/wp-json/peopleapi/v1/people?"
-  : "https://people.wsu.edu/wp-json/peopleapi/v1/people?"; // FIXME: Find a way to set via environment config
-
+import { isValidUrl } from "./helpers";
 
 const queryAttributes = [
   "count",
@@ -55,6 +54,7 @@ const displayOptions = [
   "address",
   "phone",
   "website",
+  "profile-link",
 ];
 
 export default function Edit(props) {
@@ -63,6 +63,30 @@ export default function Edit(props) {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const debouncedAttributes = useValueDebounce(attributes, 1000);
+
+  const apiBaseUrl = getapiBaseUrl();
+  const apiEndpoint = getApiEndpoint();
+
+  function getapiBaseUrl() {
+    const sources = {
+      global: window.location.hostname.includes(".local")
+        ? "https://peopleapi.local"
+        : "https://people.wsu.edu",
+      local: WSUWP_DATA.siteUrl,
+      custom: attributes.custom_data_source,
+    };
+
+    return sources[attributes.data_source];
+  }
+
+  function getApiEndpoint() {
+    const path = "/wp-json/peopleapi/v1/people?";
+    if (isValidUrl(apiBaseUrl, path)) {
+      return new URL(path, apiBaseUrl).href;
+    } else {
+      return "";
+    }
+  }
 
   function handleCheckboxListChange(listKey, option, value) {
     let selectedItemList = attributes[listKey].slice();
@@ -86,43 +110,45 @@ export default function Edit(props) {
     return "";
   }
 
-  useEffect(
-    () => {
-      async function loadProfiles() {
-        setLoading(true);
+  useEffect(() => {
+    async function loadProfiles() {
+      setLoading(true);
 
-        // build url params based on attributes
-        const params = queryAttributes
-          .reduce(function (acc, curr, idx) {
-            if (attributes[curr]) {
-              const val = Array.isArray(attributes[curr])
-                ? getQueryAttributeSlugs(attributes[curr])
-                : attributes[curr];
-              acc.push(curr.replace("_", "-") + "=" + val);
-            }
+      // build url params based on attributes
+      const params = queryAttributes
+        .reduce(function (acc, curr, idx) {
+          if (attributes[curr]) {
+            const val = Array.isArray(attributes[curr])
+              ? getQueryAttributeSlugs(attributes[curr])
+              : attributes[curr];
+            acc.push(curr.replace("_", "-") + "=" + val);
+          }
 
-            return acc;
-          }, [])
-          .join("&");
+          return acc;
+        }, [])
+        .join("&");
 
-        // make request
-        const response = await fetch(apiEndpoint + params);
+      // make request
+      console.info("Requesting people from: " + apiEndpoint + params);
+      const response = await fetch(apiEndpoint + params);
 
-        if (!response.ok) {
-          setLoading(false);
-          return;
-        }
-
-        // update state
-        const profilesJson = await response.json();
-        setProfiles(JSON.parse(profilesJson));
+      if (!response.ok) {
         setLoading(false);
+        return;
       }
 
-      loadProfiles();
-    },
-    queryAttributes.map((k) => debouncedAttributes[k])
-  ); // only run on init and when query attributes are changed
+      // update state
+      const profilesJson = await response.json();
+      setProfiles(profilesJson);
+      setLoading(false);
+    }
+
+    loadProfiles();
+  }, [
+    debouncedAttributes["data_source"],
+    debouncedAttributes["custom_data_source"],
+    ...queryAttributes.map((k) => debouncedAttributes[k]),
+  ]); // only run on init and when query attributes are changed
 
   return (
     <div {...useBlockProps()}>
@@ -160,6 +186,7 @@ export default function Edit(props) {
             <TermSelector
               label="Classification"
               help="Display people by searching and selecting a classification"
+              apiBaseUrl={apiBaseUrl}
               taxonomy="classification"
               value={attributes.classification}
               onChange={(newval) => setAttributes({ classification: newval })}
@@ -170,19 +197,20 @@ export default function Edit(props) {
             <TermSelector
               label="University Category"
               help="Display people by searching and selecting a university category"
+              apiBaseUrl={apiBaseUrl}
               taxonomy="wsuwp_university_category"
               value={attributes.university_category}
               onChange={(newval) =>
                 setAttributes({ university_category: newval })
               }
             />
-            
           </PanelRow>
 
           <PanelRow>
             <TermSelector
               label="University Location"
               help="Display people by searching and selecting a university location"
+              apiBaseUrl={apiBaseUrl}
               taxonomy="wsuwp_university_location"
               value={attributes.university_location}
               onChange={(newval) =>
@@ -195,6 +223,7 @@ export default function Edit(props) {
             <TermSelector
               label="University Organization"
               help="Display people by searching and selecting a university organization"
+              apiBaseUrl={apiBaseUrl}
               taxonomy="wsuwp_university_org"
               value={attributes.university_organization}
               onChange={(newval) =>
@@ -206,11 +235,10 @@ export default function Edit(props) {
             <TermSelector
               label="University Tag"
               help="Display people by searching and selecting a university tag"
+              apiBaseUrl={apiBaseUrl}
               taxonomy="post_tag"
               value={attributes.tag}
-              onChange={(newval) =>
-                setAttributes({ tag: newval })
-              }
+              onChange={(newval) => setAttributes({ tag: newval })}
             />
           </PanelRow>
 
@@ -225,15 +253,72 @@ export default function Edit(props) {
           </PanelRow>
           <PanelRow>
             <ToggleControl
-                label="Require all terms"
-                checked={ ( attributes.query_logic === 'AND') ? true : false }
-                onChange= { ( query_logic  ) => {
-                  let logic = ( query_logic  ) ? 'AND' : 'IN';
-                  setAttributes( { query_logic:logic } ) }
-                }
-                help="Only profiles matching all selected terms will display"
+              label="Require all terms"
+              checked={attributes.query_logic === "AND" ? true : false}
+              onChange={(query_logic) => {
+                let logic = query_logic ? "AND" : "IN";
+                setAttributes({ query_logic: logic });
+              }}
+              help="Only profiles matching all selected terms will display"
             />
           </PanelRow>
+          <PanelRow>
+            <SelectControl
+              disabled={
+                attributes.nid !== "" ||
+                attributes.classification.length > 0 ||
+                attributes.university_category.length > 0 ||
+                attributes.university_location.length > 0 ||
+                attributes.university_organization.length > 0 ||
+                attributes.tag.length > 0 ||
+                attributes.profile_order !== ""
+              }
+              label="Data Source"
+              help="Select where people data should be pulled form"
+              value={attributes.data_source}
+              options={[
+                { label: "People Directory", value: "global" },
+                { label: "This Site", value: "local" },
+                { label: "Custom", value: "custom" },
+              ]}
+              onChange={(newval) => setAttributes({ data_source: newval })}
+            />
+          </PanelRow>
+          {attributes.nid !== "" ||
+          attributes.classification.length > 0 ||
+          attributes.university_category.length > 0 ||
+          attributes.university_location.length > 0 ||
+          attributes.university_organization.length > 0 ||
+          attributes.tag.length > 0 ||
+          attributes.profile_order !== "" ? (
+            <div class="wsu-people-list-block__data-source-notice notice notice-warning">
+              <p>
+                Note: Data source cannot be changed. Resolve by removing
+                existing query settings or create a new people-list block.
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
+          {attributes.data_source === "custom" && (
+            <PanelRow>
+              <TextControl
+                label="Custom Data Source"
+                help="URL for to pull people data from."
+                placeholder="https://example.wsu.edu"
+                value={attributes.custom_data_source}
+                onChange={(newval) =>
+                  setAttributes({ custom_data_source: newval })
+                }
+              />
+            </PanelRow>
+          )}
+          {attributes.data_source === "custom" &&
+            !isValidUrl(attributes.custom_data_source) && (
+              <div class="wsu-people-list-block__data-source-notice notice notice-error notice-alt">
+                <p>Error: A valid data source is required.</p>
+              </div>
+            )}
         </PanelBody>
 
         <PanelBody title="People Display Settings" initialOpen={false}>
@@ -247,7 +332,7 @@ export default function Edit(props) {
                 <CheckboxControl
                   key={o}
                   className="wsu-people-list-block__checkboxlist-item"
-                  label={o.replace('-', ' ')}
+                  label={o.replace("-", " ")}
                   checked={attributes.display_fields.indexOf(o) > -1}
                   onChange={(val) =>
                     handleCheckboxListChange("display_fields", o, val)
@@ -256,13 +341,16 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
-          { attributes.display_fields.includes( 'focus-area' ) && <TextControl
+          {attributes.display_fields.includes("focus-area") && (
+            <TextControl
               label="Focus Area Label"
               placeholder="Focus Area"
-              value={attributes.focus_area_label }
-              onChange={(focus_area_label) => setAttributes({ focus_area_label })}
+              value={attributes.focus_area_label}
+              onChange={(focus_area_label) =>
+                setAttributes({ focus_area_label })
+              }
             />
-          }
+          )}
           <PanelRow>
             <RangeControl
               label="Number of Columns"
@@ -327,153 +415,168 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
-          { attributes.filters.includes('category') && <><PanelRow>
-              <TextControl
-                label="Category Filter Label"
-                help="Label to display for filter. Defaults to 'Filter by Category'"
-                placeholder="Filter by Category"
-                value={attributes.category_filter_label}
-                onChange={(newval) =>
-                  setAttributes({ category_filter_label: newval })
-                }
-              />
-            </PanelRow>
-            <PanelRow>
-            <TermSelector
+          {attributes.filters.includes("category") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Category Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Category'"
+                  placeholder="Filter by Category"
+                  value={attributes.category_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ category_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
                   label="Select Category Filter Terms"
                   help="Search and select terms to include in filters"
+                  apiBaseUrl={apiBaseUrl}
                   taxonomy="wsuwp_university_category,category"
                   value={attributes.category_filter_terms}
                   onChange={(newval) =>
                     setAttributes({ category_filter_terms: newval })
                   }
                 />
-                </PanelRow>
-              </>
-          }
-          { attributes.filters.includes('classification') && <>
-          <PanelRow>
-              <TextControl
-                label="Classification Filter Label"
-                help="Label to display for filter. Defaults to 'Filter by Classification'"
-                placeholder="Filter by Classification"
-                value={attributes.classification_filter_label}
-                onChange={(newval) =>
-                  setAttributes({ classification_filter_label: newval })
-                }
-              />
-            </PanelRow>
-            <PanelRow>
-              <TermSelector
-                label="Select Classification Filter Terms"
-                help="Search and select term values to include in filters"
-                taxonomy="classification"
-                value={attributes.classification_filter_terms}
-                onChange={(newval) =>
-                  setAttributes({ classification_filter_terms: newval })
-                }
-              />
-            </PanelRow>
+              </PanelRow>
             </>
-          }
-          { attributes.filters.includes('location') && <>
-            <PanelRow>
-              <TextControl
-                label="Location Filter Label"
-                help="Label to display for filter. Defaults to 'Filter by Location'"
-                placeholder="Filter by Location"
-                value={attributes.location_filter_label}
-                onChange={(newval) =>
-                  setAttributes({ location_filter_label: newval })
-                }
-              />
-            </PanelRow>
-            <PanelRow>
-              <TermSelector
-                label="Select Location Terms to Display"
-                help="Search and select term values to include in filters"
-                taxonomy="wsuwp_university_location"
-                value={attributes.location_filter_terms}
-                onChange={(newval) =>
-                  setAttributes({ location_filter_terms: newval })
-                }
-              />
-            </PanelRow>
-          </>
-          }
-          { attributes.filters.includes('organization') && <>
-            <PanelRow>
-              <TextControl
-                label="Organization Filter Label"
-                help="Label to display for filter. Defaults to 'Filter by Organization'"
-                placeholder="Filter by Organization"
-                value={attributes.organization_filter_label}
-                onChange={(newval) =>
-                  setAttributes({ organization_filter_label: newval })
-                }
-              />
-            </PanelRow>
-            <PanelRow>
-              <TermSelector
-                label="Select Organization Terms to Display"
-                help="Search and select term values to include in filters"
-                taxonomy="wsuwp_university_org"
-                value={attributes.organization_filter_terms}
-                onChange={(newval) =>
-                  setAttributes({ organization_filter_terms: newval })
-                }
-              />
-            </PanelRow>
-          </>
-          }
-          { attributes.filters.includes('tag') && <>
-            <PanelRow>
-              <TextControl
-                label="Tag Filter Label"
-                help="Label to display for filter. Defaults to 'Filter by Tag'"
-                placeholder="Filter by Tag"
-                value={attributes.tag_filter_label}
-                onChange={(newval) => setAttributes({ tag_filter_label: newval })}
-              />
-            </PanelRow>
-            <PanelRow>
-              <TermSelector
-                label="Select Tag Terms to Display"
-                help="Search and select term values to include in filters"
-                taxonomy="post_tag"
-                value={attributes.tag_filter_terms}
-                onChange={(newval) =>
-                  setAttributes({ tag_filter_terms: newval })
-                }
-              />
-            </PanelRow>
-          </>
-          }
-          { attributes.filters.includes('search') && <>
-            <PanelRow>
-              <TextControl
-                label="Search Filter Label"
-                help="Label to display for filter. Defaults to 'Type to search'"
-                placeholder="Type to search"
-                value={attributes.search_filter_label}
-                onChange={(newval) =>
-                  setAttributes({ search_filter_label: newval })
-                }
-              />
-            </PanelRow>
-          </>
-          }
+          )}
+          {attributes.filters.includes("classification") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Classification Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Classification'"
+                  placeholder="Filter by Classification"
+                  value={attributes.classification_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ classification_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
+                  label="Select Classification Filter Terms"
+                  help="Search and select term values to include in filters"
+                  apiBaseUrl={apiBaseUrl}
+                  taxonomy="classification"
+                  value={attributes.classification_filter_terms}
+                  onChange={(newval) =>
+                    setAttributes({ classification_filter_terms: newval })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
+          {attributes.filters.includes("location") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Location Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Location'"
+                  placeholder="Filter by Location"
+                  value={attributes.location_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ location_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
+                  label="Select Location Terms to Display"
+                  help="Search and select term values to include in filters"
+                  apiBaseUrl={apiBaseUrl}
+                  taxonomy="wsuwp_university_location"
+                  value={attributes.location_filter_terms}
+                  onChange={(newval) =>
+                    setAttributes({ location_filter_terms: newval })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
+          {attributes.filters.includes("organization") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Organization Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Organization'"
+                  placeholder="Filter by Organization"
+                  value={attributes.organization_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ organization_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
+                  label="Select Organization Terms to Display"
+                  help="Search and select term values to include in filters"
+                  apiBaseUrl={apiBaseUrl}
+                  taxonomy="wsuwp_university_org"
+                  value={attributes.organization_filter_terms}
+                  onChange={(newval) =>
+                    setAttributes({ organization_filter_terms: newval })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
+          {attributes.filters.includes("tag") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Tag Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Tag'"
+                  placeholder="Filter by Tag"
+                  value={attributes.tag_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ tag_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
+                  label="Select Tag Terms to Display"
+                  help="Search and select term values to include in filters"
+                  apiBaseUrl={apiBaseUrl}
+                  taxonomy="post_tag"
+                  value={attributes.tag_filter_terms}
+                  onChange={(newval) =>
+                    setAttributes({ tag_filter_terms: newval })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
+          {attributes.filters.includes("search") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Search Filter Label"
+                  help="Label to display for filter. Defaults to 'Type to search'"
+                  placeholder="Type to search"
+                  value={attributes.search_filter_label}
+                  onChange={(newval) =>
+                    setAttributes({ search_filter_label: newval })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
           <PanelRow>
-              <TermSelector
-                label="(Legacy) Exclude Terms from Filters"
-                help="Search and select terms to exclude from filters"
-                taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
-                value={attributes.exclude_term_values}
-                onChange={(newval) =>
-                  setAttributes({ exclude_term_values: newval })
-                }
-              />
-            </PanelRow>
+            <TermSelector
+              label="(Legacy) Exclude Terms from Filters"
+              help="Search and select terms to exclude from filters"
+              apiBaseUrl={apiBaseUrl}
+              taxonomy="classification,wsuwp_university_category,wsuwp_university_location,wsuwp_university_org,post_tag,category"
+              value={attributes.exclude_term_values}
+              onChange={(newval) =>
+                setAttributes({ exclude_term_values: newval })
+              }
+            />
+          </PanelRow>
         </PanelBody>
       </InspectorControls>
 
@@ -620,4 +723,3 @@ function useValueDebounce(value, delay) {
   );
   return debouncedValue;
 }
-

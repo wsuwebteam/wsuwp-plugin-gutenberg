@@ -9,6 +9,10 @@
     padding: 0.5rem;
   }
 
+  .wsu-people-list-block__data-source-notice {
+    margin: 0;
+  }
+
   /*=============================================
   =            People List Preview            =
   =============================================*/
@@ -125,7 +129,7 @@
   =            Single Checkbox Control            =
   =============================================*/
   .wsu-people-list-block__checkbox-control {
-    .components-base-control__field{
+    .components-base-control__field {
       display: flex;
     }
   }

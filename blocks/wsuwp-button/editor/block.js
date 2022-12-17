@@ -29,7 +29,7 @@ registerBlockType("wsuwp/button", {
       default: "",
     },
     buttonUrl: {
-      type: "string",
+      type: "string", 
       default: "",
     },
     iconBefore: {
@@ -41,6 +41,10 @@ registerBlockType("wsuwp/button", {
       default: "",
     },
     buttonClassName: {
+      type: "string",
+      default: "",
+    },
+    buttonAriaLabel: {
       type: "string",
       default: "",
     },

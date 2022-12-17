@@ -13,6 +13,8 @@ import {
 	RequiredAlertControl,
 	FontSizeControl,
 	SpacingClassNameSelector,
+	AlignItemControl,
+	MaxWidthControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import {
@@ -27,6 +29,8 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 		const { ToggleControl } = wp.components;
 		const { InspectorAdvancedControls } = wp.blockEditor;
 		const { attributes, setAttributes, isSelected } = props;
+
+		
 
 		let FontSizeValue = ( isSelected && (props.name == 'core/paragraph') ) ? getBlockClassNameValue( attributes, 'wsu-font-size--' ) : '';
 
@@ -53,9 +57,11 @@ const coreParagraphControls = wp.compose.createHigherOrderComponent( (BlockEdit)
 									/>
 									{ FontSizeValue && <RequiredAlertControl>
 											Should this be a heading instead?<br />
-											Paragraph text should not be used as a substitue for a heading. 
+											Paragraph text should not be used as a substitute for a heading. 
 										</RequiredAlertControl>
 									}
+									<AlignItemControl {...props} />
+									<MaxWidthControl {...props} />
 							</PanelDisplayOptions>
 							<PanelAnimate { ...props } ></PanelAnimate>
 							<SpacingClassNameSelector                        

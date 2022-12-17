@@ -21,22 +21,50 @@ import {
 	SpacingClassNameSelector,
     ImageFrameControl,
     HeadingTagControl,
+	FontSizeControl,
     DisplayFieldControl,
+	DeveloperToolsControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
     PanelDisplayOptions,
 	PanelColorOptions,
 	PanelAnimate,
+	PanelStyleOptions,
+	PanelDeveloperTools,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
     hasBlockClassName,
     addBlockClassName,
     setBlockClassNameBool,
+	getBlockClassNameValue,
 } from "../../../assets/src/js/partials/block-utilities/blockUtilities";
 
 const { MediaPlaceholder, MediaUpload } = wp.editor;
+
+const cardStyles = [
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="32.2" y="2.34" width="59.6" height="31.32" fill="#373737"/><rect x="32.2" y="37.66" width="59.6" height="6.58" rx="1.96"/><rect x="32.2" y="47.01" width="59.6" height="3.91" rx="1.96"/><rect x="32.2" y="53.7" width="59.6" height="3.91" rx="1.96"/></svg>,
+		label: 'Default',
+		value: '',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="2.52" width="56.06" height="53.06" fill="#373737"/><rect x="66.07" y="11.16" width="53.59" height="6.58" rx="1.96"/><rect x="66.07" y="23.68" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="29.93" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="36.19" width="48.5" height="3.91" rx="1.96"/><rect x="66.07" y="42.26" width="48.5" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 50%',
+		value: 'horizontal-50',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="3.86" width="41.73" height="53.06" fill="#373737"/><rect x="52.68" y="11.16" width="66.98" height="6.58" rx="1.96"/><rect x="52.68" y="23.68" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="29.93" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="36.19" width="61.9" height="3.91" rx="1.96"/><rect x="52.68" y="42.26" width="61.9" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 33%',
+		value: 'horizontal-33',
+	},
+	{
+		icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect x="4.34" y="12.66" width="38.65" height="31.32" fill="#373737"/><rect x="50.26" y="14.71" width="69.4" height="6.58" rx="1.96"/><rect x="50.26" y="26.48" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="32.74" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="39" width="64.32" height="3.91" rx="1.96"/><rect x="50.26" y="45.06" width="64.32" height="3.91" rx="1.96"/></svg>,
+		label: 'Horizontal 25%',
+		value: 'horizontal-25',
+	},
+]
 
 
 
@@ -79,6 +107,11 @@ const Edit = ( props ) => {
 		return (
 			<>
 				<InspectorControls>
+					<PanelStyleOptions 
+						{...props} 
+						styles={cardStyles}
+						prefix="wsu-card--style-"  
+						></PanelStyleOptions> 
 					<PanelColorOptions>
 						<ColorClassControl
 							{ ...props }
@@ -182,6 +215,11 @@ const Edit = ( props ) => {
 							value={ attributes.link }
 							onChange= { ( link ) => setAttributes( { link } ) }
 						/>
+					<ToggleControl
+						label="Link Full Card"
+						checked={attributes.linkCard}
+						onChange={ ( linkCard ) => setAttributes( { linkCard } ) }
+						/>
 					<SelectControl
 							label="Image Ratio (width x height)"
 							value={ attributes.imageRatio }
@@ -196,8 +234,33 @@ const Edit = ( props ) => {
 							onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
 						/>
 						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
-						
+						<FontSizeControl 
+							{...props}
+							sizes={
+								[
+									{ label: 'Default', value: '' },
+									{ label: 'Medium', value: 'medium' },
+									{ label: 'xMedium', value: 'xmedium' },
+									{ label: 'xxMedium', value: 'xxmedium' },
+									{ label: 'Large', value: 'large' },
+									{ label: 'xLarge', value: 'xlarge' },
+									{ label: 'xxLarge', value: 'xxlarge' },
+								]
+							}
+							elementClass="headingClass"
+							/>
 				</PanelDisplayOptions>
+				<PanelStyleOptions 
+					{...props} 
+					styles={cardStyles}
+					prefix="wsu-card--style-"  
+						>
+						{ getBlockClassNameValue( attributes, 'wsu-card--style-horizontal-', false ) && <ToggleControl
+						label="Reverse Layout"
+						checked={ getBlockClassNameValue( attributes, 'wsu-card--layout-', false ) ? true : false }
+						onChange={ ( isReversed ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-card--layout-reversed', isReversed ) }
+						/> }
+						</PanelStyleOptions> 
 				<PanelBody title="Card Settings" initialOpen={false} >
 					<ToggleControl
 						label="Show Image"
@@ -290,9 +353,13 @@ const Edit = ( props ) => {
 					]}
 					{...props}>					
 				</SpacingClassNameSelector>
-			</InspectorControls>
-			<InspectorAdvancedControls>
-					<ToggleControl
+				{attributes.developerTools && <PanelDeveloperTools 
+					{ ...props}
+					maxWidth={ true }
+					alignItem={ true }
+					positionElement={ true } 
+					>
+						<ToggleControl
 						label={ 'Use Version 2' }
 						checked={ ( '2' === attributes.version ) }
 						onChange={ ( checked) => { 
@@ -300,7 +367,10 @@ const Edit = ( props ) => {
 							setAttributes( {  version: cardVersion } ) } 
 						}
 						help={ 'Use Version 2 of the Card.'}
-					/>
+					/></PanelDeveloperTools>}
+			</InspectorControls>
+			<InspectorAdvancedControls>
+					<DeveloperToolsControl { ...props } />
 				</InspectorAdvancedControls>
 			<div { ...blockProps }  >
 				{ attributes.showImage && <ImageFrameControl { ...props } /> }
@@ -308,7 +378,7 @@ const Edit = ( props ) => {
 					{ attributes.showHeading && <RichText
 						tagName="h2" // The tag here is the element output and editable in the admin
 						value={ attributes.title } // Any existing content, either from the database or an attribute default
-						className="wsu-title"
+						className={`wsu-title ${attributes.headingClass}`}
 						allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
 						onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
 						placeholder={ 'Add a Card Heading...' } // Display this text before any content has been added by the user

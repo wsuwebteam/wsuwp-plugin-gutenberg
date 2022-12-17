@@ -1,6 +1,17 @@
-import { InnerBlocks, InspectorControls, useBlockProps} from '@wordpress/block-editor';
-import { ColorClassNameSelector, SpacingClassNameSelector } from '../../../assets/src/js/partials/block-controls/blockControls';
+import { InnerBlocks, InspectorControls, useBlockProps, InspectorAdvancedControls} from '@wordpress/block-editor';
+import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl } from '../../../assets/src/js/partials/block-controls/blockControls';
 import { useEffect, useState } from '@wordpress/element';
+
+const {
+    SelectControl,
+	TextControl,
+	ToggleControl,
+	Panel, 
+	PanelBody, 
+	PanelRow
+} = wp.components;
+
+//import { Panel, PanelBody, PanelRow } from '@wordpress/components';
 
 import { 
 	PanelAnimate
@@ -18,6 +29,11 @@ const Edit = ( props ) => {
         className: 'wsu-column', 
         style: {}, 
     } );
+
+	let {
+		attributes,
+		setAttributes,
+	} = props;
 
 	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
 
@@ -58,6 +74,15 @@ const Edit = ( props ) => {
 					{...props}>
 				</ColorClassNameSelector>
 				<PanelAnimate { ...props } ></PanelAnimate>
+				{ attributes.customWidth && <PanelBody title="Column Width" initialOpen={ false } >
+					<TextControl
+						label="Column Width"
+						value={ attributes.width ? attributes.width : '' }
+						onChange={ ( width ) => setAttributes( {width} ) }
+					/>
+					<BreakPointControl {...props} />
+            		</PanelBody> 
+				}
 				<SpacingClassNameSelector
 					title="Space Settings"
 					spaceSettings={[
@@ -106,7 +131,14 @@ const Edit = ( props ) => {
 				</SpacingClassNameSelector>
 
 			</InspectorControls>
-
+			<InspectorAdvancedControls>
+				<ToggleControl
+					label={ 'Allow Custom Width' }
+					checked={ attributes.customWidth }
+					onChange={ ( customWidth) => { setAttributes( {  customWidth } ) } }
+					help={ 'Use Version 2 of the Card.'}
+				/>
+			</InspectorAdvancedControls>
 			<div { ...blockProps }  >
 				<InnerBlocks
 					templateLock={ false }

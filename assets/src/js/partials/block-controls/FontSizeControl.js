@@ -1,5 +1,5 @@
 import { SelectControl } from '@wordpress/components';
-import { getBlockClassNameOption, setBlockClassName } from '../block-utilities/blockUtilities';
+import { getBlockClassNameOption, setBlockClassName, getBlockClassNameValue } from '../block-utilities/blockUtilities';
 import { ResetControl } from './blockControls';
 
 
@@ -20,14 +20,19 @@ const wsuFontSizes = [
 
 const FontSizeControl = ( props ) => {
 
-    let { attributes, setAttributes, sizes } = props;
+    let { attributes, setAttributes, sizes, elementClass ='className' } = props;
 
     let prefix = attributes.prefix ?? 'wsu-font-size--';
     let label  = attributes.label ?? 'Font Size';
     sizes  = sizes ?? wsuFontSizes;
-    let classNames = attributes.className ?? '';
+    // let blockClassNames = attributes.className ?? '';
+    // let classNames = attributes.elementClass ?? blockClassNames;
 
-    let value = getBlockClassNameOption( classNames, prefix );
+
+    console.log(attributes);
+
+    //let value = getBlockClassNameOption( classNames, prefix );
+    let value = getBlockClassNameValue( attributes, prefix, '', elementClass );
 
     console.log( value );
 
@@ -39,8 +44,8 @@ const FontSizeControl = ( props ) => {
 
         } else {
 
-            setBlockClassName( attributes, setAttributes, prefix, size );
-
+            //setBlockClassName( attributes, setAttributes, prefix, size );
+            setBlockClassName( attributes, setAttributes, prefix, size, elementClass )
         }
     }
 

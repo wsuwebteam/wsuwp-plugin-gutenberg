@@ -34,6 +34,8 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		'imageRatio' => '',
 		'showContent' => false,
 		'headingTag' => 'h3',
+		'headingClass' => '',
+		'linkCard'     => false,   
 	)
 );
 ?>
@@ -52,7 +54,7 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 	<?php endif; ?>
 	<div class="wsu-card__content">
 		<?php if ( ! empty( $card['title'] ) && ! empty( $card_attrs['showHeading'] ) ) : ?>
-		<<?php echo esc_attr( $card_attrs['headingTag'] ); ?> class="wsu-title">
+		<<?php echo esc_attr( $card_attrs['headingTag'] ); ?> class="wsu-title <?php if ( ! empty( $card_attrs['headingClass'] ) ) : ?><?php echo esc_attr( $card_attrs['headingClass'] ); ?><?php endif; ?>">
 			<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>
 				<?php echo wp_kses_post( $card['title'] ); ?>
 			<?php if ( ! empty( $card['link'] ) ) : ?></a><?php endif; ?>
@@ -69,4 +71,5 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 		</span>
 		<?php endif; ?>
 	</div>
+	<?php if ( ! empty( $card['link'] ) && ! empty( $card_attrs['linkCard'] ) ) : ?><a class='wsu-card__link' href="<?php echo esc_url( $card['link'] ); ?>" aria-hidden="true" tabindex="0" ></a><?php endif; ?>
 </article>

@@ -28,6 +28,9 @@ class Blocks {
 		'wsuwp/stat'        => 'Block_WSUWP_Stat',
 		'wsuwp/sticky-nav'  => 'Block_WSUWP_Sticky_Nav',
 		'wsuwp/outline-header' => 'Block_WSUWP_Outline_Header',
+		'wsuwp/overlap-advanced' => 'Block_WSUWP_Overlap_Advanced',
+		'wsuwp/overlap-column'   => 'Block_WSUWP_Overlap_Column',
+		'wsuwp/overlap-spotlight'   => 'Block_WSUWP_Overlap_Spotlight',
 	);
 
 	protected static $allowed_blocks = array(
@@ -53,7 +56,9 @@ class Blocks {
 		'wsuwp/card-group',
 		'wsuwp/az-index',
 		'wsuwp/programs-list',
-		'wsuwp/outline-header', 
+		'wsuwp/outline-header',
+		'wsuwp/overlap-advanced',
+		'wsuwp/overlap-spotlight',
 		'wsuwp/stat',
 		'wsuwp/menu',
 		'bcn/breadcrumb-trail',

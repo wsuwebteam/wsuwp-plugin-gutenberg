@@ -12,7 +12,7 @@
  import edit from "./edit";
  import save from "./save";
  
- registerBlockType(
+ registerBlockType( 
      "wsuwp/card",
      {
          title: "Card",
@@ -52,6 +52,10 @@
                 type: "string",
                 default: "",
             },
+            linkCard: {
+                type: 'boolean',
+                default: false,
+            },
             showHeading: {
                 type: 'boolean',
                 default: true,
@@ -71,6 +75,14 @@
             version: {
                 type: "string",
                 default: "1",
+            },
+            headingClass: {
+                type: "string",
+                default: "",
+            },
+            developerTools: {
+                type: 'boolean',
+                default: false,
             },
          },
          edit,

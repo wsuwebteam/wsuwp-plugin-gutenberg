@@ -4,9 +4,12 @@ class Block_WSUWP_People_List extends Block {
 
 	protected static $block_name    = 'wsuwp/people-list';
 	protected static $default_attrs = array(
+		'className'                      => '',
 		'count'                          => '10',
 		'page'                           => '1',
 		'nid'                            => '',
+		'data_source'                    => 'global',
+		'custom_data_source'             => '',
 		'classification'                 => array(),
 		'university_category'            => array(),
 		'university_location'            => array(),
@@ -45,7 +48,21 @@ class Block_WSUWP_People_List extends Block {
 	);
 
 
+	private static function resolve_base_url( $data_source, $custom_data_source ) {
+
+		$sources = array(
+			'global' => PEOPLE_API_DOMAIN,
+			'local'  => site_url(),
+			'custom' => $custom_data_source,
+		);
+
+		return $sources[ $data_source ];
+
+	}
+
+
 	public static function render( $attrs, $content = '' ) {
+
 		// enqueue scripts and styles
 		wp_enqueue_script( 'wsu_design_system_script_people_list' );
 
@@ -58,6 +75,18 @@ class Block_WSUWP_People_List extends Block {
 			ARRAY_FILTER_USE_KEY
 		);
 
+		// resolve base url
+		$data_attrs['base_url'] = self::resolve_base_url( $data_attrs['data_source'], $data_attrs['custom_data_source'] );
+
+		// remove unneeded attributes
+		if ( ( $index = array_search( 'data_source', array_keys( $data_attrs ) ) ) !== false ) {
+			array_splice( $data_attrs, $index, 1 );
+		}
+		if ( ( $index = array_search( 'custom_data_source', array_keys( $data_attrs ) ) ) !== false ) {
+			array_splice( $data_attrs, $index, 1 );
+		}
+
+		// implode array values for inserting in html attributes
 		$implode_keys = array(
 			'classification',
 			'university_category',

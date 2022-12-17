@@ -5,17 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "wp-scripts start assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
-    "build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/"
+    "build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
+    "watch": "gulp watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/api-fetch": "^5.2.2",
-    "@wordpress/prettier-config": "^1.1.1",
-    "@wordpress/scripts": "^16.1.5",
-    "@wordpress/server-side-render": "^3.0.2",
-    "@wsuwebteam/build-tools": "^2.0.0",
-    "@wsuwebteam/wsu-web-design-system": "2.4.0",
+    "@wordpress/api-fetch": "latest",
+    "@wordpress/prettier-config": "latest",
+    "@wordpress/scripts": "latest",
+    "@wordpress/server-side-render": "latest",
+    "@wsuwebteam/build-tools": "latest",
+    "@wsuwebteam/wsu-web-design-system": "latest",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -31,6 +32,5 @@
   "bugs": {
     "url": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg/issues"
   },
-  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme"
 }
