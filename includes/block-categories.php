@@ -11,10 +11,6 @@ class BlockCategories {
 
 	public static function register_block_categories( $block_categories, $block_editor_context ) {
 
-		if ( ! ( $block_editor_context instanceof \WP_Block_Editor_Context ) ) {
-			return $block_categories;
-		}
-
 		// change text category title to 'Content'.
 		foreach ( $block_categories as &$c ) {
 			if ( 'text' === $c['slug'] ) {
@@ -43,7 +39,11 @@ class BlockCategories {
 
 	public static function init() {
 
-		add_filter( 'block_categories', array( __CLASS__, 'register_block_categories' ), 10, 2 );
+		if ( version_compare( get_bloginfo( 'version' ), '5.8', '>=' ) ) {
+			add_filter( 'block_categories_all', array( __CLASS__, 'register_block_categories' ), 10, 2 );
+		} else {
+			add_filter( 'block_categories', array( __CLASS__, 'register_block_categories' ), 10, 2 );
+		}
 
 	}
 
