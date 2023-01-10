@@ -152,7 +152,7 @@ const Edit = ( props ) => {
 
 	queryAttrs['hideLink'] = true;
 
-    console.log( attributes.queryTerms ); 
+    // console.log( attributes.queryTerms ); 
 
     return (
         <>
@@ -205,7 +205,9 @@ const Edit = ( props ) => {
                         </>
                     )}
                     {attributes.source == 'select' && (
-                        <PostPicker { ...props } onChange={ ( postIn ) => { setAttributes({ postIn } ); console.log( value ) } } />
+                        <PostPicker { ...props } onChange={ ( postIn ) => { 
+                            setAttributes({ postIn } );
+                        }} />
                     )}
                     
                     <FeedCountControl {...props} />
