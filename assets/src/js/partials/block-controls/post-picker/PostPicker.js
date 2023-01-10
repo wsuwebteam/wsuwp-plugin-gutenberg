@@ -30,6 +30,8 @@ const PostPicker = ( props ) => {
 	const [postTypeData, setPostTypeData] = useState({});
     const debouncedSetSearchString = useDebounce( ( value ) => setSearchString(value), 250);
 
+    const abortController = typeof AbortController === 'undefined' ? undefined : new AbortController();
+
     const handleItemSelection = (post) => {
         if(attributes.postIn.split(',').includes(post.id.toString())) { return; }
 
@@ -55,38 +57,56 @@ const PostPicker = ( props ) => {
     };
 
     const getSelectedItems = async () => {
-        if(attributes.postIn.split(',').length === 0){ return; }
- 
-        const params = `ids=${attributes.postIn}`;
-        const response = await apiFetch({
-            path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
-            method: 'GET',
-        })
+        try{
+            if(attributes.postIn.split(',').length === 0){ return; }
+    
+            const params = `ids=${attributes.postIn}`;
+            const response = await apiFetch({
+                path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
+                method: 'GET',
+                signal: abortController.signal
+            })
 
-        setSelectedItems(JSON.parse(response));
+            setSelectedItems(JSON.parse(response));
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     const getLatestPosts = async () => {        
-        setIsLoading(true);
+        try{
+            setIsLoading(true);
         
-        const params = `count=8&post_types=${postTypes}`;
-        const response = await apiFetch({ 
-            path:'/wsu-gutenberg/v1/get-latest-posts?' + params,
-            method: 'GET'
-        });        
+            const params = `count=8&post_types=${postTypes}`;
+            const response = await apiFetch({ 
+                path:'/wsu-gutenberg/v1/get-latest-posts?' + params,
+                method: 'GET',
+                signal: abortController.signal
+            });        
 
-        setLatestPosts(JSON.parse(response));
-
-        setIsLoading(false);
+            setLatestPosts(JSON.parse(response));
+            
+            setIsLoading(false);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     const getPostTypeData = async () => {
-        const response = await apiFetch({
-            path: '/wp/v2/types',
-            method: 'GET',
-        });
+        try{
+            const response = await apiFetch({
+                path: '/wp/v2/types',
+                method: 'GET',
+                signal: abortController.signal
+            });
 
-        setPostTypeData(response);
+            setPostTypeData(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };    
 
     useEffect( () => {
@@ -103,6 +123,7 @@ const PostPicker = ( props ) => {
                 const response = await apiFetch({
                     path: '/wsu-gutenberg/v1/search-posts?' + params,
                     method: 'GET',
+                    signal: abortController.signal
                 });
                 
                 setSearchResults(JSON.parse(response));
@@ -110,13 +131,21 @@ const PostPicker = ( props ) => {
                 setIsLoading(false);            
             })();        
         }
+
+        return () => {
+            abortController.abort();
+        };
     }, [ searchString ] );
 
-    useEffect( () => {        
+    useEffect( () => {
         getPostTypeData();
         getSelectedItems();
         getLatestPosts();
-        isMounted.current = true;
+        isMounted.current = true;        
+
+        return () => {
+            abortController.abort();
+        };
     }, []);
 
     return (
