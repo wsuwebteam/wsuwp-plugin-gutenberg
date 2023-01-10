@@ -138,6 +138,7 @@ const SpacingClassNameSelector = (props) => {
                                 return (
                                     <div key={ property.label }>
                                         <CustomSelectControl
+                                            className={ `${CSSNAMESPACE}__select-dropdown` }
                                             label={ property.label }
                                             options={ options }
                                             onChange={ (control) => { updateSelectedOptions(property, control) } }
