@@ -305,7 +305,7 @@ const Edit = ( props ) => {
 							onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
 							placeholder="Add Hero Banner caption text here..." // Display this text before any content has been added by the user
 						/>
-						{ attributes.link && attributes.buttonText && <span class="wsu-button wsu-button--size-small" href="#" aria-labelledby="unique-id-hero-banner-title">{ attributes.buttonText }</span> }
+						{ attributes.link && attributes.buttonText && <span className="wsu-button wsu-button--size-small" href="#" aria-labelledby="unique-id-hero-banner-title">{ attributes.buttonText }</span> }
 					</div>
 				</div>
 			</div>

@@ -291,7 +291,7 @@ export default function Edit(props) {
           attributes.university_organization.length > 0 ||
           attributes.tag.length > 0 ||
           attributes.profile_order !== "" ? (
-            <div class="wsu-people-list-block__data-source-notice notice notice-warning">
+            <div className="wsu-people-list-block__data-source-notice notice notice-warning">
               <p>
                 Note: Data source cannot be changed. Resolve by removing
                 existing query settings or create a new people-list block.
@@ -315,7 +315,7 @@ export default function Edit(props) {
           )}
           {attributes.data_source === "custom" &&
             !isValidUrl(attributes.custom_data_source) && (
-              <div class="wsu-people-list-block__data-source-notice notice notice-error notice-alt">
+              <div className="wsu-people-list-block__data-source-notice notice notice-error notice-alt">
                 <p>Error: A valid data source is required.</p>
               </div>
             )}
@@ -592,7 +592,7 @@ export default function Edit(props) {
                 >
                   {attributes[filter + "_filter_label"] ||
                     "Filter by " + filter}
-                  <span class="wsu-gutenberg-people-list__filter-icon dashicons dashicons-arrow-down-alt2"></span>
+                  <span className="wsu-gutenberg-people-list__filter-icon dashicons dashicons-arrow-down-alt2"></span>
                 </div>
               ))}
 
@@ -602,7 +602,7 @@ export default function Edit(props) {
                 className="wsu-gutenberg-people-list__filter"
               >
                 {attributes["search_filter_label"]}
-                <span class="wsu-gutenberg-people-list__filter-icon dashicons dashicons-search"></span>
+                <span className="wsu-gutenberg-people-list__filter-icon dashicons dashicons-search"></span>
               </div>
             )}
           </div>
@@ -625,31 +625,31 @@ export default function Edit(props) {
                 )}
 
                 {attributes.display_fields.includes("title") && (
-                  <div class="wsu-gutenberg-people-list__profile-title">
+                  <div className="wsu-gutenberg-people-list__profile-title">
                     Position Title
                   </div>
                 )}
 
                 {attributes.display_fields.includes("email") && (
-                  <div class="dashicons-before dashicons-email-alt wsu-gutenberg-people-list__profile-icon-text">
+                  <div className="dashicons-before dashicons-email-alt wsu-gutenberg-people-list__profile-icon-text">
                     <span>butch.cougar@wsu.edu</span>
                   </div>
                 )}
 
                 {attributes.display_fields.includes("office") && (
-                  <div class="dashicons-before dashicons-location wsu-gutenberg-people-list__profile-icon-text">
+                  <div className="dashicons-before dashicons-location wsu-gutenberg-people-list__profile-icon-text">
                     <span>Office Location</span>
                   </div>
                 )}
 
                 {attributes.display_fields.includes("phone") && (
-                  <div class="dashicons-before dashicons-phone wsu-gutenberg-people-list__profile-icon-text">
+                  <div className="dashicons-before dashicons-phone wsu-gutenberg-people-list__profile-icon-text">
                     <span>555-555-5555</span>
                   </div>
                 )}
 
                 {attributes.display_fields.includes("website") && (
-                  <div class="dashicons-before dashicons-admin-links wsu-gutenberg-people-list__profile-icon-text">
+                  <div className="dashicons-before dashicons-admin-links wsu-gutenberg-people-list__profile-icon-text">
                     <span>{attributes.website_link_text}</span>
                   </div>
                 )}

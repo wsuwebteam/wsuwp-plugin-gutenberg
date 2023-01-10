@@ -128,11 +128,11 @@ const TermSelectorControl = function (props) {
               >
                 <button
                   type="button"
-                  class="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
+                  className="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
                   onClick={() => removeTerm(term)}
                 >
-                    <span class="wsu-gutenberg-term-selector__remove-btn-text">{term.title}<span class="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">{term.type.replace( 'post_', '' )}</span></span>
-                  <span class="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
+                    <span className="wsu-gutenberg-term-selector__remove-btn-text">{term.title}<span className="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">{term.type.replace( 'post_', '' )}</span></span>
+                  <span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
                 </button>
               </li>
             );

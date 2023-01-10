@@ -129,9 +129,9 @@ const NewsCardDisplayOptions = ( props ) => {
 const FeedPlaceHolder = () => {
 
     return (
-        <span class="wsu-card-news__placeholder">
-            <span class="wsu-card-news__placeholder-message">No Cards Found</span>
-            <span class="wsu-card-news__placeholder-text">Try changing your feed settings!</span>
+        <span className="wsu-card-news__placeholder">
+            <span className="wsu-card-news__placeholder-message">No Cards Found</span>
+            <span className="wsu-card-news__placeholder-text">Try changing your feed settings!</span>
         </span>
     )
 

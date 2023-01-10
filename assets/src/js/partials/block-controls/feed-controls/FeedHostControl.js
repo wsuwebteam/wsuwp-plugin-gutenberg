@@ -80,7 +80,7 @@ const FeedHostControl = ({ attributes, setAttributes }) => {
         <div className="wsu-gutenberg-input-with-icon">
           {value && (
             <span
-              class={`dashicon wsu-gutenberg-input-with-icon__icon ${
+              className={`dashicon wsu-gutenberg-input-with-icon__icon ${
                 isValid
                   ? "dashicons dashicons-yes wsu-gutenberg-input-with-icon__icon--success"
                   : "dashicons dashicons-no-alt wsu-gutenberg-input-with-icon__icon--error"
