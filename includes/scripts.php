@@ -66,6 +66,7 @@ class Scripts {
 		if ( 'post.php' === $hook ) {
 			$script  = 'const WSUWP_DATA = {';
 			$script .= 'siteUrl: "' . site_url() . '",';
+			$script .= 'wpVersion: "' . get_bloginfo( 'version' ) . '",';
 			$script .= '};';
 
 			wp_add_inline_script( 'wsuwp-plugin-gutenberg-editor-scripts', $script, 'before' );
