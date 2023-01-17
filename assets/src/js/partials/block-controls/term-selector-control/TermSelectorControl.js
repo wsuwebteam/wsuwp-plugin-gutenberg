@@ -1,6 +1,5 @@
 import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "@wordpress/compose";
-import { differenceBy } from "lodash";
 
 const { ComboboxControl, Spinner } = wp.components;
 
@@ -42,7 +41,7 @@ const TermSelectorControl = function (props) {
       const results = await response.json();
 
       // process results
-      const suggestions = differenceBy(results, selectedTerms, "id");
+      const suggestions = lodash.differenceBy(results, selectedTerms, "id");
 
       if (suggestions.length > 0) {
         setTermSuggestions(
@@ -56,7 +55,7 @@ const TermSelectorControl = function (props) {
 
         setAvailableTerms([
           ...availableTerms,
-          ...differenceBy(results, availableTerms, "id"),
+          ...lodash.differenceBy(results, availableTerms, "id"),
         ]);
       } else {
         setTermSuggestions([]);
@@ -82,26 +81,29 @@ const TermSelectorControl = function (props) {
   }
 
   function updateSelectedTerms(termsArray) {
-
-    let termsString = '';
+    let termsString = "";
 
     let queryTerms = [];
 
-    if (Array.isArray( termsArray ) && termsArray.length > 0 ) {
+    if (Array.isArray(termsArray) && termsArray.length > 0) {
       termsString = termsArray
         .map(function (term) {
           return term.id.toString();
         })
         .join(",");
 
-      queryTerms = termsArray.map( (term) => {
-        return { termID: term.id, taxonomy: term.type } ;
+      queryTerms = termsArray.map((term) => {
+        return { termID: term.id, taxonomy: term.type };
       });
     }
 
-    setSelectedTerms( termsArray );
+    setSelectedTerms(termsArray);
 
-    props.onChange( { termsList: termsString, termsSelected: termsArray, queryTerms: queryTerms } );
+    props.onChange({
+      termsList: termsString,
+      termsSelected: termsArray,
+      queryTerms: queryTerms,
+    });
   }
 
   return (
@@ -131,8 +133,13 @@ const TermSelectorControl = function (props) {
                   class="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
                   onClick={() => removeTerm(term)}
                 >
-                    <span class="wsu-gutenberg-term-selector__remove-btn-text">{term.title}<span class="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">{term.type.replace( 'post_', '' )}</span></span>
-                  <span class="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
+                  <span className="wsu-gutenberg-term-selector__remove-btn-text">
+                    {term.title}
+                    <span className="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">
+                      {term.type.replace("post_", "")}
+                    </span>
+                  </span>
+                  <span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
                 </button>
               </li>
             );

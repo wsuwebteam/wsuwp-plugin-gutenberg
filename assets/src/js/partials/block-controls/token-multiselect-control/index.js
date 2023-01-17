@@ -1,16 +1,6 @@
 /**
  * External dependencies
  */
-import {
-  take,
-  clone,
-  uniq,
-  map,
-  difference,
-  each,
-  identity,
-  some,
-} from "lodash";
 import classnames from "classnames";
 
 /**
@@ -386,7 +376,7 @@ class TokenMultiSelectControl extends Component {
   }
 
   addNewTokens(tokens) {
-    const tokensToAdd = uniq(
+    const tokensToAdd = lodash.uniq(
       tokens
         .map(this.props.saveTransform)
         .filter(Boolean)
@@ -398,7 +388,7 @@ class TokenMultiSelectControl extends Component {
         return this.getValueFromLabel(tokenLabel);
       });
 
-      let newValue = clone(this.props.value);
+      let newValue = lodash.clone(this.props.value);
       newValue.splice.apply(
         newValue,
         [this.getIndexOfInput(), 0].concat(tokenValuesToAdd)
@@ -458,7 +448,7 @@ class TokenMultiSelectControl extends Component {
 
     if (match.length > 0) {
       match = match.toLocaleLowerCase();
-      each(suggestions, (suggestion) => {
+      lodash.each(suggestions, (suggestion) => {
         const index = suggestion.toLocaleLowerCase().indexOf(match);
         if (value.indexOf(suggestion) === -1) {
           if (index === 0) {
@@ -471,9 +461,9 @@ class TokenMultiSelectControl extends Component {
       suggestions = startsWithMatch.concat(containsMatch);
     }
     // remove selected labels from suggestions
-    suggestions = difference(suggestions, activeLabels);
+    suggestions = lodash.difference(suggestions, activeLabels);
 
-    return take(suggestions, maxSuggestions);
+    return lodash.take(suggestions, maxSuggestions);
   }
 
   getSelectedSuggestion() {
@@ -483,7 +473,7 @@ class TokenMultiSelectControl extends Component {
   }
 
   valueContainsToken(token) {
-    return some(this.props.value, (item) => {
+    return lodash.some(this.props.value, (item) => {
       return this.getTokenValue(token) === this.getTokenValue(item);
     });
   }
@@ -550,7 +540,7 @@ class TokenMultiSelectControl extends Component {
   }
 
   renderTokensAndInput() {
-    const components = map(this.props.value, this.renderToken);
+    const components = lodash.map(this.props.value, this.renderToken);
     components.splice(this.getIndexOfInput(), 0, this.renderInput());
 
     return components;
@@ -691,7 +681,7 @@ TokenMultiSelectControl.defaultProps = {
   options: Object.freeze([]),
   maxSuggestions: 100,
   value: Object.freeze([]),
-  displayTransform: identity,
+  displayTransform: lodash.identity,
   saveTransform: (token) => (token ? token.trim() : ""),
   onChange: () => {},
   onInputChange: () => {},

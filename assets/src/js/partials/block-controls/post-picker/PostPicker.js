@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
 
-import { isEmpty } from 'lodash';
 
 import TextControl from './text-control';
 
@@ -92,7 +91,7 @@ const PostPicker = ( props ) => {
     useEffect( () => {
         if (isMounted.current) {            
             (async function handleSearch() {
-                if( isEmpty(searchString) ){
+                if( lodash.isEmpty(searchString) ){
                     resetSearch();
                     return;
                 }

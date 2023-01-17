@@ -63,7 +63,7 @@ class Scripts {
 
 	public static function admin_enqueue_scripts( $hook ) {
 
-		if ( 'post.php' === $hook ) {
+		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			$script  = 'const WSUWP_DATA = {';
 			$script .= 'siteUrl: "' . site_url() . '",';
 			$script .= '};';
