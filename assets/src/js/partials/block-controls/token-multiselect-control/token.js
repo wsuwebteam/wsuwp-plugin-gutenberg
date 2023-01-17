@@ -2,7 +2,6 @@
  * External dependencies
  */
 import classnames from "classnames";
-import { noop } from "lodash";
 
 /**
  * WordPress dependencies
@@ -24,7 +23,7 @@ export default function Token({
   displayTransform,
   isBorderless = false,
   disabled = false,
-  onClickRemove = noop,
+  onClickRemove = lodash.noop,
   onMouseEnter,
   onMouseLeave,
   messages,

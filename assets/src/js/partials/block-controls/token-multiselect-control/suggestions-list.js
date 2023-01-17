@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { map } from "lodash";
 import scrollIntoView from "dom-scroll-into-view";
 import classnames from "classnames";
 
@@ -89,7 +88,7 @@ class SuggestionsList extends Component {
         id={`components-form-token-suggestions-${this.props.instanceId}`}
         role="listbox"
       >
-        {map(this.props.suggestions, (suggestion, index) => {
+        {lodash.map(this.props.suggestions, (suggestion, index) => {
           const match = this.computeSuggestionMatch(suggestion);
           const classeName = classnames(
             "components-form-token-field__suggestion",
