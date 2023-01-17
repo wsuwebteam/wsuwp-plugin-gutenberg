@@ -1,5 +1,4 @@
 import { PanelColorSettings, getColorObjectByColorValue } from '@wordpress/block-editor';
-import { find, filter } from 'lodash';
 
 /*
  @example 
@@ -43,7 +42,7 @@ const ColorClassNameSelector = (props) => {
 	} = props;
 
     function getColorSetting(prefix) {
-        return find(colorSettings, (cs) => cs.prefix === prefix);
+        return lodash.find(colorSettings, (cs) => cs.prefix === prefix);
     }
 
     function getColorObjectByClassName(prefix, className){
@@ -51,7 +50,7 @@ const ColorClassNameSelector = (props) => {
 
         const colorName = className.replace(prefix, '');
         const colors = getColorSetting(prefix).colors;
-        return find(colors, (c) => {
+        return lodash.find(colors, (c) => {
             return c.className === colorName;
         });
     }
@@ -60,7 +59,7 @@ const ColorClassNameSelector = (props) => {
         if(!attributes.className) { return;}
 
         const appliedClasses = attributes.className.split(' ');
-        const selectedColorClassName = find(appliedClasses, (c) => c.startsWith(prefix));
+        const selectedColorClassName = lodash.find(appliedClasses, (c) => c.startsWith(prefix));
         return getColorObjectByClassName(prefix, selectedColorClassName)?.color;
     }
 
@@ -70,7 +69,7 @@ const ColorClassNameSelector = (props) => {
         const colorClass = colorObject ? prefix + colorObject.className : '';
         
         const appliedClasses = attributes.className?.split(' ') ?? [];
-        const newClasses = filter(appliedClasses, (c) => !c.startsWith(prefix)).concat(colorClass);
+        const newClasses = lodash.filter(appliedClasses, (c) => !c.startsWith(prefix)).concat(colorClass);
         const newClassName = newClasses.map(function(c) {					
                 return c.trim();
             })

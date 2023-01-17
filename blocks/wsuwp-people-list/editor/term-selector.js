@@ -1,6 +1,5 @@
 import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "@wordpress/compose";
-import { differenceBy } from "lodash";
 
 import { isValidUrl } from "./helpers";
 
@@ -50,7 +49,7 @@ const TermSelector = function (props) {
 
     // process results
     const results = await response.json();
-    const suggestions = differenceBy(results, selectedTerms, "term_id");
+    const suggestions = lodash.differenceBy(results, selectedTerms, "term_id");
 
     if (suggestions.length > 0) {
       setTermSuggestions(
@@ -64,7 +63,7 @@ const TermSelector = function (props) {
 
       setAvailableTerms([
         ...availableTerms,
-        ...differenceBy(results, availableTerms, "term_id"),
+        ...lodash.differenceBy(results, availableTerms, "term_id"),
       ]);
     } else {
       setTermSuggestions([]);

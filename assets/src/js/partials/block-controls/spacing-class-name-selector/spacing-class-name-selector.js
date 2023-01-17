@@ -1,5 +1,4 @@
 import { Button, PanelBody, CustomSelectControl, Flex, FlexBlock } from '@wordpress/components';
-import { find, filter } from 'lodash';
 
 // TODO: 
 // - Use desired names for spacing options
@@ -74,7 +73,7 @@ const SpacingClassNameSelector = (props) => {
 	} = props;
 
     function getOptionByKey(key){
-        return find(ALLOPTIONS, (o) => {
+        return lodash.find(ALLOPTIONS, (o) => {
             return o.key === key;
         });
     }
@@ -90,7 +89,7 @@ const SpacingClassNameSelector = (props) => {
         if(!attributes.className) { return; }
 
         const appliedClasses = attributes.className.split(' ');
-        const selectedOptionClassName = find(appliedClasses, (c) => c.startsWith(prefix));
+        const selectedOptionClassName = lodash.find(appliedClasses, (c) => c.startsWith(prefix));
         return getOptionObjectByClassName(prefix, selectedOptionClassName);
     }    
 
@@ -109,7 +108,7 @@ const SpacingClassNameSelector = (props) => {
         }        
         
         const appliedClasses = attributes.className?.split(' ') ?? [];
-        const newClasses = filter(appliedClasses, (c) => !c.startsWith(property.prefix)).concat(optionClass);
+        const newClasses = lodash.filter(appliedClasses, (c) => !c.startsWith(property.prefix)).concat(optionClass);
         const newClassName = newClasses.map(function(c) {					
                 return c.trim();
             })

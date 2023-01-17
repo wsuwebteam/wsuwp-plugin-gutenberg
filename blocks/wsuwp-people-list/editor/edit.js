@@ -612,7 +612,10 @@ export default function Edit(props) {
           className={`wsu-gutenberg-people-list__profiles wsu-gutenberg-people-list__profiles--per-row-${attributes.columns}`}
         >
           {[...Array(attributes.columns)].map((e, i) => (
-            <div className="wsu-gutenberg-people-list__profile">
+            <div
+              key={"profile" + i}
+              className="wsu-gutenberg-people-list__profile"
+            >
               {attributes.display_fields.includes("photo") && (
                 <div className="wsu-gutenberg-people-list__profile-image"></div>
               )}
