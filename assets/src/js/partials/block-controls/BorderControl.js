@@ -8,7 +8,11 @@ import {
 
 const BorderControl = ( props ) => {
 
-    let { attributes, setAttributes } = props;
+    let { 
+        attributes, 
+        setAttributes, 
+        classKey = 'className',
+    } = props;
 
     let buttonOptions = [
         { 
@@ -37,9 +41,9 @@ const BorderControl = ( props ) => {
     return (
         <SvgButtonGroupControl 
             {...props}
-            onClick={ ( value ) => { setBlockClassName( attributes, setAttributes, 'wsu-border--add-', value ) } }
+            onClick={ ( value ) => { setBlockClassName( attributes, setAttributes, 'wsu-border--add-', value, classKey ) } }
             isActive={ ( value ) => { return false } }
-            currentValue={ getBlockClassNameValue( attributes, 'wsu-border--add-') }
+            currentValue={ getBlockClassNameValue( attributes, 'wsu-border--add-', '', classKey) }
             label='Add Border'
             buttonOptions={ buttonOptions }
         />
