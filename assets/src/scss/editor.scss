@@ -15,6 +15,7 @@
 /** ===== Panels ===== */
 @import "../js/partials/block-panels/panel-style-options/style";
 @import "../js/partials/block-panels/nested-advanced-panel/style";
+@import "../js/partials/block-panels/block-scheduling-panel/style";
 
 /** ===== Front-End Styles ===== */
 .block-editor-block-list__layout {
@@ -38,7 +39,7 @@
 @import "../../../blocks/wsuwp-news-cards/editor/style";
 @import "../../../blocks/wsuwp-accordion/editor/style";
 @import "../../../blocks/wsuwp-people-list/editor/style";
-@import "../../../blocks/wsuwp-overlap-advanced/editor/style"; 
+@import "../../../blocks/wsuwp-overlap-advanced/editor/style";
 @import "../../../blocks/wsuwp-overlap-column/editor/style";
 @import "../../../blocks/wsuwp-overlap-spotlight/editor/style";
 

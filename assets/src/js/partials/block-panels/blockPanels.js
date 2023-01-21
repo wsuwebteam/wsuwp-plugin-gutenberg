@@ -9,3 +9,4 @@ export {default as PanelStyleOptions } from './panel-style-options/PanelStyleOpt
 export {default as PanelAnimate } from './PanelAnimate';
 export {default as NestedAdvancedPanel} from './nested-advanced-panel/NestedAdvancedPanel';
 export {default as PanelDeveloperTools} from './PanelDeveloperTools';
+export {default as PanelBlockScheduling} from './block-scheduling-panel/PanelBlockScheduling';

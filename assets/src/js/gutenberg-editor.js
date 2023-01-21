@@ -1,4 +1,5 @@
 import "../js/partials/editor-config/constants";
+import "../js/partials/editor-config/block-scheduling";
 import "../../../blocks/wsuwp-accordion/editor/block";
 import "../../../blocks/wsuwp-callout/editor/block";
 import "../../../blocks/wsuwp-note/editor/block";
@@ -21,9 +22,9 @@ import "../../../blocks/wsuwp-people-list/editor/edit-advanced";
 import "../../../blocks/wsuwp-button/editor/block";
 import "../../../blocks/wsuwp-menu/editor/block";
 import "../../../blocks/wsuwp-outline-header/editor/block";
-import '../../../blocks/wsuwp-overlap-advanced/editor/block';
-import '../../../blocks/wsuwp-overlap-column/editor/block';
-import '../../../blocks/wsuwp-overlap-spotlight/editor/block';
+import "../../../blocks/wsuwp-overlap-advanced/editor/block";
+import "../../../blocks/wsuwp-overlap-column/editor/block";
+import "../../../blocks/wsuwp-overlap-spotlight/editor/block";
 import "../../../blocks/wsuwp-stat/editor/block";
 import "../../../blocks/wsuwp-sticky-nav/editor/block";
 import "../../../blocks/wsuwp-news-cards/editor/blockEditFilter";
