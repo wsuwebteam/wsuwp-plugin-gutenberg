@@ -31,7 +31,7 @@ const PanelBlockScheduling = (props) => {
         {!attributes.blockSchedulingIsDisabled && (
           <>
             <DateTimeControl
-              label="Publish"
+              label="Publish Date"
               value={attributes.blockSchedulingPublishDateTime}
               onChange={(newDate) =>
                 setAttributes({ blockSchedulingPublishDateTime: newDate })
@@ -39,7 +39,7 @@ const PanelBlockScheduling = (props) => {
             />
 
             <DateTimeControl
-              label="Unpublish"
+              label="Unpublish Date"
               value={attributes.blockSchedulingUnpublishDateTime}
               onChange={(newDate) =>
                 setAttributes({ blockSchedulingUnpublishDateTime: newDate })
