@@ -54,8 +54,9 @@ class Scripts {
 		wp_enqueue_script(
 			'wsuwp-plugin-gutenberg-editor-scripts',
 			Plugin::get( 'url' ) . 'assets/dist/js/gutenberg-editor.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-			Plugin::get( 'version' )
+			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-dom-ready', 'wp-edit-post' ),
+			Plugin::get( 'version' ),
+			true
 		);
 
 	}
@@ -66,6 +67,7 @@ class Scripts {
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			$script  = 'const WSUWP_DATA = {';
 			$script .= 'siteUrl: "' . site_url() . '",';
+			$script .= 'wpVersion: "' . get_bloginfo( 'version' ) . '",';
 			$script .= '};';
 
 			wp_add_inline_script( 'wsuwp-plugin-gutenberg-editor-scripts', $script, 'before' );
