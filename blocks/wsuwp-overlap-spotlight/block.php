@@ -5,6 +5,8 @@ class Block_WSUWP_Overlap_Spotlight extends Block {
 	protected static $block_name    = 'wsuwp/overlap-spotlight';
 	protected static $default_attrs = array(
 		'className' 		=> 'wsu-overlap wsu-overlap-spotlight',
+		'captionClasses'    => '',
+		'imageClasses'      => '',
 		'imageSize'         => 'large',
 		'imageId'           => '0',
 		'imageSrc'          => '',

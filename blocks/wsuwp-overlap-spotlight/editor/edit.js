@@ -1,7 +1,8 @@
 import { InnerBlocks, InspectorControls, useBlockProps, InspectorAdvancedControls} from '@wordpress/block-editor';
-import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl, ImageFrameControl } from '../../../assets/src/js/partials/block-controls/blockControls';
-import { PanelStyleOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl, ImageFrameControl,MaxWidthControl, BorderControl, AlignItemControl, } from '../../../assets/src/js/partials/block-controls/blockControls';
+import { PanelStyleOptions, PanelDisplayOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { useEffect, useState } from '@wordpress/element';
+
 
 const {
     SelectControl,
@@ -137,15 +138,29 @@ const Edit = ( props ) => {
     return (
 		<>
 			<InspectorControls>
-				<PanelStyleOptions isOpen={true}
+				<PanelDisplayOptions >
+					<BorderControl {...props} classKey='captionClasses' />
+					<MaxWidthControl {...props} />
+					<AlignItemControl {...props} />
+				</PanelDisplayOptions>
+				<PanelStyleOptions
+				 	isOpen={true}
 					{...props} 
 					styles={overlapStyles}
 					prefix="wsu-overlap-spotlight--style-" 
 					></PanelStyleOptions>
-
 			</InspectorControls>
 			<InspectorAdvancedControls>
-				
+				<TextControl
+						label="Caption Classes"
+						value={ attributes.captionClasses }
+						onChange= { ( captionClasses ) => setAttributes( { captionClasses } ) }
+					/>
+				<TextControl
+						label="Image Classes"
+						value={ attributes.imageClasses }
+						onChange= { ( imageClasses ) => setAttributes( { imageClasses } ) }
+					/>
 			</InspectorAdvancedControls>
 			<div { ...blockProps }>
 				<div className="wsu-overlap__container">

@@ -14,6 +14,30 @@
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
 
+        .wsu-overlap-spotlight__caption {
+            background-color: #fff;
+            padding: 1.5rem;
+        }
+
+        .wsu-overlap--surface-column {
+            z-index: 1 !important;
+        }
+
+        &.wsu-overlap-spotlight--style-left-top,
+        &.wsu-overlap-spotlight--style-left-middle,
+        &.wsu-overlap-spotlight--style-left-bottom {
+
+            .wsu-overlap__container{
+                flex-direction: row-reverse;
+            }
+
+        }
+
+        .wsu-overlap__container {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
     }
 
 }

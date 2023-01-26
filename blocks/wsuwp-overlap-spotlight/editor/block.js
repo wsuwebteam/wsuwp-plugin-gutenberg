@@ -27,6 +27,12 @@
             className: {
                 type: 'string'
             },
+            captionClasses: {
+                type: 'string'
+            },
+            imageClasses: {
+                type: 'string'
+            },
             imageId: {
                 type: "integer",
                 default: 0,
