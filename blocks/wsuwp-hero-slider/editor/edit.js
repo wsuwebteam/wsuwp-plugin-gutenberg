@@ -3,7 +3,6 @@ import { PanelGeneralOptions } from "../../../assets/src/js/partials/block-panel
 const { InnerBlocks, InspectorControls, useBlockProps } = wp.blockEditor;
 const { ButtonGroup, Button, ToggleControl, TextControl } = wp.components;
 
-
 const Edit = (props) => {
   const { select, dispatch } = wp.data;
   const { clientId, attributes, setAttributes } = props;
@@ -24,19 +23,14 @@ const Edit = (props) => {
   }
 
   function insertBlock() {
+    const newSlide = wp.blocks.createBlock("wsuwp/hero", {
+      requiredClassName: "swiper-slide",
+    });
+
     dispatch("core/block-editor")
-      .insertBlock(
-        wp.blocks.createBlock("wsuwp/hero", {
-          requiredClassName: "swiper-slide",
-        }),
-        slideBlocks.length,
-        clientId,
-        true
-      )
-      .then((response) => {
-        const block = response.blocks[0];
-        selectSlide(block.clientId, response.index);
-        console.log(response);
+      .insertBlock(newSlide, slideBlocks.length, clientId, true)
+      .then(() => {
+        selectSlide(newSlide.clientId, slideBlocks.length);
       });
   }
 
@@ -78,30 +72,37 @@ const Edit = (props) => {
   return (
     <>
       <InspectorControls>
-				<PanelGeneralOptions>
+        <PanelGeneralOptions>
           <ToggleControl
-                label="Autoplay Slider"
-                checked={ attributes.autoplay }
-                onChange= { ( val ) => setAttributes( { autoplay: val } ) }							
-                help="Slider will automatically advance to the next slide on a time interval."
+            label="Autoplay Slider"
+            checked={attributes.autoplay}
+            onChange={(val) => setAttributes({ autoplay: val })}
+            help="Slider will automatically advance to the next slide on a time interval."
           />
 
-          {attributes.autoplay === true && <TextControl
-						label="Delay between slides"
-            help="Delay between slides in milliseconds. 1000 = 1 second."
-            placeholder="5000"
-						value={ attributes.autoplayDelay }
-						onChange= { ( delay ) => setAttributes( { autoplayDelay: delay } ) }
-					/>}
+          {attributes.autoplay === true && (
+            <TextControl
+              label="Delay between slides"
+              help="Delay between slides in milliseconds. 1000 = 1 second."
+              placeholder="5000"
+              value={attributes.autoplayDelay}
+              onChange={(delay) => setAttributes({ autoplayDelay: delay })}
+            />
+          )}
         </PanelGeneralOptions>
       </InspectorControls>
 
       <div {...blockProps} data-selected-slide-index={selectedSlideIndex}>
         <div className="wsu-gutenberg-hero-slider__slides">
           <InnerBlocks
-            template={[["wsuwp/hero", {
-              requiredClassName: "swiper-slide",
-            }]]}
+            template={[
+              [
+                "wsuwp/hero",
+                {
+                  requiredClassName: "swiper-slide",
+                },
+              ],
+            ]}
             templateLock={false}
             allowedBlocks={["wsuwp/hero"]}
             orientation="horizontal"

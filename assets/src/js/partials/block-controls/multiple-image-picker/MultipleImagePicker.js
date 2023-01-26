@@ -64,6 +64,14 @@ const MultipleImagePicker = (props) => {
     setEditingImage(null);
   }
 
+  function getAnchorProp() {
+    return WSUWP_DATA.wpVersion.includes("6.1")
+      ? { anchor: editingElement }
+      : {
+          getAnchorRect: () => editingElement?.getBoundingClientRect() || null,
+        };
+  }
+
   return (
     <>
       <BaseControl label={label} help={help} className="wsu-gutenberg-mip">
@@ -74,9 +82,7 @@ const MultipleImagePicker = (props) => {
             position="middle left"
             onFocusOutside={closeEditPopover}
             onClose={closeEditPopover}
-            getAnchorRect={() =>
-              editingElement?.getBoundingClientRect() || null
-            }
+            {...getAnchorProp()}
           >
             <div className="wsu-gutenberg-mip__focal-point-picker-container">
               <FocalPointPicker

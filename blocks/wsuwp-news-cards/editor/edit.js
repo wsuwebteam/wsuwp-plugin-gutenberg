@@ -129,9 +129,9 @@ const NewsCardDisplayOptions = ( props ) => {
 const FeedPlaceHolder = () => {
 
     return (
-        <span class="wsu-card-news__placeholder">
-            <span class="wsu-card-news__placeholder-message">No Cards Found</span>
-            <span class="wsu-card-news__placeholder-text">Try changing your feed settings!</span>
+        <span className="wsu-card-news__placeholder">
+            <span className="wsu-card-news__placeholder-message">No Cards Found</span>
+            <span className="wsu-card-news__placeholder-text">Try changing your feed settings!</span>
         </span>
     )
 
@@ -152,7 +152,7 @@ const Edit = ( props ) => {
 
 	queryAttrs['hideLink'] = true;
 
-    console.log( attributes.queryTerms ); 
+    // console.log( attributes.queryTerms ); 
 
     return (
         <>
@@ -205,7 +205,9 @@ const Edit = ( props ) => {
                         </>
                     )}
                     {attributes.source == 'select' && (
-                        <PostPicker { ...props } onChange={ ( postIn ) => { setAttributes({ postIn } ); console.log( value ) } } />
+                        <PostPicker { ...props } onChange={ ( postIn ) => { 
+                            setAttributes({ postIn } );
+                        }} />
                     )}
                     
                     <FeedCountControl {...props} />
