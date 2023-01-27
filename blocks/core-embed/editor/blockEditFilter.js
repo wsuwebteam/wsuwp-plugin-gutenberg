@@ -52,7 +52,7 @@ const coreEmbedControls = wp.compose.createHigherOrderComponent( (BlockEdit) => 
 								<AlignItemControl {...props} />
 								<MaxWidthControl {...props} />
 							</PanelDisplayOptions>
-						</InspectorControls>
+						</InspectorControls> 
 					</>
 				}
 			</Fragment>
