@@ -32,6 +32,7 @@ import "../../../blocks/core-image/editor/blockEditFilter";
 import "../../../blocks/core-list/editor/blockEditFilter";
 import "../../../blocks/core-button/blockEditFilter";
 import "../../../blocks/core-paragraph/editor/blockEditFilter";
+import "../../../blocks/core-embed/editor/blockEditFilter";
 import "../../../blocks/core-quote/editor/block-filter";
 import "../../../blocks/wsuwp-news-list/editor/block";
 import "../js/partials/editor-config/spacing-control";
