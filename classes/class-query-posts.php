@@ -2,6 +2,7 @@
 
 class Query_Posts {
 
+	public $attrs;
 	public $rest_api;
 	public $post_type;
 	public $posts_per_page;
@@ -30,6 +31,7 @@ class Query_Posts {
 
 	public function set_args( $attrs ) {
 
+		$this->attrs                = ( ( ! empty( $attrs ) ) && is_array( $attrs ) ) ? $attrs : array();
 		$this->rest_api             = ( ! empty( $attrs['restApi'] ) ) ? $attrs['restApi'] : 'wp-json/wp/v2/';
 		$this->post_type            = ( ! empty( $attrs['postType'] ) ) ? explode( ',', $attrs['postType'] ) : array( 'post' );
 		$this->posts_per_page       = ( ! empty( $attrs['count'] ) ) ? (int) $attrs['count'] : 5;
@@ -310,6 +312,9 @@ class Query_Posts {
 					break;
 				case 'post_tag':
 					$query_args['tags'] = implode( ',', $this->terms );
+					break;
+				case 'wsuwp_university_org':
+					$query_args['wsuwp_university_org'] = implode( ',', $this->terms );
 					break;
 
 			}
