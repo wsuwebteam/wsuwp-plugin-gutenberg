@@ -176,7 +176,7 @@ const Edit = ( props ) => {
 				</SpacingClassNameSelector>
 		</InspectorControls>
 		<div { ...blockProps }  >
-			{ attributes.title && <h2 class="wsu-callout__title">{attributes.title}</h2> }
+			{ attributes.title && <h2 className="wsu-callout__title">{attributes.title}</h2> }
 			<InnerBlocks
 				templateLock={ false }
 			/>
