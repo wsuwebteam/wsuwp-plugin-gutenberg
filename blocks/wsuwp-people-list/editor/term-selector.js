@@ -118,13 +118,13 @@ const TermSelector = function (props) {
               >
                 <button
                   type="button"
-                  class="components-button wsu-gutenberg-people-list-term-selector__remove-btn has-text has-icon"
+                  className="components-button wsu-gutenberg-people-list-term-selector__remove-btn has-text has-icon"
                   onClick={() => removeTerm(term)}
                 >
-                  <span class="wsu-gutenberg-people-list-term-selector__remove-btn-text">
+                  <span className="wsu-gutenberg-people-list-term-selector__remove-btn-text">
                     {term.name}
                   </span>
-                  <span class="dashicon dashicons dashicons-no-alt wsu-gutenberg-people-list-term-selector__remove-btn-icon"></span>
+                  <span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-people-list-term-selector__remove-btn-icon"></span>
                 </button>
               </li>
             );

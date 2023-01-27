@@ -43,40 +43,53 @@ const FeedPostTypeControl = (props) => {
     return 0;
   }
 
-  async function fetchOptions() {
-    const response = await fetch(props.host + "/wp-json/wp/v2/types", {
-      method: "GET",
-    });
+  async function fetchOptions(abortController) {
 
-    if (response.ok) {
-      const postTypes = await response.json();
+    try{
+      const response = await fetch(props.host + "/wp-json/wp/v2/types", {
+        method: "GET",
+        signal: abortController.signal
+      });
 
-      if (postTypes) {
-        let fetchedOptions = [];
+      if (response.ok) {
+        const postTypes = await response.json();
 
-        for (const key in postTypes) {
-          if (postTypes.hasOwnProperty(key)) {
-            const postType = postTypes[key];
-            if (shouldListPostType(postType["slug"])) {
-              fetchedOptions.push({
-                label: postType["name"],
-                value: postType["slug"],
-              });
+        if (postTypes) {
+          let fetchedOptions = [];
+
+          for (const key in postTypes) {
+            if (postTypes.hasOwnProperty(key)) {
+              const postType = postTypes[key];
+              if (shouldListPostType(postType["slug"])) {
+                fetchedOptions.push({
+                  label: postType["name"],
+                  value: postType["slug"],
+                });
+              }
             }
           }
+
+          fetchedOptions.sort(optionSorter);
+
+          const newOptions = defaultOptions.concat(fetchedOptions);
+          setOptions(newOptions);
         }
-
-        fetchedOptions.sort(optionSorter);
-
-        const newOptions = defaultOptions.concat(fetchedOptions);
-        setOptions(newOptions);
       }
     }
+    catch (error) {
+      console.log(error);
+    }
   }
-
+  
   useEffect(() => {
-    fetchOptions();
-  }, [props.host]);
+    const abortController = new AbortController();
+    
+    fetchOptions(abortController);
+    
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   return (
     <>

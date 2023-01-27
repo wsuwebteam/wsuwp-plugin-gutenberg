@@ -115,7 +115,7 @@ class WSU_Query {
 	}
 
 
-	protected function remove_field( &$fields, $attrs, $attr_key, $field ) {
+	protected static function remove_field( &$fields, $attrs, $attr_key, $field ) {
 
 		if ( ! empty( $attrs[ $attr_key ] ) ) {
 

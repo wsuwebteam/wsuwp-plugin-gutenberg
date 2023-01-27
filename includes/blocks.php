@@ -70,6 +70,7 @@ class Blocks {
 		'core/html',
 		'core/image',
 		'core/list',
+		'core/list-item',
 		'core/paragraph',
 		'core/quote',
 		'core/reusableBlock',
