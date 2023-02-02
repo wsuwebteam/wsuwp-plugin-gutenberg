@@ -24,7 +24,8 @@ const useOutputMarkup = function (postId, gutenbergContent) {
 
       (async () => {
         const response = await fetch(
-          `/wp-json/wsu-gutenberg/v1/parse-gutenberg-content`,
+          WSUWP_DATA.siteUrl +
+            `/wp-json/wsu-gutenberg/v1/parse-gutenberg-content`,
           {
             method: "POST",
             body: new URLSearchParams({
