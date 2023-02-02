@@ -124,29 +124,33 @@ const InvalidHrefsDetails = (props) => {
 };
 
 const MissingAltDetails = (props) => {
-  function extractId(str) {
-    let result = str.match(/\d+/g);
-    return result.find(function (element) {
-      return str.indexOf("wp-image-" + element) !== -1;
-    });
-  }
+  //   function extractId(str) {
+  //     let result = str.match(/\d+/g);
+  //     return result?.find(function (element) {
+  //       return str.indexOf("wp-image-" + element) !== -1;
+  //     });
+  //   }
 
   return (
     <>
       <table className={props.className}>
         <thead>
           <tr>
-            <th>Media ID</th>
+            {/* <th>Media ID</th> */}
+            <th>Preview</th>
             <th>Filename</th>
           </tr>
         </thead>
         <tbody>
           {props.data.map((i, idx) => {
-            const id = extractId(i.className);
+            // const id = extractId(i.className);
             const filename = i.getAttribute("src").split("/").pop();
             return (
               <tr key={`image-` + idx}>
-                <td>{id}</td>
+                {/* <td>{id}</td> */}
+                <td>
+                  <img src={i.getAttribute("src")} />
+                </td>
                 <td>{filename}</td>
               </tr>
             );
@@ -298,16 +302,19 @@ const AccessibilityChecker = () => {
 
     paragraphs.forEach((p) => {
       const text = p.textContent;
-      const boldElements = Array.from(p.querySelectorAll("strong, b"));
 
-      boldElements.forEach((e) => {
-        if (p.contains(e)) {
-          p.removeChild(e);
+      if (text.trim() !== "") {
+        const boldElements = Array.from(p.querySelectorAll("strong, b"));
+
+        boldElements.forEach((e) => {
+          if (p.contains(e)) {
+            p.removeChild(e);
+          }
+        });
+
+        if (p.textContent.trim() === "") {
+          boldedParagraphs.push(text.substring(0, 75).trim() + "…");
         }
-      });
-
-      if (p.textContent.trim() === "") {
-        boldedParagraphs.push(text.substring(0, 75).trim() + "…");
       }
     });
 
