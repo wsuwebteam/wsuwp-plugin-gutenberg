@@ -324,7 +324,7 @@ const AccessibilityChecker = () => {
   function generateReport(doc, report) {
     report.data.linksMissingHrefs = getLinksMissingHrefs(doc);
     report.data.imagesMissingAlts = getImagesMissingAlts(doc);
-    report.data.boldedParagraphs = getBoldedParagraphs(doc);
+    // report.data.boldedParagraphs = getBoldedParagraphs(doc);
     report.data.headingOrder = getHeadingOrder(doc);
 
     if (report.data.linksMissingHrefs.length > 0) {
@@ -377,22 +377,22 @@ const AccessibilityChecker = () => {
       });
     }
 
-    if (report.data.boldedParagraphs.length > 0) {
-      const plural = report.data.boldedParagraphs.length > 1 ? "s" : "";
-      report.warnings.push({
-        message: `${report.data.boldedParagraphs.length} paragraph${plural} contain only bold text`,
-        detailsView: function () {
-          return (
-            <DetailsView label="Paragraphs with only bolded text">
-              <BoldedParagraphsDetails
-                className="wsu-gutenberg-accessibility-panel__details-table"
-                data={report.data.boldedParagraphs}
-              />
-            </DetailsView>
-          );
-        },
-      });
-    }
+    // if (report.data.boldedParagraphs.length > 0) {
+    //   const plural = report.data.boldedParagraphs.length > 1 ? "s" : "";
+    //   report.warnings.push({
+    //     message: `${report.data.boldedParagraphs.length} paragraph${plural} contain only bold text`,
+    //     detailsView: function () {
+    //       return (
+    //         <DetailsView label="Paragraphs with only bolded text">
+    //           <BoldedParagraphsDetails
+    //             className="wsu-gutenberg-accessibility-panel__details-table"
+    //             data={report.data.boldedParagraphs}
+    //           />
+    //         </DetailsView>
+    //       );
+    //     },
+    //   });
+    // }
   }
 
   generateReport(doc, report);
