@@ -55,7 +55,7 @@ class Block_WSUWP_Hero extends Block {
 			$attrs['imageSrc']    = $image_src_array[0];
 			$attrs['imageSizes']  = wp_get_attachment_image_sizes( $attrs['imageId'], $attrs['imageSize'] );
 			$attrs['imageSrcSet'] = wp_get_attachment_image_srcset( $attrs['imageId'], $attrs['imageSize'] );
-			$attrs['imageAlt']    = wp_get_attachment_caption( $attrs['imageId'] );
+			$attrs['imageAlt']    = get_post_meta( $attrs['imageId'], '_wp_attachment_image_alt', true );
 		}
 
 		$overlay_classes = 'wsu-overlay wsu-pattern-after';
