@@ -20,6 +20,12 @@
     }
   }
 
+  &__select-dropdown {
+    .components-input-control__container {
+      min-width: auto;
+    }
+  }
+
   &__reset-btn {
     white-space: nowrap;
     padding: 0;

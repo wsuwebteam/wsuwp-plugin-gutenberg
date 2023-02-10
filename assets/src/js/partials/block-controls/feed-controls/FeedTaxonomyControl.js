@@ -26,40 +26,52 @@ const FeedTaxonomyControl = (props) => {
     return 0;
   }
 
-  async function fetchOptions() {
-    const response = await fetch(props.host + "/wp-json/wp/v2/taxonomies", {
-      method: "GET",
-    });
+  async function fetchOptions(abortController) {
+    try{
+      const response = await fetch(props.host + "/wp-json/wp/v2/taxonomies", {
+        method: "GET",
+        signal: abortController.signal
+      });
 
-    if (response.ok) {
-      const taxonomies = await response.json();
+      if (response.ok) {
+        const taxonomies = await response.json();
 
-      if (taxonomies) {
-        let fetchedOptions = [];
+        if (taxonomies) {
+          let fetchedOptions = [];
 
-        for (const key in taxonomies) {
-          if (taxonomies.hasOwnProperty(key)) {
-            const taxonomy = taxonomies[key];
+          for (const key in taxonomies) {
+            if (taxonomies.hasOwnProperty(key)) {
+              const taxonomy = taxonomies[key];
 
-            if (shouldListTaxonomy(taxonomy)) {
-              fetchedOptions.push({
-                label: taxonomy["name"],
-                value: taxonomy["slug"],
-              });
+              if (shouldListTaxonomy(taxonomy)) {
+                fetchedOptions.push({
+                  label: taxonomy["name"],
+                  value: taxonomy["slug"],
+                });
+              }
             }
           }
+
+          fetchedOptions.sort(optionSorter);
+
+          const newOptions = defaultOptions.concat(fetchedOptions);
+          setOptions(newOptions);
         }
-
-        fetchedOptions.sort(optionSorter);
-
-        const newOptions = defaultOptions.concat(fetchedOptions);
-        setOptions(newOptions);
       }
+    }
+    catch (error) {
+      console.log(error);
     }
   }
 
-  useEffect(() => {
-    fetchOptions();
+  useEffect(() => {   
+    const abortController = new AbortController();
+    
+    fetchOptions(abortController);
+    
+    return () => {
+      abortController.abort();
+    };
   }, [props.host, props.postType]);
 
   return (

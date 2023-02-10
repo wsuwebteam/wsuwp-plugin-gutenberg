@@ -1,26 +1,9 @@
-jQuery(document).ready( function() {
+wp.domReady(() => {
+  wp.blocks.unregisterBlockStyle("core/button", ["fill", "outline"]);
 
-	let blockLoaded = false;
-	let blockLoadedInterval = setInterval(function() {
-		if (document.getElementById('post-title-0')) {
+  wp.blocks.unregisterBlockStyle("core/image", ["default", "rounded"]);
 
-			wp.blocks.unregisterBlockStyle(
-				'core/button', [ 'fill', 'outline' ]
-			);
-			
-			wp.blocks.unregisterBlockStyle(
-				'core/image', [ 'default', 'rounded' ]
-			);
-		
-			wp.blocks.unregisterBlockStyle(
-				'core/separator', [ 'default', 'wide', 'dots' ]
-			);
+  wp.blocks.unregisterBlockStyle("core/quote", ["default", "large", "plain"]);
 
-			blockLoaded = true;
-		}
-		if ( blockLoaded ) {
-			clearInterval( blockLoadedInterval );
-		}
-	}, 500);
-
+  wp.blocks.unregisterBlockStyle("core/separator", ["default", "wide", "dots"]);
 });

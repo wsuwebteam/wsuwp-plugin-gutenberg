@@ -29,7 +29,7 @@ const FontSizeControl = ( props ) => {
     // let classNames = attributes.elementClass ?? blockClassNames;
 
 
-    console.log(attributes);
+    // console.log(attributes);
 
     //let value = getBlockClassNameOption( classNames, prefix );
     let value = getBlockClassNameValue( attributes, prefix, '', elementClass );

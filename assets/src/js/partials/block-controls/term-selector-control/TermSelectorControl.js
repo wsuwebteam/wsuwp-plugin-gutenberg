@@ -130,7 +130,7 @@ const TermSelectorControl = function (props) {
               >
                 <button
                   type="button"
-                  class="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
+                  className="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
                   onClick={() => removeTerm(term)}
                 >
                   <span className="wsu-gutenberg-term-selector__remove-btn-text">

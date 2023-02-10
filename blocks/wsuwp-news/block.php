@@ -91,7 +91,7 @@ class Block_WSUWP_News extends Block {
 	}
 
 
-	protected function get_cards( $attrs ) {
+	protected static function get_cards( $attrs ) {
 
 		$cards = array();
 
