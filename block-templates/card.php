@@ -41,7 +41,7 @@ WSUWP\Plugin\Gutenberg\Blocks::parse_block_template_args(
 ?>
 <article class="<?php echo esc_attr( $card_attrs['className'] ); ?>">
 	<?php if ( ! empty( $card['imageSrc'] ) && ! empty( $card_attrs['showImage'] ) ) : ?>
-	<div class="wsu-image-frame <?php if ( ! empty( $card_attrs['imageRatio'] ) ) : ?>wsu-image--ratio-<?php echo esc_attr( $card_attrs['imageRatio'] ); ?><?php endif; ?>">
+	<div class="wsu-image-frame <?php if ( ! empty( $card_attrs['imageRatio'] ) && 'auto' !== $card_attrs['imageRatio'] ) : ?>wsu-image--ratio-<?php echo esc_attr( $card_attrs['imageRatio'] ); ?><?php endif; ?>">
 		<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>" tabindex="-1" aria-hidden="true"><?php endif; ?>
 			<img src="<?php echo esc_attr( $card['imageSrc'] ); ?>"
 				srcset="<?php echo esc_attr( $card['imageSrcSet'] ); ?>"
