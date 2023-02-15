@@ -7554,6 +7554,9 @@ const Edit = props => {
       label: "Image Ratio (width x height)",
       value: attributes.imageRatio,
       options: [{
+        label: 'auto',
+        value: 'auto'
+      }, {
         label: '2-5',
         value: '2-5'
       }, {
