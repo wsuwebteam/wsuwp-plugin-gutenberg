@@ -42,5 +42,6 @@ import "../js/partials/editor-config/block-categories";
 import "../js/partials/editor-config/block-class-name";
 import "../js/partials/editor-config/block-flex-layout";
 import "../js/partials/editor-config/block-flex-align-bottom";
+import "../js/partials/editor-config/accessibility-checks/url-defense-links";
 import "./partials/editor-config/remove-block-panels";
 import "../js/partials/editor-config/additional-advanced-controls/block-additional-advanced-control";
