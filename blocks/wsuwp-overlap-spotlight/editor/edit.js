@@ -1,7 +1,12 @@
 import { InnerBlocks, InspectorControls, useBlockProps, InspectorAdvancedControls} from '@wordpress/block-editor';
 import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl, ImageFrameControl,MaxWidthControl, BorderControl, AlignItemControl, } from '../../../assets/src/js/partials/block-controls/blockControls';
-import { PanelStyleOptions, PanelDisplayOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
+import { PanelStyleOptions, PanelDisplayOptions, PanelImageOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { useEffect, useState } from '@wordpress/element';
+
+import {
+	setBlockClassName,
+	getBlockClassNameValue,
+} from '../../../assets/src/js/partials/block-utilities/blockUtilities';
 
 
 const {
@@ -10,7 +15,8 @@ const {
 	ToggleControl,
 	Panel, 
 	PanelBody, 
-	PanelRow
+	PanelRow,
+	RangeControl,
 } = wp.components;
 
 const overlapStyles = [
@@ -135,14 +141,81 @@ const Edit = ( props ) => {
 		setAttributes,
 	} = props;
 
+	let overlapPrefix = 'wsu-overlap--overlap-';
+
+	const overlapOptions = [
+		{value: 9, label:'xxhero', class:'xxhero'},
+		{value: 8, label:'xhero', class:'xhero'},
+		{value: 7, label:'hero', class:'hero'},
+		{value: 6, label:'xxlarge', class:'xxlarge'},
+		{value: 5, label:'xlarge', class:'xlarge'},
+		{value: 4, label:'large', class:'large'},
+		{value: 3, label:'xxmedium', class:'xxmedium'},
+		{value: 2, label:'xmedium', class:'xmedium'},
+		{value: 1, label:'medium', class:'medium'},
+		{value: 0, label:'none', class:'none'},
+	]
+
+	const setOverlap = ( value ) => {
+
+		let overlap = 'xxmedium';
+
+		if ( value != 3 ) {
+
+			overlapOptions.forEach( ( overlapOption ) => {
+
+				if ( overlapOption.value == value ) {
+	
+					overlap = overlapOption.class;
+	
+				}
+	
+			} );
+
+		}
+
+		setAttributes( { overlap } );
+
+	}
+
+	const getOverlapValue = () => {
+
+		let overlapClass = attributes.overlap;
+
+		let overlapValue = 3;
+
+		overlapOptions.forEach( ( overlap ) => {
+
+			if ( overlap.class == overlapClass ) {
+
+				overlapValue = overlap.value;
+
+			}
+
+		} );
+
+		return overlapValue;
+	}
+
     return (
 		<>
 			<InspectorControls>
 				<PanelDisplayOptions >
+				<RangeControl
+						label="Overlap Amount"
+						value={ getOverlapValue() }
+						onChange={ ( value ) => setOverlap( value ) }
+						min={ 0 }
+						max={ 9 }
+					/>
 					<BorderControl {...props} classKey='captionClasses' />
 					<MaxWidthControl {...props} />
 					<AlignItemControl {...props} />
 				</PanelDisplayOptions>
+				<PanelImageOptions {...props}
+					altControl={ true }
+					ratioControl={ true }
+					></PanelImageOptions>
 				<PanelStyleOptions
 				 	isOpen={true}
 					{...props} 
@@ -164,7 +237,7 @@ const Edit = ( props ) => {
 			</InspectorAdvancedControls>
 			<div { ...blockProps }>
 				<div className="wsu-overlap__container">
-					<div className="wsu-overlap__column">
+					<div className={'wsu-overlap__column wsu-overlap--overlap-' + attributes.overlap }>
 						<div className="wsu-overlap__column-inner">
 							<div className="wsu-overlap-spotlight__image">
 								<div className="wsu-image-frame">
@@ -173,7 +246,7 @@ const Edit = ( props ) => {
 							</div>
 						</div>
 					</div>
-					<div className="wsu-overlap__column wsu-overlap--surface-column">
+					<div className={'wsu-overlap__column wsu-overlap--surface-column wsu-overlap--overlap-' + attributes.overlap }>
 						<div className="wsu-overlap__column-inner">
 							<div className="wsu-overlap-spotlight__caption">
 								<InnerBlocks

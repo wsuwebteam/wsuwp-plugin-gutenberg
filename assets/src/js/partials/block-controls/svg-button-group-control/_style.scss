@@ -24,6 +24,11 @@
             svg path {
                 fill: #fff;
             }
+
+            svg line,
+            svg circle {
+                stroke: #fff;
+            } 
         }
     }
 }

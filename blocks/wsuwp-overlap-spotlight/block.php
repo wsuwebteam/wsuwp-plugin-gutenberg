@@ -6,6 +6,7 @@ class Block_WSUWP_Overlap_Spotlight extends Block {
 	protected static $default_attrs = array(
 		'className' 		=> 'wsu-overlap wsu-overlap-spotlight',
 		'captionClasses'    => '',
+		'overlap'           => '',
 		'imageClasses'      => '',
 		'imageSize'         => 'large',
 		'imageId'           => '0',
@@ -13,21 +14,16 @@ class Block_WSUWP_Overlap_Spotlight extends Block {
 		'imageAlt'          => '',
 		'imageSrcSet'       => '',
 		'imageSizes'        => '',
+		'imageFocalPoint'  => '',
+		'imageFocalPointX' => '50%',
+		'imageFocalPointY' => '50%',
+		'customImageAlt'   => false,
 	);
 
 
 	public static function render( $attrs, $content = '' ) {
 
-		if ( $attrs['imageId'] ) {
-
-			$image_src_array = wp_get_attachment_image_src( $attrs['imageId'], $attrs['imageSize'] );
-
-			$attrs['imageSrc']    = $image_src_array[0];
-			$attrs['imageSizes']  = wp_get_attachment_image_sizes( $attrs['imageId'], $attrs['imageSize'] );
-			$attrs['imageSrcSet'] = wp_get_attachment_image_srcset( $attrs['imageId'], $attrs['imageSize'] );
-			$attrs['imageAlt']    = wp_get_attachment_caption( $attrs['imageId'] );
-		}
-
+		static::set_image_id_attrs( $attrs );
 
 		ob_start();
 

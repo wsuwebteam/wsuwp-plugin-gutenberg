@@ -84,6 +84,17 @@
                 type: 'boolean',
                 default: false,
             },
+            customImageAlt: {
+                type: 'boolean',
+                default: false,
+            },
+            imageFocalPoint: {
+                type: "object",
+                default: {
+                  x: 0.5,
+                  y: 0.5,
+                },
+            },
          },
          edit,
          save,

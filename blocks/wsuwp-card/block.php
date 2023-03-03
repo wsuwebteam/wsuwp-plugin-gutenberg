@@ -4,14 +4,14 @@ class Block_WSUWP_Card extends Block {
 
 	protected static $block_name    = 'wsuwp/card';
 	protected static $default_attrs = array(
-		'className'  => 'wsu-card',
-		'imageRatio' => '16-9',
-		'title'      => '',
-		'headingTag' => 'h3',
-		'headingClass' => '',
-		'caption'    => '',
-		'link'       => '',
-		'linkCard'       => '',
+		'className'        => 'wsu-card',
+		'imageRatio'       => '16-9',
+		'title'            => '',
+		'headingTag'       => 'h3',
+		'headingClass'     => '',
+		'caption'          => '',
+		'link'             => '',
+		'linkCard'         => '',
 		'imageSize'        => 'full',
 		'imageId'          => '',
 		'imageSrc'         => '',
@@ -21,11 +21,12 @@ class Block_WSUWP_Card extends Block {
 		'imageFocalPoint'  => '',
 		'imageFocalPointX' => '50%',
 		'imageFocalPointY' => '50%',
-		'showImage'    => true,
-		'showHeading'  => true,
-		'showCaption'  => true,
-		'showContent' => false,
-		'version'     => '1',
+		'showImage'        => true,
+		'showHeading'      => true,
+		'showCaption'      => true,
+		'showContent'      => false,
+		'version'          => '1',
+		'customImageAlt'   => false,
 	);
 
 
