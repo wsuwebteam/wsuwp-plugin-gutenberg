@@ -27,6 +27,10 @@
             className: {
                 type: 'string'
             },
+            overlap: {
+                type: 'string',
+                defalut: 'xxmedium'
+            },
             captionClasses: {
                 type: 'string'
             },
@@ -47,7 +51,18 @@
             },
             imageRatio: {
                 type: "string",
-                default: "",
+                default: "auto",
+            },
+            customImageAlt: {
+                type: 'boolean',
+                default: false,
+            },
+            imageFocalPoint: {
+                type: "object",
+                default: {
+                  x: 0.5,
+                  y: 0.5,
+                },
             },
          },
          edit, 

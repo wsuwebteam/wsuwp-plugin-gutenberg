@@ -66,7 +66,7 @@ registerBlockType("wsuwp/hero", {
     imageFocalPoint: {
       type: "object",
       default: {
-        x: 0.2,
+        x: 0.5,
         y: 0.5,
       },
     },

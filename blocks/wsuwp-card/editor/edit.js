@@ -32,6 +32,9 @@ import {
 	PanelAnimate,
 	PanelStyleOptions,
 	PanelDeveloperTools,
+	PanelImageOptions,
+	PanelContentOptions,
+	PanelLinkOptions,
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 import {
@@ -111,7 +114,9 @@ const Edit = ( props ) => {
 						{...props} 
 						styles={cardStyles}
 						prefix="wsu-card--style-"  
-						></PanelStyleOptions> 
+						>
+					</PanelStyleOptions>
+					<PanelImageOptions {...props} ></PanelImageOptions>
 					<PanelColorOptions>
 						<ColorClassControl
 							{ ...props }
@@ -209,48 +214,27 @@ const Edit = ( props ) => {
 		return (
 			<>
 			<InspectorControls>
-				<PanelDisplayOptions isOpen={true} >
-					<TextControl
-							label="Link URL"
-							value={ attributes.link }
-							onChange= { ( link ) => setAttributes( { link } ) }
-						/>
+				<PanelImageOptions {...props}
+					showControl={ true }
+					altControl={ true }
+					ratioControl={ true }
+					></PanelImageOptions>
+				<PanelContentOptions {...props}
+					showImageControl={true}
+					showCaptionControl={true}
+					showHeadingControl={true}
+					showCustomControl={true}
+					headingTagControl={true}
+					headingFontSizeControl={true}
+					>
+				</PanelContentOptions>
+				<PanelLinkOptions {...props} >
 					<ToggleControl
 						label="Link Full Card"
 						checked={attributes.linkCard}
 						onChange={ ( linkCard ) => setAttributes( { linkCard } ) }
 						/>
-					<SelectControl
-							label="Image Ratio (width x height)"
-							value={ attributes.imageRatio }
-							options={ [
-								{ label: 'auto', value: 'auto' },
-								{ label: '2-5', value: '2-5' },
-								{ label: '16-9', value: '16-9' },
-								{ label: '6-4', value: '6-4' },
-								{ label: '4-3', value: '4-3' },
-								{ label: '1-1', value: '1-1' },
-								{ label: '3-4', value: '3-4' },
-							] } 
-							onChange={ ( imageRatio ) => { setAttributes( { imageRatio } ) } }
-						/>
-						<HeadingTagControl { ...props } allowedTags={ ['h2','h3','h4','h5','h6','div'] } />
-						<FontSizeControl 
-							{...props}
-							sizes={
-								[
-									{ label: 'Default', value: '' },
-									{ label: 'Medium', value: 'medium' },
-									{ label: 'xMedium', value: 'xmedium' },
-									{ label: 'xxMedium', value: 'xxmedium' },
-									{ label: 'Large', value: 'large' },
-									{ label: 'xLarge', value: 'xlarge' },
-									{ label: 'xxLarge', value: 'xxlarge' },
-								]
-							}
-							elementClass="headingClass"
-							/>
-				</PanelDisplayOptions>
+				</PanelLinkOptions>
 				<PanelStyleOptions 
 					{...props} 
 					styles={cardStyles}
@@ -262,28 +246,6 @@ const Edit = ( props ) => {
 						onChange={ ( isReversed ) => setBlockClassNameBool( attributes, setAttributes, 'wsu-card--layout-reversed', isReversed ) }
 						/> }
 						</PanelStyleOptions> 
-				<PanelBody title="Card Settings" initialOpen={false} >
-					<ToggleControl
-						label="Show Image"
-						checked={attributes.showImage}
-						onChange={ ( showImage ) => setAttributes( { showImage } ) }
-						/>
-					<ToggleControl
-						label="Show Title"
-						checked={attributes.showHeading}
-						onChange={ ( showHeading ) => setAttributes( { showHeading } ) }
-						/>
-					<ToggleControl
-						label="Show Caption"
-						checked={attributes.showCaption}
-						onChange={ ( showCaption ) => setAttributes( { showCaption } ) }
-						/>
-					<ToggleControl
-						label="Custom Content"
-						checked={attributes.showContent}
-						onChange={ ( showContent ) => setAttributes( { showContent } ) }
-						/>
-				</PanelBody>
 				<PanelColorOptions>
 					<ColorClassControl
 						{ ...props }

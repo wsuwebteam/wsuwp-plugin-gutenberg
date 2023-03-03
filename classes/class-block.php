@@ -74,6 +74,11 @@ class Block {
 			}
 		}
 
+		if ( isset( $default_attrs['imageFocalPoint'] ) && ! empty( $attrs['imageFocalPoint'] ) && is_array( $attrs['imageFocalPoint'] ) ) {
+			$attrs['imageFocalPointX'] = ( isset( $attrs['imageFocalPoint']['x'] ) ) ? ( $attrs['imageFocalPoint']['x'] * 100 ) . '%' : '50%';
+			$attrs['imageFocalPointY'] = ( isset( $attrs['imageFocalPoint']['y'] ) ) ? ( $attrs['imageFocalPoint']['y'] * 100 ) . '%' : '50%';
+		}
+
 	}
 
 
@@ -118,7 +123,7 @@ class Block {
 			$attrs['imageSrc']    = $image_src_array[0];
 			$attrs['imageSizes']  = wp_get_attachment_image_sizes( $attrs['imageId'], $attrs['imageSize'] );
 			$attrs['imageSrcSet'] = wp_get_attachment_image_srcset( $attrs['imageId'], $attrs['imageSize'] );
-			$attrs['imageAlt']    = get_post_meta( $attrs['imageId'], '_wp_attachment_image_alt', true );
+			$attrs['imageAlt']    = ( ! empty( $attrs['imageAlt'] ) || ! empty( $attrs['customImageAlt'] ) ) ? $attrs['imageAlt'] : get_post_meta( $attrs['imageId'], '_wp_attachment_image_alt', true );
 
 		}
 

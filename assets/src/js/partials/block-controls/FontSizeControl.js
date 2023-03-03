@@ -20,21 +20,19 @@ const wsuFontSizes = [
 
 const FontSizeControl = ( props ) => {
 
-    let { attributes, setAttributes, sizes, elementClass ='className' } = props;
-
-    let prefix = attributes.prefix ?? 'wsu-font-size--';
-    let label  = attributes.label ?? 'Font Size';
-    sizes  = sizes ?? wsuFontSizes;
-    // let blockClassNames = attributes.className ?? '';
-    // let classNames = attributes.elementClass ?? blockClassNames;
-
+    let { 
+        attributes, 
+        setAttributes, 
+        sizes = wsuFontSizes, 
+        elementClass ='className',
+        label = 'Font Size',
+        prefix = 'wsu-font-size--',
+    } = props;
 
     // console.log(attributes);
 
     //let value = getBlockClassNameOption( classNames, prefix );
     let value = getBlockClassNameValue( attributes, prefix, '', elementClass );
-
-    console.log( value );
 
     const setFontSize = ( size ) => {
 

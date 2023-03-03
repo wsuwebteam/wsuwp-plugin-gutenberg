@@ -33,3 +33,6 @@ export { default as MaxWidthControl } from './MaxWidthControl';
 export { default as BorderControl } from './BorderControl';
 export { default as DeveloperToolsControl } from './DeveloperToolsControl';
 export { default as SlideSelector } from './slide-selector/slideSelector';
+export { default as ImageSelectorControl } from './ImageSelectorControl';
+export { default as ImageAltControl } from './ImageAltControl';
+export { default as ImageRatioControl } from './image-ratio-control/ImageRatioControl';
