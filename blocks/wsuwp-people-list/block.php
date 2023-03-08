@@ -89,7 +89,7 @@ class Block_WSUWP_People_List extends Block {
 		}
 
 		// implode array values for inserting in html attributes
-		$implode_keys = array(
+		$implode_keys     = array(
 			'classification',
 			'university_category',
 			'university_location',
@@ -97,6 +97,8 @@ class Block_WSUWP_People_List extends Block {
 			'tag',
 			'include_term_values',
 			'exclude_term_values',
+		);
+		$filter_term_keys = array(
 			'tag_filter_terms',
 			'organization_filter_terms',
 			'location_filter_terms',
@@ -105,11 +107,20 @@ class Block_WSUWP_People_List extends Block {
 		);
 
 		foreach ( $implode_keys as $implode_key ) {
-
 			if ( ! empty( $data_attrs[ $implode_key ] ) && is_array( $data_attrs[ $implode_key ] ) ) {
-
 				$data_attrs[ $implode_key ] = implode( ',', array_column( $data_attrs[ $implode_key ], 'slug' ) );
+			}
+		}
 
+		foreach ( $filter_term_keys as $filter_term_key ) {
+			if ( ! empty( $data_attrs[ $filter_term_key ] ) && is_array( $data_attrs[ $filter_term_key ] ) ) {
+				$options = array();
+
+				foreach ( $data_attrs[ $filter_term_key ] as $term ) {
+					$options[] = $term['slug'] . '|' . $term['name'];
+				}
+
+				$data_attrs[ $filter_term_key ] = implode( ',', $options );
 			}
 		}
 
