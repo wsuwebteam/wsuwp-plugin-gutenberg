@@ -38,6 +38,29 @@
             box-sizing: border-box;
         }
 
+
+        &.wsu-overlap-spotlight--style-left-middle,
+        &.wsu-overlap-spotlight--style-right-middle {
+
+            .wsu-overlap__column-inner {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+        }
+
+        &.wsu-overlap-spotlight--style-left-bottom,
+        &.wsu-overlap-spotlight--style-right-bottom {
+
+            .wsu-overlap__column-inner {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+
+        }
+
     }
 
 }
