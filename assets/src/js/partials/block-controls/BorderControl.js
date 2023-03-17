@@ -35,6 +35,11 @@ const BorderControl = ( props ) => {
             value: 'right',
             svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect x="3.41" y="3.18" width="23.18" height="23.63" fill="#fff" stroke="#bcbec0" stroke-miterlimit="10"/><line x1="26.09" y1="2.67" x2="26.09" y2="27.33" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="2"/></svg>,
         },
+        { 
+            label:'None',
+            value: '',
+            svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><circle cx="15" cy="15" r="9.11" fill="none" stroke="#58595b" stroke-miterlimit="10" stroke-width="3"/><line x1="8.43" y1="21.41" x2="21.05" y2="8.51" fill="none" stroke="#58595b" stroke-miterlimit="10" stroke-width="3"/></svg>,
+        },
     ]
 
 

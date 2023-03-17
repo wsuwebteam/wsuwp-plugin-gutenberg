@@ -248,7 +248,7 @@ const Edit = ( props ) => {
 					</div>
 					<div className={'wsu-overlap__column wsu-overlap--surface-column wsu-overlap--overlap-' + attributes.overlap }>
 						<div className="wsu-overlap__column-inner">
-							<div className="wsu-overlap-spotlight__caption">
+							<div className={'wsu-overlap-spotlight__caption ' + attributes.captionClasses }>
 								<InnerBlocks
 									templateLock={ false }
 								/>
