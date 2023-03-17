@@ -11,6 +11,7 @@ class Query_Posts {
 	public $order;
 	public $taxonomy;
 	public $terms;
+	public $taxonomy_query;
 	public $tax_query;
 	public $host;
 	public $exclude_posts;
@@ -40,6 +41,7 @@ class Query_Posts {
 		$this->order                = ( ! empty( $attrs['order'] ) ) ? $attrs['order'] : 'DESC';
 		$this->taxonomy             = ( ! empty( $attrs['taxonomy'] ) ) ? $attrs['taxonomy'] : 'category';
 		$this->terms                = ( ! empty( $attrs['terms'] ) ) ? explode( ',', $attrs['terms'] ) : array();
+		$this->taxonomy_query       = ( ! empty( $attrs['termsSelected'] ) ) ? $attrs['termsSelected'] : array();
 		$this->host                 = ( ! empty( $attrs['host'] ) ) ? $attrs['host'] : '';
 		$this->exclude_posts        = ( ! empty( $attrs['exclude_posts'] ) ) ? explode( ',', $attrs['exclude_posts'] ) : array();
 		$this->image_size           = ( ! empty( $attrs['imageSize'] ) ) ? $attrs['imageSize'] : 'large';
@@ -303,7 +305,40 @@ class Query_Posts {
 			'order'          => strtolower( $this->order ),
 		);
 
-		if ( ! empty( $this->terms ) ) {
+		if ( ! empty( $this->taxonomy_query ) ) {
+
+			$api_taxonomies = array(
+				'categories'           => array(),
+				'post_tag'             => array(),
+				'wsuwp_university_org' => array(),
+			);
+
+			foreach ( $this->taxonomy_query as $index => $taxonomy ) {
+
+				switch ( $taxonomy['type'] ) {
+
+					case 'category':
+						$api_taxonomies['categories'][] = $taxonomy['id'];
+						break;
+					case 'post_tag':
+						$api_taxonomies['tags'][] = $taxonomy['id'];
+						break;
+					case 'wsuwp_university_org':
+						$api_taxonomies['wsuwp_university_org'][] = $taxonomy['id'];
+						break;
+				}
+
+			}
+
+			foreach ( $api_taxonomies as $api_taxonomy => $api_terms ) {
+
+				if ( ! empty( $api_terms ) ) {
+
+					$query_args[ $api_taxonomy ] = implode( ',', $api_terms );
+
+				}
+			}
+		} elseif ( ! empty( $this->terms ) ) {
 
 			switch ( $this->taxonomy ) {
 

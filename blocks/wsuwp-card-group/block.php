@@ -24,6 +24,7 @@ class Block_WSUWP_Card_Group extends Block {
 		'showImage'    => true,
 		'showHeading'  => true,
 		'showCaption'  => true,
+		'termsSelected' => array(),
 	);
 
 
