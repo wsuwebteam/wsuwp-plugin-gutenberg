@@ -251,7 +251,7 @@ class Query_Posts {
 					$post['imageSrc']    = $image_src_array[0];
 					$post['imageSizes']  = wp_get_attachment_image_sizes( $image_id, $this->image_size );
 					$post['imageSrcSet'] = wp_get_attachment_image_srcset( $image_id, $this->image_size );
-					$post['imageAlt']    = wp_get_attachment_caption( $image_id );
+					$post['imageAlt']    = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
 				}
 
