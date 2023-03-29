@@ -22,6 +22,7 @@ class Query_Posts {
 	public $hide_shown_posts;
 	public $use_and_logic;
 	public $exclude_shown_posts;
+	public $do_related;
 
 
 	public function __construct( $attrs ) {
@@ -52,6 +53,7 @@ class Query_Posts {
 		$this->use_and_logic        = ( ! empty( $attrs['useAndLogic'] ) ) ? $attrs['useAndLogic'] : false;
 		$this->exclude_shown_posts  = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
 		$this->tax_query            = ( ! empty( $attrs['queryTerms'] ) ) ? $attrs['queryTerms'] : false;
+		$this->do_related           = ( ! empty( $attrs['doRelated'] ) ) ? $attrs['doRelated'] : false;
 
 	}
 
@@ -147,6 +149,17 @@ class Query_Posts {
 			'ignore_sticky_posts' => $this->show_sticky,
 		);
 
+		if ( ! empty( $this->do_related ) ) {
+
+			$post_id = get_the_ID();
+
+			if ( $post_id ) {
+
+				$related_term_id = self::get_related_term_id( $post_id, $this->taxonomy );
+
+			}
+		}
+
 		if ( ! empty( $this->terms ) && empty( $this->tax_query ) ) {
 
 			$query_args['tax_query'] = array(
@@ -178,6 +191,35 @@ class Query_Posts {
 			}
 
 		}
+
+		if ( ! empty( $this->do_related ) ) {
+
+			$post_id = get_the_ID();
+
+			if ( $post_id ) {
+
+				$related_term_id = self::get_related_term_id( $post_id, $this->taxonomy );
+
+				if ( $related_term_id ) {
+
+					if ( empty( $query_args['tax_query'] ) ) {
+
+						$query_args['tax_query'] = array();
+
+					}
+
+					$query_args['tax_query'][] = array(
+						'taxonomy' => $this->taxonomy,
+						'field'    => 'term_id',
+						'terms'    => $related_term_id,
+					);
+
+					$this->exclude_posts[] = $post_id;
+
+				}
+			}
+		}
+
 
 		if ( ! empty( $this->post__in ) ) {
 
@@ -434,6 +476,39 @@ class Query_Posts {
 		}
 
 		return $sorted_query;
+
+	}
+
+
+	protected static function get_related_term( $post_id, $taxonomy = 'category' ) {
+
+		$terms = get_the_terms( $post_id, $taxonomy );
+
+		if ( ! is_array( $terms ) || ! $terms || is_wp_error( $terms ) ) {
+
+			return false;
+
+		}
+
+		foreach ( $terms as $term ) {
+
+			if ( 'uncategorized' !== $term->name ) {
+
+				return $term;
+
+			}
+		}
+
+		return false;
+
+	}
+
+
+	protected static function get_related_term_id( $post_id, $taxonomy = 'category' ) {
+
+		$term = self::get_related_term( $post_id, $taxonomy );
+
+		return ( ! $term ) ? false : $term->term_id;
 
 	}
 

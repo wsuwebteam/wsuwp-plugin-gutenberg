@@ -29,6 +29,7 @@ import {
 	SpacingClassNameSelector,
     ImageFrameControl,
 	HeadingTagControl,
+	RelatedFeedControl,
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -202,6 +203,7 @@ const Edit = ( props ) => {
 						<FeedUseAndLogicControl {...props} />
 						<FeedOffsetControl {...props} />
 						<FeedHostControl {...props} />
+						<RelatedFeedControl {...props} />
 					</FeedPanelAdvanced>
 				</>
 			)}
