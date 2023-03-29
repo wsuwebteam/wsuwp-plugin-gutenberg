@@ -1482,6 +1482,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "DeveloperToolsControl": function() { return /* reexport safe */ _DeveloperToolsControl__WEBPACK_IMPORTED_MODULE_33__["default"]; },
 /* harmony export */   "DisplayFieldControl": function() { return /* reexport safe */ _display_fields_control_DisplayFieldsControl__WEBPACK_IMPORTED_MODULE_25__["default"]; },
 /* harmony export */   "FeedPostsControl": function() { return /* reexport safe */ _FeedPostsControl__WEBPACK_IMPORTED_MODULE_2__["default"]; },
+/* harmony export */   "FeedTaxonomyControl": function() { return /* reexport safe */ _feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_39__.FeedTaxonomyControl; },
 /* harmony export */   "FontIconPickerControl": function() { return /* reexport safe */ _font_icon_picker_control_FontIconPickerControl__WEBPACK_IMPORTED_MODULE_6__["default"]; },
 /* harmony export */   "FontSizeControl": function() { return /* reexport safe */ _FontSizeControl__WEBPACK_IMPORTED_MODULE_17__["default"]; },
 /* harmony export */   "FormatSelector": function() { return /* reexport safe */ _FormatSelector__WEBPACK_IMPORTED_MODULE_0__["default"]; },
@@ -1498,6 +1499,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PerRow": function() { return /* reexport safe */ _PerRowControl__WEBPACK_IMPORTED_MODULE_3__["default"]; },
 /* harmony export */   "PostPicker": function() { return /* reexport safe */ _post_picker_PostPicker__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   "PostTypeSelectControl": function() { return /* reexport safe */ _PostTypeSelectControl__WEBPACK_IMPORTED_MODULE_8__["default"]; },
+/* harmony export */   "RelatedFeedControl": function() { return /* reexport safe */ _related_feed_control_RelatedFeedControl__WEBPACK_IMPORTED_MODULE_38__["default"]; },
 /* harmony export */   "RequireFirstImageControl": function() { return /* reexport safe */ _RequireFirstImageControl__WEBPACK_IMPORTED_MODULE_20__["default"]; },
 /* harmony export */   "RequireImageControl": function() { return /* reexport safe */ _RequireImageControl__WEBPACK_IMPORTED_MODULE_19__["default"]; },
 /* harmony export */   "RequiredAlertControl": function() { return /* reexport safe */ _required_alert_control_RequiredAlertControl__WEBPACK_IMPORTED_MODULE_22__["default"]; },
@@ -1548,6 +1550,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ImageSelectorControl__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./ImageSelectorControl */ "./assets/src/js/partials/block-controls/ImageSelectorControl.js");
 /* harmony import */ var _ImageAltControl__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./ImageAltControl */ "./assets/src/js/partials/block-controls/ImageAltControl.js");
 /* harmony import */ var _image_ratio_control_ImageRatioControl__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./image-ratio-control/ImageRatioControl */ "./assets/src/js/partials/block-controls/image-ratio-control/ImageRatioControl.js");
+/* harmony import */ var _related_feed_control_RelatedFeedControl__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./related-feed-control/RelatedFeedControl */ "./assets/src/js/partials/block-controls/related-feed-control/RelatedFeedControl.js");
+/* harmony import */ var _feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./feed-controls/feed-controls */ "./assets/src/js/partials/block-controls/feed-controls/feed-controls.js");
+
+
 
 
 
@@ -3026,6 +3032,51 @@ function TextControl(_ref, ref) {
   }, props)));
 }
 /* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(TextControl));
+
+/***/ }),
+
+/***/ "./assets/src/js/partials/block-controls/related-feed-control/RelatedFeedControl.js":
+/*!******************************************************************************************!*\
+  !*** ./assets/src/js/partials/block-controls/related-feed-control/RelatedFeedControl.js ***!
+  \******************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+
+
+
+const RelatedFeedControl = props => {
+  let {
+    attributes,
+    setAttributes
+  } = props;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToggleControl, {
+    label: "Use Related Content Feed",
+    checked: attributes.doRelated,
+    onChange: doRelated => {
+      setAttributes({
+        doRelated
+      });
+    },
+    help: "Use parent post taxonomy to feed content."
+  }), attributes.doRelated && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_blockControls__WEBPACK_IMPORTED_MODULE_2__.FeedTaxonomyControl, {
+    label: "Taxonomy",
+    help: "Select taxonomy to filter posts by",
+    host: attributes.host || window.wsu.ROOT_URL,
+    postType: attributes.postType,
+    value: attributes.taxonomy,
+    onChange: taxonomy => setAttributes({
+      taxonomy
+    })
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (RelatedFeedControl);
 
 /***/ }),
 
@@ -7278,6 +7329,14 @@ registerBlockType("wsuwp/card-group", {
       type: 'boolean',
       default: false
     },
+    doRelated: {
+      type: 'boolean',
+      default: false
+    },
+    relatedTaxonomy: {
+      type: 'string',
+      default: 'category'
+    },
     allowCustomCards: {
       type: 'boolean',
       default: false
@@ -7503,7 +7562,7 @@ const Edit = props => {
       terms: terms.termsList,
       termsSelected: terms.termsSelected
     })
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedCountControl, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedPanelAdvanced, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedUseAndLogicControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedOffsetControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedHostControl, props))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelColorOptions, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.ColorClassControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedCountControl, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedPanelAdvanced, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedUseAndLogicControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedOffsetControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedHostControl, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.RelatedFeedControl, props))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelColorOptions, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.ColorClassControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
     colors: backgroundColors,
     label: "Background Color",
     value: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__.getBlockClassNameValue)(attributes, 'wsu-color-background--', '', 'cardClassName'),

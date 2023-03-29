@@ -36,3 +36,5 @@ export { default as SlideSelector } from './slide-selector/slideSelector';
 export { default as ImageSelectorControl } from './ImageSelectorControl';
 export { default as ImageAltControl } from './ImageAltControl';
 export { default as ImageRatioControl } from './image-ratio-control/ImageRatioControl';
+export { default as RelatedFeedControl } from './related-feed-control/RelatedFeedControl';
+export { FeedTaxonomyControl as FeedTaxonomyControl } from './feed-controls/feed-controls';

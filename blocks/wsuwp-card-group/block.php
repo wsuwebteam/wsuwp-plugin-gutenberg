@@ -19,6 +19,8 @@ class Block_WSUWP_Card_Group extends Block {
 		'offset'      => '0',
 		'host'        => '',
 		'useAndLogic' => false,
+		'doRelated'   => false,
+		'relatedTaxonomy' => 'category',
 		'cardClassName' => '',
 		'allowCustomCards' => false,
 		'showImage'    => true,

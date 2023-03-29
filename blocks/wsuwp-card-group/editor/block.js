@@ -92,6 +92,14 @@
                 type: 'boolean',
                 default: false,
             },
+            doRelated: {
+                type: 'boolean',
+                default: false,
+            },
+            relatedTaxonomy: {
+                type: 'string',
+                default: 'category',
+            },
             allowCustomCards: {
                 type: 'boolean',
                 default: false,
