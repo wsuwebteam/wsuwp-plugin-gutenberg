@@ -4,6 +4,7 @@ import "../../../blocks/wsuwp-callout/editor/block";
 import "../../../blocks/wsuwp-note/editor/block";
 import "../../../blocks/wsuwp-card/editor/block";
 import "../../../blocks/wsuwp-card-group/editor/block";
+import "../../../blocks/wsuwp-carousel/editor/block";
 import "../../../blocks/wsuwp-column/editor/block";
 import "../../../blocks/wsuwp-container/editor/block";
 import "../../../blocks/wsuwp-banner/editor/block";

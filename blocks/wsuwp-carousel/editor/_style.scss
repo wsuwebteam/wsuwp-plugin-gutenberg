@@ -1,0 +1,41 @@
+@import '../../../assets/src/scss/utilities/variables';
+@import '../../../assets/src/scss/utilities/mixins';
+
+.block-editor {
+
+    .wp-block[data-type="wsuwp/card-group"] {
+
+        @include wsu-gutenberg-block-outline();
+
+        margin: 0 calc( #{$wsu-gutenberg-spacing--block-inner} /2 ) 0;
+
+        padding-left: $wsu-gutenberg-spacing--block-inner;
+        padding-right: $wsu-gutenberg-spacing--block-inner;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem; 
+
+        & > .block-editor-inner-blocks {
+
+            & > .block-editor-block-list__layout {
+                display: flex;
+                flex-wrap: wrap;
+            }
+    
+        }
+
+        &:not(.wsu-is-feed) .wsu-bc-api-render {
+            border-top: 1px dashed #ccc;
+            padding-top: 16px;
+        }
+
+        &.wsu-is-feed {
+
+            .block-editor-inner-blocks {
+                display: none;
+            }
+
+        }
+
+    }
+
+}
