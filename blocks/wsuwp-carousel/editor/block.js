@@ -18,7 +18,13 @@
          title: "Carousel",
          apiVersion: 2, 
          category: "design",
-         icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="b"><rect width="24" height="24"/></clipPath></defs><g id="a" clip-path="url(#b)"><rect width="24" height="24" fill="#fff"/><g transform="translate(2 2)" fill="#fff" stroke="#030000" stroke-width="2"><path d="M3,0H18a2,2,0,0,1,2,2V18a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V3A3,3,0,0,1,3,0Z" stroke="none"/><path d="M3,1H18a1,1,0,0,1,1,1V18a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V3A2,2,0,0,1,3,1Z" fill="none"/></g><rect width="14" height="10" rx="2" transform="translate(5 5)" fill="#0a0000"/><line x2="13" transform="translate(5.5 16.5)" fill="none" stroke="#060000" stroke-width="1"/><line x2="13" transform="translate(5.5 18.5)" fill="none" stroke="#070000" stroke-width="1"/></g></svg>,
+         icon: <svg width="43" height="29" viewBox="0 0 43 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <rect x="13" y="1" width="17" height="27" rx="1" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+         <path d="M42.4331 13.3453C42.7585 13.7211 42.7585 14.2789 42.4331 14.6547L37.2559 20.6327C36.6498 21.3326 35.5 20.9039 35.5 19.978L35.5 8.02197C35.5 7.09609 36.6498 6.66741 37.2559 7.36732L42.4331 13.3453Z" fill="#333333"/>
+         <path d="M0.566945 13.3453C0.241517 13.7211 0.241518 14.2789 0.566946 14.6547L5.74407 20.6327C6.35021 21.3326 7.5 20.9039 7.5 19.978L7.5 8.02197C7.5 7.09609 6.35021 6.66741 5.74407 7.36732L0.566945 13.3453Z" fill="#333333"/>
+         </svg>
+         
+         ,
          attributes: {
             
             id: {
