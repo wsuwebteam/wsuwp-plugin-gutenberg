@@ -58,7 +58,7 @@ class Block_WSUWP_Carousel extends Block {
 		$post_query = new Query_Posts( $attrs );
 
 		$card_attrs = array(
-			'className'   => 'wsu-card swiper-slide ' . $attrs['cardClassName'],
+			'className'   => 'wsu-card ' . $attrs['cardClassName'],
 			'imageRatio'  => $attrs['imageRatio'],
 			'headingTag'  => $attrs['headingTag'],
 			'showImage'   => $attrs['showImage'],

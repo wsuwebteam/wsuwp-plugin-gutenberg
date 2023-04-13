@@ -257,19 +257,21 @@ const Edit = ( props ) => {
                 onChange={ ( allowCustomCards ) => setAttributes( { allowCustomCards } ) }
                 />
         </InspectorAdvancedControls>
-		<div { ...blockProps }  >
-			<InnerBlocks
-				template={ blockTemplate }
-				templateLock={ false }
-                allowedBlocks={ [ 'wsuwp/card' ] }
-			/>
-			{ attributes.useFeed && <ApiRenderBlock
-				attributes={attributes}
-				blockName="wsuwp/card-group"
-				>
-				No News Items Found
-				</ApiRenderBlock>
-			}
+		<div { ...blockProps } data-desktop-columns={attributes.columns}  >
+			
+				<InnerBlocks
+					template={ blockTemplate }
+					templateLock={ false }
+					allowedBlocks={ [ 'wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/stat', 'wsuwp/news-cards', 'core/image' ] }
+				/>
+				{ attributes.useFeed && <ApiRenderBlock
+					attributes={attributes}
+					blockName="wsuwp/card-group"
+					>
+					No News Items Found
+					</ApiRenderBlock>
+				}
+			
 		</div>
 		</>
     )

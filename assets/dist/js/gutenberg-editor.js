@@ -635,20 +635,19 @@ const ColorClassNameSelector = props => {
     });
   }
   const getSelectedColorByPrefix = prefix => {
-    var _getColorObjectByClas;
     if (!attributes.className) {
       return;
     }
     const appliedClasses = attributes.className.split(' ');
     const selectedColorClassName = lodash.find(appliedClasses, c => c.startsWith(prefix));
-    return (_getColorObjectByClas = getColorObjectByClassName(prefix, selectedColorClassName)) === null || _getColorObjectByClas === void 0 ? void 0 : _getColorObjectByClas.color;
+    return getColorObjectByClassName(prefix, selectedColorClassName)?.color;
   };
   const updateSelectedColors = (prefix, color) => {
-    var _attributes$className, _attributes$className2;
+    var _attributes$className;
     const colors = getColorSetting(prefix).colors;
     const colorObject = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.getColorObjectByColorValue)(colors, color);
     const colorClass = colorObject ? prefix + colorObject.className : '';
-    const appliedClasses = (_attributes$className = (_attributes$className2 = attributes.className) === null || _attributes$className2 === void 0 ? void 0 : _attributes$className2.split(' ')) !== null && _attributes$className !== void 0 ? _attributes$className : [];
+    const appliedClasses = (_attributes$className = attributes.className?.split(' ')) !== null && _attributes$className !== void 0 ? _attributes$className : [];
     const newClasses = lodash.filter(appliedClasses, c => !c.startsWith(prefix)).concat(colorClass);
     const newClassName = newClasses.map(function (c) {
       return c.trim();
@@ -1734,13 +1733,12 @@ const FeedHostControl = _ref => {
     return true;
   }
   function checkWpApi(url) {
-    var _abortController, _abortController2;
     // cancel existing requests and set up new abort controller
-    (_abortController = abortController) === null || _abortController === void 0 ? void 0 : _abortController.abort();
+    abortController?.abort();
     abortController = typeof AbortController === "undefined" ? undefined : new AbortController();
     return fetch(url + `/wp-json/wp/v2/statuses`, {
       method: "GET",
-      signal: (_abortController2 = abortController) === null || _abortController2 === void 0 ? void 0 : _abortController2.signal
+      signal: abortController?.signal
     });
   }
   function updateValidity(url) {
@@ -2631,7 +2629,7 @@ const MultipleImagePicker = props => {
         id: item.id,
         url: item.url,
         thumbnail: item.sizes.thumbnail.url,
-        focalPoint: (currentImage === null || currentImage === void 0 ? void 0 : currentImage.focalPoint) || {
+        focalPoint: currentImage?.focalPoint || {
           x: 0.5,
           y: 0.25
         }
@@ -2669,7 +2667,7 @@ const MultipleImagePicker = props => {
     return WSUWP_DATA.wpVersion.includes("6.1") ? {
       anchor: editingElement
     } : {
-      getAnchorRect: () => (editingElement === null || editingElement === void 0 ? void 0 : editingElement.getBoundingClientRect()) || null
+      getAnchorRect: () => editingElement?.getBoundingClientRect() || null
     };
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.BaseControl, {
@@ -2694,7 +2692,7 @@ const MultipleImagePicker = props => {
     key: item.id,
     className: "wsu-gutenberg-mip__thumbnail-container"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
-    className: `wsu-gutenberg-mip__select-button${(editingImage === null || editingImage === void 0 ? void 0 : editingImage.id) === item.id ? " is-selected" : ""}`,
+    className: `wsu-gutenberg-mip__select-button${editingImage?.id === item.id ? " is-selected" : ""}`,
     onClick: e => openEditPopover(e, item)
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
     className: "wsu-gutenberg-mip__thumbnail",
@@ -2910,7 +2908,6 @@ function SuggestionList(props) {
   }, title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: `${CSSNAMESPACE}__suggestion-list`
   }, suggestions.map((post, index) => {
-    var _postTypeData$post$ty;
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       key: post.id,
       className: `${CSSNAMESPACE}__suggestion-list-item`
@@ -2918,7 +2915,7 @@ function SuggestionList(props) {
       onClick: () => onItemSelect(post),
       searchTerm: searchTerm,
       suggestion: post,
-      postTypeLabel: (_postTypeData$post$ty = postTypeData[post.type]) === null || _postTypeData$post$ty === void 0 ? void 0 : _postTypeData$post$ty.name,
+      postTypeLabel: postTypeData[post.type]?.name,
       isSelected: attributes.postIn.split(',').includes(post.id.toString())
     }));
   })));
@@ -3332,14 +3329,14 @@ const SpacingClassNameSelector = props => {
     return getSelectedValueByPrefix(property.prefix) || getOptionByKey(property.default) || '';
   };
   const updateSelectedOptions = (property, control) => {
-    var _attributes$className, _attributes$className2;
+    var _attributes$className;
     let optionClass = '';
 
     // only apply className if it is not equal to the current default state
     if (control && !(control.selectedItem.key === property.default)) {
       optionClass = property.prefix + control.selectedItem.key;
     }
-    const appliedClasses = (_attributes$className = (_attributes$className2 = attributes.className) === null || _attributes$className2 === void 0 ? void 0 : _attributes$className2.split(' ')) !== null && _attributes$className !== void 0 ? _attributes$className : [];
+    const appliedClasses = (_attributes$className = attributes.className?.split(' ')) !== null && _attributes$className !== void 0 ? _attributes$className : [];
     const newClasses = lodash.filter(appliedClasses, c => !c.startsWith(property.prefix)).concat(optionClass);
     const newClassName = newClasses.map(function (c) {
       return c.trim();
@@ -3364,10 +3361,7 @@ const SpacingClassNameSelector = props => {
     }, spaceSetting.label), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `${CSSNAMESPACE}__setting-properties`
     }, spaceSetting.properties.map(property => {
-      const options = ALLOPTIONS.filter(o => {
-        var _property$ignoreOptio;
-        return !((_property$ignoreOptio = property.ignoreOptions) !== null && _property$ignoreOptio !== void 0 && _property$ignoreOptio.includes(o.key));
-      });
+      const options = ALLOPTIONS.filter(o => !property.ignoreOptions?.includes(o.key));
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         key: property.label
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.CustomSelectControl, {
@@ -3462,20 +3456,19 @@ const TermSelectorControl = function (props) {
   const [selectedTerms, setSelectedTerms] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(props.value);
   const handleInputChange = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__.useDebounce)(updateSuggestions, 250);
   async function updateSuggestions(input) {
-    var _abortController, _abortController2;
     if (input.length < 2) {
       return;
     }
     setIsLoading(true);
 
     // cancel existing requests and set up new abort controller
-    (_abortController = abortController) === null || _abortController === void 0 ? void 0 : _abortController.abort();
+    abortController?.abort();
     abortController = typeof AbortController === "undefined" ? undefined : new AbortController();
 
     // make request to terms api
     const response = await fetch(props.host + `/wp-json/wp/v2/search?type=term&subtype=${props.taxonomy}&search=${input}`, {
       method: "GET",
-      signal: (_abortController2 = abortController) === null || _abortController2 === void 0 ? void 0 : _abortController2.signal
+      signal: abortController?.signal
     });
     if (response.ok) {
       const results = await response.json();
@@ -8311,52 +8304,27 @@ registerBlockType("wsuwp/carousel", {
   apiVersion: 2,
   category: "design",
   icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
-    viewBox: "0 0 24 24"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("defs", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("clipPath", {
-    id: "b"
+    width: "43",
+    height: "29",
+    viewBox: "0 0 43 29",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
-    width: "24",
-    height: "24"
-  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("g", {
-    id: "a",
-    "clip-path": "url(#b)"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
-    width: "24",
-    height: "24",
-    fill: "#fff"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("g", {
-    transform: "translate(2 2)",
-    fill: "#fff",
-    stroke: "#030000",
+    x: "13",
+    y: "1",
+    width: "17",
+    height: "27",
+    rx: "1",
+    fill: "#ffffff",
+    stroke: "#333333",
     "stroke-width": "2"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M3,0H18a2,2,0,0,1,2,2V18a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V3A3,3,0,0,1,3,0Z",
-    stroke: "none"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M3,1H18a1,1,0,0,1,1,1V18a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V3A2,2,0,0,1,3,1Z",
-    fill: "none"
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
-    width: "14",
-    height: "10",
-    rx: "2",
-    transform: "translate(5 5)",
-    fill: "#0a0000"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
-    x2: "13",
-    transform: "translate(5.5 16.5)",
-    fill: "none",
-    stroke: "#060000",
-    "stroke-width": "1"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
-    x2: "13",
-    transform: "translate(5.5 18.5)",
-    fill: "none",
-    stroke: "#070000",
-    "stroke-width": "1"
-  }))),
+    d: "M42.4331 13.3453C42.7585 13.7211 42.7585 14.2789 42.4331 14.6547L37.2559 20.6327C36.6498 21.3326 35.5 20.9039 35.5 19.978L35.5 8.02197C35.5 7.09609 36.6498 6.66741 37.2559 7.36732L42.4331 13.3453Z",
+    fill: "#333333"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M0.566945 13.3453C0.241517 13.7211 0.241518 14.2789 0.566946 14.6547L5.74407 20.6327C6.35021 21.3326 7.5 20.9039 7.5 19.978L7.5 8.02197C7.5 7.09609 6.35021 6.66741 5.74407 7.36732L0.566945 13.3453Z",
+    fill: "#333333"
+  })),
   attributes: {
     id: {
       type: 'string',
@@ -8679,10 +8647,12 @@ const Edit = props => {
     onChange: allowCustomCards => setAttributes({
       allowCustomCards
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerBlocks, {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, blockProps, {
+    "data-desktop-columns": attributes.columns
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerBlocks, {
     template: blockTemplate,
     templateLock: false,
-    allowedBlocks: ['wsuwp/card']
+    allowedBlocks: ['wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/stat', 'wsuwp/news-cards', 'core/image']
   }), attributes.useFeed && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__.ApiRenderBlock, {
     attributes: attributes,
     blockName: "wsuwp/card-group"
@@ -10417,7 +10387,7 @@ let heroStyles = [{
   value: "caption"
 }];
 const Edit = props => {
-  var _attributes$className, _attributes$sliderIma, _attributes$sliderIma2;
+  var _attributes$className;
   let {
     className,
     isSelected,
@@ -10633,8 +10603,8 @@ const Edit = props => {
     className: "wsu-image-frame wsu-image-frame--fill"
   }, attributes.backgroundType === 'image' && attributes.imageSrc && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
     src: attributes.imageSrc
-  }) || attributes.backgroundType === 'slider' && ((_attributes$sliderIma = attributes.sliderImages[0]) === null || _attributes$sliderIma === void 0 ? void 0 : _attributes$sliderIma.url) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
-    src: (_attributes$sliderIma2 = attributes.sliderImages[0]) === null || _attributes$sliderIma2 === void 0 ? void 0 : _attributes$sliderIma2.url
+  }) || attributes.backgroundType === 'slider' && attributes.sliderImages[0]?.url && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
+    src: attributes.sliderImages[0]?.url
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
     className: getOverlayClasses()
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
@@ -14721,21 +14691,20 @@ const TermSelector = function (props) {
     }
   }
   async function updateSuggestions(input) {
-    var _abortController, _abortController2;
     if (input.length < 2) {
       return;
     }
     setIsLoading(true);
 
     // cancel existing requests and set up new abort controller
-    (_abortController = abortController) === null || _abortController === void 0 ? void 0 : _abortController.abort();
+    abortController?.abort();
     abortController = typeof AbortController === "undefined" ? undefined : new AbortController();
 
     // make request to terms api
     const params = `taxonomy=${props.taxonomy}&s=${input}`;
     const response = await fetch(apiEndpoint + params, {
       method: "GET",
-      signal: (_abortController2 = abortController) === null || _abortController2 === void 0 ? void 0 : _abortController2.signal
+      signal: abortController?.signal
     });
 
     // process results
