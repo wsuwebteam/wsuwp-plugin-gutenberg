@@ -65,7 +65,16 @@ class Block_WSUWP_Hero extends Block {
 
 		ob_start();
 
-		include __DIR__ . '/templates/default.php';
+		if ( false !== strpos( $attrs['className'], 'wsu-style--boxed' ) ) {
+
+			include __DIR__ . '/templates/v3-boxed.php';
+
+
+		} else {
+
+			include __DIR__ . '/templates/default.php';
+
+		}
 
 		remove_filter( 'wp_calculate_image_srcset', array( __CLASS__, 'set_srcset_image_sizes' ), 10, 3 );
 

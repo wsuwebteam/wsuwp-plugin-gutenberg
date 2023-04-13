@@ -51,7 +51,15 @@ let heroStyles = [
 	  ),
 	  label: "Bold Caption",
 	  value: "caption",
-	}
+	},
+	{
+		icon: (
+		  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60"><rect width="124" height="60" fill="#4a4b4c"/><rect x="6.74" y="35.51" width="73.82" height="17.01" fill="#231f20"/><rect x="11.94" y="31.69" width="50.06" height="6.96" rx="3.19" fill="#fff"/><rect x="11.94" y="42.95" width="60.28" height="3.19" rx="1.08" fill="#fff"/></svg>
+		),
+		label: "Boxed",
+		value: "boxed",
+		prefix: 'wsu-style--',
+	  }
   ];
 
 const Edit = ( props ) => {
@@ -183,14 +191,14 @@ const Edit = ( props ) => {
 									</BaseControl>
 								}
 
-								<MediaUploadCheck>
+								<MediaUploadCheck> 
 									<MediaUpload
 										onSelect={(media) => setAttributes({ imageId: media.id, imageSrc: media.url }) }
 										allowedTypes={['image']}
 										render={({ open }) => (
 											<BaseControl label={`${attributes.imageSrc ? 'Replace' : 'Choose'} Background Image`}>
 												<Button isLink onClick={open}>Open Media Library</Button>
-											</BaseControl>
+											</BaseControl> 
 										)}
 									/>
 								</MediaUploadCheck>
