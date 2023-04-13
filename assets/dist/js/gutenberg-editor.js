@@ -4218,8 +4218,9 @@ const PanelStyleOptions = props => {
   } = props;
   let classString = (_attributes$setKey = attributes[setKey]) !== null && _attributes$setKey !== void 0 ? _attributes$setKey : '';
   let currentValue = (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.getBlockClassNameValue)(classString, prefix);
-  const setStyleClassNames = value => {
-    let updatedClasses = (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.addBlockClassName)(classString, prefix, value);
+  const setStyleClassNames = styleObj => {
+    let itemPrefix = 'prefix' in styleObj ? styleObj.prefix : prefix;
+    let updatedClasses = (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.addBlockClassName)(classString, itemPrefix, styleObj.value);
     setAttributes({
       [setKey]: updatedClasses
     });
@@ -4228,7 +4229,7 @@ const PanelStyleOptions = props => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       key: styleObj.label,
       isPressed: currentValue == styleObj.value,
-      onClick: () => setStyleClassNames(styleObj.value)
+      onClick: () => setStyleClassNames(styleObj)
     }, styleObj.icon, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, styleObj.label));
   };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
@@ -10385,6 +10386,38 @@ let heroStyles = [{
   })),
   label: "Bold Caption",
   value: "caption"
+}, {
+  icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 124 60"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("rect", {
+    width: "124",
+    height: "60",
+    fill: "#4a4b4c"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("rect", {
+    x: "6.74",
+    y: "35.51",
+    width: "73.82",
+    height: "17.01",
+    fill: "#231f20"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("rect", {
+    x: "11.94",
+    y: "31.69",
+    width: "50.06",
+    height: "6.96",
+    rx: "3.19",
+    fill: "#fff"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("rect", {
+    x: "11.94",
+    y: "42.95",
+    width: "60.28",
+    height: "3.19",
+    rx: "1.08",
+    fill: "#fff"
+  })),
+  label: "Boxed",
+  value: "boxed",
+  prefix: 'wsu-style--'
 }];
 const Edit = props => {
   var _attributes$className;

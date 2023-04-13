@@ -30,9 +30,11 @@ const PanelStyleOptions= ( props ) => {
     let currentValue = getBlockClassNameValue( classString, prefix );
 
 
-    const setStyleClassNames = ( value ) => {
+    const setStyleClassNames = ( styleObj ) => {
 
-            let updatedClasses = addBlockClassName( classString, prefix, value );
+            let itemPrefix = ( 'prefix' in styleObj ) ? styleObj.prefix : prefix;
+
+            let updatedClasses = addBlockClassName( classString, itemPrefix, styleObj.value );
     
             setAttributes( { [setKey]: updatedClasses } );
     
@@ -45,7 +47,7 @@ const PanelStyleOptions= ( props ) => {
             <Button 
                 key={styleObj.label}
                 isPressed={ ( currentValue == styleObj.value ) }
-                onClick={ () => setStyleClassNames( styleObj.value ) }
+                onClick={ () => setStyleClassNames( styleObj ) }
                 >
                 {styleObj.icon}
                 <span>{styleObj.label}</span>
