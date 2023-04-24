@@ -26,7 +26,7 @@ class Block_WSUWP_Hero extends Block {
 		'pattern'           => 'wsu-light-radial-left',
 		'overlay'           => 'dark-left',
 		'backgroundVideo'   => false,
-		'backgroundType'    => '',
+		'backgroundType'    => 'image',
 		'sliderImages'      => array(),
 		'sliderEffect'      => 'fade',
 		'sliderDelay'       => 5000,

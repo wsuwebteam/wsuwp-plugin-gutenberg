@@ -6844,7 +6844,7 @@ const edit = props => {
   }, attributes.iconBefore && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("i", {
     className: `wsu-icon wsu-i-${attributes.iconBefore}`
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(RichText, {
-    allowedFormats: [],
+    allowedFormats: ['core/italic'],
     withoutInteractiveFormatting: true,
     disableLineBreaks: true,
     multiline: false,
@@ -8537,7 +8537,7 @@ const Edit = props => {
     onChange: useFeed => setAttributes({
       useFeed
     }),
-    help: "Feed in post, pages, or other content automatically into card group."
+    help: "Feed in post, pages, or other content automatically into carousel."
   }), attributes.useFeed && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
     label: "Show Image",
     checked: attributes.showImage,
@@ -8653,7 +8653,7 @@ const Edit = props => {
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerBlocks, {
     template: blockTemplate,
     templateLock: false,
-    allowedBlocks: ['wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/stat', 'wsuwp/news-cards', 'core/image']
+    allowedBlocks: ['wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/news-cards', 'core/image']
   }), attributes.useFeed && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_components_blockComponents__WEBPACK_IMPORTED_MODULE_6__.ApiRenderBlock, {
     attributes: attributes,
     blockName: "wsuwp/card-group"

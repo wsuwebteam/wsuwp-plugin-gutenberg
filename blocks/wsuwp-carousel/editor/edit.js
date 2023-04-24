@@ -131,7 +131,7 @@ const Edit = ( props ) => {
 					label="Feed Content"
 					checked={attributes.useFeed}
 					onChange={ ( useFeed ) => setAttributes( { useFeed } ) }
-					help="Feed in post, pages, or other content automatically into card group."
+					help="Feed in post, pages, or other content automatically into carousel."
 				/>
 				{ attributes.useFeed && (
 					<>
@@ -262,7 +262,7 @@ const Edit = ( props ) => {
 				<InnerBlocks
 					template={ blockTemplate }
 					templateLock={ false }
-					allowedBlocks={ [ 'wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/stat', 'wsuwp/news-cards', 'core/image' ] }
+					allowedBlocks={ [ 'wsuwp/card', 'wsuwp/container', 'wsuwp/overlap-spotlight', 'core/quote', 'wsuwp/news-cards', 'core/image' ] }
 				/>
 				{ attributes.useFeed && <ApiRenderBlock
 					attributes={attributes}
