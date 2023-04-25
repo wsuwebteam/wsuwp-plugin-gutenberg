@@ -72,8 +72,13 @@ const Edit = ( props ) => {
     return (
 		<>
 		<InspectorControls>
-            <PanelDisplayOptions isOpen={true} >
-	
+            <PanelDisplayOptions isOpen={true} > 
+				<ToggleControl
+					label="Reverse column order, right column over left"
+					help="Column order will be stacked with left column over right column on screens less than tablet (768 px)"
+					checked={ hasBlockClassName( attributes, 'wsu-overlap--reversed') }
+					onChange={ ( reversedCols ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-overlap--reversed', reversedCols ) } }
+					/>
             </PanelDisplayOptions>
 			{attributes.developerTools && <PanelDeveloperTools 
 				{ ...props}

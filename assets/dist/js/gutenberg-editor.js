@@ -8537,7 +8537,7 @@ const Edit = props => {
     onChange: useFeed => setAttributes({
       useFeed
     }),
-    help: "Feed in post, pages, or other content automatically into card group."
+    help: "Feed in post, pages, or other content automatically into carousel."
   }), attributes.useFeed && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
     label: "Show Image",
     checked: attributes.showImage,
@@ -12923,7 +12923,14 @@ const Edit = props => {
   }];
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelDisplayOptions, {
     isOpen: true
-  }), attributes.developerTools && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelDeveloperTools, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+    label: "Reverse column order, right column over left",
+    help: "Column order will be stacked with left column over right column on screens less than tablet (768 px)",
+    checked: (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__.hasBlockClassName)(attributes, 'wsu-overlap--reversed'),
+    onChange: reversedCols => {
+      (0,_assets_src_js_partials_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_4__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-overlap--reversed', reversedCols);
+    }
+  })), attributes.developerTools && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_3__.PanelDeveloperTools, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
     maxWidth: true,
     alignItem: true,
     positionElement: true
