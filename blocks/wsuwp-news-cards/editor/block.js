@@ -71,6 +71,10 @@
                 type: 'boolean',
                 default: false,
             },
+            linkCard: {
+                type: 'boolean',
+                default: false,
+            },
             postType: {
                 type: 'string',
                 default: 'post',

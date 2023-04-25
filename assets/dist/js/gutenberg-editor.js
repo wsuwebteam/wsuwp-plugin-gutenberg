@@ -6844,7 +6844,7 @@ const edit = props => {
   }, attributes.iconBefore && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("i", {
     className: `wsu-icon wsu-i-${attributes.iconBefore}`
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(RichText, {
-    allowedFormats: [],
+    allowedFormats: ['core/italic'],
     withoutInteractiveFormatting: true,
     disableLineBreaks: true,
     multiline: false,
@@ -11243,6 +11243,10 @@ registerBlockType("wsuwp/news-cards", {
       type: 'boolean',
       default: false
     },
+    linkCard: {
+      type: 'boolean',
+      default: false
+    },
     postType: {
       type: 'string',
       default: 'post'
@@ -11499,7 +11503,7 @@ const NewsCardDisplayOptions = props => {
         hideImage
       });
     }
-  }));
+  }), props.children);
 };
 const FeedPlaceHolder = () => {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
@@ -11526,7 +11530,13 @@ const Edit = props => {
 
   // console.log( attributes.queryTerms ); 
 
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(NewsCardDisplayOptions, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedPanel, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(NewsCardDisplayOptions, props, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+    label: "Link Full Card",
+    checked: attributes.linkCard,
+    onChange: linkCard => setAttributes({
+      linkCard
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_feed_controls_feed_controls__WEBPACK_IMPORTED_MODULE_5__.FeedPanel, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl, {
     className: "wsu-settings__base-control",
     help: ""
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl.VisualLabel, {

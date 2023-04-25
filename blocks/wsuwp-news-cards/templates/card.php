@@ -1,7 +1,7 @@
 <article class="wsu-card wsu-card--news <?php echo esc_attr( $attrs['cardClassName'] );?>">
 	<?php if ( empty( $attrs['hideImage'] ) && ! empty( $post['imageSrc'] ) ) : ?>
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
-		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>"><?php endif; ?>
+		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>" tabindex="-1" aria-hidden="true"><?php endif; ?>
 			<img src="<?php echo esc_attr( $post['imageSrc'] );?>"
 				srcset="<?php echo esc_attr( $post['imageSrcSet'] ); ?>"
 				sizes="<?php echo esc_attr( $post['imageSizes'] );?>"
@@ -28,4 +28,5 @@
 		</div>
 		<?php endif; ?>
 	</div>
+	<?php if ( empty( $attrs['hideLink'] ) && ! empty( $attrs['linkCard'] ) ) : ?><a class='wsu-card__link' href="<?php echo esc_url( $post['link'] ); ?>" aria-hidden="true" tabindex="-1" ></a><?php endif; ?>
 </article>

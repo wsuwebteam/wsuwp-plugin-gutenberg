@@ -506,7 +506,7 @@ const edit = (props) => {
             <i className={`wsu-icon wsu-i-${attributes.iconBefore}`}></i>
           )}
           <RichText
-            allowedFormats={[]}
+            allowedFormats={['core/italic']}
             withoutInteractiveFormatting={true}
             disableLineBreaks={true}
             multiline={false}
