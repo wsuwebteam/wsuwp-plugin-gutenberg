@@ -79,7 +79,6 @@ const Edit = ( props ) => {
 	]
 
 
-
     return (
 		<>
 		<InspectorControls>
