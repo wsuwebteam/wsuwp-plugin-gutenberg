@@ -4,7 +4,7 @@
     </<?php echo esc_attr( $attrs['headingTag'] ); ?>>
     <div id="unique-id-1__content" class="wsu-accordion__content" aria-labelledby="unique-id-1__title">
         <div class="wsu-accordion__content-inner">
-            <?php echo wp_kses_post( $content ); ?>
+            <?php echo $content; ?>
         </div>
     </div>
 </div>

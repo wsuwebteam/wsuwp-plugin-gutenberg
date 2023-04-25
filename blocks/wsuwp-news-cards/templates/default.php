@@ -6,7 +6,7 @@
         <?php if ( ! empty( $attrs['linkHeading'] ) && ! empty( $attrs['buttonLink'] ) ) : ?></a><?php endif; ?>
     </h2>
     <?php endif; ?>
-    <?php echo wp_kses_post( $content ); ?>
+    <?php echo $content; ?>
     <?php if ( ! empty( $attrs['showButton'] ) && ! empty( $attrs['buttonLink'] ) && ! empty( $attrs['buttonText'] ) ) : ?>
     <div class="wsu-card-wrapper__footer">
         <a class="wsu-button" href="<?php echo esc_url( $attrs['buttonLink'] ); ?>"><?php echo wp_kses_post( $attrs['buttonText'] ); ?></a>
