@@ -23,6 +23,7 @@
 	</div>
 	<div class="wsu-hero__content-wrapper">
 		<div class="wsu-hero__inner-content-wrapper">
+			<?php if ( ! empty( $attrs['title'] ) || ! empty( $attrs['caption'] ) ) : ?>
 			<div class="wsu-hero__title-wrapper">
 				<?php if ( ! empty( $attrs['title'] ) ) : ?><div class="wsu-hero__title"><?php echo wp_kses_post( $attrs['title'] ); ?></div><?php endif; ?>
 				<?php if ( ! empty( $attrs['caption'] ) ) : ?><div class="wsu-hero__caption"><?php echo wp_kses_post( $attrs['caption'] ); ?></div><?php endif; ?>
@@ -32,6 +33,7 @@
 				</a>
 				<?php endif; ?>
 			</div>
+			<?php endif; ?>
 			<div class="wsu-hero__content">
 			</div>
 		</div>
