@@ -224,6 +224,18 @@ const setBlockClassName = ( attributes, setAttributes, prefix, value, setKey = '
 }
 
 
+const setBlockClassBool = ( attributes, setAttributes, prefix, value, bool, setKey = 'className' ) => {
+
+    value = ( bool ) ? value : '';
+
+    setBlockClassName( attributes, setAttributes, prefix, value, setKey );
+
+}
+
+
+/**
+ * LEGACY: setBlockClassNameBool | USE setBlockClassBool instead
+ */
 const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value, setKey = 'className' ) => {
 
     let classNames;
@@ -284,4 +296,4 @@ const setChildBlockClassName = ( clientId, prefix, value, setKey = 'className' )
 
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool, setChildBlockClassName } 
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassBool, setBlockClassNameBool, setChildBlockClassName } 
