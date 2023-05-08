@@ -1,5 +1,5 @@
 import { ToggleControl } from '@wordpress/components';
-import { hasBlockClassName, setBlockClassNameBool } from '../block-utilities/blockUtilities';
+import { hasBlockClassName, setBlockClassNameBool, setBlockClassBool } from '../block-utilities/blockUtilities';
 
 const DropShadowControl = ( props ) => {
 
@@ -15,7 +15,7 @@ const DropShadowControl = ( props ) => {
             label={ label }
             classkey={classKey}
             checked={ hasBlockClassName( attributes, 'wsu-dropshadow--medium', classKey ) }
-			onChange={ ( dropShadow ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-dropshadow--medium', dropShadow, classKey ) } }
+			onChange={ ( dropShadow ) => { setBlockClassBool( attributes, setAttributes, 'wsu-dropshadow--', 'medium', dropShadow, classKey ) } }
             />
     )
     

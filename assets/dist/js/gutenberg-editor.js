@@ -769,7 +769,7 @@ const DropShadowControl = props => {
     classkey: classKey,
     checked: (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.hasBlockClassName)(attributes, 'wsu-dropshadow--medium', classKey),
     onChange: dropShadow => {
-      (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.setBlockClassNameBool)(attributes, setAttributes, 'wsu-dropshadow--medium', dropShadow, classKey);
+      (0,_block_utilities_blockUtilities__WEBPACK_IMPORTED_MODULE_2__.setBlockClassBool)(attributes, setAttributes, 'wsu-dropshadow--', 'medium', dropShadow, classKey);
     }
   });
 };
@@ -4297,6 +4297,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getBlockClassNameValue": function() { return /* binding */ getBlockClassNameValue; },
 /* harmony export */   "hasBlockClassName": function() { return /* binding */ hasBlockClassName; },
 /* harmony export */   "removeBlockClassName": function() { return /* binding */ removeBlockClassName; },
+/* harmony export */   "setBlockClassBool": function() { return /* binding */ setBlockClassBool; },
 /* harmony export */   "setBlockClassName": function() { return /* binding */ setBlockClassName; },
 /* harmony export */   "setBlockClassNameBool": function() { return /* binding */ setBlockClassNameBool; },
 /* harmony export */   "setChildBlockClassName": function() { return /* binding */ setChildBlockClassName; },
@@ -4448,6 +4449,15 @@ const setBlockClassName = function (attributes, setAttributes, prefix, value) {
   }
   setClassName(classNames, prefix, value, setAttributes, setKey);
 };
+const setBlockClassBool = function (attributes, setAttributes, prefix, value, bool) {
+  let setKey = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'className';
+  value = bool ? value : '';
+  setBlockClassName(attributes, setAttributes, prefix, value, setKey);
+};
+
+/**
+ * LEGACY: setBlockClassNameBool | USE setBlockClassBool instead
+ */
 const setBlockClassNameBool = function (attributes, setAttributes, blockClass, value) {
   let setKey = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'className';
   let classNames;
@@ -4503,6 +4513,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getBlockClassNameValue": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.getBlockClassNameValue; },
 /* harmony export */   "hasBlockClassName": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.hasBlockClassName; },
 /* harmony export */   "removeBlockClassName": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.removeBlockClassName; },
+/* harmony export */   "setBlockClassBool": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.setBlockClassBool; },
 /* harmony export */   "setBlockClassName": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.setBlockClassName; },
 /* harmony export */   "setBlockClassNameBool": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.setBlockClassNameBool; },
 /* harmony export */   "setChildBlockClassName": function() { return /* reexport safe */ _blockClassName__WEBPACK_IMPORTED_MODULE_1__.setChildBlockClassName; },
@@ -4510,6 +4521,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _getBlockClassNameOption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getBlockClassNameOption */ "./assets/src/js/partials/block-utilities/getBlockClassNameOption.js");
 /* harmony import */ var _blockClassName__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blockClassName */ "./assets/src/js/partials/block-utilities/blockClassName.js");
+
 
 
 
