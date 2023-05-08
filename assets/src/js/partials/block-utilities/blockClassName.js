@@ -68,13 +68,13 @@ const addBlockClassName = ( attributes, prefix, value, remove = true ) => {
 
 }
 
-const hasBlockClassName = ( attributes, value ) => {
+const hasBlockClassName = ( attributes, value, setKey = 'className' ) => {
 
     let classNames;
 
     if ( typeof attributes === 'object' ) {
 
-        classNames = attributes.className ?? '';
+        classNames = attributes[ setKey ] ?? '';
 
     } else {
 
@@ -224,9 +224,19 @@ const setBlockClassName = ( attributes, setAttributes, prefix, value, setKey = '
 }
 
 
-const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) => {
+const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value, setKey = 'className' ) => {
 
-    let classNames = attributes.className ?? '';
+    let classNames;
+    
+    if ( typeof attributes === 'object' ) {
+
+        classNames = attributes[ setKey ] ?? '';
+
+    } else {
+
+        classNames = attributes ?? '';
+        
+    }
 
     let classArray = classNames.split(' ');
 
