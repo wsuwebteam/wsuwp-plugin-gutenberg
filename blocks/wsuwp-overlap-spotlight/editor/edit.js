@@ -1,5 +1,5 @@
 import { InnerBlocks, InspectorControls, useBlockProps, InspectorAdvancedControls} from '@wordpress/block-editor';
-import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl, ImageFrameControl,MaxWidthControl, BorderControl, AlignItemControl, DropShadowControl } from '../../../assets/src/js/partials/block-controls/blockControls';
+import { ColorClassNameSelector, SpacingClassNameSelector, BreakPointControl, ImageFrameControl,MaxWidthControl, BorderControl, AlignItemControl, NotchControl, DropShadowControl } from '../../../assets/src/js/partials/block-controls/blockControls';
 import { PanelStyleOptions, PanelDisplayOptions, PanelImageOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import { useEffect, useState } from '@wordpress/element';
 
@@ -211,6 +211,7 @@ const Edit = ( props ) => {
 						max={ 9 }
 					/>
 					<DropShadowControl {...props} label='Enable Drop Shadow on Content' classKey='captionClasses' />
+					<NotchControl {...props} label='Enable Notch on Image' classKey='imageClasses' help='Note: The notch will not appear in the editor.' />
 					<BorderControl {...props} classKey='captionClasses' />
 					<MaxWidthControl {...props} />
 					<AlignItemControl {...props} />
