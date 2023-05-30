@@ -14428,7 +14428,7 @@ function Edit(props) {
     return sources[attributes.data_source];
   }
   function getApiEndpoint() {
-    const path = "/wp-json/peopleapi/v1/people?";
+    const path = apiBaseUrl.includes('?') ? '' : "/wp-json/peopleapi/v1/people?";
     if ((0,_helpers__WEBPACK_IMPORTED_MODULE_5__.isValidUrl)(apiBaseUrl, path)) {
       return new URL(path, apiBaseUrl).href;
     } else {
