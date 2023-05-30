@@ -17,6 +17,8 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	DropShadowControl,
+	NotchControl,
 	AlignItemControl,
 	MaxWidthControl,
 	BorderControl,
@@ -89,6 +91,8 @@ const Edit = ( props ) => {
 				<BorderControl {...props} />
 				<AlignItemControl {...props} />
 				<MaxWidthControl {...props} />
+				<DropShadowControl {...props} label='Enable Drop Shadow on Container' />
+				<NotchControl {...props} label='Enable Notch on Container' help='Note: Notch and Dropshadow are incompatible.' />
             </PanelDisplayOptions>
 			<PanelColorOptions>
 				<ColorClassControl
