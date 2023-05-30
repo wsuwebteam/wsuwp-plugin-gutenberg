@@ -39,6 +39,10 @@
                 type: 'boolean',
                 default: false,
             },
+            allowVideo: {
+                type: 'boolean',
+                default: false,
+            },
             showButton: {
                 type: 'boolean',
                 default: false,

@@ -299,6 +299,11 @@ class Query_Posts {
 
 				}
 
+				$wsu_post['youtubeVideo']    = get_post_meta( $wsu_post['id'], '_wsu_featured_video_youtube', true );
+				$wsu_post['vimeoVideo']      = get_post_meta( $wsu_post['id'], '_wsu_featured_video_vimeo', true );
+				$wsu_post['thumbnailVideo']  = get_post_meta( $wsu_post['id'], '_wsu_featured_thumbnail_video', true );
+
+
 				$posts[] = $wsu_post;
 
 			}

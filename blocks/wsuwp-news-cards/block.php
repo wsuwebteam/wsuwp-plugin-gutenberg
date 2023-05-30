@@ -22,6 +22,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'hideDate'          => false,
 		'hideCaption'       => true,
 		'hideImage'         => false,
+		'allowVideo'        => false,
 		'hideLink'          => false,
 		'requireFirstImage' => false,
 		'requireImage'      => false,

@@ -120,6 +120,11 @@ const NewsCardDisplayOptions = ( props ) => {
                 checked={ attributes.hideImage }
                 onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
                 />
+            <ToggleControl
+                label="Allow Video"
+                checked={ attributes.allowVideo }
+                onChange={ ( allowVideo ) => { setAttributes( { allowVideo } ) } }
+                />
             {props.children}						
         </PanelDisplayOptions>
 
