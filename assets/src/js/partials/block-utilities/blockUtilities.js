@@ -6,5 +6,6 @@ export { removeBlockClassName as removeBlockClassName } from './blockClassName';
 export { setClassName as setClassName } from './blockClassName';
 export { setBlockClassName as setBlockClassName } from './blockClassName';
 export { addBlockClassName as addBlockClassName  } from './blockClassName';
+export { setBlockClassBool as setBlockClassBool } from './blockClassName';
 export { setBlockClassNameBool as setBlockClassNameBool } from './blockClassName';
 export { setChildBlockClassName as setChildBlockClassName } from './blockClassName';

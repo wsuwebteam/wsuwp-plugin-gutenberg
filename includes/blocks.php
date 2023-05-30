@@ -4,34 +4,34 @@ class Blocks {
 
 
 	protected static $register_blocks = array(
-		'wsuwp/news-list'   => 'Block_WSUWP_News_List',
-		'wsuwp/row'         => 'Block_WSUWP_Row',
-		'wsuwp/column'      => 'Block_WSUWP_Column',
-		'wsuwp/banner'      => 'Block_WSUWP_Banner',
-		'wsuwp/decorator'   => 'Block_WSUWP_Decorator',
-		'wsuwp/news'        => 'Block_WSUWP_News',
-		'wsuwp/callout'     => 'Block_WSUWP_Callout',
-		'wsuwp/note'        => 'Block_WSUWP_Note',
-		'wsuwp/hero'        => 'Block_WSUWP_Hero',
-		'wsuwp/hero-slider' => 'Block_WSUWP_Hero_Slider',
-		'wsuwp/image'       => 'Block_WSUWP_Image',
-		'wsuwp/pagetitle'   => 'Block_WSUWP_Page_Title',
-		'wsuwp/news-cards'  => 'Block_WSUWP_News_Cards',
-		'wsuwp/accordion'   => 'Block_WSUWP_Accordion',
-		'wsuwp/section'     => 'Block_WSUWP_Section',
-		'wsuwp/people-list'         => 'Block_WSUWP_People_List',
-		'wsuwp/button'              => 'Block_WSUWP_Button',
-		'wsuwp/card'                => 'Block_WSUWP_Card',
-		'wsuwp/card-group'          => 'Block_WSUWP_Card_Group',
+		'wsuwp/news-list'         => 'Block_WSUWP_News_List',
+		'wsuwp/row'               => 'Block_WSUWP_Row',
+		'wsuwp/column'            => 'Block_WSUWP_Column',
+		'wsuwp/banner'            => 'Block_WSUWP_Banner',
+		'wsuwp/decorator'         => 'Block_WSUWP_Decorator',
+		'wsuwp/news'              => 'Block_WSUWP_News',
+		'wsuwp/callout'           => 'Block_WSUWP_Callout',
+		'wsuwp/note'              => 'Block_WSUWP_Note',
+		'wsuwp/hero'              => 'Block_WSUWP_Hero',
+		'wsuwp/hero-slider'       => 'Block_WSUWP_Hero_Slider',
+		'wsuwp/image'             => 'Block_WSUWP_Image',
+		'wsuwp/pagetitle'         => 'Block_WSUWP_Page_Title',
+		'wsuwp/news-cards'        => 'Block_WSUWP_News_Cards',
+		'wsuwp/accordion'         => 'Block_WSUWP_Accordion',
+		'wsuwp/section'           => 'Block_WSUWP_Section',
+		'wsuwp/people-list'       => 'Block_WSUWP_People_List',
+		'wsuwp/button'            => 'Block_WSUWP_Button',
+		'wsuwp/card'              => 'Block_WSUWP_Card',
+		'wsuwp/card-group'        => 'Block_WSUWP_Card_Group',
 		'wsuwp/carousel'          => 'Block_WSUWP_Carousel',
-		'wsuwp/container'           => 'Block_WSUWP_Container',
-		'wsuwp/menu'                => 'Block_WSUWP_Menu',
-		'wsuwp/stat'                => 'Block_WSUWP_Stat',
-		'wsuwp/sticky-nav'          => 'Block_WSUWP_Sticky_Nav',
-		'wsuwp/outline-header'      => 'Block_WSUWP_Outline_Header',
-		'wsuwp/overlap-advanced'    => 'Block_WSUWP_Overlap_Advanced',
-		'wsuwp/overlap-column'      => 'Block_WSUWP_Overlap_Column',
-		'wsuwp/overlap-spotlight'   => 'Block_WSUWP_Overlap_Spotlight',
+		'wsuwp/container'         => 'Block_WSUWP_Container',
+		'wsuwp/menu'              => 'Block_WSUWP_Menu',
+		'wsuwp/stat'              => 'Block_WSUWP_Stat',
+		'wsuwp/sticky-nav'        => 'Block_WSUWP_Sticky_Nav',
+		'wsuwp/outline-header'    => 'Block_WSUWP_Outline_Header',
+		'wsuwp/overlap-advanced'  => 'Block_WSUWP_Overlap_Advanced',
+		'wsuwp/overlap-column'    => 'Block_WSUWP_Overlap_Column',
+		'wsuwp/overlap-spotlight' => 'Block_WSUWP_Overlap_Spotlight',
 	);
 
 	protected static $allowed_blocks = array(
@@ -151,12 +151,14 @@ class Blocks {
 				);
 			}
 		}
+
 	}
 
 
 	public static function remove_blocks( $allowed_blocks ) {
 
-		return self::$allowed_blocks;
+		$allowed_blocks = apply_filters( 'wsu_allowed_blocks_filter', self::$allowed_blocks );
+		return $allowed_blocks;
 
 	}
 

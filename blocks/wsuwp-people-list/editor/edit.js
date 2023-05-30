@@ -80,11 +80,11 @@ export default function Edit(props) {
   }
 
   function getApiEndpoint() {
-    const path = "/wp-json/peopleapi/v1/people?";
+    const path = ( apiBaseUrl.includes('?') ) ? '' : "/wp-json/peopleapi/v1/people?";
     if (isValidUrl(apiBaseUrl, path)) {
       return new URL(path, apiBaseUrl).href;
     } else {
-      return "";
+      return ""; 
     }
   }
 
@@ -93,7 +93,7 @@ export default function Edit(props) {
 
     if (value) {
       if (selectedItemList.indexOf(option) === -1) {
-        selectedItemList.push(option);
+        selectedItemList.push(option);    
       }
     } else {
       selectedItemList = selectedItemList.filter((v) => v !== option);

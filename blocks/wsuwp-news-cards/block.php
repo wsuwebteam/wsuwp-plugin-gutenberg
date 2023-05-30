@@ -42,6 +42,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'linkHeading'       => false,
 		'useAndLogic'       => false,
 		'cardClassName'     => '',
+		'linkCard'          => '',
 	);
 
 

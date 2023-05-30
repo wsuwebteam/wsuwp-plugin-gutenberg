@@ -15,7 +15,7 @@ class Block_WSUWP_Note extends Block {
 
 	public static function render( $attrs, $content = '' ) {
 
-		$note_tag = ( $attrs['useAsideTag'] ) ? 'aside' : $attrs['titleTag'];
+		$note_tag = ( $attrs['useAsideTag'] ) ? 'aside' : 'div';
 
 		ob_start();
 
