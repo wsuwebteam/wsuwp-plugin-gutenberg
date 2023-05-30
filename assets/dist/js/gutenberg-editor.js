@@ -11341,6 +11341,10 @@ registerBlockType("wsuwp/news-cards", {
       type: 'boolean',
       default: false
     },
+    allowVideo: {
+      type: 'boolean',
+      default: false
+    },
     showButton: {
       type: 'boolean',
       default: false
@@ -11631,6 +11635,14 @@ const NewsCardDisplayOptions = props => {
     onChange: hideImage => {
       setAttributes({
         hideImage
+      });
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+    label: "Allow Video",
+    checked: attributes.allowVideo,
+    onChange: allowVideo => {
+      setAttributes({
+        allowVideo
       });
     }
   }), props.children);
