@@ -12073,6 +12073,10 @@ registerBlockType("wsuwp/news", {
       type: 'boolean',
       default: false
     },
+    allowVideo: {
+      type: 'boolean',
+      default: false
+    },
     postType: {
       type: 'string',
       default: 'post'
@@ -12259,6 +12263,14 @@ const Edit = _ref => {
     onChange: hideShownPosts => {
       setAttributes({
         hideShownPosts
+      });
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Allow Video",
+    checked: attributes.allowVideo,
+    onChange: allowVideo => {
+      setAttributes({
+        allowVideo
       });
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_1__.PerRow, {

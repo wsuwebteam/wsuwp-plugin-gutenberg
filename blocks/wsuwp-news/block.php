@@ -20,6 +20,7 @@ class Block_WSUWP_News extends Block {
 		'hideCaption'       => false,
 		'hideImage'         => false,
 		'hideLink'          => false,
+		'allowVideo'        => false,
 		'requireFirstImage' => false,
 		'requireImage'      => false,
 		'imageSize'         => 'large',
