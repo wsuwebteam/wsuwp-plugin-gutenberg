@@ -1,5 +1,9 @@
 <article class="<?php echo esc_attr( $card_classes ); ?>">
-	<?php if ( ! empty( $card['imageSrc'] ) ) : ?>
+	<?php if ( ! empty( $attrs['allowVideo'] ) && ! empty( $card['thumbnailVideo'] ) ) : ?>
+	<div class="wsu-card__video-wrapper" <?php if ( ! empty( $card['imageSrc'] ) ) : ?> style="background-image:url(<?php echo esc_attr( $card['imageSrc'] ); ?>)"<?php endif; ?>>
+		<iframe class="wsu-featured-video wsu-featured-video--vimeo" src="https://player.vimeo.com/video/<?php echo esc_attr( $card['thumbnailVideo'] ); ?>?background=1" width="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" title="WSU" style="aspect-ratio: 16 / 9; max-width: 100%;"></iframe>
+	</div>
+	<?php elseif ( ! empty( $card['imageSrc'] ) ) : ?>
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
 		<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>
 			<img src="<?php echo esc_attr( $card['imageSrc'] );?>"

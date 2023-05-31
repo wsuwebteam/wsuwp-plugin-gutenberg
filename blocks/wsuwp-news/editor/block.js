@@ -48,6 +48,10 @@
                 type: 'boolean',
                 default: false,
             },
+            allowVideo: {
+                type: 'boolean',
+                default: false,
+            },
             postType: {
                 type: 'string',
                 default: 'post',
