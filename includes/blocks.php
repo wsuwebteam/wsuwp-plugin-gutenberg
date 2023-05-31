@@ -58,6 +58,8 @@ class Blocks {
 		'wsuwp/carousel',
 		'wsuwp/az-index',
 		'wsuwp/programs-list',
+		'wsuwp/scholarships-search',
+		'wsuwp/scholarships-list',
 		'wsuwp/outline-header',
 		'wsuwp/overlap-advanced',
 		'wsuwp/overlap-spotlight',
