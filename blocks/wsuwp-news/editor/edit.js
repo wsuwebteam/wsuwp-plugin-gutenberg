@@ -100,6 +100,11 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 							label="Hide Shown Posts"
 							checked={ attributes.hideShownPosts }
 							onChange={ ( hideShownPosts ) => { setAttributes( { hideShownPosts } ) } }
+							/>
+						<ToggleControl
+							label="Allow Video"
+							checked={ attributes.allowVideo }
+							onChange={ ( allowVideo ) => { setAttributes( { allowVideo } ) } }
 							/>						
 						<PerRow
 							label="Cards Per Row"

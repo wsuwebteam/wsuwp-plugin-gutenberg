@@ -97,6 +97,10 @@ class WSU_Query {
 
 		}
 
+		$post['youtubeVideo']    = get_post_meta( $wp_post->ID, '_wsu_featured_video_youtube', true );
+		$post['vimeoVideo']      = get_post_meta( $wp_post->ID, '_wsu_featured_video_vimeo', true );
+		$post['thumbnailVideo']  = get_post_meta( $wp_post->ID, '_wsu_featured_thumbnail_video', true );
+
 		return $post;
 
 	}
