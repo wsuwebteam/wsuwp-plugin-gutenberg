@@ -279,25 +279,32 @@ class Query_Posts {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
 
-				$post['id']      = get_the_ID();
-				$post['title']   = get_the_title();
-				$post['caption'] = get_the_excerpt();
-				$post['content'] = get_the_content();
-				$post['link']    = get_permalink();
-				$post['date']    = get_the_date();
+				$wsu_post = array();				
+
+				$wsu_post['id']      = get_the_ID();
+				$wsu_post['title']   = get_the_title();
+				$wsu_post['caption'] = get_the_excerpt();
+				$wsu_post['content'] = get_the_content();
+				$wsu_post['link']    = get_permalink();
+				$wsu_post['date']    = get_the_date();
 
 				if ( has_post_thumbnail() ) {
 
 					$image_id     = get_post_thumbnail_id();
 					$image_src_array      = wp_get_attachment_image_src( $image_id, 'large' );
-					$post['imageSrc']    = $image_src_array[0];
-					$post['imageSizes']  = wp_get_attachment_image_sizes( $image_id, $this->image_size );
-					$post['imageSrcSet'] = wp_get_attachment_image_srcset( $image_id, $this->image_size );
-					$post['imageAlt']    = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+					$wsu_post['imageSrc']    = $image_src_array[0];
+					$wsu_post['imageSizes']  = wp_get_attachment_image_sizes( $image_id, $this->image_size );
+					$wsu_post['imageSrcSet'] = wp_get_attachment_image_srcset( $image_id, $this->image_size );
+					$wsu_post['imageAlt']    = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
 				}
 
-				$posts[] = $post;
+				$wsu_post['youtubeVideo']    = get_post_meta( $wsu_post['id'], '_wsu_featured_video_youtube', true );
+				$wsu_post['vimeoVideo']      = get_post_meta( $wsu_post['id'], '_wsu_featured_video_vimeo', true );
+				$wsu_post['thumbnailVideo']  = get_post_meta( $wsu_post['id'], '_wsu_featured_thumbnail_video', true );
+
+
+				$posts[] = $wsu_post;
 
 			}
 		}

@@ -68,13 +68,13 @@ const addBlockClassName = ( attributes, prefix, value, remove = true ) => {
 
 }
 
-const hasBlockClassName = ( attributes, value ) => {
+const hasBlockClassName = ( attributes, value, setKey = 'className' ) => {
 
     let classNames;
 
     if ( typeof attributes === 'object' ) {
 
-        classNames = attributes.className ?? '';
+        classNames = attributes[ setKey ] ?? '';
 
     } else {
 
@@ -224,9 +224,31 @@ const setBlockClassName = ( attributes, setAttributes, prefix, value, setKey = '
 }
 
 
-const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value ) => {
+const setBlockClassBool = ( attributes, setAttributes, prefix, value, bool, setKey = 'className' ) => {
 
-    let classNames = attributes.className ?? '';
+    value = ( bool ) ? value : '';
+
+    setBlockClassName( attributes, setAttributes, prefix, value, setKey );
+
+}
+
+
+/**
+ * LEGACY: setBlockClassNameBool | USE setBlockClassBool instead
+ */
+const setBlockClassNameBool = ( attributes, setAttributes, blockClass, value, setKey = 'className' ) => {
+
+    let classNames;
+    
+    if ( typeof attributes === 'object' ) {
+
+        classNames = attributes[ setKey ] ?? '';
+
+    } else {
+
+        classNames = attributes ?? '';
+        
+    }
 
     let classArray = classNames.split(' ');
 
@@ -274,4 +296,4 @@ const setChildBlockClassName = ( clientId, prefix, value, setKey = 'className' )
 
 
 
-export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassNameBool, setChildBlockClassName } 
+export { addBlockClassName, hasBlockClassName, getBlockClassName, getBlockClassNameValue, removeBlockClassName, setClassName, setBlockClassName, setBlockClassBool, setBlockClassNameBool, setChildBlockClassName } 

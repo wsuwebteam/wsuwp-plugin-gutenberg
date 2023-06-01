@@ -1,7 +1,11 @@
-<article class="wsu-card wsu-card--news <?php echo esc_attr( $attrs['cardClassName'] );?>">
-	<?php if ( empty( $attrs['hideImage'] ) && ! empty( $post['imageSrc'] ) ) : ?>
+<article class="wsu-card wsu-card--news wsu-card--id-<?php echo esc_attr( $post['id'] );?> <?php echo esc_attr( $attrs['cardClassName'] );?>">
+	<?php if ( ! empty( $attrs['allowVideo'] ) && ! empty( $post['thumbnailVideo'] ) ) : ?>
+	<div class="wsu-card__video-wrapper" <?php if ( empty( $attrs['hideImage'] ) && ! empty( $post['imageSrc'] ) ) : ?> style="background-image:url(<?php echo esc_attr( $post['imageSrc'] ); ?>)"<?php endif; ?>>
+		<iframe class="wsu-featured-video wsu-featured-video--vimeo" src="https://player.vimeo.com/video/<?php echo esc_attr( $post['thumbnailVideo'] ); ?>?background=1" width="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" title="WSU" style="aspect-ratio: 16 / 9; max-width: 100%;"></iframe>
+	</div>
+	<?php elseif ( empty( $attrs['hideImage'] ) && ! empty( $post['imageSrc'] ) ) : ?>
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
-		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>"><?php endif; ?>
+		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>" tabindex="-1" aria-hidden="true"><?php endif; ?>
 			<img src="<?php echo esc_attr( $post['imageSrc'] );?>"
 				srcset="<?php echo esc_attr( $post['imageSrcSet'] ); ?>"
 				sizes="<?php echo esc_attr( $post['imageSizes'] );?>"
@@ -28,4 +32,5 @@
 		</div>
 		<?php endif; ?>
 	</div>
+	<?php if ( empty( $attrs['hideLink'] ) && ! empty( $attrs['linkCard'] ) ) : ?><a class='wsu-card__link' href="<?php echo esc_url( $post['link'] ); ?>" aria-hidden="true" tabindex="-1" ></a><?php endif; ?>
 </article>

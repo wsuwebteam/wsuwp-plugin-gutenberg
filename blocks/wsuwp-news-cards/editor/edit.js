@@ -119,7 +119,13 @@ const NewsCardDisplayOptions = ( props ) => {
                 label="Hide Image"
                 checked={ attributes.hideImage }
                 onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
-                />							
+                />
+            <ToggleControl
+                label="Allow Video"
+                checked={ attributes.allowVideo }
+                onChange={ ( allowVideo ) => { setAttributes( { allowVideo } ) } }
+                />
+            {props.children}						
         </PanelDisplayOptions>
 
     )
@@ -157,7 +163,13 @@ const Edit = ( props ) => {
     return (
         <>
             <InspectorControls>
-                <NewsCardDisplayOptions  { ...props } /> 
+                <NewsCardDisplayOptions  { ...props } >
+                    <ToggleControl
+						label="Link Full Card"
+						checked={attributes.linkCard}
+						onChange={ ( linkCard ) => setAttributes( { linkCard } ) }
+						/>
+                </NewsCardDisplayOptions> 
                 <FeedPanel>
                     <PanelRow>
                         <BaseControl className="wsu-settings__base-control" help="">
