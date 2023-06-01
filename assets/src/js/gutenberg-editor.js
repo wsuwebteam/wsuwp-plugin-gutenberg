@@ -1,4 +1,5 @@
 import "../js/partials/editor-config/constants";
+import "../js/partials/editor-config/block-scheduling";
 import "../../../blocks/wsuwp-accordion/editor/block";
 import "../../../blocks/wsuwp-callout/editor/block";
 import "../../../blocks/wsuwp-note/editor/block";
