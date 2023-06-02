@@ -74,6 +74,12 @@ function additionalAdvancedControls( OriginalComponent ) {
                 <InspectorAdvancedControls>
                     { supportsAnchor.includes( props.name ) && <AnchorControl  { ...props } ></AnchorControl> }
                     <PanelBody title="Additional Advanced Settings" initialOpen={ false } className="wsu-block-control-additional-advanced">
+                        <ToggleControl
+                            label="Enable block scheduling"
+                            checked={ props.attributes.blockSchedulingEnabled }
+                            onChange={ ( val ) => { setAttributes({blockSchedulingEnabled: val})  } }
+                            help='Inserts an additional editing panel above to schedule the display of blocks.'
+                        />
                         { ! unsupportedPosition.includes( props.name ) && <ToggleControl
                             label="Position Element"
                             checked={ hasBlockClassName( attributes, 'wsu-position--relative') }

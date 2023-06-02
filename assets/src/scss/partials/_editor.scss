@@ -62,6 +62,17 @@
 }
 /*=====  End of Input w/ Icon Control  ======*/
 
+/*=============================================
+=            Hack to give panels an order            =
+=============================================*/
+.block-editor-block-inspector {
+  & > div:not([class]) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+/*=====  End of Hack to give panels an order  ======*/
+
 /*===============================================================================
 =            Hack to hide panels on 5.6. TODO: Remove in 5.8 upgrade            =
 ===============================================================================*/

@@ -12,3 +12,4 @@ export {default as PanelDeveloperTools} from './PanelDeveloperTools';
 export {default as PanelImageOptions} from './PanelImageOptions';
 export {default as PanelContentOptions} from './PanelContentOptions';
 export {default as PanelLinkOptions} from './PanelLinkOptions';
+export {default as PanelBlockScheduling} from './block-scheduling-panel/PanelBlockScheduling';
