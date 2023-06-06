@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "wp-scripts start assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
 		"build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
-		"watch": "gulp watch"
+		"watch": "gulp watch",
+		"bundleStyle": "gulp bundleStyle"
 	},
 	"author": "",
 	"license": "ISC",
