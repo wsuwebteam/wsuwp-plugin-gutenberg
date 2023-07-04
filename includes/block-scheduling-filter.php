@@ -4,7 +4,7 @@ class BlockSchedulingFilter {
 
 	public static function render_block( $block_content, $block ) {
 
-		if ( ! is_admin() && true === $block['attrs']['blockSchedulingEnabled'] ) {
+		if ( ! is_admin() && isset( $block['attrs']['blockSchedulingEnabled'] ) && true === $block['attrs']['blockSchedulingEnabled'] ) {
 			$now       = new \DateTime();
 			$publish   = $block['attrs']['blockSchedulingPublishDateTime'] ? new \DateTime( $block['attrs']['blockSchedulingPublishDateTime'] ) : null;
 			$unpublish = $block['attrs']['blockSchedulingUnpublishDateTime'] ? new \DateTime( $block['attrs']['blockSchedulingUnpublishDateTime'] ) : null;
