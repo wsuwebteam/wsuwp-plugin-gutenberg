@@ -1,36 +1,38 @@
 {
-  "name": "wsuwp-plugin-gutenberg",
-  "version": "1.3.11",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "wp-scripts start assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
-    "build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
-    "watch": "gulp watch"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@wordpress/api-fetch": "^6.26.0",
-    "@wordpress/prettier-config": "^2.12.0",
-    "@wordpress/scripts": "^26.0.0",
-    "@wordpress/server-side-render": "^4.6.0",
-    "@wsuwebteam/build-tools": "latest",
-    "@wsuwebteam/wsu-web-design-system": "latest",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^2.3.0",
-    "gulp-minify": "^3.1.0",
-    "gulp-sass": "^4.1.0",
-    "prettier": "^2.8.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wsuwebteam/wsuwp-plugin-gutenberg.git"
-  },
-  "bugs": {
-    "url": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg/issues"
-  },
-  "homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme"
+	"name": "wsuwp-plugin-gutenberg",
+	"version": "1.3.11",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "wp-scripts start assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
+		"build": "wp-scripts build assets/src/js/gutenberg-editor.js --output-path=assets/dist/js/",
+		"watch": "gulp watch",
+		"bundleStyle": "gulp bundleStyle"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@wordpress/api-fetch": "^6.26.0",
+		"@wordpress/prettier-config": "^2.12.0",
+		"@wordpress/scripts": "^26.0.0",
+		"@wordpress/server-side-render": "^4.6.0",
+		"@wsuwebteam/build-tools": "latest",
+		"@wsuwebteam/wsu-web-design-system": "latest",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-cli": "^2.3.0",
+		"gulp-minify": "^3.1.0",
+		"gulp-sass": "^5.1.0",
+		"node-sass": "^8.0.0",
+		"prettier": "^2.8.4"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wsuwebteam/wsuwp-plugin-gutenberg.git"
+	},
+	"bugs": {
+		"url": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg/issues"
+	},
+	"homepage": "https://github.com/wsuwebteam/wsuwp-plugin-gutenberg#readme"
 }
