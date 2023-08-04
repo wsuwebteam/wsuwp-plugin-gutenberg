@@ -1,0 +1,12 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+@import '../../../node_modules/@wsuwebteam/wsu-web-design-system/_assets/scss/variables';
+
+.block-editor {
+  .wp-block[data-type="wsuwp/slate-form"] {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 2rem;
+      background-color: #ddd;
+  }
+}
