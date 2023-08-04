@@ -1,0 +1,12 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+.block-editor {
+
+    .wp-block[data-type="wsuwp/section"] {
+        
+        padding: 1.5rem;
+        margin-bottom: 2.25rem;
+    }
+ 
+}
