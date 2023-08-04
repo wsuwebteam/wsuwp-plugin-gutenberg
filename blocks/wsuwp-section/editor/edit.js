@@ -14,6 +14,8 @@ const {
 import { 
 	ColorClassControl,
 	SpacingClassNameSelector,
+	BorderControl,
+	
 } from "../../../assets/src/js/partials/block-controls/blockControls";
 
 import { 
@@ -37,7 +39,7 @@ const Edit = ( props ) => {
 	} = props;
 
 	const blockProps = useBlockProps( {
-        className: 'wsu-callout',
+        className: 'wsu-section',
         style: {},
     } );
 
@@ -69,7 +71,9 @@ const Edit = ( props ) => {
                     checked={ hasBlockClassName( attributes, 'wsu-width--full') }
                     onChange={ ( fullWidth ) => { setBlockClassNameBool( attributes, setAttributes, 'wsu-width--full', fullWidth ) } }
                     />
+				<BorderControl {...props} />
             </PanelDisplayOptions>
+			
 			<PanelColorOptions>
 				<ColorClassControl
 					{ ...props }
@@ -82,7 +86,7 @@ const Edit = ( props ) => {
 					colors={borderColors}
 					label='Border Color'
 					value='#e6e6e6'
-					prefix='wsu-callout--color-'
+					prefix='wsu-border--color-' 
 					/>
 			</PanelColorOptions>
 			<PanelAnimate { ...props } ></PanelAnimate>
