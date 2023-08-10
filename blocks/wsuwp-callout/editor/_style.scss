@@ -12,6 +12,10 @@
         padding-left: $wsu-gutenberg-spacing--block-inner;
         padding-right: $wsu-gutenberg-spacing--block-inner; 
 
-    } 
+    }
+
+    .wsu-callout.wsu-color-scheme--dark {
+        color: white;
+    }
 
 }
