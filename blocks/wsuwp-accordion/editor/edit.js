@@ -32,6 +32,7 @@ const {
 } = wp.blockEditor;
 
 import { SearchControl, TextControl, SelectControl, ToggleControl } from '@wordpress/components';
+import ColorSchemeControl from '../../../assets/src/js/partials/block-controls/ColorSchemeControl';
 
 const DEFAULT_SPACING = {
 	spaceBefore: 'none',
@@ -79,6 +80,7 @@ const Edit = ( props ) => {
                         checked={ hasBlockClassName( ( attributes.className ?? '' ), 'wsu-accordion--size-small'  ) }
                         onChange={ (value) => addSizeClassName( value ) }
                         />
+                    <ColorSchemeControl {...props} label='Enable Dark Mode' help='' />
                 </PanelDisplayOptions>
 			</InspectorControls>
             <div  { ...blockProps }>
