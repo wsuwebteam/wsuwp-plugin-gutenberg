@@ -116,6 +116,7 @@ const Edit = ( { className, attributes, setAttributes } ) => {
 					<PanelInsertPost 
 						attributes={attributes}
 						onChange={ ( value ) => setAttributes( { postIn: value } ) }
+						value={attributes.postIn}
 						postTypes={ [ 'news_article', 'press_release', 'announcement', 'post', 'page' ] }
 						placeholder="Search posts..."
 						/>

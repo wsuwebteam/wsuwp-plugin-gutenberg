@@ -11,6 +11,7 @@
 @import "../js/partials/block-controls/multiple-image-picker/style";
 @import "../js/partials/editor-config/additional-advanced-controls/style";
 @import "../js/partials/block-controls/svg-button-group-control/style";
+@import "../js/partials/block-controls/events-api-controls/event-picker";
 
 /** ===== Panels ===== */
 @import "../js/partials/block-panels/panel-style-options/style";
@@ -30,6 +31,7 @@
 @import "../../../blocks/wsuwp-note/editor/style";
 @import "../../../blocks/wsuwp-card-group/editor/style";
 @import "../../../blocks/wsuwp-card/editor/style";
+@import "../../../blocks/wsuwp-callout/editor/style";
 @import "../../../blocks/wsuwp-carousel/editor/style";
 @import "../../../blocks/wsuwp-column/editor/style";
 @import "../../../blocks/wsuwp-container/editor/style";

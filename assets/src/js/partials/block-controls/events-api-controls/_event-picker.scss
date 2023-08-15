@@ -1,0 +1,107 @@
+@import "../../../assets/src/scss/utilities/variables";
+@import "../../../assets/src/scss/utilities/mixins";
+
+$component-class-name: ".wsu-gutenberg-event-list";
+
+.block-editor #{$component-class-name} {
+	&__event-picker {
+	}
+
+	&__event-picker-selected-items {
+	}
+
+	&__event-picker-selected-item {
+	}
+
+	&__event-picker-selected-item-button,
+	&__event-picker-search-results-item-button {
+		text-align: left;
+		height: auto;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+		width: 100%;
+		border: 1px solid transparent;
+		border-radius: 6px;
+
+		&:hover,
+		&:focus {
+			border-color: #007cba;
+		}
+	}
+
+	&__event-picker-selected-item-text,
+	&__event-picker-search-results-text {
+		margin-right: 1em;
+		flex-grow: 1;
+		color: #007cba;
+		font-weight: 600;
+	}
+
+	&__event-picker-selected-item-subtext,
+	&__event-picker-search-results-subtext {
+		display: block;
+		font-size: 0.9em;
+		margin-top: 0.2em;
+		color: #555;
+	}
+
+	&__event-picker__remove-btn-icon {
+		background: #ca1237;
+		color: white;
+		border-radius: 100%;
+		width: 16px;
+		height: 16px;
+		line-height: 1;
+		font-size: 16px;
+	}
+
+	&__event-picker-input-container {
+		position: relative;
+
+		.components-spinner {
+			position: absolute;
+			right: 0.55em;
+			top: 6px;
+			margin: 0;
+		}
+	}
+	&__event-picker {
+		&.has-label {
+			.components-spinner {
+				top: 2.55em;
+			}
+		}
+	}
+
+	&__event-picker-input {
+	}
+
+	&__event-picker-error {
+		color: red;
+	}
+
+	&__event-picker-list-title {
+		margin-bottom: 0.5em;
+		background: #eee;
+		padding: 0.5em;
+	}
+
+	&__event-picker-search-results {
+		overflow-y: scroll;
+		max-height: 250px;
+	}
+
+	&__event-picker-search-results-item {
+	}
+
+	&__event-picker-search-results-item-button {
+	}
+
+	&__event-picker-selected-item-text {
+	}
+
+	&__event-picker-selected-item-subtext {
+	}
+}
