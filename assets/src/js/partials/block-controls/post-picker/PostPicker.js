@@ -11,19 +11,19 @@ import TextControl from './text-control';
 const CSSNAMESPACE = 'wsu-gutenberg-post-picker';
 
 const PostPicker = ( props ) => {
-    const { 
-        attributes,
-        onChange,
-        label = '',
+    const {
+		onChange,
         postTypes = [ 'post', 'page' ],
+        label = '',
+        value = '',
         placeholder = 'Search Content...'
     } = props;
 
-    const searchInputRef = useRef(null);    
+    const searchInputRef = useRef(null);
     const isMounted = useRef(false);
     const [searchString, setSearchString] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);	
+	const [isLoading, setIsLoading] = useState(false);
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [latestPosts, setLatestPosts] = useState([]);
 	const [postTypeData, setPostTypeData] = useState({});
@@ -32,10 +32,10 @@ const PostPicker = ( props ) => {
     const abortController = typeof AbortController === 'undefined' ? undefined : new AbortController();
 
     const handleItemSelection = (post) => {
-        if(attributes.postIn.split(',').includes(post.id.toString())) { return; }
+        if(value.split(',').includes(post.id.toString())) { return; }
 
 		setSelectedItems([...selectedItems, post]);
-        onChange([...attributes.postIn.split(','), post.id.toString()].join(','));
+        onChange([...value.split(','), post.id.toString()].join(','));
 
 		setSearchResults([]);
 		setSearchString('');
@@ -44,7 +44,7 @@ const PostPicker = ( props ) => {
 
     const handleItemRemove = (post) => {
         setSelectedItems(selectedItems.filter( (item) => (item.id !== post.id)));
-        onChange(attributes.postIn
+        onChange(value
             .split(',')
             .filter((id) => (id !== post.id.toString()))
             .join(','));
@@ -57,9 +57,9 @@ const PostPicker = ( props ) => {
 
     const getSelectedItems = async () => {
         try{
-            if(attributes.postIn.split(',').length === 0){ return; }
-    
-            const params = `ids=${attributes.postIn}`;
+            if(value.split(',').length === 0){ return; }
+
+            const params = `ids=${value}`;
             const response = await apiFetch({
                 path: '/wsu-gutenberg/v1/get-posts-by-id?' + params,
                 method: 'GET',
@@ -73,19 +73,19 @@ const PostPicker = ( props ) => {
         }
     };
 
-    const getLatestPosts = async () => {        
+    const getLatestPosts = async () => {
         try{
             setIsLoading(true);
-        
+
             const params = `count=8&post_types=${postTypes}`;
-            const response = await apiFetch({ 
+            const response = await apiFetch({
                 path:'/wsu-gutenberg/v1/get-latest-posts?' + params,
                 method: 'GET',
                 signal: abortController.signal
-            });        
+            });
 
             setLatestPosts(JSON.parse(response));
-            
+
             setIsLoading(false);
         }
         catch (error) {
@@ -106,10 +106,10 @@ const PostPicker = ( props ) => {
         catch (error) {
             console.log(error);
         }
-    };    
+    };
 
     useEffect( () => {
-        if (isMounted.current) {            
+        if (isMounted.current) {
             (async function handleSearch() {
                 if( lodash.isEmpty(searchString) ){
                     resetSearch();
@@ -117,18 +117,18 @@ const PostPicker = ( props ) => {
                 }
 
                 setIsLoading(true);
-                
+
                 const params = `search_term=${searchString}&post_types=${postTypes}`;
                 const response = await apiFetch({
                     path: '/wsu-gutenberg/v1/search-posts?' + params,
                     method: 'GET',
                     signal: abortController.signal
                 });
-                
+
                 setSearchResults(JSON.parse(response));
-                
-                setIsLoading(false);            
-            })();        
+
+                setIsLoading(false);
+            })();
         }
 
         return () => {
@@ -140,7 +140,7 @@ const PostPicker = ( props ) => {
         getPostTypeData();
         getSelectedItems();
         getLatestPosts();
-        isMounted.current = true;        
+        isMounted.current = true;
 
         return () => {
             abortController.abort();
@@ -154,8 +154,8 @@ const PostPicker = ( props ) => {
                 {selectedItems.map( (post) => {
                     return (
                         <li key={ post.id }>
-                            <Button 
-                                className={ `${CSSNAMESPACE}__remove-btn` } 
+                            <Button
+                                className={ `${CSSNAMESPACE}__remove-btn` }
                                 icon="no-alt"
                                 onClick={ () => handleItemRemove(post) }>
                                 <span className={ `${CSSNAMESPACE}__remove-btn-text` }>
@@ -171,28 +171,28 @@ const PostPicker = ( props ) => {
             <TextControl
                 ref={ searchInputRef }
                 placeholder={ placeholder }
-                label={ label }                
+                label={ label }
                 onChange= { (value) => debouncedSetSearchString( value ) }
             />
-            
-            {isLoading && <Spinner />}            
+
+            {isLoading && <Spinner />}
 
             {searchString.length ? (
                 !isLoading && !searchResults.length ? (
                     <p>{__('No Items found')}</p>
                 ) : !isLoading && (
-                    <SuggestionList                                
-                        attributes={ attributes }     
+                    <SuggestionList
+                        value={ value }
                         title="Search Results"
-                        postTypeData={ postTypeData }                    
+                        postTypeData={ postTypeData }
                         suggestions={ searchResults }
                         searchTerm={ searchString }
                         onItemSelect={ handleItemSelection }
                     />
                 )
-            ) : latestPosts.length && (                    
+            ) : latestPosts.length && (
                     <SuggestionList
-                        attributes={ attributes }         
+                        value={ value }
                         title="Recent Content"
                         postTypeData={ postTypeData }
                         suggestions={ latestPosts }
@@ -201,20 +201,20 @@ const PostPicker = ( props ) => {
                     />
                 ) || ''
             }
-        </div>        
+        </div>
     )
 
 }
 
 function SuggestionList( props ) {
     const {
-        attributes,
-        title, 
+        value,
+        title,
         postTypeData,
         suggestions,
         onItemSelect,
         searchTerm = '',
-    } = props;    
+    } = props;
 
     return (
         <div className={`${CSSNAMESPACE}__suggestion-list-container`}>
@@ -232,12 +232,12 @@ function SuggestionList( props ) {
                                 searchTerm={ searchTerm }
                                 suggestion={ post }
                                 postTypeLabel={postTypeData[post.type]?.name}
-                                isSelected={ attributes.postIn.split(',').includes(post.id.toString()) }
+                                isSelected={ value.split(',').includes(post.id.toString()) }
                             />
                         </li>
                     );
                 })}
-            </ul>        
+            </ul>
         </div>
     );
 }
@@ -256,24 +256,24 @@ function Suggestion( props ) {
     return (
 		<Button
             id={ id }
-			onClick={ onClick }                     
-            className={`${CSSNAMESPACE}__suggestion ${ isSelected && 'is-selected' }`}        
+			onClick={ onClick }
+            className={`${CSSNAMESPACE}__suggestion ${ isSelected && 'is-selected' }`}
             title={ decodeEntities( suggestion.title ) }
             disabled={ isSelected }
 		>
-			<span className={`${CSSNAMESPACE}__suggestion-title`}>				
+			<span className={`${CSSNAMESPACE}__suggestion-title`}>
                 <TextHighlight
                     text={ decodeEntities( suggestion.title ) }
                     highlight={ searchTerm }
                 />
             </span>
-				
+
             <span className={`${CSSNAMESPACE}__suggestion-meta-container`}>
                 <span
                     aria-hidden={ true }
                     className={`${CSSNAMESPACE}__suggestion-meta`}
                 >
-                    {  
+                    {
                         suggestion.date
                     }
                 </span>
@@ -282,11 +282,11 @@ function Suggestion( props ) {
                     aria-hidden={ true }
                     className={`${CSSNAMESPACE}__suggestion-meta`}
                 >
-                    {  
+                    {
                         postTypeLabel || suggestion.type
                     }
                 </span>
-            </span>				
+            </span>
 		</Button>
 	);
 }

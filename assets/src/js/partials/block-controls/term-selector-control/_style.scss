@@ -1,52 +1,56 @@
 .wsu-gutenberg-term-selector {
-  position: relative;
+	position: relative;
+	flex-grow: 1;
 }
 
 .wsu-gutenberg-term-selector .components-spinner {
-  position: absolute;
-  right: 0.55em;
-  top: 2.55em;
-  margin: 0;
+	position: absolute;
+	right: 0.55em;
+	top: 2.55em;
+	margin: 0;
+}
+
+.wsu-gutenberg-term-selector__input {
 }
 
 .wsu-gutenberg-term-selector__selected_terms {
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .wsu-gutenberg-term-selector__selected_term {
 }
 
 .wsu-gutenberg-term-selector__remove-btn {
-  height: auto;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em; 
-  width: 100%;
-  border: 1px solid #007cba;
-  border-radius: 6px;
+	height: auto;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	width: 100%;
+	border: 1px solid #007cba;
+	border-radius: 6px;
 }
 
 .wsu-gutenberg-term-selector__remove-btn-text {
-  text-align: left;
-  margin-right: 1em;
-  flex-grow: 1;
-  color: #007cba;
-  font-weight: bold;
+	text-align: left;
+	margin-right: 1em;
+	flex-grow: 1;
+	color: #007cba;
+	font-weight: bold;
 }
 
 .wsu-gutenberg-term-selector__remove-btn-taxonomy-text {
-  display: block;
-  font-size: 0.8em;
-  color: #555;
+	display: block;
+	font-size: 0.8em;
+	color: #555;
 }
 
 .wsu-gutenberg-term-selector__remove-btn-icon {
-  background: #ca1237;
-  color: white;
-  border-radius: 100%;
-  width: 16px;
-  height: 16px;
-  line-height: 1;
-  font-size: 16px;
+	background: #ca1237;
+	color: white;
+	border-radius: 100%;
+	width: 16px;
+	height: 16px;
+	line-height: 1;
+	font-size: 16px;
 }

@@ -38,6 +38,7 @@ import "../../../blocks/core-paragraph/editor/blockEditFilter";
 import "../../../blocks/core-embed/editor/blockEditFilter";
 import "../../../blocks/core-quote/editor/block-filter";
 import "../../../blocks/wsuwp-news-list/editor/block";
+import "../../../blocks/wsuwp-event-list/editor/block";
 import "../js/partials/editor-config/spacing-control";
 import "../js/partials/editor-config/allowed-embeds";
 import "../js/partials/editor-config/block-styles";

@@ -6,148 +6,169 @@ const { ComboboxControl, Spinner } = wp.components;
 let abortController = null;
 
 const TermSelectorControl = function (props) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [availableTerms, setAvailableTerms] = useState(props.value); // keep track of all terms for mapping later
-  const [termSuggestions, setTermSuggestions] = useState([]);
-  const [selectedTerms, setSelectedTerms] = useState(props.value);
+	const [isLoading, setIsLoading] = useState(false);
+	const [availableTerms, setAvailableTerms] = useState(props.value); // keep track of all terms for mapping later
+	const [termSuggestions, setTermSuggestions] = useState([]);
+	const [selectedTerms, setSelectedTerms] = useState(props.value);
 
-  const handleInputChange = useDebounce(updateSuggestions, 250);
+	const handleInputChange = useDebounce(updateSuggestions, 250);
 
-  async function updateSuggestions(input) {
-    if (input.length < 2) {
-      return;
-    }
+	async function searchTerms(input, taxonomy) {
+		const taxonomies = Array.isArray(taxonomy) ? taxonomy : [taxonomy];
 
-    setIsLoading(true);
+		// cancel existing requests and set up new abort controller
+		abortController?.abort();
+		abortController =
+			typeof AbortController === "undefined"
+				? undefined
+				: new AbortController();
 
-    // cancel existing requests and set up new abort controller
-    abortController?.abort();
-    abortController =
-      typeof AbortController === "undefined"
-        ? undefined
-        : new AbortController();
+		for (let i in taxonomies) {
+			const response = await fetch(
+				props.host +
+					`/wp-json/wp/v2/search?type=term&subtype=${taxonomies[i]}&search=${input}`,
+				{
+					method: "GET",
+					signal: abortController?.signal,
+				}
+			);
 
-    // make request to terms api
-    const response = await fetch(
-      props.host +
-        `/wp-json/wp/v2/search?type=term&subtype=${props.taxonomy}&search=${input}`,
-      {
-        method: "GET",
-        signal: abortController?.signal,
-      }
-    );
+			if (response.ok) {
+				return response;
+			}
+		}
+	}
 
-    if (response.ok) {
-      const results = await response.json();
+	async function updateSuggestions(input) {
+		setIsLoading(true);
 
-      // process results
-      const suggestions = lodash.differenceBy(results, selectedTerms, "id");
+		try {
+			// make request to terms api
+			const response = await searchTerms(input, props.taxonomy);
 
-      if (suggestions.length > 0) {
-        setTermSuggestions(
-          suggestions.map((v) => {
-            return {
-              label: v.title,
-              value: v.id,
-            };
-          })
-        );
+			if (response.ok) {
+				const results = await response.json();
 
-        setAvailableTerms([
-          ...availableTerms,
-          ...lodash.differenceBy(results, availableTerms, "id"),
-        ]);
-      } else {
-        setTermSuggestions([]);
-      }
-    }
+				// process results
+				const suggestions = lodash.differenceBy(
+					results,
+					selectedTerms,
+					"id"
+				);
 
-    setIsLoading(false);
-  }
+				if (suggestions.length > 0) {
+					setTermSuggestions(
+						suggestions.map((v) => {
+							return {
+								label: v.title,
+								value: v.id,
+							};
+						})
+					);
 
-  function selectTerm(termId) {
-    const term = availableTerms.find((t) => t.id === termId);
-    const updatedSelectedTerms = [...selectedTerms, term];
+					setAvailableTerms([
+						...availableTerms,
+						...lodash.differenceBy(results, availableTerms, "id"),
+					]);
+				} else {
+					setTermSuggestions([]);
+				}
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	}
 
-    updateSelectedTerms(updatedSelectedTerms);
+	function selectTerm(termId) {
+		const term = availableTerms.find((t) => t.id === termId);
+		const updatedSelectedTerms = [...selectedTerms, term];
 
-    setTermSuggestions([]);
-  }
+		updateSelectedTerms(updatedSelectedTerms);
 
-  function removeTerm(term) {
-    const updatedSelectedTerms = selectedTerms.filter((t) => t.id !== term.id);
+		setTermSuggestions([]);
+	}
 
-    updateSelectedTerms(updatedSelectedTerms);
-  }
+	function removeTerm(term) {
+		const updatedSelectedTerms = selectedTerms.filter(
+			(t) => t.id !== term.id
+		);
 
-  function updateSelectedTerms(termsArray) {
-    let termsString = "";
+		updateSelectedTerms(updatedSelectedTerms);
+	}
 
-    let queryTerms = [];
+	function updateSelectedTerms(termsArray) {
+		let termsString = "";
 
-    if (Array.isArray(termsArray) && termsArray.length > 0) {
-      termsString = termsArray
-        .map(function (term) {
-          return term.id.toString();
-        })
-        .join(",");
+		let queryTerms = [];
 
-      queryTerms = termsArray.map((term) => {
-        return { termID: term.id, taxonomy: term.type };
-      });
-    }
+		if (Array.isArray(termsArray) && termsArray.length > 0) {
+			termsString = termsArray
+				.map(function (term) {
+					return term.id.toString();
+				})
+				.join(",");
 
-    setSelectedTerms(termsArray);
+			queryTerms = termsArray.map((term) => {
+				return { termID: term.id, taxonomy: term.type };
+			});
+		}
 
-    props.onChange({
-      termsList: termsString,
-      termsSelected: termsArray,
-      queryTerms: queryTerms,
-    });
-  }
+		setSelectedTerms(termsArray);
 
-  return (
-    <div className="wsu-gutenberg-term-selector">
-      {isLoading && <Spinner />}
+		props.onChange({
+			termsList: termsString,
+			termsSelected: termsArray,
+			queryTerms: queryTerms,
+		});
+	}
 
-      <ComboboxControl
-        label={props.label}
-        help={props.help}
-        value=""
-        onChange={selectTerm}
-        options={termSuggestions}
-        onFilterValueChange={handleInputChange}
-        allowReset={false}
-      />
+	return (
+		<div className="wsu-gutenberg-term-selector">
+			{isLoading && <Spinner />}
 
-      {selectedTerms.length > 0 && (
-        <ul className="wsu-gutenberg-term-selector__selected_terms">
-          {selectedTerms.map((term, index) => {
-            return (
-              <li
-                key={term.id}
-                className="wsu-gutenberg-term-selector__selected_term"
-              >
-                <button
-                  type="button"
-                  className="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
-                  onClick={() => removeTerm(term)}
-                >
-                  <span className="wsu-gutenberg-term-selector__remove-btn-text">
-                    {term.title}
-                    <span className="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">
-                      {term.type.replace("post_", "")}
-                    </span>
-                  </span>
-                  <span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
+			<ComboboxControl
+				className="wsu-gutenberg-term-selector__input"
+				label={props.label}
+				help={props.help}
+				value=""
+				onChange={selectTerm}
+				options={
+					!isLoading && termSuggestions.length > 0
+						? termSuggestions
+						: []
+				}
+				onFilterValueChange={handleInputChange}
+				allowReset={false}
+			/>
+
+			{selectedTerms.length > 0 && (
+				<ul className="wsu-gutenberg-term-selector__selected_terms">
+					{selectedTerms.map((term, index) => {
+						return (
+							<li
+								key={term.id}
+								className="wsu-gutenberg-term-selector__selected_term"
+							>
+								<button
+									type="button"
+									className="components-button wsu-gutenberg-term-selector__remove-btn has-text has-icon"
+									onClick={() => removeTerm(term)}
+								>
+									<span className="wsu-gutenberg-term-selector__remove-btn-text">
+										{term.title}
+										<span className="wsu-gutenberg-term-selector__remove-btn-taxonomy-text">
+											{term.type.replace("post_", "")}
+										</span>
+									</span>
+									<span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-term-selector__remove-btn-icon"></span>
+								</button>
+							</li>
+						);
+					})}
+				</ul>
+			)}
+		</div>
+	);
 };
 
 export default TermSelectorControl;
