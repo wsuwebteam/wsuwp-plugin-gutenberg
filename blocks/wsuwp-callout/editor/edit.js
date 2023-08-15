@@ -14,6 +14,7 @@ const {
 import { 
     HeadingTagControl,
 	ColorClassControl,
+	ColorSchemeControl,
 	SpacingClassNameSelector,
 	AlignItemControl,
 	MaxWidthControl,
@@ -96,6 +97,7 @@ const Edit = ( props ) => {
 					<BorderControl {...props} />
 					<AlignItemControl {...props} />
 					<MaxWidthControl {...props} />
+					<ColorSchemeControl {...props} label='Enable Dark Mode' help='' />
 			</PanelDisplayOptions>
 			<PanelStyleOptions
 			{...props}

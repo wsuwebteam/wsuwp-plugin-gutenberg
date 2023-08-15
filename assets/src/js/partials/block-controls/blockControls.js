@@ -1,6 +1,7 @@
 export { default as FormatSelector } from "./FormatSelector";
 export { default as DropShadowControl } from "./DropShadowControl";
 export { default as NotchControl } from "./NotchControl";
+export { default as ColorSchemeControl } from "./ColorSchemeControl";
 export { default as PostPicker } from "./post-picker/PostPicker";
 export { default as FeedPostsControl } from "./FeedPostsControl";
 export { default as PerRow } from "./PerRowControl";

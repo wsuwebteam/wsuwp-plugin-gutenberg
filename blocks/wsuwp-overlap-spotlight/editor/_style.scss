@@ -63,4 +63,10 @@
 
     }
 
+    .wp-block[data-type="wsuwp/overlap-spotlight"].wsu-color-scheme--dark {
+        .wsu-overlap-spotlight__caption {
+            background-color: #222;
+            color: white;
+        }
+    }
 }

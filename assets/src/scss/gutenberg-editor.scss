@@ -41,6 +41,8 @@
 @import "../../../blocks/wsuwp-people-list/editor/style";
 @import "../../../blocks/wsuwp-overlap-advanced/editor/style";
 @import "../../../blocks/wsuwp-overlap-spotlight/editor/style";
+@import "../../../blocks/wsuwp-section/editor/style";
+
 
 /** ===== Front-End Styles Fixes ===== */
 .block-editor-block-list__layout .wsu-row {
@@ -70,4 +72,5 @@
   span {
     display: block;
   }
+  
 }
