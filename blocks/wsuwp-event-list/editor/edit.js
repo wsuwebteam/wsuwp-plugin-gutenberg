@@ -3,7 +3,6 @@ import {
 	AdvancedFeedOptionsPanel,
 	useGetEvents,
 } from "../../../assets/src/js/partials/block-controls/events-api-controls";
-import { HTMLNode } from "../../../assets/src/js/partials/block-components/blockComponents";
 
 const { useBlockProps, InspectorControls } = wp.blockEditor;
 
@@ -74,7 +73,7 @@ export default function Edit(props) {
 													</div>
 												)}
 											</div>
-											<HTMLNode value={event.summary} />
+											<p>{event.summary}</p>
 										</div>
 									</div>
 								</li>
