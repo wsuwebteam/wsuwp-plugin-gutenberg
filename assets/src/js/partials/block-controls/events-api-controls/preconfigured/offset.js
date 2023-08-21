@@ -9,7 +9,7 @@ export default function (props) {
 				label="Offset"
 				help="Offset skips a given number of items before starting results"
 				value={attributes.offset}
-				min={1}
+				min={0}
 				onChange={(newval) => setAttributes({ offset: newval })}
 			/>
 		</div>
