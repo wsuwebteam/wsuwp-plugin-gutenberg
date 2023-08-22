@@ -4,6 +4,13 @@ import {
 	useGetEvents,
 } from "../../../assets/src/js/partials/block-controls/events-api-controls";
 
+import { 
+	SpacingClassNameSelector,
+} from "../../../assets/src/js/partials/block-controls/blockControls";
+
+import ColorSchemeControl from '../../../assets/src/js/partials/block-controls/ColorSchemeControl';
+import PanelDisplayOptions from "../../../assets/src/js/partials/block-panels/PanelDisplayOptions";
+
 const { useBlockProps, InspectorControls } = wp.blockEditor;
 
 export default function Edit(props) {
@@ -18,8 +25,66 @@ export default function Edit(props) {
 		<>
 			<InspectorControls>
 				<FeedOptionsPanel host={host} {...props} />
-
+				<PanelDisplayOptions>
+					<ColorSchemeControl {...props} label='Enable Dark Mode' help='' />
+				</PanelDisplayOptions>
 				<AdvancedFeedOptionsPanel host={host} {...props} />
+				<SpacingClassNameSelector
+					title="Space Settings"
+					spaceSettings={[
+						{
+							label: 'Margin (Outside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-before--',                                        
+									default: 'none',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-after--',
+									default: 'xmedium',                                        
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-margin-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-margin-right--',									
+									default: 'default',
+								}
+							]
+						},
+						{
+							label: 'Padding (Inside Spacing)',
+							properties: [
+								{
+									label: 'Top',
+									prefix: 'wsu-spacing-top--',
+									default: 'default',
+								},
+								{
+									label: 'Bottom',
+									prefix: 'wsu-spacing-bottom--',
+									default: 'default',									
+								},
+								{
+									label: 'Left',
+									prefix: 'wsu-spacing-padding-left--',									
+									default: 'default',
+								},
+								{
+									label: 'Right',
+									prefix: 'wsu-spacing-padding-right--',									
+									default: 'default',
+								}
+							]
+						}
+					]}
+					{...props}>					
+				</SpacingClassNameSelector>
 			</InspectorControls>
 
 			<div {...blockProps}>
