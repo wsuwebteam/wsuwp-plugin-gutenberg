@@ -1,5 +1,5 @@
 <div
-	class="js-wsu-events-list wsu-events-list <?php echo esc_attr( $attrs['className'] ); ?>"
+	class="js-wsu-events-card wsu-events-card <?php echo esc_attr( $attrs['className'] ); ?>"
 	data-component-id="<?php echo str_replace( '-', '', wp_generate_uuid4() ); ?>"
 	<?php
 	foreach ( $data_attrs as $key => $value ) {

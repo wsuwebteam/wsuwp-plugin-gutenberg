@@ -35,7 +35,11 @@ export default function Edit(props) {
 				{isLoading && <p>loading...</p>}
 
 				{data && (
-					<ul className={`wsu-events-list ${attributes.className}`}>
+					<ul
+						className={`wsu-events-list ${
+							attributes.className ? attributes.className : ""
+						}`}
+					>
 						{data.map((event) => {
 							const date = new Date(event.start_date);
 							const month = date.toLocaleString("en-US", {

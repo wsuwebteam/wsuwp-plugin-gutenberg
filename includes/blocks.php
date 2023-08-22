@@ -34,6 +34,7 @@ class Blocks {
 		'wsuwp/overlap-column'    => 'Block_WSUWP_Overlap_Column',
 		'wsuwp/overlap-spotlight' => 'Block_WSUWP_Overlap_Spotlight',
 		'wsuwp/event-list'        => 'Block_WSUWP_Event_List',
+		'wsuwp/event-cards'       => 'Block_WSUWP_Event_Cards',
 	);
 
 	protected static $allowed_blocks = array(
@@ -69,6 +70,7 @@ class Blocks {
 		'wsuwp/stat',
 		'wsuwp/menu',
 		'wsuwp/event-list',
+		'wsuwp/event-cards',
 		'bcn/breadcrumb-trail',
 		'core/code',
 		'core/embed',
