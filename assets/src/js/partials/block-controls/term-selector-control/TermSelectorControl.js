@@ -9,6 +9,7 @@ const TermSelectorControl = function (props) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [availableTerms, setAvailableTerms] = useState(props.value); // keep track of all terms for mapping later
 	const [termSuggestions, setTermSuggestions] = useState([]);
+	const [error, setError] = useState("");
 	const [selectedTerms, setSelectedTerms] = useState(props.value);
 
 	const handleInputChange = useDebounce(updateSuggestions, 250);
@@ -40,6 +41,7 @@ const TermSelectorControl = function (props) {
 	}
 
 	async function updateSuggestions(input) {
+		setError("");
 		setIsLoading(true);
 
 		try {
@@ -74,6 +76,8 @@ const TermSelectorControl = function (props) {
 					setTermSuggestions([]);
 				}
 			}
+		} catch (err) {
+			setError("Error: options could not be found");
 		} finally {
 			setIsLoading(false);
 		}
@@ -140,6 +144,10 @@ const TermSelectorControl = function (props) {
 				onFilterValueChange={handleInputChange}
 				allowReset={false}
 			/>
+
+			{error && (
+				<p className="wsu-gutenberg-term-selector__error">{error}</p>
+			)}
 
 			{selectedTerms.length > 0 && (
 				<ul className="wsu-gutenberg-term-selector__selected_terms">

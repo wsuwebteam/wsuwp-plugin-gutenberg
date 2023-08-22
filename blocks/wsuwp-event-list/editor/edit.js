@@ -23,18 +23,29 @@ export default function Edit(props) {
 			</InspectorControls>
 
 			<div {...blockProps}>
-				{error && <p>Error: {error}</p>}
+				{error && (
+					<p>
+						<b>Error: </b>
+						{error.includes("404")
+							? "The current data source does not provide an events feed."
+							: error}
+					</p>
+				)}
 
 				{isLoading && <p>loading...</p>}
 
 				{data && (
-					<ul className={`wsu-events-list ${attributes.className}`}>
+					<ul
+						className={`wsu-events-list ${
+							attributes.className ? attributes.className : ""
+						}`}
+					>
 						{data.map((event) => {
 							const date = new Date(event.start_date);
 							const month = date.toLocaleString("en-US", {
 								month: "short",
 							});
-							const day = date.getDay();
+							const day = date.getDate();
 
 							return (
 								<li key={event.id}>

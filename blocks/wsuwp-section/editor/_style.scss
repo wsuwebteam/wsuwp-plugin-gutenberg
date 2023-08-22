@@ -2,8 +2,10 @@
 @import "../../../assets/src/scss/utilities/mixins";
 
 .block-editor {
-
+    
     .wp-block[data-type="wsuwp/section"] {
+        
+        @include wsu-gutenberg-block-outline();
         
         padding: 1.5rem;
         margin-bottom: 2.25rem;

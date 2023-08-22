@@ -67,76 +67,82 @@ function EventPicker(props) {
 				{error && (
 					<p className="wsu-gutenberg-event-list__event-picker-error">
 						<b>Error: </b>
-						{error}
+						{error.includes("404")
+							? "The current data source does not provide an events feed."
+							: error}
 					</p>
 				)}
 
-				{search === "" && value && value.length > 0 && (
+				{!error && (
 					<>
-						<h3 className="wsu-gutenberg-event-list__event-picker-list-title">
-							Selected Events
-						</h3>
-						<ul className="wsu-gutenberg-event-list__event-picker-selected-items">
-							{value.map((e) => {
-								return (
-									<li
-										key={e.id}
-										className="wsu-gutenberg-event-list__event-picker-selected-item"
-									>
-										<Button
-											className="wsu-gutenberg-event-list__event-picker-selected-item-button"
-											onClick={() => {
-												removeItem(e);
-											}}
+						{search === "" && value && value.length > 0 && (
+							<>
+								<h3 className="wsu-gutenberg-event-list__event-picker-list-title">
+									Selected Events
+								</h3>
+								<ul className="wsu-gutenberg-event-list__event-picker-selected-items">
+									{value.map((e) => {
+										return (
+											<li
+												key={e.id}
+												className="wsu-gutenberg-event-list__event-picker-selected-item"
+											>
+												<Button
+													className="wsu-gutenberg-event-list__event-picker-selected-item-button"
+													onClick={() => {
+														removeItem(e);
+													}}
+												>
+													<span className="wsu-gutenberg-event-list__event-picker-selected-item-text">
+														{e.title}
+														<span className="wsu-gutenberg-event-list__event-picker-selected-item-subtext">
+															{e.start_date}
+														</span>
+													</span>
+													<span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-event-list__event-picker__remove-btn-icon"></span>
+												</Button>
+											</li>
+										);
+									})}
+								</ul>
+							</>
+						)}
+
+						{suggestions && (
+							<h3 className="wsu-gutenberg-event-list__event-picker-list-title">
+								{search.length > 0
+									? "Search Results"
+									: "Upcoming Events"}
+							</h3>
+						)}
+
+						<ul className="wsu-gutenberg-event-list__event-picker-search-results">
+							{suggestions &&
+								suggestions.map((e) => {
+									return (
+										<li
+											key={e.id}
+											className="wsu-gutenberg-event-list__event-picker-search-results-item"
 										>
-											<span className="wsu-gutenberg-event-list__event-picker-selected-item-text">
-												{e.title}
-												<span className="wsu-gutenberg-event-list__event-picker-selected-item-subtext">
-													{e.start_date}
+											<Button
+												className="wsu-gutenberg-event-list__event-picker-search-results-item-button"
+												onClick={() => {
+													insertItem(e);
+												}}
+											>
+												<span className="wsu-gutenberg-event-list__event-picker-search-results-text">
+													{e.title}
+													<span className="wsu-gutenberg-event-list__event-picker-search-results-subtext">
+														{e.start_date}
+													</span>
 												</span>
-											</span>
-											<span className="dashicon dashicons dashicons-no-alt wsu-gutenberg-event-list__event-picker__remove-btn-icon"></span>
-										</Button>
-									</li>
-								);
-							})}
+											</Button>
+										</li>
+									);
+								})}
 						</ul>
 					</>
 				)}
-
-				{suggestions && (
-					<h3 className="wsu-gutenberg-event-list__event-picker-list-title">
-						{search.length > 0
-							? "Search Results"
-							: "Upcoming Events"}
-					</h3>
-				)}
-
-				<ul className="wsu-gutenberg-event-list__event-picker-search-results">
-					{suggestions &&
-						suggestions.map((e) => {
-							return (
-								<li
-									key={e.id}
-									className="wsu-gutenberg-event-list__event-picker-search-results-item"
-								>
-									<Button
-										className="wsu-gutenberg-event-list__event-picker-search-results-item-button"
-										onClick={() => {
-											insertItem(e);
-										}}
-									>
-										<span className="wsu-gutenberg-event-list__event-picker-search-results-text">
-											{e.title}
-											<span className="wsu-gutenberg-event-list__event-picker-search-results-subtext">
-												{e.start_date}
-											</span>
-										</span>
-									</Button>
-								</li>
-							);
-						})}
-				</ul>
 			</div>
 		</>
 	);
