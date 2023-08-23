@@ -16,6 +16,8 @@ function insertSpacingControl(OriginalComponent) {
       "wsuwp/card-group",
       "wsuwp/callout",
       "wsuwp/container",
+      "wsuwp/carousel",
+      "wsuwp/event-list",
       "wsuwp/button",
       "wsuwp/sticky-nav",
     ];

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "@wordpress/element";
-import { useDebounce } from "@wordpress/compose";
+import { useState, useEffect, useCallback } from "@wordpress/element";
 
 const { ComboboxControl, Spinner } = wp.components;
 
@@ -12,19 +11,24 @@ const TermSelectorControl = function (props) {
 	const [error, setError] = useState("");
 	const [selectedTerms, setSelectedTerms] = useState(props.value);
 
-	const handleInputChange = useDebounce(updateSuggestions, 250);
+	const handleInputChange = useCallback(
+		lodash.debounce(updateSuggestions, 250, {
+			leading: true,
+		}),
+		[]
+	);
 
 	async function searchTerms(input, taxonomy) {
 		const taxonomies = Array.isArray(taxonomy) ? taxonomy : [taxonomy];
 
-		// cancel existing requests and set up new abort controller
-		abortController?.abort();
-		abortController =
-			typeof AbortController === "undefined"
-				? undefined
-				: new AbortController();
-
 		for (let i in taxonomies) {
+			// cancel existing requests and set up new abort controller
+			abortController?.abort();
+			abortController =
+				typeof AbortController === "undefined"
+					? undefined
+					: new AbortController();
+
 			const response = await fetch(
 				props.host +
 					`/wp-json/wp/v2/search?type=term&subtype=${taxonomies[i]}&search=${input}`,
@@ -77,6 +81,7 @@ const TermSelectorControl = function (props) {
 				}
 			}
 		} catch (err) {
+			setTermSuggestions([]);
 			setError("Error: options could not be found");
 		} finally {
 			setIsLoading(false);
