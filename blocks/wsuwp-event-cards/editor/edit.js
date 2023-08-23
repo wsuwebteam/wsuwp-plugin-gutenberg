@@ -44,20 +44,20 @@ export default function Edit(props) {
 
 						return (
 							<article
-								class={`wsu-card wsu-events-card ${
+								className={`wsu-card wsu-events-card ${
 									attributes.className
 										? attributes.className
 										: ""
 								}`}
 								key={event.id}
 							>
-								<div class="wsu-events-card__container">
+								<div className="wsu-events-card__container">
 									<a href="http://wsuwp562.local/event/wsu-college-of-nursing-spokane-open-house/">
 										WSU College of Nursing Spokane Open
 										House
 									</a>
-									<div class="wsu-events-card__meta">
-										<div class="wsu-events-card__meta-date">
+									<div className="wsu-events-card__meta">
+										<div className="wsu-events-card__meta-date">
 											{month} {day}
 										</div>
 										{event.is_all_day ? (
