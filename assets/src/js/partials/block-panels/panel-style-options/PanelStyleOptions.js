@@ -24,6 +24,7 @@ const PanelStyleOptions= ( props ) => {
         attributes,
         setAttributes,
         setKey = 'className',
+        removeClass = false,
     } = props
 
     let classString = attributes[setKey] ?? '';
@@ -35,6 +36,12 @@ const PanelStyleOptions= ( props ) => {
             let itemPrefix = ( 'prefix' in styleObj ) ? styleObj.prefix : prefix;
 
             let updatedClasses = addBlockClassName( classString, itemPrefix, styleObj.value );
+
+            if ( removeClass ) {
+
+                updatedClasses = removeBlockClassName( updatedClasses, removeClass );
+
+            }
     
             setAttributes( { [setKey]: updatedClasses } );
     
