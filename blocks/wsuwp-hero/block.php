@@ -65,7 +65,7 @@ class Block_WSUWP_Hero extends Block {
 
 		ob_start();
 
-		if ( false !== strpos( $attrs['className'], 'wsu-style--boxed' ) ) {
+		if ( false !== strpos( $attrs['className'], 'wsu-hero--style-boxed' ) || false !== strpos( $attrs['className'], 'wsu-style--boxed' ) ) {
 
 			include __DIR__ . '/templates/v3-boxed.php';
 
