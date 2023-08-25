@@ -58,7 +58,6 @@ let heroStyles = [
 		),
 		label: "Boxed",
 		value: "boxed",
-		prefix: 'wsu-style--',
 	  }
   ];
 
@@ -72,6 +71,8 @@ const Edit = ( props ) => {
 	} = props;
 
 	let blockClasses = attributes.className ?? '';
+
+	let heroStyle = getBlockClassNameValue( attributes, 'wsu-hero--style-', false );
 
 	const getOverlayClasses = () => {
 
@@ -276,9 +277,10 @@ const Edit = ( props ) => {
 					{...props}
 					styles={heroStyles}
 					prefix="wsu-hero--style-"
+					removeClass="wsu-style--boxed"
 					></PanelStyleOptions>
 			</InspectorControls>
-			<div { ...blockProps } >
+			{ 'boxed' !== heroStyle && <div { ...blockProps } >
 				<div className="wsu-image-frame wsu-image-frame--fill">
 					{ (attributes.backgroundType === 'image' && attributes.imageSrc && (
 						<img src={ attributes.imageSrc } />
@@ -316,7 +318,40 @@ const Edit = ( props ) => {
 						{ attributes.link && attributes.buttonText && <span className="wsu-button wsu-button--size-small" href="#" aria-labelledby="unique-id-hero-banner-title">{ attributes.buttonText }</span> }
 					</div>
 				</div>
+			</div> 
+			}
+			{ 'boxed' === heroStyle && <div { ...blockProps } >
+				<div className="wsu-hero__background">
+					<img className="wsu-image" src={ attributes.imageSrc } />
+				</div>
+			<div className="wsu-hero__overlay">
 			</div>
+			<div className="wsu-hero__content-wrapper">
+				<div className="wsu-hero__inner-content-wrapper">
+					<div className="wsu-hero__title-wrapper">
+						<RichText
+							className="wsu-hero__title"
+							tagName="div" // The tag here is the element output and editable in the admin
+							value={ attributes.title } // Any existing content, either from the database or an attribute default
+							allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
+							onChange={ ( title ) => setAttributes( { title } ) } // Store updated content as a block attribute
+							placeholder="Add Hero Banner Text..." // Display this text before any content has been added by the user
+						/>
+						<RichText
+							className="wsu-hero__caption"
+							tagName="div" // The tag here is the element output and editable in the admin
+							value={ attributes.caption } // Any existing content, either from the database or an attribute default
+							allowedFormats={ [] } // Allow the content to be made bold or italic, but do not allow other formatting options
+							onChange={ ( caption ) => setAttributes( { caption } ) } // Store updated content as a block attribute
+							placeholder="Add Hero Banner caption text here..." // Display this text before any content has been added by the user
+						/>
+					</div>
+					<div className="wsu-hero__content">
+					</div>
+				</div>
+			</div>
+		</div>
+		}
 		</>
 	)
 
