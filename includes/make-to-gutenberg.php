@@ -75,7 +75,8 @@ class Make_To_Gutenberg {
 			isset( $_GET['action'] ) &&
 			'edit' === $_GET['action'] &&
 			self::is_gutenberg_page() &&
-			! self::content_has_blocks( $post->post_content ) ) {
+			! self::content_has_blocks( $post->post_content ) &&
+			! self::content_has_vc_code( $post->post_content ) ) {
 
 			$post->post_content = self::get_converted_content( $post );
 		}
@@ -91,7 +92,8 @@ class Make_To_Gutenberg {
 
 		if ( ! is_admin() &&
 			is_singular( 'page' ) &&
-			! self::content_has_blocks( $post->post_content ) ) {
+			! self::content_has_blocks( $post->post_content ) &&
+			! self::content_has_vc_code( $post->post_content ) ) {
 
 			$post->post_content = wpautop( self::get_converted_content( $post ) );
 
@@ -271,6 +273,12 @@ class Make_To_Gutenberg {
 	public static function content_has_blocks( $content ) {
 
 		return false !== strpos( $content, '<!-- wp:' );
+
+	}
+
+	public static function content_has_vc_code( $content ) {
+
+		return false !== strpos( $content, '[vc_' );
 
 	}
 
