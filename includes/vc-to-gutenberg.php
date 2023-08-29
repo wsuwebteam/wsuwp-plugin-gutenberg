@@ -103,6 +103,8 @@ class VC_To_Gutenberg {
 
 		$content = $post->post_content;
 
+		$convert_codes = array( 'qode_accordion_tab', 'qode_accordion', 'qode_elements_holder_item', 'button', 'qode_elements_holder', 'message' );
+
 		self::add_vc_shortcodes();
 
 		self::replace_content( $content );
@@ -113,7 +115,7 @@ class VC_To_Gutenberg {
 
 		foreach ( $shortcode_tags as $tag => $callback ) {
 
-			if ( false === strpos( $tag, 'vc_' ) && 'button' !== $tag ) {
+			if ( false === strpos( $tag, 'vc_' ) && ! in_array( $tag, $convert_codes, true ) ) {
 
 				unset( $shortcode_tags[ $tag ] );
 
@@ -121,7 +123,6 @@ class VC_To_Gutenberg {
 		}
 
 		$content = do_shortcode( $content );
-
 
 		$shortcode_tags = $global_shortcodes;
 
@@ -150,6 +151,16 @@ class VC_To_Gutenberg {
 
 		add_shortcode( 'vc_single_image', array( __CLASS__, 'add_vc_single_image_shortcode' ) );
 
+		add_shortcode( 'qode_elements_holder_item', array( __CLASS__, 'return_empty' ) );
+
+		add_shortcode( 'qode_accordion', array( __CLASS__, 'return_empty' ) );
+
+		add_shortcode( 'qode_accordion_tab', array( __CLASS__, 'add_qode_accordion_tab_shortcode' ) );
+
+		add_shortcode( 'qode_elements_holder', array( __CLASS__, 'return_empty' ) );
+
+		add_shortcode( 'message', array( __CLASS__, 'add_message_shortcode' ) );
+
 	}
 
 
@@ -158,6 +169,67 @@ class VC_To_Gutenberg {
 		$content = do_shortcode( $content );
 
 		return $content;
+
+	}
+
+
+	public static function add_message_shortcode( $atts, $content ) {
+
+		$default_atts = array(
+			'title_tag' => '',
+			'title'     => '',
+		);
+
+		shortcode_atts( $default_atts, $atts, 'qode_accordion_tab' );
+
+		$content = do_shortcode( $content );
+
+		$blocks = parse_blocks( $content );
+
+		foreach ( $blocks as $block_index => $block ) {
+
+			if ( empty( $block['blockName'] ) ) {
+
+				$block['blockName'] = 'core/freeform';
+
+				$blocks[ $block_index ] = $block;
+			}
+		}
+
+		$content = serialize_blocks( $blocks );
+
+		return '<!-- wp:wsuwp/callout -->' . $content . '<!-- /wp:wsuwp/callout -->';
+
+	}
+
+
+	public static function add_qode_accordion_tab_shortcode( $atts, $content ) {
+
+		$default_atts = array(
+			'title_tag' => '',
+			'title'     => '',
+		);
+
+		shortcode_atts( $default_atts, $atts, 'qode_accordion_tab' );
+
+		$content = do_shortcode( $content );
+
+		$blocks = parse_blocks( $content );
+
+		foreach ( $blocks as $block_index => $block ) {
+
+			if ( empty( $block['blockName'] ) ) {
+
+				$block['blockName'] = 'core/freeform';
+
+				$blocks[ $block_index ] = $block;
+			}
+
+		}
+
+		$content = serialize_blocks( $blocks );
+
+		return '<!-- wp:wsuwp/accordion {"title":"' . $atts['title'] . '","headingTag":"' . $atts['title_tag'] . '"} -->' . $content . '<!-- /wp:wsuwp/accordion -->';
 
 	}
 
@@ -179,7 +251,7 @@ class VC_To_Gutenberg {
 
 		}
 
-		return '<!-- wp:wsuwp/row {"layout":"' . $atts['layout'] . '","className":"' . $atts['className'] . '"} -->' . do_shortcode( $content ) . '<!-- /wp:wsuwp/row -->';
+		return '<!-- wp:wsuwp/row {"layout":"' . $atts['layout'] . '","className":"' . $atts['className'] . '"} -->' . $content . '<!-- /wp:wsuwp/row -->';
 
 	}
 
@@ -264,7 +336,7 @@ class VC_To_Gutenberg {
 	public static function add_button_shortcode( $atts, $content ) {
 
 		$default_atts = array(
-			'size'    => '',
+			'size' => '',
 			'text' => '',
 			'link' => '',
 		);
@@ -273,7 +345,9 @@ class VC_To_Gutenberg {
 
 		$content = do_shortcode( $content );
 
-		$button_class_name = ( 'small' === $atts['size'] ) ? 'wsu-button\u002d\u002dsize-small' : '';
+		$button_class_name = 'wsu-button\u002d\u002dstyle-outline';
+
+		$button_class_name .= ( 'small' === $atts['size'] ) ? ' wsu-button\u002d\u002dsize-small' : '';
 
 		$block = '<!-- wp:wsuwp/button {"buttonText":"' . $atts['text'] . '","buttonUrl":"' . $atts['link'] . '","buttonClassName":"' . $button_class_name . '"} /-->';
 
@@ -284,8 +358,8 @@ class VC_To_Gutenberg {
 	public static function add_vc_single_image_shortcode( $atts, $content ) {
 
 		$default_atts = array(
-			'image'    => '',
-			'img_size' => '',
+			'image'     => '',
+			'img_size'  => '',
 			'alignment' => '',
 		);
 
@@ -323,7 +397,7 @@ class VC_To_Gutenberg {
 
 	public static function should_convert( $content ) {
 
-		return ( false !== strpos( $content, '[vc_' ) );
+		return ( false !== strpos( $content, '[vc_' ) || false !== strpos( $content, '[qode_' ) );
 
 	}
 
