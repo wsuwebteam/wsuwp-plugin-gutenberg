@@ -52,10 +52,7 @@ export default function Edit(props) {
 								key={event.id}
 							>
 								<div className="wsu-events-card__container">
-									<a href="http://wsuwp562.local/event/wsu-college-of-nursing-spokane-open-house/">
-										WSU College of Nursing Spokane Open
-										House
-									</a>
+									<a href="#">{event.title}</a>
 									<div className="wsu-events-card__meta">
 										<div className="wsu-events-card__meta-date">
 											{month} {day}
