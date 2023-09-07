@@ -11115,27 +11115,27 @@ const Edit = props => {
     style: {}
   });
   const backgroundColors = [{
-    name: 'White',
+    name: 'white',
     color: '#ffffff',
     className: 'white'
   }, {
-    name: 'Gray 0',
+    name: 'gray-0',
     color: '#f7f7f7',
     className: 'gray-0'
   }, {
-    name: 'Gray 5',
+    name: 'gray-5',
     color: '#f2f2f2',
     className: 'gray-5'
   }, {
-    name: 'Gray 10',
+    name: 'gray-10',
     color: '#e6e6e6',
     className: 'gray-10'
   }, {
-    name: 'Gray 85',
+    name: 'gray-85',
     color: '#262626',
     className: 'gray-85'
   }, {
-    name: 'Gray 95',
+    name: 'gray-95',
     color: '#080808',
     className: 'gray-95'
   }];
@@ -12259,8 +12259,8 @@ function Edit(props) {
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "wsu-events-card__container"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", {
-      href: "http://wsuwp562.local/event/wsu-college-of-nursing-spokane-open-house/"
-    }, "WSU College of Nursing Spokane Open House"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+      href: "#"
+    }, event.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "wsu-events-card__meta"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "wsu-events-card__meta-date"
