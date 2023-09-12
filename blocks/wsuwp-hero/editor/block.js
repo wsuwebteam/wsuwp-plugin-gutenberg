@@ -117,6 +117,14 @@ registerBlockType("wsuwp/hero", {
       type: "string",
       default: "",
     },
+    videoSrc: {
+      type: "string",
+      default: "",
+    },
+    videoImage: {
+      type: "string",
+      default: "",
+    },
   },
   edit,
 });

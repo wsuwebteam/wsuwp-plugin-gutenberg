@@ -48,12 +48,12 @@ const Edit = ( props ) => {
     } );
 
 	const backgroundColors = [
-		{ name: 'White', color: '#ffffff', className: 'white' },			
-		{ name: 'Gray 0', color: '#f7f7f7', className: 'gray-0' },
-		{ name: 'Gray 5', color: '#f2f2f2', className: 'gray-5' },
-		{ name: 'Gray 10', color: '#e6e6e6', className: 'gray-10' },
-		{ name: 'Gray 85', color: '#262626', className: 'gray-85' },
-		{ name: 'Gray 95', color: '#080808', className: 'gray-95' },
+		{ name: 'white', color: '#ffffff', className: 'white' },			
+		{ name: 'gray-0', color: '#f7f7f7', className: 'gray-0' },
+		{ name: 'gray-5', color: '#f2f2f2', className: 'gray-5' },
+		{ name: 'gray-10', color: '#e6e6e6', className: 'gray-10' },
+		{ name: 'gray-85', color: '#262626', className: 'gray-85' },
+		{ name: 'gray-95', color: '#080808', className: 'gray-95' },
 	];
 
 	let {
@@ -87,7 +87,7 @@ const Edit = ( props ) => {
 				<PanelColorOptions>
 					<ColorClassControl
 						{ ...props }
-						colors={backgroundColors}
+						colors={backgroundColors} 
 						label='Background Color'
 						value='#f2f2f2'
 						/>
