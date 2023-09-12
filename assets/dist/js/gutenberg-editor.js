@@ -12836,6 +12836,14 @@ registerBlockType("wsuwp/hero", {
     videoDescription: {
       type: "string",
       default: ""
+    },
+    videoSrc: {
+      type: "string",
+      default: ""
+    },
+    videoImage: {
+      type: "string",
+      default: ""
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -13199,7 +13207,41 @@ const Edit = props => {
     onChange: videoDescription => setAttributes({
       videoDescription
     })
-  })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__.PanelStyleOptions, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(TextareaControl, {
+    label: "Background Video Source",
+    value: attributes.videoSrc ? attributes.videoSrc : '',
+    onChange: videoSrc => setAttributes({
+      videoSrc
+    })
+  }), attributes.imageSrc && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl, {
+    help: "Select where you would like the background to resize around."
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl.VisualLabel, {
+    className: "wsu-settings__label"
+  }, "Focal Point Picker"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(FocalPointPicker, {
+    url: attributes.imageSrc,
+    dimensions: attributes.imageDimensions,
+    value: attributes.imageFocalPoint,
+    onChange: focalPoint => setAttributes({
+      imageFocalPoint: focalPoint
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(MediaUploadCheck, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(MediaUpload, {
+    onSelect: media => setAttributes({
+      imageId: media.id,
+      imageSrc: media.url
+    }),
+    allowedTypes: ['image'],
+    render: _ref2 => {
+      let {
+        open
+      } = _ref2;
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BaseControl, {
+        label: `${attributes.imageSrc ? 'Replace' : 'Choose'} Background Image`
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(Button, {
+        isLink: true,
+        onClick: open
+      }, "Open Media Library"));
+    }
+  }))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__.PanelStyleOptions, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
     styles: heroStyles,
     prefix: "wsu-hero--style-",
     removeClass: "wsu-style--boxed"
