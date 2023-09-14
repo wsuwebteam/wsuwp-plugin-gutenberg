@@ -30,6 +30,8 @@ class Block_WSUWP_Hero extends Block {
 		'sliderImages'      => array(),
 		'sliderEffect'      => 'fade',
 		'sliderDelay'       => 5000,
+		'videoSrc'          => '',
+		'VideoImage'        => '',
 	);
 
 
@@ -103,6 +105,10 @@ class Block_WSUWP_Hero extends Block {
 
 			$template_path = '/templates/default.background-image.php';
 
+		} elseif ( 'video' === $attrs['backgroundType'] && ! empty( $attrs['videoSrc'] ) ) {
+
+				$template_path = '/templates/default.background-bg-video.php';
+			
 		} elseif ( ( 'video' === $attrs['backgroundType'] || ( true === $attrs['backgroundVideo'] && empty( $attrs['backgroundType'] ) ) )
 			&& ( ! empty( $attrs['videoId'] ) && ! empty( $attrs['videoTitle'] ) && ! empty( $attrs['videoDescription'] ) ) ) {
 
