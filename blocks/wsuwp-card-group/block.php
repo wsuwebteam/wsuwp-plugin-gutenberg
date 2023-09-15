@@ -27,6 +27,7 @@ class Block_WSUWP_Card_Group extends Block {
 		'showHeading'  => true,
 		'showCaption'  => true,
 		'termsSelected' => array(),
+		'orderByTitle' => false,
 	);
 
 

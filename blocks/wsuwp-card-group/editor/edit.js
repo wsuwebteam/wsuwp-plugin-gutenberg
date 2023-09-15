@@ -198,8 +198,14 @@ const Edit = ( props ) => {
 						/>
 						)}
 						<FeedCountControl {...props} />
+						
 					</FeedPanel>
 					<FeedPanelAdvanced>
+						<ToggleControl
+							label="Order By Title"
+							checked={attributes.orderByTitle }
+							onChange={ ( orderByTitle ) => setAttributes( { orderByTitle } ) }
+							/>
 						<FeedUseAndLogicControl {...props} />
 						<FeedOffsetControl {...props} />
 						<FeedHostControl {...props} />
