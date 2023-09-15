@@ -54,6 +54,7 @@ class Query_Posts {
 		$this->exclude_shown_posts  = ( ! empty( $attrs['hideShownPosts'] ) ) ? $attrs['hideShownPosts'] : false;
 		$this->tax_query            = ( ! empty( $attrs['queryTerms'] ) ) ? $attrs['queryTerms'] : false;
 		$this->do_related           = ( ! empty( $attrs['doRelated'] ) ) ? $attrs['doRelated'] : false;
+		$this->order_by             = ( ! empty( $attrs['orderByTitle'] ) ) ? 'title' : 'date';
 
 	}
 
@@ -147,7 +148,14 @@ class Query_Posts {
 			'offset'              => $this->offset,
 			'order'               => $this->order,
 			'ignore_sticky_posts' => $this->show_sticky,
+			'orderby'             => $this->order_by,
 		);
+
+		if ( 'title' === $this->order_by ) {
+
+			$query_args['order'] = 'ASC';
+
+		}
 
 		if ( ! empty( $this->do_related ) ) {
 

@@ -120,6 +120,10 @@
                 type: 'boolean',
                 default: true,
             },
+            orderByTitle: {
+                type: 'boolean',
+                default: false,
+            },
          },
          edit,
          save,
