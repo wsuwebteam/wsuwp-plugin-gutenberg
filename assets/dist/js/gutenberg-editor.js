@@ -17746,6 +17746,31 @@ const Edit = props => {
     className: attributes.layout ? 'wsu-row wsu-row--' + attributes.layout : 'wsu-gutenberg-format-selector',
     style: {}
   });
+  const backgroundColors = [{
+    name: 'white',
+    color: '#ffffff',
+    className: 'white'
+  }, {
+    name: 'gray-0',
+    color: '#f7f7f7',
+    className: 'gray-0'
+  }, {
+    name: 'gray-5',
+    color: '#f2f2f2',
+    className: 'gray-5'
+  }, {
+    name: 'gray-10',
+    color: '#e6e6e6',
+    className: 'gray-10'
+  }, {
+    name: 'gray-85',
+    color: '#262626',
+    className: 'gray-85'
+  }, {
+    name: 'gray-95',
+    color: '#080808',
+    className: 'gray-95'
+  }];
   const [spacingDefaults, setSpacingDefaults] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(DEFAULT_SPACING);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     if (props.attributes.className && props.attributes.className.includes('wsu-color-background--')) {
@@ -17770,38 +17795,13 @@ const Edit = props => {
       title: "Select Layout"
     }));
   } else {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.ColorClassNameSelector, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
-      title: "Color Settings",
-      colorSettings: [{
-        label: 'Background Color',
-        prefix: 'wsu-color-background--',
-        colors: [{
-          name: 'White',
-          color: '#ffffff',
-          className: 'white'
-        }, {
-          name: 'Gray 0',
-          color: '#f7f7f7',
-          className: 'gray-0'
-        }, {
-          name: 'Gray 5',
-          color: '#f2f2f2',
-          className: 'gray-5'
-        }, {
-          name: 'Gray 10',
-          color: '#e6e6e6',
-          className: 'gray-10'
-        }, {
-          name: 'Gray 85',
-          color: '#262626',
-          className: 'gray-85'
-        }, {
-          name: 'Gray 95',
-          color: '#080808',
-          className: 'gray-95'
-        }]
-      }]
-    }, props)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__.PanelAnimate, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.SpacingClassNameSelector, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__.PanelColorOptions, {
+      isOpen: true
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.ColorClassControl, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      colors: backgroundColors,
+      label: "Background Color",
+      value: "#f2f2f2"
+    }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_panels_blockPanels__WEBPACK_IMPORTED_MODULE_2__.PanelAnimate, props), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.SpacingClassNameSelector, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
       title: "Space Settings",
       spaceSettings: [{
         label: 'Margin (Outside Spacing)',
