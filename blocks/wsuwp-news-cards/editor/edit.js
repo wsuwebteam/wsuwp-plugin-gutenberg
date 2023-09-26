@@ -121,6 +121,11 @@ const NewsCardDisplayOptions = ( props ) => {
                 onChange={ ( hideImage ) => { setAttributes( { hideImage } ) } }
                 />
             <ToggleControl
+                label="Show Author"
+                checked={ attributes.showAuthor }
+                onChange={ ( showAuthor ) => { setAttributes( { showAuthor } ) } }
+                />
+            <ToggleControl
                 label="Allow Video"
                 checked={ attributes.allowVideo }
                 onChange={ ( allowVideo ) => { setAttributes( { allowVideo } ) } }

@@ -295,6 +295,7 @@ class Query_Posts {
 				$wsu_post['content'] = get_the_content();
 				$wsu_post['link']    = get_permalink();
 				$wsu_post['date']    = get_the_date();
+				$wsu_post['author']  = get_the_author();
 
 				if ( has_post_thumbnail() ) {
 

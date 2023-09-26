@@ -8,7 +8,8 @@ const {
 } = wp.blockEditor;
 
 import { 
-	PanelAnimate
+	PanelAnimate,
+	PanelColorOptions
 } from "../../../assets/src/js/partials/block-panels/blockPanels";
 
 const {
@@ -21,7 +22,7 @@ const {
 } = wp.components;
 
 import { FormatSelector } from "../../../assets/src/js/partials/block-controls/blockControls";
-import { ColorClassNameSelector, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
+import { ColorClassControl, SpacingClassNameSelector} from '../../../assets/src/js/partials/block-controls/blockControls'
 import { useEffect, useState } from '@wordpress/element';
 
 //import EditOptions from './edit-options';
@@ -124,6 +125,15 @@ const Edit = ( props ) => {
         style: {},
     } );
 
+	const backgroundColors = [
+		{ name: 'white', color: '#ffffff', className: 'white' },			
+		{ name: 'gray-0', color: '#f7f7f7', className: 'gray-0' },
+		{ name: 'gray-5', color: '#f2f2f2', className: 'gray-5' },
+		{ name: 'gray-10', color: '#e6e6e6', className: 'gray-10' },
+		{ name: 'gray-85', color: '#262626', className: 'gray-85' },
+		{ name: 'gray-95', color: '#080808', className: 'gray-95' },
+	];
+
 	const [spacingDefaults, setSpacingDefaults] = useState(DEFAULT_SPACING);
 
 	useEffect( () => {
@@ -158,24 +168,14 @@ const Edit = ( props ) => {
         return (
 			<>
 			<InspectorControls>
-				<ColorClassNameSelector
-					title="Color Settings"
-					colorSettings={[
-						{
-							label: 'Background Color',
-							prefix: 'wsu-color-background--',
-							colors: [
-								{ name: 'White', color: '#ffffff', className: 'white' },			
-								{ name: 'Gray 0', color: '#f7f7f7', className: 'gray-0' },
-								{ name: 'Gray 5', color: '#f2f2f2', className: 'gray-5' },
-								{ name: 'Gray 10', color: '#e6e6e6', className: 'gray-10' },
-								{ name: 'Gray 85', color: '#262626', className: 'gray-85' },
-								{ name: 'Gray 95', color: '#080808', className: 'gray-95' },
-							],
-						}
-					]}
-					{...props}>
-				</ColorClassNameSelector>
+				<PanelColorOptions isOpen={true}>
+					<ColorClassControl
+						{ ...props }
+						colors={backgroundColors} 
+						label='Background Color'
+						value='#f2f2f2'
+						/>
+				</PanelColorOptions>
 				<PanelAnimate { ...props } ></PanelAnimate>
 				<SpacingClassNameSelector
 					title="Space Settings"
