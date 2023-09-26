@@ -38,6 +38,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'hideShownPosts'    => false,
 		'showButton'        => false,
 		'showHeading'       => false,
+		'showAuthor'        => false,
 		'headingText'       => '',
 		'headingTag'        => 'h3',
 		'linkHeading'       => false,
