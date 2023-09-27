@@ -1,3 +1,5 @@
+const { RangeControl } = wp.components;
+import { PanelDisplayOptions } from "../../../assets/src/js/partials/block-panels/blockPanels";
 import {
 	FeedOptionsPanel,
 	AdvancedFeedOptionsPanel,
@@ -7,7 +9,7 @@ import {
 const { useBlockProps, InspectorControls } = wp.blockEditor;
 
 export default function Edit(props) {
-	const { attributes } = props;
+	const { attributes, setAttributes } = props;
 	const host = attributes.data_source || WSUWP_DATA.siteUrl || "";
 
 	const { data, isLoading, error } = useGetEvents(host, attributes);
@@ -18,6 +20,17 @@ export default function Edit(props) {
 		<>
 			<InspectorControls>
 				<FeedOptionsPanel host={host} {...props} />
+
+				<PanelDisplayOptions isOpen={false}>
+					<RangeControl
+						label="Number of Columns"
+						help="Number of columns to display per row."
+						value={attributes.columns}
+						onChange={(columns) => setAttributes({ columns })}
+						min={1}
+						max={4}
+					/>
+				</PanelDisplayOptions>
 
 				<AdvancedFeedOptionsPanel host={host} {...props} />
 			</InspectorControls>
@@ -34,56 +47,61 @@ export default function Edit(props) {
 
 				{isLoading && <p>loading...</p>}
 
-				{data &&
-					data.map((event) => {
-						const date = new Date(event.start_date);
-						const month = date.toLocaleString("en-US", {
-							month: "short",
-						});
-						const day = date.getDate();
+				{data && (
+					<div
+						class={`wsu-card__wrapper wsu-per-row--${attributes.columns}`}
+					>
+						{data.map((event) => {
+							const date = new Date(event.start_date);
+							const month = date.toLocaleString("en-US", {
+								month: "short",
+							});
+							const day = date.getDate();
 
-						return (
-							<article
-								className={`wsu-card wsu-events-card ${
-									attributes.className
-										? attributes.className
-										: ""
-								}`}
-								key={event.id}
-							>
-								<div className="wsu-events-card__container">
-									<a href="#">{event.title}</a>
-									<div className="wsu-events-card__meta">
-										<div className="wsu-events-card__meta-date">
-											{month} {day}
+							return (
+								<article
+									className={`wsu-card wsu-events-card ${
+										attributes.className
+											? attributes.className
+											: ""
+									}`}
+									key={event.id}
+								>
+									<div className="wsu-events-card__container">
+										<a href="#">{event.title}</a>
+										<div className="wsu-events-card__meta">
+											<div className="wsu-events-card__meta-date">
+												{month} {day}
+											</div>
+											{event.is_all_day ? (
+												<div className="wsu-events-card__meta-time">
+													All-Day
+												</div>
+											) : (
+												""
+											)}
+
+											{!event.is_all_day &&
+											event.start_time ? (
+												<div className="wsu-events-card__meta-time">
+													{event.start_time}
+												</div>
+											) : (
+												""
+											)}
 										</div>
-										{event.is_all_day ? (
-											<div className="wsu-events-card__meta-time">
-												All-Day
+										{event.venue && (
+											<div className="wsu-events-card__meta-location">
+												{event.venue}
 											</div>
-										) : (
-											""
 										)}
-
-										{!event.is_all_day &&
-										event.start_time ? (
-											<div className="wsu-events-card__meta-time">
-												{event.start_time}
-											</div>
-										) : (
-											""
-										)}
+										<p>{event.summary}</p>
 									</div>
-									{event.venue && (
-										<div className="wsu-events-card__meta-location">
-											{event.venue}
-										</div>
-									)}
-									<p>{event.summary}</p>
-								</div>
-							</article>
-						);
-					})}
+								</article>
+							);
+						})}
+					</div>
+				)}
 			</div>
 		</>
 	);

@@ -7,6 +7,12 @@ registerBlockType("wsuwp/event-cards", {
 	apiVersion: 2,
 	icon: "calendar-alt",
 	category: "feeds",
-	attributes: Attributes,
+	attributes: {
+		...Attributes,
+		columns: {
+			type: "integer",
+			default: 3,
+		},
+	},
 	edit: Edit,
 });

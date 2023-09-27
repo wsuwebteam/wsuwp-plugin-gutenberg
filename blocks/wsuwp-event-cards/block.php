@@ -16,6 +16,7 @@ class Block_WSUWP_Event_Cards extends Block {
 		'tags'            => array(),
 		'organizations'   => array(),
 		'offset'          => 0,
+		'columns'         => 3,
 	);
 
 
