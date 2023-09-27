@@ -51,6 +51,10 @@
                 type: 'boolean',
                 default: false,
             },
+            showAuthor: {
+                type: 'boolean',
+                default: false,
+            },
             hideShownPosts: {
                 type: 'boolean',
                 default: false,

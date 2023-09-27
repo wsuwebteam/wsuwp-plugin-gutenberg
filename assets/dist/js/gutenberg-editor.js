@@ -13884,6 +13884,10 @@ registerBlockType("wsuwp/news-cards", {
       type: 'boolean',
       default: false
     },
+    showAuthor: {
+      type: 'boolean',
+      default: false
+    },
     hideShownPosts: {
       type: 'boolean',
       default: false
@@ -14166,6 +14170,14 @@ const NewsCardDisplayOptions = props => {
     onChange: hideImage => {
       setAttributes({
         hideImage
+      });
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {
+    label: "Show Author",
+    checked: attributes.showAuthor,
+    onChange: showAuthor => {
+      setAttributes({
+        showAuthor
       });
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(ToggleControl, {

@@ -31,6 +31,17 @@
 			<?php echo wp_kses_post( $post['caption'] ); ?>
 		</div>
 		<?php endif; ?>
+		<?php if ( ! empty( $attrs['showAuthor'] ) ) : ?>
+		<div class="wsu-card-footer">
+			<address class="wsu-meta-byline">
+				<span class="wsu-meta-byline__text">
+					By
+				</span>
+				<span class="wsu-meta-byline__name">
+				<?php echo wp_kses_post( $post['author'] ); ?></span>
+			</address>
+		</div>
+		<?php endif; ?>
 	</div>
 	<?php if ( empty( $attrs['hideLink'] ) && ! empty( $attrs['linkCard'] ) ) : ?><a class='wsu-card__link' href="<?php echo esc_url( $post['link'] ); ?>" aria-hidden="true" tabindex="-1" ></a><?php endif; ?>
 </article>
