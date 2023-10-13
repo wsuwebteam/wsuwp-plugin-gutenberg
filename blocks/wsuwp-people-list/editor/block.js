@@ -7,6 +7,22 @@ registerBlockType("wsuwp/people-list", {
   icon: "groups",
   category: "common",
   attributes: {
+    directory: {
+      type: "object",
+      default: {},
+    },
+    showProfile: {
+      type: "boolean",
+      default: false,
+    },
+    indexProfiles: {
+      type: "boolean",
+      default: false,
+    },
+    directory: {
+      type: "object",
+      default: {},
+    },
     count: {
       type: "string",
       default: "10",
