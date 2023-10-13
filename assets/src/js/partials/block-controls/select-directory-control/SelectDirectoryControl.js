@@ -21,11 +21,9 @@ const doDirectorySearch = ( term, callback ) => {
     }
 
     apiFetch( {
-        url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-        //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
+        //url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
+        path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
     }).then( ( response ) => {
-
-        console.log( response );
 
         if ( response ) {
 
@@ -118,7 +116,7 @@ const SelectDirectoryControl = (props) => {
     
         
         return (
-            <li>
+            <li className="wsu-select-directory-control-result">
                 <button onClick={() =>{ onSelect( {id, title, editLink } ) } }>
                     <span className="wsu-select-directory-control-result__title">{title}</span>
                     <span className="wsu-select-directory-control-result__path">{pathArray.join('/')}</span>
@@ -137,6 +135,7 @@ const SelectDirectoryControl = (props) => {
                 <span>{directoryTitle}</span>
                 {directoryEdit && <a href={directoryEdit}>Edit Directory</a> }
             </div>
+            <button onClick={() =>{ onSelect( {} ) } } >X Remove Directory</button>
             <TextControl
                 label="Search for Directory"
                 help="Select a Directory to display"
@@ -144,7 +143,7 @@ const SelectDirectoryControl = (props) => {
                 value={searchTerm}
                 onChange={(term) => { updateSearchTerm( term ) } }
               />
-              <ul>
+              <ul className="wsu-select-directory-control-result__wrapper">
                 {searchResults.map( ( result ) => { return ( <SelectDirectoryControlResult { ...result } />) } ) }
               </ul>
         </div>

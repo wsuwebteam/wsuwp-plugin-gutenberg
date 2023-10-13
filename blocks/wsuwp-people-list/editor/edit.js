@@ -156,14 +156,22 @@ export default function Edit(props) {
         <PanelBody title="Select Directory" initialOpen={true}>
           <SelectDirectoryControl directory={attributes.directory} onSelect={ ( value ) => { console.log( value ); setAttributes( { directory: value } ) } } />
           <ToggleControl
+              label="Include child directories"
+              checked={attributes.includeChildDirectories }
+              onChange={ (includeChildDirectories) => { setAttributes( { includeChildDirectories } ) }}
+              disabled="disabled"
+            />
+          <ToggleControl
               label="Link to full profile"
               checked={attributes.showProfile }
               onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
+              disabled="disabled"
             />
           <ToggleControl
               label="Include profiles in site search"
               checked={attributes.indexProfiles }
               onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
+              disabled="disabled"
             />
         </PanelBody>
         <PanelBody title="People Directory Settings" initialOpen={false}>

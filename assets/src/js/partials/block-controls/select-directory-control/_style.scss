@@ -1,0 +1,25 @@
+.wsu-select-directory-control-result {
+    &__wrapper {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: #fff;
+        border: 1px solid #a60f2d;
+        color: #a60f2d;
+    }
+
+    &__title {
+        color: #a60f2d;
+        font-weight: 600;
+        display: block;
+    }
+
+    &__path {
+        color: #777;
+        display: block;
+    }
+
+}

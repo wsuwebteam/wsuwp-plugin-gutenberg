@@ -4249,10 +4249,9 @@ const doDirectorySearch = (term, callback) => {
     inherit_children: 1
   };
   _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-    url: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data)
-    //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
+    //url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
+    path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('/peopleapi/v1/directory/search', data)
   }).then(response => {
-    console.log(response);
     if (response) {
       callback(response);
     }
@@ -4309,7 +4308,9 @@ const SelectDirectoryControl = props => {
     path.forEach(pathLevel => {
       pathArray.push(pathLevel.title);
     });
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      className: "wsu-select-directory-control-result"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
       onClick: () => {
         onSelect({
           id,
@@ -4326,7 +4327,11 @@ const SelectDirectoryControl = props => {
   console.log(searchResults);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "Selected Directory"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, directoryTitle), directoryEdit && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: directoryEdit
-  }, "Edit Directory")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+  }, "Edit Directory")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: () => {
+      onSelect({});
+    }
+  }, "X Remove Directory"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     label: "Search for Directory",
     help: "Select a Directory to display",
     placeholder: "Directory Name",
@@ -4334,7 +4339,9 @@ const SelectDirectoryControl = props => {
     onChange: term => {
       updateSearchTerm(term);
     }
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, searchResults.map(result => {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "wsu-select-directory-control-result__wrapper"
+  }, searchResults.map(result => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(SelectDirectoryControlResult, result);
   })));
 };
@@ -16922,6 +16929,10 @@ registerBlockType("wsuwp/people-list", {
       type: "boolean",
       default: false
     },
+    includeChildDirectories: {
+      type: "boolean",
+      default: true
+    },
     directory: {
       type: "object",
       default: {}
@@ -17247,13 +17258,23 @@ function Edit(props) {
       });
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Include child directories",
+    checked: attributes.includeChildDirectories,
+    onChange: includeChildDirectories => {
+      setAttributes({
+        includeChildDirectories
+      });
+    },
+    disabled: "disabled"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
     label: "Link to full profile",
     checked: attributes.showProfile,
     onChange: showProfile => {
       setAttributes({
         showProfile
       });
-    }
+    },
+    disabled: "disabled"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
     label: "Include profiles in site search",
     checked: attributes.indexProfiles,
@@ -17261,7 +17282,8 @@ function Edit(props) {
       setAttributes({
         indexProfiles
       });
-    }
+    },
+    disabled: "disabled"
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "People Directory Settings",
     initialOpen: false

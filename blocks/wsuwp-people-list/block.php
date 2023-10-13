@@ -45,6 +45,8 @@ class Block_WSUWP_People_List extends Block {
 		'search_filter_label'            => 'Type to search',
 		'tag_filter_label'               => 'Filter by Tag',
 		'tag_filter_terms'               => array(),
+		'directory'                      => array(),
+		'includeChildDirectories'        => true,
 	);
 
 
@@ -78,7 +80,9 @@ class Block_WSUWP_People_List extends Block {
 		);
 
 		// resolve base url
-		$data_attrs['base_url'] = self::resolve_base_url( $data_attrs['data_source'], $data_attrs['custom_data_source'] );
+		$data_attrs['base_url']  = self::resolve_base_url( $data_attrs['data_source'], $data_attrs['custom_data_source'] );
+		$data_attrs['directory'] = ( is_array( $attrs['directory'] ) && ! empty( $attrs['directory']['id'] ) ) ? $attrs['directory']['id'] : false;
+		$data_attrs['children']  = $attrs['includeChildDirectories'];
 
 		// remove unneeded attributes
 		if ( ( $index = array_search( 'data_source', array_keys( $data_attrs ) ) ) !== false ) {
@@ -132,5 +136,6 @@ class Block_WSUWP_People_List extends Block {
 		return ob_get_clean();
 
 	}
+
 
 }
