@@ -1,64 +1,63 @@
-const { useState, useEffect, useRef } = wp.element;
+const { useEffect, useRef, useReducer } = wp.element;
 
-const useFetch = function (url, options = {}) {
-	const [output, setOutput] = useState({
-		data: null,
-		isLoading: false,
-		error: null,
-	});
-	const abortControllerRef = useRef(null);
+const initialState = {
+	data: null,
+	isLoading: false,
+	error: null,
+};
+
+function reducer(state, action) {
+	switch (action.type) {
+		case "LOADING":
+			return { ...initialState, isLoading: true };
+		case "SUCCESS":
+			return { ...initialState, data: action.data };
+		case "ERROR":
+			return { ...initialState, error: action.error };
+		default:
+			return state;
+	}
+}
+
+const useFetch = function (url, options) {
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const abortControllerRef = useRef();
 
 	useEffect(() => {
-		setOutput({
-			data: null,
-			isLoading: true,
-			error: null,
-		});
-
-		// abortControllerRef.current?.abort(); // don't think this is needed since we have it in the cleanup function
-
 		if (typeof AbortController !== "undefined") {
 			abortControllerRef.current = new AbortController();
 		}
 
-		options = { ...options, signal: abortControllerRef.current?.signal };
-
 		(async () => {
 			try {
-				// console.log("Calling: " + url);
-				const response = await fetch(url, options);
-				const responseJson = await response.json();
+				dispatch({ type: "LOADING" });
+				const response = await fetch(url, {
+					...options,
+					signal: abortControllerRef.current?.signal,
+				});
 
-				if (response.ok) {
-					setOutput({
-						data: responseJson,
-						isLoading: false,
-						error: null,
-					});
-				} else {
-					setOutput({
-						data: null,
-						isLoading: false,
-						error: `${responseJson.code} | ${responseJson.message} ${response.status} (${response.statusText})`,
-					});
+				if (!response.ok) {
+					throw new Error(
+						`${response.status} - ${response.statusText}`
+					);
 				}
+
+				const data = await response.json();
+				dispatch({ type: "SUCCESS", data: data });
 			} catch (ex) {
 				if (ex.name !== "AbortError") {
-					setOutput({
-						data: null,
-						isLoading: false,
-						error: ex.message,
-					});
+					dispatch({ type: "ERROR", error: ex.message });
 				}
 			}
 		})();
 
+		// cancel current request on cleanup to avoid race conditions & memory leaks
 		return () => {
 			abortControllerRef.current?.abort();
 		};
-	}, [url]);
+	}, [url, options]);
 
-	return output;
+	return state;
 };
 
 export default useFetch;
