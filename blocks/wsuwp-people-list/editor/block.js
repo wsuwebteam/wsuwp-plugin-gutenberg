@@ -19,6 +19,10 @@ registerBlockType("wsuwp/people-list", {
       type: "boolean",
       default: false,
     },
+    includeChildDirectories: {
+      type: "boolean",
+      default: true,
+    },
     directory: {
       type: "object",
       default: {},
