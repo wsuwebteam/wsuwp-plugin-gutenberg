@@ -4249,8 +4249,8 @@ const doDirectorySearch = (term, callback) => {
     inherit_children: 1
   };
   _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-    //url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-    path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('/peopleapi/v1/directory/search', data)
+    url: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data)
+    //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
   }).then(response => {
     if (response) {
       callback(response);

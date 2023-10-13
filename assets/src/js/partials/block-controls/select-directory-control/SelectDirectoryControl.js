@@ -21,8 +21,8 @@ const doDirectorySearch = ( term, callback ) => {
     }
 
     apiFetch( {
-        //url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-        path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
+        url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
+        //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
     }).then( ( response ) => {
 
         if ( response ) {
