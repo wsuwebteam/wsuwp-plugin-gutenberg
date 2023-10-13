@@ -14,7 +14,7 @@ const {
 } = wp.components;
 
 import React, { useState, useEffect } from "react";
-import { HeadingTagControl } from "../../../assets/src/js/partials/block-controls/blockControls";
+import { HeadingTagControl, SelectDirectoryControl } from "../../../assets/src/js/partials/block-controls/blockControls";
 import { addBlockClassName } from "../../../assets/src/js/partials/block-utilities/blockClassName";
 import TermSelector from "./term-selector";
 
@@ -153,7 +153,20 @@ export default function Edit(props) {
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title="People Directory Settings" initialOpen={true}>
+        <PanelBody title="Select Directory" initialOpen={true}>
+          <SelectDirectoryControl directory={attributes.directory} onSelect={ ( value ) => { console.log( value ); setAttributes( { directory: value } ) } } />
+          <ToggleControl
+              label="Link to full profile"
+              checked={attributes.showProfile }
+              onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
+            />
+          <ToggleControl
+              label="Include profiles in site search"
+              checked={attributes.indexProfiles }
+              onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
+            />
+        </PanelBody>
+        <PanelBody title="People Directory Settings" initialOpen={false}>
           {/* <PanelRow>
                         <TextControl
                             label="Page"

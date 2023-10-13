@@ -44,3 +44,4 @@ export { default as ImageRatioControl } from "./image-ratio-control/ImageRatioCo
 export { default as RelatedFeedControl } from "./related-feed-control/RelatedFeedControl";
 export { default as TokenMultiSelectControl } from "./token-multiselect-control";
 export { FeedTaxonomyControl as FeedTaxonomyControl } from "./feed-controls/feed-controls";
+export { default as SelectDirectoryControl } from "./select-directory-control/SelectDirectoryControl";
