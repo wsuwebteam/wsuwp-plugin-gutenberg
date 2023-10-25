@@ -67,6 +67,9 @@ export default function Edit(props) {
   const apiBaseUrl = getapiBaseUrl();
   const apiEndpoint = getApiEndpoint();
 
+  const localProfileData = ( typeof wsuPluginLocalProfilesEditor !== 'undefined' ) ? wsuPluginLocalProfilesEditor : false;
+  const hasLocalProfiles = localProfileData && localProfileData.showProfiles ? true : false;
+
   function getapiBaseUrl() {
     const sources = {
       global: window.location.hostname.includes(".local")
@@ -156,23 +159,22 @@ export default function Edit(props) {
         <PanelBody title="Select Directory" initialOpen={true}>
           <SelectDirectoryControl directory={attributes.directory} onSelect={ ( value ) => { console.log( value ); setAttributes( { directory: value } ) } } />
           <ToggleControl
-              label="Include child directories"
+              label='Include child directories'
               checked={attributes.includeChildDirectories }
               onChange={ (includeChildDirectories) => { setAttributes( { includeChildDirectories } ) }}
-              disabled="disabled"
             />
-          <ToggleControl
-              label="Link to full profile"
-              checked={attributes.showProfile }
-              onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
-              disabled="disabled"
-            />
-          <ToggleControl
-              label="Include profiles in site search"
-              checked={attributes.indexProfiles }
-              onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
-              disabled="disabled"
-            />
+          { hasLocalProfiles && <>
+              <ToggleControl
+                  label="Allow full profile view"
+                  checked={attributes.showProfile }
+                  onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
+                />
+              <ToggleControl 
+                  label="Include directory in site search"
+                  checked={attributes.indexProfiles }
+                  onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
+                />
+            </> }
         </PanelBody>
         <PanelBody title="People Directory Settings" initialOpen={false}>
           {/* <PanelRow>
@@ -191,7 +193,7 @@ export default function Edit(props) {
               value={attributes.count}
               onChange={(newval) => setAttributes({ count: newval })}
             />
-          </PanelRow>
+          </PanelRow> 
 
           <PanelRow>
             <TextControl

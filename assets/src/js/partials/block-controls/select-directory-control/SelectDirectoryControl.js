@@ -13,25 +13,24 @@ import apiFetch from "@wordpress/api-fetch";
 import { addQueryArgs } from '@wordpress/url';
 
 
-const doDirectorySearch = ( term, callback ) => {
+const doDirectorySearch = async ( term, callback ) => {
 
     let data = { 
         term,
         inherit_children:1,
     }
 
-    apiFetch( {
-        url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-        //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
-    }).then( ( response ) => {
+    let response = await fetch(
+        addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data )
+    )
 
-        if ( response ) {
+    const directories = await response.json();
 
-            callback( response );
+    if ( directories ) {
 
-        }
+        callback( directories );
 
-    });
+    }
 
 }
 
@@ -44,18 +43,14 @@ const SelectDirectoryControl = (props) => {
         directory,
     } = props;
 
-    let directoryTitle = directory && directory.hasOwnProperty('title') ? directory.title : 'None Selected';
-    let directoryEdit = directory && directory.hasOwnProperty('editLink') ? directory.editLink : false;
-
-
-
     const [searchResults, setSearchResults] = useState([]);
     const [searchTerm, setSearchTerm]       = useState('');
 
-    useEffect( () => {
+    let hasResults     = searchResults.length ? true : false;
+    let hasDirectory   = directory && directory.hasOwnProperty('title') ? true : false;
+    let directoryTitle = directory && directory.hasOwnProperty('title') ? directory.title : 'None Selected';
+    let directoryEdit  = directory && directory.hasOwnProperty('editLink') ? directory.editLink : false;
 
-        
-    }, [searchTerm] );
 
 
     const updateSearchTerm = ( newTerm ) => {
@@ -76,31 +71,6 @@ const SelectDirectoryControl = (props) => {
 
     }
 
-    /*const doSearch = ( term ) => {
-
-        let data = { 
-            term,
-            inherit_children:1,
-        }
-    
-        apiFetch( {
-            url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-            //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
-        }).then( ( response ) => {
-
-            console.log( response );
-
-            if ( response ) {
-
-                //setSearchResults( response );
-
-            }
-    
-        });
-    
-    }*/
-
-
     const SelectDirectoryControlResult = ( props ) => {
 
         let {
@@ -117,35 +87,34 @@ const SelectDirectoryControl = (props) => {
         
         return (
             <li className="wsu-select-directory-control-result">
-                <button onClick={() =>{ onSelect( {id, title, editLink } ) } }>
+                <button onClick={() =>{ onSelect( {id, title, editLink } ); setSearchResults([]); setSearchTerm('') } }>
                     <span className="wsu-select-directory-control-result__title">{title}</span>
-                    <span className="wsu-select-directory-control-result__path">{pathArray.join('/')}</span>
+                    <span className="wsu-select-directory-control-result__path">{pathArray.join(' / ')}</span>
                 </button>
             </li>
         )
     
     }
 
-    console.log( searchResults );
-
     return (
-        <div>
-            <div>
-                <h3>Selected Directory</h3>
-                <span>{directoryTitle}</span>
-                {directoryEdit && <a href={directoryEdit}>Edit Directory</a> }
+        <div className="wsu-select-directory-control__select">
+            { hasDirectory && <><div className="wsu-select-directory-control__selected-card">
+                <h4 className="wsu-select-directory-control__selected-title">{directoryTitle}</h4>
+                <a className="wsu-select-directory-control__selected-edit" href={directoryEdit}>Edit Directory</a>
             </div>
-            <button onClick={() =>{ onSelect( {} ) } } >X Remove Directory</button>
-            <TextControl
+            <div className="wsu-select-directory-control__selected-remove-wrapper">
+                <button className="wsu-select-directory-control__selected-remove" onClick={() =>{ onSelect( {} ) } } >Remove Directory</button>
+            </div></> }
+            { ! hasDirectory && <><TextControl
                 label="Search for Directory"
-                help="Select a Directory to display"
                 placeholder="Directory Name"
                 value={searchTerm}
                 onChange={(term) => { updateSearchTerm( term ) } }
-              />
-              <ul className="wsu-select-directory-control-result__wrapper">
+            />
+            <ul className="wsu-select-directory-control-result__wrapper">
                 {searchResults.map( ( result ) => { return ( <SelectDirectoryControlResult { ...result } />) } ) }
-              </ul>
+            </ul>
+            </> }
         </div>
     )
 }

@@ -5,11 +5,12 @@ class BlockSchedulingFilter {
 	public static function render_block( $block_content, $block ) {
 
 		if ( ! is_admin() && isset( $block['attrs']['blockSchedulingEnabled'] ) && true === $block['attrs']['blockSchedulingEnabled'] ) {
-			$now       = new \DateTime();
-			$publish   = $block['attrs']['blockSchedulingPublishDateTime'] ? new \DateTime( $block['attrs']['blockSchedulingPublishDateTime'] ) : null;
-			$unpublish = $block['attrs']['blockSchedulingUnpublishDateTime'] ? new \DateTime( $block['attrs']['blockSchedulingUnpublishDateTime'] ) : null;
 
-			if ( true === $block['attrs']['blockSchedulingIsDisabled']
+			$now       = new \DateTime();
+			$publish   = isset( $block['attrs']['blockSchedulingPublishDateTime'] ) ? new \DateTime( $block['attrs']['blockSchedulingPublishDateTime'] ) : new \DateTime( 'yesterday' );
+			$unpublish = isset( $block['attrs']['blockSchedulingUnpublishDateTime'] ) ? new \DateTime( $block['attrs']['blockSchedulingUnpublishDateTime'] ) : new \DateTime( 'tomorrow' );
+
+			if ( true === ( $block['attrs']['blockSchedulingIsDisabled'] ?? false )
 			|| ( $publish && $now < $publish )
 			|| ( $unpublish && $now > $unpublish )
 			) {

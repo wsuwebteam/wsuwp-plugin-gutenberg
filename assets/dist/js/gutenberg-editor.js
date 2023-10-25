@@ -4243,30 +4243,28 @@ const {
 } = wp.components;
 
 
-const doDirectorySearch = (term, callback) => {
+const doDirectorySearch = async (term, callback) => {
   let data = {
     term,
     inherit_children: 1
   };
-  _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-    url: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data)
-    //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
-  }).then(response => {
-    if (response) {
-      callback(response);
-    }
-  });
+  let response = await fetch((0,_wordpress_url__WEBPACK_IMPORTED_MODULE_2__.addQueryArgs)('https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data));
+  const directories = await response.json();
+  if (directories) {
+    callback(directories);
+  }
 };
 const SelectDirectoryControl = props => {
   let {
     onSelect,
     directory
   } = props;
-  let directoryTitle = directory && directory.hasOwnProperty('title') ? directory.title : 'None Selected';
-  let directoryEdit = directory && directory.hasOwnProperty('editLink') ? directory.editLink : false;
   const [searchResults, setSearchResults] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [searchTerm, setSearchTerm] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, [searchTerm]);
+  let hasResults = searchResults.length ? true : false;
+  let hasDirectory = directory && directory.hasOwnProperty('title') ? true : false;
+  let directoryTitle = directory && directory.hasOwnProperty('title') ? directory.title : 'None Selected';
+  let directoryEdit = directory && directory.hasOwnProperty('editLink') ? directory.editLink : false;
   const updateSearchTerm = newTerm => {
     setSearchTerm(newTerm);
     if (newTerm.length > 2) {
@@ -4277,26 +4275,6 @@ const SelectDirectoryControl = props => {
       }
     }
   };
-
-  /*const doSearch = ( term ) => {
-        let data = { 
-          term,
-          inherit_children:1,
-      }
-  
-      apiFetch( {
-          url: addQueryArgs( 'https://people.wsu.edu/wp-json/peopleapi/v1/directory/search', data ),
-          //path: addQueryArgs( '/peopleapi/v1/directory/search', data ),
-      }).then( ( response ) => {
-            console.log( response );
-            if ( response ) {
-                //setSearchResults( response );
-            }
-  
-      });
-  
-  }*/
-
   const SelectDirectoryControlResult = props => {
     let {
       title,
@@ -4317,23 +4295,33 @@ const SelectDirectoryControl = props => {
           title,
           editLink
         });
+        setSearchResults([]);
+        setSearchTerm('');
       }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "wsu-select-directory-control-result__title"
     }, title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "wsu-select-directory-control-result__path"
-    }, pathArray.join('/'))));
+    }, pathArray.join(' / '))));
   };
-  console.log(searchResults);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "Selected Directory"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, directoryTitle), directoryEdit && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wsu-select-directory-control__select"
+  }, hasDirectory && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wsu-select-directory-control__selected-card"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
+    className: "wsu-select-directory-control__selected-title"
+  }, directoryTitle), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "wsu-select-directory-control__selected-edit",
     href: directoryEdit
-  }, "Edit Directory")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+  }, "Edit Directory")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wsu-select-directory-control__selected-remove-wrapper"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: "wsu-select-directory-control__selected-remove",
     onClick: () => {
       onSelect({});
     }
-  }, "X Remove Directory"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+  }, "Remove Directory"))), !hasDirectory && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     label: "Search for Directory",
-    help: "Select a Directory to display",
     placeholder: "Directory Name",
     value: searchTerm,
     onChange: term => {
@@ -4343,7 +4331,7 @@ const SelectDirectoryControl = props => {
     className: "wsu-select-directory-control-result__wrapper"
   }, searchResults.map(result => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(SelectDirectoryControlResult, result);
-  })));
+  }))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (SelectDirectoryControl);
 
@@ -17182,6 +17170,8 @@ function Edit(props) {
   const debouncedAttributes = useValueDebounce(attributes, 1000);
   const apiBaseUrl = getapiBaseUrl();
   const apiEndpoint = getApiEndpoint();
+  const localProfileData = typeof wsuPluginLocalProfilesEditor !== 'undefined' ? wsuPluginLocalProfilesEditor : false;
+  const hasLocalProfiles = localProfileData && localProfileData.showProfiles ? true : false;
   function getapiBaseUrl() {
     const sources = {
       global: window.location.hostname.includes(".local") ? "https://peopleapi.local" : "https://people.wsu.edu",
@@ -17264,27 +17254,24 @@ function Edit(props) {
       setAttributes({
         includeChildDirectories
       });
-    },
-    disabled: "disabled"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Link to full profile",
+    }
+  }), hasLocalProfiles && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Allow full profile view",
     checked: attributes.showProfile,
     onChange: showProfile => {
       setAttributes({
         showProfile
       });
-    },
-    disabled: "disabled"
+    }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Include profiles in site search",
+    label: "Include directory in site search",
     checked: attributes.indexProfiles,
     onChange: indexProfiles => {
       setAttributes({
         indexProfiles
       });
-    },
-    disabled: "disabled"
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+    }
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "People Directory Settings",
     initialOpen: false
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {

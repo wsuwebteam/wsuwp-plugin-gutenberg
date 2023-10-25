@@ -47,6 +47,8 @@ class Block_WSUWP_People_List extends Block {
 		'tag_filter_terms'               => array(),
 		'directory'                      => array(),
 		'includeChildDirectories'        => true,
+		'showProfile'                    => false,
+		'indexProfiles'                  => false,
 	);
 
 
@@ -139,3 +141,4 @@ class Block_WSUWP_People_List extends Block {
 
 
 }
+
