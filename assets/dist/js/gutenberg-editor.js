@@ -17256,7 +17256,7 @@ function Edit(props) {
       });
     }
   }), hasLocalProfiles && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Link to full profile",
+    label: "Allow full profile view",
     checked: attributes.showProfile,
     onChange: showProfile => {
       setAttributes({

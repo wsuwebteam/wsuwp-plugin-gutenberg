@@ -165,7 +165,7 @@ export default function Edit(props) {
             />
           { hasLocalProfiles && <>
               <ToggleControl
-                  label="Link to full profile"
+                  label="Allow full profile view"
                   checked={attributes.showProfile }
                   onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
                 />
