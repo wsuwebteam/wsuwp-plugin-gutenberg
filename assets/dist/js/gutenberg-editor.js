@@ -16909,15 +16909,19 @@ registerBlockType("wsuwp/people-list", {
       type: "object",
       default: {}
     },
-    showProfile: {
+    show_profile: {
       type: "boolean",
       default: false
+    },
+    custom_profile_link: {
+      type: "string",
+      default: ""
     },
     indexProfiles: {
       type: "boolean",
       default: false
     },
-    includeChildDirectories: {
+    exclude_child_directories: {
       type: "boolean",
       default: true
     },
@@ -17170,8 +17174,6 @@ function Edit(props) {
   const debouncedAttributes = useValueDebounce(attributes, 1000);
   const apiBaseUrl = getapiBaseUrl();
   const apiEndpoint = getApiEndpoint();
-  const localProfileData = typeof wsuPluginLocalProfilesEditor !== 'undefined' ? wsuPluginLocalProfilesEditor : false;
-  const hasLocalProfiles = localProfileData && localProfileData.showProfiles ? true : false;
   function getapiBaseUrl() {
     const sources = {
       global: window.location.hostname.includes(".local") ? "https://peopleapi.local" : "https://people.wsu.edu",
@@ -17248,21 +17250,20 @@ function Edit(props) {
       });
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Include child directories",
-    checked: attributes.includeChildDirectories,
-    onChange: includeChildDirectories => {
+    label: "Link full profile view",
+    checked: attributes.show_profile,
+    onChange: show_profile => {
       setAttributes({
-        includeChildDirectories
+        show_profile
       });
     }
-  }), hasLocalProfiles && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Allow full profile view",
-    checked: attributes.showProfile,
-    onChange: showProfile => {
-      setAttributes({
-        showProfile
-      });
-    }
+  }), attributes.show_profile && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+    label: "Custom directory URL (optional)",
+    help: "To show profiles on a different directory/page, add the directory URL in the field above.",
+    value: attributes.custom_profile_link,
+    onChange: custom_profile_link => setAttributes({
+      custom_profile_link
+    })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
     label: "Include directory in site search",
     checked: attributes.indexProfiles,
@@ -17271,7 +17272,7 @@ function Edit(props) {
         indexProfiles
       });
     }
-  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "People Directory Settings",
     initialOpen: false
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {

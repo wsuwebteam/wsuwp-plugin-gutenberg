@@ -11,15 +11,19 @@ registerBlockType("wsuwp/people-list", {
       type: "object",
       default: {},
     },
-    showProfile: {
+    show_profile: {
       type: "boolean",
       default: false,
+    },
+    custom_profile_link: {
+      type: "string",
+      default: "",
     },
     indexProfiles: {
       type: "boolean",
       default: false,
     },
-    includeChildDirectories: {
+    exclude_child_directories: {
       type: "boolean",
       default: true,
     },
