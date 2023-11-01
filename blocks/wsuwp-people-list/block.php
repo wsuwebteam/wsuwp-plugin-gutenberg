@@ -239,6 +239,8 @@ class Block_WSUWP_People_List extends Block {
 				$content = ob_get_clean();
 
 			}
+
+			remove_filter( 'the_content', array( __CLASS__, 'filter_content' ), 1 );
 		}
 
 		return $content;
