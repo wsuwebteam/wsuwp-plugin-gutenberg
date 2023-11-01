@@ -67,9 +67,6 @@ export default function Edit(props) {
   const apiBaseUrl = getapiBaseUrl();
   const apiEndpoint = getApiEndpoint();
 
-  const localProfileData = ( typeof wsuPluginLocalProfilesEditor !== 'undefined' ) ? wsuPluginLocalProfilesEditor : false;
-  const hasLocalProfiles = localProfileData && localProfileData.showProfiles ? true : false;
-
   function getapiBaseUrl() {
     const sources = {
       global: window.location.hostname.includes(".local")
@@ -158,23 +155,22 @@ export default function Edit(props) {
       <InspectorControls>
         <PanelBody title="Select Directory" initialOpen={true}>
           <SelectDirectoryControl directory={attributes.directory} onSelect={ ( value ) => { console.log( value ); setAttributes( { directory: value } ) } } />
-          <ToggleControl
-              label='Include child directories'
-              checked={attributes.includeChildDirectories }
-              onChange={ (includeChildDirectories) => { setAttributes( { includeChildDirectories } ) }}
-            />
-          { hasLocalProfiles && <>
-              <ToggleControl
-                  label="Allow full profile view"
-                  checked={attributes.showProfile }
-                  onChange={ (showProfile) => { setAttributes( { showProfile } ) }}
-                />
-              <ToggleControl 
-                  label="Include directory in site search"
-                  checked={attributes.indexProfiles }
-                  onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
-                />
-            </> }
+            <ToggleControl
+                label="Link full profile view"
+                checked={attributes.show_profile }
+                onChange={ (show_profile) => { setAttributes( { show_profile } ) }}
+              />
+            { attributes.show_profile && <TextControl
+              label="Custom directory URL (optional)"
+              help="To show profiles on a different directory/page, add the directory URL in the field above."
+              value={attributes.custom_profile_link}
+              onChange={ ( custom_profile_link ) => setAttributes( { custom_profile_link } ) }
+            />}
+            <ToggleControl 
+                label="Include directory in site search"
+                checked={attributes.indexProfiles }
+                onChange={ (indexProfiles) => { setAttributes( { indexProfiles } ) }}
+              />
         </PanelBody>
         <PanelBody title="People Directory Settings" initialOpen={false}>
           {/* <PanelRow>

@@ -2,6 +2,8 @@
 
 class Block_WSUWP_People_List extends Block {
 
+	protected static $profiles = array();
+
 	protected static $block_name    = 'wsuwp/people-list';
 	protected static $default_attrs = array(
 		'className'                      => '',
@@ -46,10 +48,34 @@ class Block_WSUWP_People_List extends Block {
 		'tag_filter_label'               => 'Filter by Tag',
 		'tag_filter_terms'               => array(),
 		'directory'                      => array(),
-		'includeChildDirectories'        => true,
-		'showProfile'                    => false,
+		'exclude_child_directories'      => true,
+		'show_profile'                   => false,
 		'indexProfiles'                  => false,
+		'custom_profile_link'            => '',
 	);
+
+
+	public static function init() {
+
+		include __DIR__ . '/classes/class-profile.php';
+
+		add_filter(
+			'query_vars',
+			function ( $query_vars ) {
+				$query_vars[] = 'wsuprofile';
+				return $query_vars;
+			}
+		);
+
+		add_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
+
+		add_filter( 'wp_nav_menu_items', array( __CLASS__, 'add_menu_fitler' ), 10, 2 );
+
+		add_filter( 'pre_wp_nav_menu', array( __CLASS__, 'remove_menu_fitler' ), 10, 2 );
+
+		add_filter( 'the_content', array( __CLASS__, 'filter_content' ), 1 );
+
+	}
 
 
 	private static function resolve_base_url( $data_source, $custom_data_source ) {
@@ -140,5 +166,87 @@ class Block_WSUWP_People_List extends Block {
 	}
 
 
+	public static function remove_menu_fitler( $nav_menu, $args ) {
+
+		// we are working with menu, so remove the title filter
+		remove_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
+
+		return $nav_menu;
+
+	}
+
+
+	public static function add_menu_fitler( $items, $args ) {
+
+		// we are done working with menu, so add the title filter back
+		add_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
+
+		return $items;
+
+	}
+
+
+	public static function filter_title( $title ) {
+
+		$profile_nid = get_query_var( 'wsuprofile', false );
+
+		if ( ! is_admin() && is_main_query() && ! empty( $profile_nid ) ) {
+
+				$profile = self::get_profile( $profile_nid );
+
+				$title = $profile->get( 'name' );
+
+		}
+
+		return $title;
+
+	}
+
+
+	protected static function get_profile( $nid ) {
+
+		if ( array_key_exists( $nid, self::$profiles ) ) {
+
+			return self::$profiles[ $nid ];
+
+		} else {
+
+			$profile = new Profile( $nid );
+
+			self::$profiles[ $nid ] = $profile;
+
+			return $profile;
+
+		}
+
+	}
+
+
+	public static function filter_content( $content ) {
+
+		$profile_nid = get_query_var( 'wsuprofile', false );
+
+		if ( ! is_admin() && is_main_query() && ! empty( $profile_nid ) && is_singular() ) {
+
+			$profile = self::get_profile( $profile_nid );
+
+			if ( $profile ) {
+
+				ob_start();
+
+				include __DIR__ . '/templates/profile.php';
+
+				$content = ob_get_clean();
+
+			}
+		}
+
+		return $content;
+
+	}
+
+
 }
+
+Block_WSUWP_People_List::init();
 
