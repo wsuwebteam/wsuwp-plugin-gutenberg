@@ -59,20 +59,30 @@ class Profile {
 	}
 
 
-	public function __construct( $nid = false ) {
+	public function __construct( $nid = false, $source = false ) {
 
 		if ( $nid ) {
 
-			$this->set_remote_profile( $nid );
+			$this->set_remote_profile( $nid, $source );
 
 		}
 
 	}
 
 
-	public function set_remote_profile( $nid ) {
+	public function set_remote_profile( $nid, $source = false ) {
 
-		$request_url = 'https://people.wsu.edu/wp-json/peopleapi/v1/people?nid=' . $nid;
+		if ( ! empty( $source ) ) {
+
+			$source_array = explode( '?', $source );
+
+			$request_url = $source_array[0] . '?nid=' . $nid;
+
+		} else {
+
+			$request_url = 'https://people.wsu.edu/wp-json/peopleapi/v1/people?nid=' . $nid;
+
+		}
 
 		$response = wp_remote_request( $request_url );
 

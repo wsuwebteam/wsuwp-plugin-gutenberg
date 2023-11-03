@@ -51,6 +51,7 @@ class Block_WSUWP_People_List extends Block {
 		'exclude_child_directories'      => true,
 		'show_profile'                   => false,
 		'indexProfiles'                  => false,
+		'use_custom_profile_link'        => false,
 		'custom_profile_link'            => '',
 	);
 
@@ -75,6 +76,8 @@ class Block_WSUWP_People_List extends Block {
 
 		add_filter( 'the_content', array( __CLASS__, 'filter_content' ), 1 );
 
+		//add_action( 'the_post', array( __CLASS__, 'replace_content' ), 1 );
+
 	}
 
 
@@ -96,6 +99,17 @@ class Block_WSUWP_People_List extends Block {
 		// enqueue scripts and styles
 		if ( ! is_admin() ) {
 			wp_enqueue_script( 'wsu_design_system_script_people_list' );
+		}
+
+		// If not using custom profile link remove it.
+		if ( empty( $attrs['use_custom_profile_link'] ) ) {
+
+			$attrs['custom_profile_link'] = '';
+
+		} elseif ( ! empty( $attrs['use_custom_profile_link'] ) ) {
+
+			$attrs['custom_profile_link'] = trailingslashit( $attrs['custom_profile_link'] );
+
 		}
 
 		// extend default data attributes and filter out non-data attributes
@@ -205,13 +219,25 @@ class Block_WSUWP_People_List extends Block {
 
 	protected static function get_profile( $nid ) {
 
+		global $post;
+
+		$people_blocks = self::get_people_block_recursive( parse_blocks( $post->post_content ) );
+
+		$profile_source = false;
+
+		if ( ! empty( $people_blocks ) && ! empty( $people_blocks[0]['attrs']['custom_data_source'] ) ) {
+
+			$profile_source = $people_blocks[0]['attrs']['custom_data_source'];
+
+		}
+
 		if ( array_key_exists( $nid, self::$profiles ) ) {
 
 			return self::$profiles[ $nid ];
 
 		} else {
 
-			$profile = new Profile( $nid );
+			$profile = new Profile( $nid, $profile_source );
 
 			self::$profiles[ $nid ] = $profile;
 
@@ -228,22 +254,84 @@ class Block_WSUWP_People_List extends Block {
 
 		if ( ! is_admin() && is_main_query() && ! empty( $profile_nid ) && is_singular() ) {
 
-			$profile = self::get_profile( $profile_nid );
+				if ( get_the_ID() === get_queried_object_id() ) {
 
-			if ( $profile ) {
+					$profile = self::get_profile( $profile_nid );
 
-				ob_start();
+				if ( $profile ) {
 
-				include __DIR__ . '/templates/profile.php';
+					ob_start();
 
-				$content = ob_get_clean();
+					include __DIR__ . '/templates/profile.php';
 
+					$content = ob_get_clean();
+
+				}
 			}
 		}
 
 		return $content;
 
 	}
+
+
+	public static function get_people_block_recursive( $blocks ) {
+
+		$people_blocks = array();
+
+		foreach ( $blocks as $block ) {
+
+			if ( ! empty( $block['innerBlocks'] ) ) {
+
+				$child_blocks = self::get_people_block_recursive( $block['innerBlocks'] );
+
+				if ( ! empty( $child_blocks ) ) {
+
+					$people_blocks = array_merge( $people_blocks, $child_blocks );
+
+				}
+			}
+
+			if ( 'wsuwp/people-list' === $block['blockName'] ) {
+
+				$people_blocks[] = $block;
+
+			}
+		}
+
+		return $people_blocks;
+
+	}
+
+
+	/* public static function replace_content( $post_object ) {
+
+		$profile_nid = get_query_var( 'wsuprofile', false );
+
+		if ( ! is_admin() && is_main_query() && ! empty( $profile_nid ) && is_singular() ) {
+
+			
+
+			if ( strpos( $post_object->post_content, 'show_profile' ) ) {
+
+				
+
+				$profile = self::get_profile( $profile_nid );
+
+				if ( $profile ) {
+
+					global $post;
+
+					ob_start();
+	
+					include __DIR__ . '/templates/profile.php';
+	
+					$post->post_content = ob_get_clean();
+	
+				}
+			}
+		}
+	} */
 
 
 }

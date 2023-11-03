@@ -52,7 +52,7 @@ class People_Sitemap extends \WP_Sitemaps_Provider {
 
 			$profile_links[ $url ] = array();
 
-			$people_blocks = self::get_people_block_recursive( parse_blocks( $post->post_content ) );
+			$people_blocks = Block_WSUWP_People_List::get_people_block_recursive( parse_blocks( $post->post_content ) );
 
 			$directories = self::get_people_directories( $people_blocks );
 
@@ -116,7 +116,15 @@ class People_Sitemap extends \WP_Sitemaps_Provider {
 
 			if ( ! empty( $people_block['attrs']['indexProfiles'] ) && ! empty( $people_block['attrs']['directory'] ) ) {
 
-				$directories[] = $people_block['attrs']['directory']['id'];
+				$directory_id = $people_block['attrs']['directory']['id'];
+
+				if ( ! empty( $people_block['attrs']['custom_data_source'] ) ) {
+
+					$directories[] = array( 'id' => $directory_id, 'source' => $people_block['attrs']['custom_data_source'] );
+
+				}
+
+				$directories[] = $directory_id;
 
 			}
 		}
@@ -156,13 +164,14 @@ class People_Sitemap extends \WP_Sitemaps_Provider {
 	}
 
 
-	protected static function get_directory_nids( $directory, $custom_endpoint = false ) {
+	protected static function get_directory_nids( $directory ) {
 
 		$nids = array();
 
-		if ( $custom_endpoint ) {
+		if ( is_array( $directory ) ) {
 
-			$request_url = $custom_endpoint;
+			$request_url = $directory['source'];
+			$directory_id = $directory['id'];
 
 		} else {
 

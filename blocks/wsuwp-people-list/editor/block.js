@@ -15,6 +15,10 @@ registerBlockType("wsuwp/people-list", {
       type: "boolean",
       default: false,
     },
+    use_custom_profile_link: {
+      type: "boolean",
+      default: false,
+    },
     custom_profile_link: {
       type: "string",
       default: "",

@@ -13,6 +13,7 @@ const {
   __experimentalRadioGroup: RadioGroup,
 } = wp.components;
 
+import apiFetch from "@wordpress/api-fetch";
 import React, { useState, useEffect } from "react";
 import { HeadingTagControl, SelectDirectoryControl } from "../../../assets/src/js/partials/block-controls/blockControls";
 import { addBlockClassName } from "../../../assets/src/js/partials/block-utilities/blockClassName";
@@ -54,7 +55,6 @@ const displayOptions = [
   "address",
   "phone",
   "website",
-  "profile-link",
 ];
 
 export default function Edit(props) {
@@ -77,6 +77,12 @@ export default function Edit(props) {
     };
 
     return sources[attributes.data_source];
+  }
+
+  function flushPermalinks() {
+
+    apiFetch({ path: "/wsu-gutenberg/v1/flush-permalinks" }).then((response) => { console.log('Permalinks Updated') });
+
   }
 
   function getApiEndpoint() {
@@ -156,16 +162,26 @@ export default function Edit(props) {
         <PanelBody title="Select Directory" initialOpen={true}>
           <SelectDirectoryControl directory={attributes.directory} onSelect={ ( value ) => { console.log( value ); setAttributes( { directory: value } ) } } />
             <ToggleControl
-                label="Link full profile view"
+                label="Enable View Profile"
                 checked={attributes.show_profile }
-                onChange={ (show_profile) => { setAttributes( { show_profile } ) }}
+                help="Profile pages will be dynamically generated as a child pages of this directory (.../wsu-profile/person-id). View profile link will appear if a bio is filled out."
+                onChange={ (show_profile) => { setAttributes( { show_profile } ); flushPermalinks() }}
               />
-            { attributes.show_profile && <TextControl
-              label="Custom directory URL (optional)"
-              help="To show profiles on a different directory/page, add the directory URL in the field above."
-              value={attributes.custom_profile_link}
-              onChange={ ( custom_profile_link ) => setAttributes( { custom_profile_link } ) }
-            />}
+            { attributes.show_profile && <>
+              <ToggleControl
+                label="Open profile in a different directory"
+                checked={attributes.use_custom_profile_link}
+                onChange={ ( use_custom_profile_link ) => setAttributes( { use_custom_profile_link } ) }
+              />
+            </>}
+            { attributes.use_custom_profile_link && <>
+              <TextControl
+                label="Directory page URL"
+                help="To show profiles on a different directory/page, add the directory URL in the field above."
+                value={attributes.custom_profile_link}
+                onChange={ ( custom_profile_link ) => setAttributes( { custom_profile_link } ) }
+              />
+            </>}
             <ToggleControl 
                 label="Include directory in site search"
                 checked={attributes.indexProfiles }
