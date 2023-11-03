@@ -30,16 +30,20 @@
 		<h2 class="wsu-heading--style-marked" id="">
 			Education
 		</h2>
-		<ul>
+		<?php if ( is_array( $profile->get( 'degrees', array() ) ) ) : ?>
+			<ul>
 			<?php foreach ( $profile->get( 'degrees', array() ) as $degree ) : ?>
 			<li><?php echo wp_kses_post( $degree ); ?></li>
 			<?php endforeach; ?>
 		</ul>
+		<?php else : ?>
+			<?php echo wp_kses_post( $degree ); ?>
+		<?php endif; ?>
 	</div><?php endif; ?>
 	<?php if ( $profile->has( 'bio' ) ) : ?><div class="wsu-profile__bio">
 		<h2 class="wsu-heading--style-marked" id="">
 			Biography
 		</h2>
-		<?php echo wp_kses_post( $profile->get( 'bio', '' ) ); ?>
+		<?php echo wp_kses_post( htmlspecialchars_decode( $profile->get( 'bio', '' ) ) ); ?>
 	</div><?php endif; ?>
 </div>

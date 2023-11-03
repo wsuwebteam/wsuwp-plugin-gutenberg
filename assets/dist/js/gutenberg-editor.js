@@ -16913,6 +16913,10 @@ registerBlockType("wsuwp/people-list", {
       type: "boolean",
       default: false
     },
+    use_custom_profile_link: {
+      type: "boolean",
+      default: false
+    },
     custom_profile_link: {
       type: "string",
       default: ""
@@ -17130,12 +17134,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
-/* harmony import */ var _assets_src_js_partials_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-utilities/blockClassName */ "./assets/src/js/partials/block-utilities/blockClassName.js");
-/* harmony import */ var _term_selector__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./term-selector */ "./blocks/wsuwp-people-list/editor/term-selector.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers */ "./blocks/wsuwp-people-list/editor/helpers.js");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-controls/blockControls */ "./assets/src/js/partials/block-controls/blockControls.js");
+/* harmony import */ var _assets_src_js_partials_block_utilities_blockClassName__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/src/js/partials/block-utilities/blockClassName */ "./assets/src/js/partials/block-utilities/blockClassName.js");
+/* harmony import */ var _term_selector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./term-selector */ "./blocks/wsuwp-people-list/editor/term-selector.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers */ "./blocks/wsuwp-people-list/editor/helpers.js");
 
 const {
   __
@@ -17161,16 +17167,17 @@ const {
 
 
 
+
 const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order", "query_logic"];
 const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
-const displayOptions = ["photo", "name", "title", "office", "email", "degree", "focus-area", "address", "phone", "website", "profile-link"];
+const displayOptions = ["photo", "name", "title", "office", "email", "degree", "focus-area", "address", "phone", "website"];
 function Edit(props) {
   const {
     attributes,
     setAttributes
   } = props;
-  const [profiles, setProfiles] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [profiles, setProfiles] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
   const debouncedAttributes = useValueDebounce(attributes, 1000);
   const apiBaseUrl = getapiBaseUrl();
   const apiEndpoint = getApiEndpoint();
@@ -17182,9 +17189,16 @@ function Edit(props) {
     };
     return sources[attributes.data_source];
   }
+  function flushPermalinks() {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      path: "/wsu-gutenberg/v1/flush-permalinks"
+    }).then(response => {
+      console.log('Permalinks Updated');
+    });
+  }
   function getApiEndpoint() {
     const path = apiBaseUrl.includes('?') ? '' : "/wp-json/peopleapi/v1/people?";
-    if ((0,_helpers__WEBPACK_IMPORTED_MODULE_5__.isValidUrl)(apiBaseUrl, path)) {
+    if ((0,_helpers__WEBPACK_IMPORTED_MODULE_6__.isValidUrl)(apiBaseUrl, path)) {
       return new URL(path, apiBaseUrl).href;
     } else {
       return "";
@@ -17209,7 +17223,7 @@ function Edit(props) {
     }
     return "";
   }
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     async function loadProfiles() {
       setLoading(true);
 
@@ -17241,7 +17255,7 @@ function Edit(props) {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", useBlockProps(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "Select Directory",
     initialOpen: true
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.SelectDirectoryControl, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.SelectDirectoryControl, {
     directory: attributes.directory,
     onSelect: value => {
       console.log(value);
@@ -17250,21 +17264,29 @@ function Edit(props) {
       });
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
-    label: "Link full profile view",
+    label: "Enable View Profile",
     checked: attributes.show_profile,
+    help: "Profile pages will be dynamically generated as a child pages of this directory (.../wsu-profile/person-id). View profile link will appear if a bio is filled out.",
     onChange: show_profile => {
       setAttributes({
         show_profile
       });
+      flushPermalinks();
     }
-  }), attributes.show_profile && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
-    label: "Custom directory URL (optional)",
+  }), attributes.show_profile && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Open profile in a different directory",
+    checked: attributes.use_custom_profile_link,
+    onChange: use_custom_profile_link => setAttributes({
+      use_custom_profile_link
+    })
+  })), attributes.use_custom_profile_link && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+    label: "Directory page URL",
     help: "To show profiles on a different directory/page, add the directory URL in the field above.",
     value: attributes.custom_profile_link,
     onChange: custom_profile_link => setAttributes({
       custom_profile_link
     })
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
     label: "Include directory in site search",
     checked: attributes.indexProfiles,
     onChange: indexProfiles => {
@@ -17290,7 +17312,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       nid: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Classification",
     help: "Display people by searching and selecting a classification",
     apiBaseUrl: apiBaseUrl,
@@ -17299,7 +17321,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       classification: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "University Category",
     help: "Display people by searching and selecting a university category",
     apiBaseUrl: apiBaseUrl,
@@ -17308,7 +17330,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       university_category: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "University Location",
     help: "Display people by searching and selecting a university location",
     apiBaseUrl: apiBaseUrl,
@@ -17317,7 +17339,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       university_location: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "University Organization",
     help: "Display people by searching and selecting a university organization",
     apiBaseUrl: apiBaseUrl,
@@ -17326,7 +17348,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       university_organization: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "University Tag",
     help: "Display people by searching and selecting a university tag",
     apiBaseUrl: apiBaseUrl,
@@ -17381,7 +17403,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       custom_data_source: newval
     })
-  })), attributes.data_source === "custom" && !(0,_helpers__WEBPACK_IMPORTED_MODULE_5__.isValidUrl)(attributes.custom_data_source) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), attributes.data_source === "custom" && !(0,_helpers__WEBPACK_IMPORTED_MODULE_6__.isValidUrl)(attributes.custom_data_source) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wsu-people-list-block__data-source-notice notice notice-error notice-alt"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Error: A valid data source is required."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "People Display Settings",
@@ -17420,7 +17442,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       website_link_text: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_2__.HeadingTagControl, props))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_assets_src_js_partials_block_controls_blockControls__WEBPACK_IMPORTED_MODULE_3__.HeadingTagControl, props))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
     title: "Filter Display Settings",
     initialOpen: false
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(BaseControl, {
@@ -17441,7 +17463,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       category_filter_label: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Select Category Filter Terms",
     help: "Search and select terms to include in filters",
     apiBaseUrl: apiBaseUrl,
@@ -17458,7 +17480,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       classification_filter_label: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Select Classification Filter Terms",
     help: "Search and select term values to include in filters",
     apiBaseUrl: apiBaseUrl,
@@ -17475,7 +17497,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       location_filter_label: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Select Location Terms to Display",
     help: "Search and select term values to include in filters",
     apiBaseUrl: apiBaseUrl,
@@ -17492,7 +17514,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       organization_filter_label: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Select Organization Terms to Display",
     help: "Search and select term values to include in filters",
     apiBaseUrl: apiBaseUrl,
@@ -17509,7 +17531,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       tag_filter_label: newval
     })
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "Select Tag Terms to Display",
     help: "Search and select term values to include in filters",
     apiBaseUrl: apiBaseUrl,
@@ -17526,7 +17548,7 @@ function Edit(props) {
     onChange: newval => setAttributes({
       search_filter_label: newval
     })
-  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
     label: "(Legacy) Exclude Terms from Filters",
     help: "Search and select terms to exclude from filters",
     apiBaseUrl: apiBaseUrl,
@@ -17586,8 +17608,8 @@ function Edit(props) {
 // useDebounce Hook - https://usehooks.com/useDebounce/
 function useValueDebounce(value, delay) {
   // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(value);
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+  const [debouncedValue, setDebouncedValue] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     // Update debounced value after delay
     const handler = setTimeout(() => {
       setDebouncedValue(value);
