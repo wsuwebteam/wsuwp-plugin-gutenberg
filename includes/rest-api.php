@@ -73,6 +73,16 @@ class Rest_API {
 			)
 		);
 
+		register_rest_route(
+			'wsu-gutenberg/v1',
+			'flush-permalinks',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'update_permalinks' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
 	}
 
 
@@ -206,6 +216,14 @@ class Rest_API {
 	public static function get_wp_menus( $request ) {
 
 		return wp_json_encode( wp_get_nav_menus(), JSON_UNESCAPED_SLASHES );
+
+	}
+
+	public static function update_permalinks( $request ) {
+
+		flush_rewrite_rules();
+
+		return wp_json_encode( true );
 
 	}
 
