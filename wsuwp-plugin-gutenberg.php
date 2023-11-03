@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WSUWPPLUGINGUTENBERGVERSION', '1.19.10' );
+define( 'WSUWPPLUGINGUTENBERGVERSION', '1.19.11' );
 
 add_action( 'after_setup_theme', 'wsuwp_plugin_gutenberg_init' );
 
