@@ -13,8 +13,10 @@ class Profile {
 	protected $address    = '';
 	protected $degree     = '';
 	protected $website    = '';
-	protected $bio        = '';
-	protected $photo      = '';
+	protected $google_scholar_id    = '';
+	protected $cv              = '';
+	protected $bio             = '';
+	protected $photo           = '';
 
 
 	public function get( $property, $default = '' ) {
@@ -42,6 +44,10 @@ class Profile {
 				return $this->degrees;
 			case 'website':
 				return $this->website;
+			case 'cv':
+				return $this->cv;
+			case 'google_scholar_id':
+				return $this->google_scholar_id;
 			case 'bio':
 				return $this->bio;
 			case 'photo':
@@ -108,6 +114,8 @@ class Profile {
 				$this->website    = ( ! empty( $profile['website'] ) ) ? $profile['website'] : '';
 				$this->bio        = ( ! empty( $profile['bio'] ) ) ? $profile['bio'] : '';
 				$this->photo      = ( ! empty( $profile['photo'] ) ) ? $profile['photo'] : '';
+				$this->google_scholar_id = ( ! empty( $profile['google_scholar_id'] ) ) ? $profile['google_scholar_id'] : '';
+				$this->cv              = ( ! empty( $profile['cv'] ) ) ? $profile['cv'] : '';
 
 			}
 		}

@@ -25,6 +25,12 @@
 		<?php if ( $profile->has( 'website' ) ) : ?><div class="wsu-profile__meta wsu-meta-website wsu-meta--icon-crimson">
 			<a href="<?php echo esc_url( $profile->get( 'website' ) ); ?>">Website</a>
 		</div><?php endif; ?>
+		<?php if ( $profile->has( 'cv' ) ) : ?>
+		<span class="wsu-profile__meta wsu-meta-cv wsu-meta--icon-crimson"><a href="<?php echo esc_url( $profile->get( 'cv' ) ); ?>">View CV</a></span>
+		<?php endif ?>
+		<?php if ( $profile->has( 'google_scholar_id' ) ) : ?>
+		<span class="wsu-profile__meta wsu-meta-google-scholars wsu-meta--icon-crimson"><a href="<?php echo esc_url( $profile->get( 'google_scholar_id' ) ); ?>">View Google Scholars Profile</a></span>
+		<?php endif ?>
 	</div>
 	<?php if ( $profile->has( 'degrees' ) ) : ?><div class="wsu-profile__degrees">
 		<h2 class="wsu-heading--style-marked" id="">
