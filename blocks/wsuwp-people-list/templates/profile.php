@@ -25,6 +25,9 @@
 		<?php if ( $profile->has( 'website' ) ) : ?><div class="wsu-profile__meta wsu-meta-website wsu-meta--icon-crimson">
 			<a href="<?php echo esc_url( $profile->get( 'website' ) ); ?>">Website</a>
 		</div><?php endif; ?>
+		<?php if ( $profile->has( 'lab_website' ) ) : ?>
+		<span class="wsu-profile__meta wsu-meta-lav wsu-meta--icon-crimson"><a href="<?php echo esc_url( $profile->get( 'lab_website' ) ); ?>"><?php echo wp_kses_post( $profile->get( 'lab_name' ) ); ?></a></span>
+		<?php endif ?>
 		<?php if ( $profile->has( 'cv' ) ) : ?>
 		<span class="wsu-profile__meta wsu-meta-cv wsu-meta--icon-crimson"><a href="<?php echo esc_url( $profile->get( 'cv' ) ); ?>">View CV</a></span>
 		<?php endif ?>
