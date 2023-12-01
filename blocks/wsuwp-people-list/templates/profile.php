@@ -46,7 +46,7 @@
 			<?php endforeach; ?>
 		</ul>
 		<?php else : ?>
-			<?php echo wp_kses_post( $degree ); ?>
+			<?php echo wp_kses_post( $profile->get( 'degrees', '' ) ); ?>
 		<?php endif; ?>
 	</div><?php endif; ?>
 	<?php if ( $profile->has( 'bio' ) ) : ?><div class="wsu-profile__bio">
