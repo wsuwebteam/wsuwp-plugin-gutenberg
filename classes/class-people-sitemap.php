@@ -114,15 +114,13 @@ class People_Sitemap extends \WP_Sitemaps_Provider {
 
 		foreach ( $people_blocks as $people_block ) {
 
-			if ( ! empty( $people_block['attrs']['indexProfiles'] ) && ! empty( $people_block['attrs']['directory'] ) ) {
+			if ( ! empty( $people_block['attrs']['indexProfiles'] ) && ! empty( $people_block['attrs']['custom_data_source'] ) ) {
+
+				$directories[] = array( 'id' => false, 'source' => $people_block['attrs']['custom_data_source'] );
+
+			} else if ( ! empty( $people_block['attrs']['indexProfiles'] ) && ! empty( $people_block['attrs']['directory'] ) ) {
 
 				$directory_id = $people_block['attrs']['directory']['id'];
-
-				if ( ! empty( $people_block['attrs']['custom_data_source'] ) ) {
-
-					$directories[] = array( 'id' => $directory_id, 'source' => $people_block['attrs']['custom_data_source'] );
-
-				}
 
 				$directories[] = $directory_id;
 
