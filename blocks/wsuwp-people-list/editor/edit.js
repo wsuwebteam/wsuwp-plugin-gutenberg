@@ -36,6 +36,7 @@ const queryAttributes = [
 ];
 
 const filterOptions = [
+  "directory",
   "classification",
   "organization",
   "location",
@@ -69,9 +70,7 @@ export default function Edit(props) {
 
   function getapiBaseUrl() {
     const sources = {
-      global: window.location.hostname.includes(".local")
-        ? "https://peopleapi.local"
-        : "https://people.wsu.edu",
+      global: "https://people.wsu.edu",
       local: WSUWP_DATA.siteUrl,
       custom: attributes.custom_data_source,
     };
@@ -450,6 +449,35 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
+          {attributes.filters.includes("directory") && (
+            <>
+              <PanelRow>
+                <TextControl
+                  label="Directory Filter Label"
+                  help="Label to display for filter. Defaults to 'Filter by Directory'"
+                  placeholder="Filter by Category"
+                  value={attributes.directory_filter_label}
+                  onChange={(directory_filter_label) =>
+                    setAttributes({ directory_filter_label })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <TermSelector
+                  label="Select Directory Filter Terms"
+                  help="Search and select terms to include in filters"
+                  apiBaseUrl={apiBaseUrl}
+                  taxonomy="wsu_directory"
+                  type="post"
+                  show_parent={true}
+                  value={attributes.directory_filter_terms}
+                  onChange={ directory_filter_terms =>
+                    setAttributes({ directory_filter_terms })
+                  }
+                />
+              </PanelRow>
+            </>
+          )}
           {attributes.filters.includes("category") && (
             <>
               <PanelRow>

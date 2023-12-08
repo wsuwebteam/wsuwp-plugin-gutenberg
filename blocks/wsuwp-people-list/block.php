@@ -36,6 +36,8 @@ class Block_WSUWP_People_List extends Block {
 		'only_show_selected_term_values' => false,
 		'exclude_term_values'            => array(),
 		'include_term_values'            => array(),
+		'directory_filter_label'         => 'Filter by Area',
+		'directory_filter_terms'         => array(),
 		'category_filter_label'          => 'Filter by Category',
 		'category_filter_terms'          => array(),
 		'classification_filter_label'    => 'Filter by Classification',
@@ -150,6 +152,7 @@ class Block_WSUWP_People_List extends Block {
 			'location_filter_terms',
 			'classification_filter_terms',
 			'category_filter_terms',
+			'directory_filter_terms',
 		);
 
 		foreach ( $implode_keys as $implode_key ) {

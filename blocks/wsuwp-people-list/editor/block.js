@@ -127,6 +127,10 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: [],
     },
+    directory_filter_label: {
+      type: "string",
+      default: "",
+    },
     category_filter_label: {
       type: "string",
       default: "",
@@ -138,6 +142,10 @@ registerBlockType("wsuwp/people-list", {
     classification_filter_label: {
       type: "string",
       default: "",
+    },
+    directory_filter_terms: {
+      type: "array",
+      default: [],
     },
     classification_filter_terms: {
       type: "array",
