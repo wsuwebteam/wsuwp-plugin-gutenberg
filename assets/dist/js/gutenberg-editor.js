@@ -17025,6 +17025,10 @@ registerBlockType("wsuwp/people-list", {
       type: "array",
       default: []
     },
+    directory_filter_label: {
+      type: "string",
+      default: ""
+    },
     category_filter_label: {
       type: "string",
       default: ""
@@ -17036,6 +17040,10 @@ registerBlockType("wsuwp/people-list", {
     classification_filter_label: {
       type: "string",
       default: ""
+    },
+    directory_filter_terms: {
+      type: "array",
+      default: []
     },
     classification_filter_terms: {
       type: "array",
@@ -17169,7 +17177,7 @@ const {
 
 
 const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order", "query_logic"];
-const filterOptions = ["classification", "organization", "location", "category", "tag", "search"];
+const filterOptions = ["directory", "classification", "organization", "location", "category", "tag", "search"];
 const displayOptions = ["photo", "name", "title", "office", "email", "degree", "focus-area", "address", "phone", "website"];
 function Edit(props) {
   const {
@@ -17183,7 +17191,7 @@ function Edit(props) {
   const apiEndpoint = getApiEndpoint();
   function getapiBaseUrl() {
     const sources = {
-      global: window.location.hostname.includes(".local") ? "https://peopleapi.local" : "https://people.wsu.edu",
+      global: "https://people.wsu.edu",
       local: WSUWP_DATA.siteUrl,
       custom: attributes.custom_data_source
     };
@@ -17455,7 +17463,26 @@ function Edit(props) {
     label: o,
     checked: attributes.filters.indexOf(o) > -1,
     onChange: val => handleCheckboxListChange("filters", o, val)
-  })))), attributes.filters.includes("category") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+  })))), attributes.filters.includes("directory") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+    label: "Directory Filter Label",
+    help: "Label to display for filter. Defaults to 'Filter by Directory'",
+    placeholder: "Filter by Category",
+    value: attributes.directory_filter_label,
+    onChange: directory_filter_label => setAttributes({
+      directory_filter_label
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_term_selector__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    label: "Select Directory Filter Terms",
+    help: "Search and select terms to include in filters",
+    apiBaseUrl: apiBaseUrl,
+    taxonomy: "wsu_directory",
+    type: "post",
+    show_parent: true,
+    value: attributes.directory_filter_terms,
+    onChange: directory_filter_terms => setAttributes({
+      directory_filter_terms
+    })
+  }))), attributes.filters.includes("category") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     label: "Category Filter Label",
     help: "Label to display for filter. Defaults to 'Filter by Category'",
     placeholder: "Filter by Category",
@@ -17674,6 +17701,10 @@ const {
 } = wp.components;
 let abortController = null;
 const TermSelector = function (props) {
+  let {
+    type = 'taxonomy',
+    show_parent = false
+  } = props;
   const [isLoading, setIsLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [availableTerms, setAvailableTerms] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(props.value); // keep track of all terms for mapping later
   const [termSuggestions, setTermSuggestions] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -17699,7 +17730,7 @@ const TermSelector = function (props) {
     abortController = typeof AbortController === "undefined" ? undefined : new AbortController();
 
     // make request to terms api
-    const params = `taxonomy=${props.taxonomy}&s=${input}`;
+    const params = `taxonomy=${props.taxonomy}&s=${input}&type=${type}&show_parent=${show_parent}`;
     const response = await fetch(apiEndpoint + params, {
       method: "GET",
       signal: abortController?.signal

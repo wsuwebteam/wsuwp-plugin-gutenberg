@@ -8,6 +8,11 @@ const { ComboboxControl, Spinner } = wp.components;
 let abortController = null;
 
 const TermSelector = function (props) {
+
+  let {
+    type        = 'taxonomy',
+    show_parent = false,
+  } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [availableTerms, setAvailableTerms] = useState(props.value); // keep track of all terms for mapping later
   const [termSuggestions, setTermSuggestions] = useState([]);
@@ -40,7 +45,7 @@ const TermSelector = function (props) {
         : new AbortController();
 
     // make request to terms api
-    const params = `taxonomy=${props.taxonomy}&s=${input}`;
+    const params = `taxonomy=${props.taxonomy}&s=${input}&type=${type}&show_parent=${show_parent}`;
 
     const response = await fetch(apiEndpoint + params, {
       method: "GET",
