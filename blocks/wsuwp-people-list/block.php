@@ -60,23 +60,23 @@ class Block_WSUWP_People_List extends Block {
 
 	public static function init() {
 
-		include __DIR__ . '/classes/class-profile.php';
+		//include __DIR__ . '/classes/class-profile.php';
 
-		add_filter(
+		/*add_filter(
 			'query_vars',
 			function ( $query_vars ) {
 				$query_vars[] = 'wsuprofile';
 				return $query_vars;
 			}
-		);
+		);*/
 
-		add_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
+		//add_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
 
-		add_filter( 'wp_nav_menu_items', array( __CLASS__, 'add_menu_fitler' ), 10, 2 );
+		//add_filter( 'wp_nav_menu_items', array( __CLASS__, 'add_menu_fitler' ), 10, 2 );
 
-		add_filter( 'pre_wp_nav_menu', array( __CLASS__, 'remove_menu_fitler' ), 10, 2 );
+		//add_filter( 'pre_wp_nav_menu', array( __CLASS__, 'remove_menu_fitler' ), 10, 2 );
 
-		add_filter( 'the_content', array( __CLASS__, 'filter_content' ), 1 );
+		//add_filter( 'the_content', array( __CLASS__, 'filter_content' ), 1 );
 
 		//add_action( 'the_post', array( __CLASS__, 'replace_content' ), 1 );
 
@@ -183,7 +183,7 @@ class Block_WSUWP_People_List extends Block {
 	}
 
 
-	public static function remove_menu_fitler( $nav_menu, $args ) {
+	/*public static function remove_menu_fitler( $nav_menu, $args ) {
 
 		// we are working with menu, so remove the title filter
 		remove_filter( 'the_title', array( __CLASS__, 'filter_title' ), 1 );
