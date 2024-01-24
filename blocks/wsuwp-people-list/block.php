@@ -54,6 +54,7 @@ class Block_WSUWP_People_List extends Block {
 		'show_profile'                   => false,
 		'indexProfiles'                  => false,
 		'use_custom_profile_link'        => false,
+		'use_organization'               => false,
 		'custom_profile_link'            => '',
 	);
 
