@@ -380,7 +380,7 @@ export default function Edit(props) {
             <ToggleControl
               label="Use organization taxonmomy for display"
               checked={attributes.use_organization}
-              onChange={( use_organization ) => { setAttributes( { use_organization } ) } }
+              onChange={( use_organization ) => { setAttributes( { use_organization  } ) } }
             />
           )}
           {attributes.display_fields.includes("focus-area") && (
