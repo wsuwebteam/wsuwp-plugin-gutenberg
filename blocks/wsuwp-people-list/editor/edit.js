@@ -50,6 +50,7 @@ const displayOptions = [
   "name",
   "title",
   "office",
+  'organization',
   "email",
   "degree",
   "focus-area",
@@ -375,6 +376,13 @@ export default function Edit(props) {
               ))}
             </BaseControl>
           </PanelRow>
+          {attributes.display_fields.includes("organization") && (
+            <ToggleControl
+              label="Use organization taxonmomy for display"
+              checked={attributes.use_organization}
+              onChange={( use_organization ) => { setAttributes( { use_organization  } ) } }
+            />
+          )}
           {attributes.display_fields.includes("focus-area") && (
             <TextControl
               label="Focus Area Label"

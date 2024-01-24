@@ -16913,6 +16913,10 @@ registerBlockType("wsuwp/people-list", {
       type: "boolean",
       default: false
     },
+    use_organization: {
+      type: "boolean",
+      default: false
+    },
     use_custom_profile_link: {
       type: "boolean",
       default: false
@@ -17178,7 +17182,7 @@ const {
 
 const queryAttributes = ["count", "page", "nid", "classification", "university_category", "university_location", "university_organization", "tag", "photo_size", "profile_order", "query_logic"];
 const filterOptions = ["directory", "classification", "organization", "location", "category", "tag", "search"];
-const displayOptions = ["photo", "name", "title", "office", "email", "degree", "focus-area", "address", "phone", "website"];
+const displayOptions = ["photo", "name", "title", "office", 'organization', "email", "degree", "focus-area", "address", "phone", "website"];
 function Edit(props) {
   const {
     attributes,
@@ -17426,7 +17430,15 @@ function Edit(props) {
     label: o.replace("-", " "),
     checked: attributes.display_fields.indexOf(o) > -1,
     onChange: val => handleCheckboxListChange("display_fields", o, val)
-  })))), attributes.display_fields.includes("focus-area") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+  })))), attributes.display_fields.includes("organization") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ToggleControl, {
+    label: "Use organization taxonmomy for display",
+    checked: attributes.use_organization,
+    onChange: use_organization => {
+      setAttributes({
+        use_organization
+      });
+    }
+  }), attributes.display_fields.includes("focus-area") && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     label: "Focus Area Label",
     placeholder: "Focus Area",
     value: attributes.focus_area_label,
