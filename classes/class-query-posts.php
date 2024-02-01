@@ -307,7 +307,7 @@ class Query_Posts {
 					$wsu_post['imageAlt']    = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
 				}
-
+				$wsu_post['eyebrow_heading'] = get_post_meta( $wsu_post['id'], '_eyebrow_heading', true );
 				$wsu_post['youtubeVideo']    = get_post_meta( $wsu_post['id'], '_wsu_featured_video_youtube', true );
 				$wsu_post['vimeoVideo']      = get_post_meta( $wsu_post['id'], '_wsu_featured_video_vimeo', true );
 				$wsu_post['thumbnailVideo']  = get_post_meta( $wsu_post['id'], '_wsu_featured_thumbnail_video', true );
