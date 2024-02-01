@@ -7,6 +7,7 @@ class Block_WSUWP_Card extends Block {
 		'className'        => 'wsu-card',
 		'imageRatio'       => '16-9',
 		'title'            => '',
+		'eyebrow_heading'  => '',
 		'headingTag'       => 'h3',
 		'headingClass'     => '',
 		'caption'          => '',
@@ -57,6 +58,7 @@ class Block_WSUWP_Card extends Block {
 			'caption'          => $attrs['caption'],
 			'content'          => $content,
 			'link'             => $attrs['link'],
+			'eyebrow_heading'  => $attrs['eyebrow_heading'],
 		);
 
 		ob_start();
