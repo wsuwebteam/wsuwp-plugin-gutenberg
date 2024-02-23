@@ -19,9 +19,10 @@ function reducer(state, action) {
 	}
 }
 
-const useFetch = function (url, options) {
+const useFetch = function (url, options, dependencies) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const abortControllerRef = useRef();
+	dependencies = dependencies || [url];
 
 	useEffect(() => {
 		if (typeof AbortController !== "undefined") {
@@ -55,7 +56,7 @@ const useFetch = function (url, options) {
 		return () => {
 			abortControllerRef.current?.abort();
 		};
-	}, [url, options]);
+	}, dependencies);
 
 	return state;
 };
