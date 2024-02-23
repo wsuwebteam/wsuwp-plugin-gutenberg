@@ -10,7 +10,9 @@ export default function (props) {
 				help="Number of results to be displayed."
 				value={attributes.count}
 				min={1}
-				onChange={(newval) => setAttributes({ count: newval })}
+				onChange={(newval) =>
+					setAttributes({ count: parseInt(newval) })
+				}
 			/>
 		</div>
 	);

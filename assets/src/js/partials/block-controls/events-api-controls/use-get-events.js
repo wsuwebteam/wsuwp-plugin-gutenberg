@@ -24,5 +24,5 @@ export default function (host, attributes) {
 			&organizations=${organizations}`;
 	}
 
-	return useFetch(`${url}`);
+	return useFetch(url);
 }
