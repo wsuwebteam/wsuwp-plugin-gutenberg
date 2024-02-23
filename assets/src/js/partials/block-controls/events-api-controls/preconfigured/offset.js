@@ -10,7 +10,9 @@ export default function (props) {
 				help="Offset skips a given number of items before starting results"
 				value={attributes.offset}
 				min={0}
-				onChange={(newval) => setAttributes({ offset: newval })}
+				onChange={(newval) =>
+					setAttributes({ offset: parseInt(newval) })
+				}
 			/>
 		</div>
 	);

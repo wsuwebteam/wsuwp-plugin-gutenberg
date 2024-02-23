@@ -47,7 +47,7 @@ export default function Edit(props) {
 
 				{isLoading && <p>loading...</p>}
 
-				{data && (
+				{data && data.length > 0 ? (
 					<div
 						class={`wsu-card__wrapper wsu-per-row--${attributes.columns}`}
 					>
@@ -101,6 +101,8 @@ export default function Edit(props) {
 							);
 						})}
 					</div>
+				) : (
+					<p>No events could be found.</p>
 				)}
 			</div>
 		</>

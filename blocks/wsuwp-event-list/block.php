@@ -28,6 +28,7 @@ class Block_WSUWP_Event_List extends Block {
 		$data_attrs['search']        = $attrs['search'];
 		$data_attrs['data_source']   = $attrs['data_source'];
 		$data_attrs['count']         = $attrs['count'];
+		$data_attrs['offset']        = $attrs['offset'];
 		$data_attrs['post_ids']      = join( ',', array_column( $attrs['selected_events'], 'id' ) );
 		$data_attrs['exclude']       = join( ',', array_column( $attrs['excluded_events'], 'id' ) );
 		$data_attrs['types']         = join( ',', array_column( $attrs['types'], 'id' ) );
