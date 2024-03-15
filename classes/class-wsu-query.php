@@ -88,6 +88,7 @@ class WSU_Query {
 		$post['content'] = ( in_array( 'content', $fields ) ) ? $wp_post->content : '';
 		$post['link']    = ( in_array( 'link', $fields ) ) ? get_post_permalink( $wp_post->ID ) : '';
 		$post['date']    = ( in_array( 'date', $fields ) ) ? get_the_date( '', $wp_post->ID ) : '';
+		$post['eyebrow_heading'] = get_post_meta( $wp_post->ID, '_eyebrow_heading', true );
 
 		if ( in_array( 'image', $fields ) ) {
 
