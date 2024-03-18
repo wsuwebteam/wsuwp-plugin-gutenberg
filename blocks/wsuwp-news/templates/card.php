@@ -15,6 +15,7 @@
 	</div>
 	<?php endif; ?>
 	<div class="wsu-card__content">
+	<?php if ( ! empty( $card['eyebrow_heading'] ) ) : ?><div class="wsu-eyebrow-header"><?php echo wp_kses_post( $card['eyebrow_heading'] ); ?></div><?php endif; ?>
 		<?php if ( ! empty( $card['title'] ) ) : ?> 
 		<h2 class="wsu-title">
 			<?php if ( ! empty( $card['link'] ) ) : ?><a href="<?php echo esc_url( $card['link'] ); ?>"><?php endif; ?>
