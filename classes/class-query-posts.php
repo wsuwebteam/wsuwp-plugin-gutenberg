@@ -98,41 +98,44 @@ class Query_Posts {
 
 		$date_format = get_option( 'date_format' );
 
-		foreach ( $post_array as $api_post ) {
+		if ( is_array( $post_array ) ) {
 
-			$post = array();
+			foreach ( $post_array as $api_post ) {
 
-			$post['id']      = $api_post['id'];
-			$post['title']   = $api_post['title']['rendered'];
-			$post['caption'] = $api_post['excerpt']['rendered'];
-			$post['content'] = $api_post['content']['rendered'];
-			$post['link']    = $api_post['link'];
-			$post['date']    = date_i18n( $date_format, strtotime( $api_post['date'] ) );
+				if ( is_array( $api_post ) ) {
 
-			if ( isset( $api_post['_embedded']['wp:featuredmedia'][0] ) && ! empty( $api_post['_embedded']['wp:featuredmedia'][0] ) ) {
+					$post = array();
+		
+					$post['id']      = ( ! empty( $api_post['id'] ) ) ? $api_post['id'] : '';
+					$post['title']   = ( ! empty( $api_post['title']['rendered'] ) ) ? $api_post['title']['rendered'] : '';
+					$post['caption'] = ( ! empty( $api_post['excerpt']['rendered'] ) ) ? $api_post['excerpt']['rendered'] : '';
+					$post['content'] = ( ! empty( $api_post['content']['rendered'] ) ) ? $api_post['content']['rendered'] : '';
+					$post['link']    = ( ! empty( $api_post['link'] ) ) ? $api_post['link'] : '';
+					$post['date']    = ( ! empty( $api_post['date'] ) ) ? date_i18n( $date_format, strtotime( $api_post['date'] ) ) : '';
+		
+					if ( isset( $api_post['_embedded']['wp:featuredmedia'][0] ) && ! empty( $api_post['_embedded']['wp:featuredmedia'][0] ) ) {
+		
+						$media = $api_post['_embedded']['wp:featuredmedia'][0];
 
-				$media = $api_post['_embedded']['wp:featuredmedia'][0];
-
-				$image_id             = get_post_thumbnail_id();
-				$image_src_array      = wp_get_attachment_image_src( $image_id, $this->image_size );
-				$post['imageId']      = $media['id'];
-				$post['imageSrc']     = $image_src_array[0];
-				$post['imageAlt']     = $media['alt_text'];
-				$post['imageCaption'] = $media['caption']['rendered'];
-
-				if ( ! empty( $media['media_details']['sizes'][ $this->image_size ] ) ) {
-
-					$post['imageSrc'] = $media['media_details']['sizes'][ $this->image_size ]['source_url'];
-
-				} else {
-
-					$post['imageSrc'] = $media['source_url'];
+						$post['imageId']      = ( ! empty( $media['id'] ) ) ? $media['id'] : '';
+						$post['imageAlt']     = ( ! empty( $media['alt_text'] ) ) ? $media['alt_text'] : '';
+						$post['imageCaption'] = ( ! empty( $media['caption']['rendered'] ) ) ? $media['caption']['rendered'] : '';
+		
+						if ( ! empty( $media['media_details']['sizes'][ $this->image_size ] ) ) {
+		
+							$post['imageSrc'] = $media['media_details']['sizes'][ $this->image_size ]['source_url'];
+		
+						} else {
+		
+							$post['imageSrc'] = $media['source_url'];
+		
+						}
+					}
+		
+					$posts[] = $post;
 
 				}
 			}
-
-			$posts[] = $post;
-
 		}
 
 		return $posts;

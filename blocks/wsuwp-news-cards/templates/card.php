@@ -7,9 +7,9 @@
 	<div class="wsu-image-frame wsu-image-frame--fixed-ratio">
 		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?><a href="<?php echo esc_url( $post['link'] ); ?>" tabindex="-1" aria-hidden="true"><?php endif; ?>
 			<img src="<?php echo esc_attr( $post['imageSrc'] );?>"
-				srcset="<?php echo esc_attr( $post['imageSrcSet'] ); ?>"
-				sizes="<?php echo esc_attr( $post['imageSizes'] );?>"
-				alt="<?php echo esc_attr( $post['imageAlt'] );?>" />
+				<?php if ( ! empty( $post['imageSrcSet'] ) ) : ?>srcset="<?php echo esc_attr( $post['imageSrcSet'] ); ?>"<?php endif; ?>
+				<?php if ( ! empty( $post['imageSizes'] ) ) : ?>sizes="<?php echo esc_attr( $post['imageSizes'] );?>"<?php endif; ?>
+				alt="<?php if ( ! empty( $post['imageAlt'] ) ) :?><?php echo esc_attr( $post['imageAlt'] ); ?><?php endif; ?>" />
 		<?php if ( empty( $attrs['hideLink'] ) && ! empty( $post['link'] ) ) : ?></a><?php endif; ?>
 	</div>
 	<?php endif; ?>
