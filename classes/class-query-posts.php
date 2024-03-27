@@ -100,12 +100,14 @@ class Query_Posts {
 
 		if ( is_array( $post_array ) ) {
 
+			$GLOBALS['WSUWP_GUTENBURG_RETRIEVING_REMOTE_POSTS'] = true;
+
 			foreach ( $post_array as $api_post ) {
 
 				if ( is_array( $api_post ) ) {
 
 					$post = array();
-		
+
 					$post['id']      = ( ! empty( $api_post['id'] ) ) ? $api_post['id'] : '';
 					$post['title']   = ( ! empty( $api_post['title']['rendered'] ) ) ? $api_post['title']['rendered'] : '';
 					$post['caption'] = ( ! empty( $api_post['excerpt']['rendered'] ) ) ? $api_post['excerpt']['rendered'] : '';
@@ -128,14 +130,19 @@ class Query_Posts {
 						} else {
 		
 							$post['imageSrc'] = $media['source_url'];
-		
+
 						}
+
+						$post['imageSrcSet'] = wp_calculate_image_srcset( array( $media['media_details']['width'], $media['media_details']['height'] ), $media['source_url'], $media['media_details'] );
+						$post['imageSizes']  = wp_calculate_image_sizes( array( $media['media_details']['width'], $media['media_details']['height'] ), $media['source_url'], $media['media_details'] );
 					}
-		
+
 					$posts[] = $post;
 
 				}
 			}
+
+			unset( $GLOBALS['WSUWP_GUTENBURG_RETRIEVING_REMOTE_POSTS'] );
 		}
 
 		return $posts;

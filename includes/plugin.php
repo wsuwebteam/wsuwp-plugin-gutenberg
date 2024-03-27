@@ -44,9 +44,9 @@ class Plugin {
 		require_once __DIR__ . '/query.php';
 		require_once __DIR__ . '/block-scheduling-filter.php';
 		require_once __DIR__ . '/disable-drop-cap.php';
-		//require_once __DIR__ . '/sitemap.php';
-		//require_once __DIR__ . '/rewrite-rules.php';
-
+		require_once __DIR__ . '/image-filters.php';
+		// require_once __DIR__ . '/sitemap.php';
+		// require_once __DIR__ . '/rewrite-rules.php';
 	}
 
 
