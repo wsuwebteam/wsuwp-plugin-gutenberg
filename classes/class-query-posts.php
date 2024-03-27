@@ -80,7 +80,7 @@ class Query_Posts {
 
 		$response = wp_remote_get( $request_url );
 
-		if( is_wp_error( $request ) ) {
+		if ( is_wp_error( $response ) ) {
 
 			return $posts;
 
