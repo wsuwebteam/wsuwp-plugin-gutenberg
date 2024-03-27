@@ -8,7 +8,7 @@ class Block_WSUWP_News extends Block {
 		'type'              => 'index',
 		'postIn'            => '',
 		'imageSrc'          => '',
-		'imageSrcset'       => '',
+		'imageSrcSet'       => '',
 		'imageSizes'        => '',
 		'imageAlt'          => '',
 		'caption'           => '',

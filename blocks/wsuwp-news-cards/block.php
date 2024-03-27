@@ -11,7 +11,7 @@ class Block_WSUWP_News_Cards extends Block {
 		'perRow'            => '1',
 		'postIn'            => '',
 		'imageSrc'          => '',
-		'imageSrcset'       => '',
+		'imageSrcSet'       => '',
 		'imageSizes'        => '',
 		'imageAlt'          => '',
 		'caption'           => '',
